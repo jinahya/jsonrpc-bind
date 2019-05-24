@@ -2,6 +2,7 @@ package com.github.jinahya.jsonrpc2.types;
 
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
 
 /**
  * A class for request objects.
@@ -11,18 +12,37 @@ import javax.validation.constraints.NotEmpty;
  * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class RequestObject<T extends RequestObject<T, U>, U> extends JsonRpcObject<T> {
+public class RequestObject<T extends RequestObject<T, U>, U> extends JsonrpcObject<T> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Checks if {@code method} attribute is starts with reserved for rpc-internal.
-     *
-     * @return {@code true} if reserved, {@code false} otherwise
-     */
-    @AssertFalse
-    private boolean isMethodReservedForRpcInternal() {
-        return method.startsWith("rpc.");
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "method='" + method + '\''
+               + ",params=" + params
+               + "}";
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RequestObject)) {
+            return false;
+        }
+        if (!super.equals(o)) return false;
+        final RequestObject<?, ?> that = (RequestObject<?, ?>) o;
+        return Objects.equals(getMethod(), that.getMethod())
+               && Objects.equals(getParams(), that.getParams());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getMethod(), getParams());
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -45,6 +65,23 @@ public class RequestObject<T extends RequestObject<T, U>, U> extends JsonRpcObje
 
     public void setMethod(final String method) {
         this.method = method;
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public T method(final String method) {
+        setMethod(method);
+        return (T) this;
+    }
+
+    /**
+     * Checks if {@code method} attribute is starts with reserved for rpc-internal.
+     *
+     * @return {@code true} if reserved, {@code false} otherwise
+     */
+    @AssertFalse
+    public boolean isMethodReservedForRpcInternal() {
+        final String method = getMethod();
+        return method != null && method.startsWith("rpc.");
     }
 
     // ---------------------------------------------------------------------------------------------------------- params
