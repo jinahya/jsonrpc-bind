@@ -10,11 +10,11 @@ import java.util.Objects;
 /**
  * A class for request objects.
  *
- * @param <U> {@code params} type parameter
+ * @param <T> {@code params} type parameter
  * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class RequestObject<U> extends JsonrpcObject {
+public class RequestObject<T> extends JsonrpcObject {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ public class RequestObject<U> extends JsonrpcObject {
      *
      * @return current value of {@code params} attribute
      */
-    public U getParams() {
+    public T getParams() {
         return params;
     }
 
@@ -102,7 +102,7 @@ public class RequestObject<U> extends JsonrpcObject {
      *
      * @param params new value for {@code params} attribute
      */
-    public void setParams(final U params) {
+    public void setParams(final T params) {
         this.params = params;
     }
 
@@ -110,5 +110,5 @@ public class RequestObject<U> extends JsonrpcObject {
     @NotEmpty
     private String method;
 
-    private U params;
+    private T params;
 }

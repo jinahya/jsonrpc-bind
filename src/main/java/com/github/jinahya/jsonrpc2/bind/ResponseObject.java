@@ -9,12 +9,12 @@ import java.util.Objects;
 /**
  * Represents response objects.
  *
- * @param <U> result type parameter
- * @param <V> error type parameter
+ * @param <T> result type parameter
+ * @param <U> error type parameter
  * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class ResponseObject<U, V extends ErrorObject<?>> extends JsonrpcObject {
+public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
@@ -63,25 +63,25 @@ public class ResponseObject<U, V extends ErrorObject<?>> extends JsonrpcObject {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public U getResult() {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(final U result) {
+    public void setResult(final T result) {
         this.result = result;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public V getError() {
+    public U getError() {
         return error;
     }
 
-    public void setError(final V error) {
+    public void setError(final U error) {
         this.error = error;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private U result;
+    private T result;
 
-    private V error;
+    private U error;
 }
