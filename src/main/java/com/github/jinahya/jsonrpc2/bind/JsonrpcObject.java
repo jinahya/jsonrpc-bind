@@ -5,10 +5,8 @@ import java.util.Objects;
 
 /**
  * An abstract class for request object and response object.
- *
- * @param <U> id type parameter
  */
-public abstract class JsonrpcObject<U> implements Serializable {
+public abstract class JsonrpcObject implements Serializable {
 
     /**
      * A constant for {@code jsonrpc} attribute. The value is {@value #JSONRPC}.
@@ -35,7 +33,7 @@ public abstract class JsonrpcObject<U> implements Serializable {
         if (!(o instanceof JsonrpcObject)) {
             return false;
         }
-        final JsonrpcObject<?> that = (JsonrpcObject<?>) o;
+        final JsonrpcObject that = (JsonrpcObject) o;
         return getJsonrpc().equals(that.getJsonrpc()) &&
                Objects.equals(getId(), that.getId());
     }
@@ -63,7 +61,7 @@ public abstract class JsonrpcObject<U> implements Serializable {
      *
      * @return the current value of {@code id} attribute.
      */
-    public U getId() {
+    public Object getId() {
         return id;
     }
 
@@ -72,12 +70,40 @@ public abstract class JsonrpcObject<U> implements Serializable {
      *
      * @param id new value for {@code id} attribute.
      */
-    public void setId(final U id) {
+    public void setId(final Object id) {
         this.id = id;
     }
+
+//    @JsonIgnore
+//    @JsonbTransient
+//    public String getIdAsString() {
+//        return ofNullable(getId()).map(Object::toString).orElse(null);
+//    }
+//
+//    public void setIdAsString(final String id) {
+//        setId(id);
+//    }
+//
+//    @JsonIgnore
+//    @JsonbTransient
+//    public Long getIdAsLong() {
+//        return ofNullable(getIdAsString()).map(Long::valueOf).orElse(null);
+//    }
+//
+//    public void setIdAsLong(final Long id) {
+//        setId(id);
+//    }
+//
+//    public Integer getIdAsInteger() {
+//        return ofNullable(getIdAsString()).map(Integer::valueOf).orElse(null);
+//    }
+//
+//    public void setIdAsInteger(final Integer id) {
+//        setId(id);
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
     private final String jsonrpc = JSONRPC;
 
-    private U id;
+    private Object id;
 }

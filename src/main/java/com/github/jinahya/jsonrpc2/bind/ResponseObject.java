@@ -6,13 +6,12 @@ import java.util.Objects;
 /**
  * .
  *
- * @param <T> id type parameter
  * @param <U> result type parameter
  * @param <V> error type parameter
  * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class ResponseObject<T, U, V extends ErrorObject<?>> extends JsonrpcObject<T> {
+public class ResponseObject<U, V extends ErrorObject<?>> extends JsonrpcObject {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
@@ -36,7 +35,7 @@ public class ResponseObject<T, U, V extends ErrorObject<?>> extends JsonrpcObjec
         if (!super.equals(o)) {
             return false;
         }
-        final ResponseObject<?, ?, ?> that = (ResponseObject<?, ?, ?>) o;
+        final ResponseObject<?, ?> that = (ResponseObject<?, ?>) o;
         return Objects.equals(getResult(), that.getResult())
                && Objects.equals(getError(), that.getError());
     }

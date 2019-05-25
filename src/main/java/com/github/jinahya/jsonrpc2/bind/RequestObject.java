@@ -7,12 +7,11 @@ import java.util.Objects;
 /**
  * A class for request objects.
  *
- * @param <T> id type parameter
  * @param <U> {@code params} type parameter
  * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class RequestObject<T, U> extends JsonrpcObject<T> {
+public class RequestObject<U> extends JsonrpcObject {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -37,7 +36,7 @@ public class RequestObject<T, U> extends JsonrpcObject<T> {
         if (!super.equals(o)) {
             return false;
         }
-        final RequestObject<?, ?> that = (RequestObject<?, ?>) o;
+        final RequestObject<?> that = (RequestObject<?>) o;
         return Objects.equals(getMethod(), that.getMethod())
                && Objects.equals(getParams(), that.getParams());
     }

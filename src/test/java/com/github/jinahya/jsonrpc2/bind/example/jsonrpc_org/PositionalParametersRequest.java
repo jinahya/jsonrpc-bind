@@ -4,6 +4,6 @@ import com.github.jinahya.jsonrpc2.bind.RequestObject;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class PositionalParametersRequest extends RequestObject<Long, long[]> {
+class PositionalParametersRequest extends RequestObject<long[]> {
 
 }
