@@ -1,19 +1,14 @@
-package com.github.jinahya.jsonrpc2.types;
+package com.github.jinahya.jsonrpc2.bind;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.json.bind.annotation.JsonbTransient;
 import java.io.Serializable;
 import java.util.Objects;
-
-import static java.util.Optional.ofNullable;
 
 /**
  * An abstract class for request object and response object.
  *
- * @param <T> self type parameter
+ * @param <U> id type parameter
  */
-public abstract class JsonrpcObject<T extends JsonrpcObject<T>> implements Serializable {
+public abstract class JsonrpcObject<U> implements Serializable {
 
     /**
      * A constant for {@code jsonrpc} attribute. The value is {@value #JSONRPC}.
@@ -25,12 +20,13 @@ public abstract class JsonrpcObject<T extends JsonrpcObject<T>> implements Seria
     @Override
     public String toString() {
         return super.toString() + "{"
-               + "jsonrpc='" + jsonrpc + '\''
-               + ",id='" + id + '\''
+               + "jsonrpc=" + jsonrpc
+               + ",id=" + id
                + "}";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -40,7 +36,8 @@ public abstract class JsonrpcObject<T extends JsonrpcObject<T>> implements Seria
             return false;
         }
         final JsonrpcObject<?> that = (JsonrpcObject<?>) o;
-        return Objects.equals(getId(), that.getId());
+        return getJsonrpc().equals(that.getJsonrpc()) &&
+               Objects.equals(getId(), that.getId());
     }
 
     @Override
@@ -66,7 +63,7 @@ public abstract class JsonrpcObject<T extends JsonrpcObject<T>> implements Seria
      *
      * @return the current value of {@code id} attribute.
      */
-    public String getId() {
+    public U getId() {
         return id;
     }
 
@@ -75,35 +72,12 @@ public abstract class JsonrpcObject<T extends JsonrpcObject<T>> implements Seria
      *
      * @param id new value for {@code id} attribute.
      */
-    public void setId(final String id) {
+    public void setId(final U id) {
         this.id = id;
-    }
-
-    /**
-     * Replaces current value of {@code id} attribute with given and returns this instance.
-     *
-     * @param id new value for {@code id} attribute.
-     */
-    @SuppressWarnings({"unchecked"})
-    public T id(final String id) {
-        setId(id);
-        return (T) this;
-    }
-
-    @JsonIgnore
-    @JsonbTransient
-    public void setId(final Number id) {
-        setId(ofNullable(id).map(Number::longValue).orElse(null));
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public T id(final Number id) {
-        setId(id);
-        return (T) this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     private final String jsonrpc = JSONRPC;
 
-    private String id;
+    private U id;
 }

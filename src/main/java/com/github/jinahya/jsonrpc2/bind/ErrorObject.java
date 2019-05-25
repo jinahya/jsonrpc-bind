@@ -1,38 +1,43 @@
-package com.github.jinahya.jsonrpc2.types;
+package com.github.jinahya.jsonrpc2.bind;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ErrorObject<T extends ErrorObject<T, U>, U> implements Serializable {
+public class ErrorObject<T> implements Serializable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * The minimum value for reserved codes. The value is {@value #MIN_RESERVED_CODE}.
      */
-    public static final int MIN_RESERVED_CODE = -32768;
+    public static final long MIN_RESERVED_CODE = -32768L;
 
     /**
      * The maximum value for reserved codes. The value is {@value #MAX_RESERVED_CODE}.
      */
-    public static final int MAX_RESERVED_CODE = 32000;
+    public static final long MAX_RESERVED_CODE = 32000L;
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final int CODE_PARSE_ERROR = -32700;
+    public static final long CODE_PARSE_ERROR = -32700L;
 
-    public static final int CODE_INVALID_REQUEST = -32600;
+    public static final long CODE_INVALID_REQUEST = -32600L;
 
-    public static final int CODE_METHOD_NOT_FOUND = -32601;
+    public static final long CODE_METHOD_NOT_FOUND = -32601L;
 
-    public static final int CODE_INVALID_PARAMS = -32602;
+    public static final long CODE_INVALID_PARAMS = -32602L;
 
-    public static final int CODE_INTERNAL_ERROR = -32603;
+    public static final long CODE_INTERNAL_ERROR = -32603L;
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final int MIN_CODE_SERVER_ERROR = -32000;
+    public static final long MIN_CODE_SERVER_ERROR = -32000L;
 
-    public static final int MAX_CODE_SERVER_ERROR = -32099;
+    public static final long MAX_CODE_SERVER_ERROR = -32099L;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static class Undefined extends ErrorObject<Object> {
+
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -40,7 +45,7 @@ public class ErrorObject<T extends ErrorObject<T, U>, U> implements Serializable
     public String toString() {
         return super.toString() + "{"
                + "code=" + code
-               + ",message='" + message + '\''
+               + ",message=" + message
                + ",data=" + data
                + "}";
     }
@@ -55,7 +60,7 @@ public class ErrorObject<T extends ErrorObject<T, U>, U> implements Serializable
         if (!(o instanceof ErrorObject)) {
             return false;
         }
-        final ErrorObject<?, ?> that = (ErrorObject<?, ?>) o;
+        final ErrorObject<?> that = (ErrorObject<?>) o;
         return getCode() == that.getCode()
                && Objects.equals(getMessage(), that.getMessage())
                && Objects.equals(getData(), that.getData());
@@ -73,7 +78,7 @@ public class ErrorObject<T extends ErrorObject<T, U>, U> implements Serializable
      *
      * @return current value of {@code code} attribute.
      */
-    public int getCode() {
+    public long getCode() {
         return code;
     }
 
@@ -82,20 +87,8 @@ public class ErrorObject<T extends ErrorObject<T, U>, U> implements Serializable
      *
      * @param code new value for {@code code} attribute
      */
-    public void setCode(final int code) {
+    public void setCode(final long code) {
         this.code = code;
-    }
-
-    /**
-     * Replaces value of {@code code} attribute with given and returns this instance.
-     *
-     * @param code new value for {@code code} attribute
-     * @return this instance
-     */
-    @SuppressWarnings({"unchecked"})
-    public T code(final int code) {
-        setCode(code);
-        return (T) this;
     }
 
     /**
@@ -118,32 +111,20 @@ public class ErrorObject<T extends ErrorObject<T, U>, U> implements Serializable
         this.message = message;
     }
 
-    @SuppressWarnings({"unchecked"})
-    public T message(final String message) {
-        setMessage(message);
-        return (T) this;
-    }
-
     // ------------------------------------------------------------------------------------------------------------ data
-    public U getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(final U data) {
+    public void setData(final T data) {
         this.data = data;
     }
 
-    @SuppressWarnings({"unchecked"})
-    public T data(final U data) {
-        setData(data);
-        return (T) this;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
-    private int code;
+    private long code;
 
     @NotNull
     private String message;
 
-    private U data;
+    private T data;
 }

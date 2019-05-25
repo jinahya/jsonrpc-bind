@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc2.types;
+package com.github.jinahya.jsonrpc2.bind;
 
 import javax.validation.constraints.AssertTrue;
 import java.util.Objects;
@@ -6,14 +6,13 @@ import java.util.Objects;
 /**
  * .
  *
- * @param <T> self type parameter
+ * @param <T> id type parameter
  * @param <U> result type parameter
  * @param <V> error type parameter
  * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class ResponseObject<T extends ResponseObject<T, U, V>, U, V extends ErrorObject<V, ?>>
-        extends JsonrpcObject<T> {
+public class ResponseObject<T, U, V extends ErrorObject<?>> extends JsonrpcObject<T> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
@@ -68,12 +67,6 @@ public class ResponseObject<T extends ResponseObject<T, U, V>, U, V extends Erro
         this.result = result;
     }
 
-    @SuppressWarnings({"unchecked"})
-    public T result(final U result) {
-        setResult(result);
-        return (T) this;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
     public V getError() {
         return error;
@@ -81,12 +74,6 @@ public class ResponseObject<T extends ResponseObject<T, U, V>, U, V extends Erro
 
     public void setError(final V error) {
         this.error = error;
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public T error(final V error) {
-        setError(error);
-        return (T) this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
