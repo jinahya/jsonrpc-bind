@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class NamedParametersRequest extends RequestObject<NamedParametersRequest.Params> {
+public class NamedParametersRequest extends RequestObject<NamedParametersRequest.Params> {
 
     @Data
-    static class Params {
+    public static class Params {
 
         private long minuend;
 

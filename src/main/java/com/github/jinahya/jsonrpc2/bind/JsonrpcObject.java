@@ -1,11 +1,13 @@
 package com.github.jinahya.jsonrpc2.bind;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * An abstract class for request object and response object.
  */
+
 public abstract class JsonrpcObject implements Serializable {
 
     /**
@@ -72,6 +74,9 @@ public abstract class JsonrpcObject implements Serializable {
      */
     public void setId(final Object id) {
         this.id = id;
+        if (this.id instanceof Number) {
+            this.id = ((Number) this.id).longValue();
+        }
     }
 
 //    @JsonIgnore
@@ -103,6 +108,7 @@ public abstract class JsonrpcObject implements Serializable {
 //    }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @NotNull
     private final String jsonrpc = JSONRPC;
 
     private Object id;

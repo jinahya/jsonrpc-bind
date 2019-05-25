@@ -1,5 +1,8 @@
 package com.github.jinahya.jsonrpc2.bind;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
@@ -55,6 +58,8 @@ public class RequestObject<U> extends JsonrpcObject {
      * @see <a href="https://www.jsonrpc.org/specification#notification">4.1 Notification (JSON-RPC 2.0
      * Specification)</a>
      */
+    @JsonIgnore
+    @JsonbTransient
     public boolean isNotification() {
         return getId() == null;
     }
@@ -73,6 +78,8 @@ public class RequestObject<U> extends JsonrpcObject {
      *
      * @return {@code true} if reserved, {@code false} otherwise
      */
+    @JsonIgnore
+    @JsonbTransient
     @AssertFalse
     public boolean isMethodReservedForRpcInternal() {
         final String method = getMethod();

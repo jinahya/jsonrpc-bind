@@ -1,5 +1,8 @@
 package com.github.jinahya.jsonrpc2.bind;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -98,6 +101,8 @@ public class ErrorObject<T> implements Serializable {
      * @return {@code true} if the current value of {@code code} attribute is between {@value #MIN_RESERVED_CODE} and
      * {@value #MAX_RESERVED_CODE} (both inclusive).
      */
+    @JsonIgnore
+    @JsonbTransient
     public boolean isCodeReserved() {
         return code >= MIN_RESERVED_CODE && code <= MAX_RESERVED_CODE;
     }

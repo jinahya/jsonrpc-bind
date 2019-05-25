@@ -1,10 +1,13 @@
 package com.github.jinahya.jsonrpc2.bind;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.constraints.AssertTrue;
 import java.util.Objects;
 
 /**
- * .
+ * Represents response objects.
  *
  * @param <U> result type parameter
  * @param <V> error type parameter
@@ -52,6 +55,8 @@ public class ResponseObject<U, V extends ErrorObject<?>> extends JsonrpcObject {
      *
      * @return
      */
+    @JsonIgnore
+    @JsonbTransient
     @AssertTrue(message = "either result or error can be set")
     public boolean isResultAndErrorAreExclusive() {
         return (getResult() != null) ^ (getError() != null);
