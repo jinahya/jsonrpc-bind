@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 /**
- * A class for request objects.
+ * Represents request objects.
  *
  * @param <T> {@code params} type parameter
  * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
@@ -65,10 +65,21 @@ public class RequestObject<T> extends JsonrpcObject {
     }
 
     // ---------------------------------------------------------------------------------------------------------- method
+
+    /**
+     * Returns current value of {@code method} attribute.
+     *
+     * @return current value of {@code method} attribute
+     */
     public String getMethod() {
         return method;
     }
 
+    /**
+     * Replaces value of {@code method} attribute with given.
+     *
+     * @param method new value for {@code method} attribute
+     */
     public void setMethod(final String method) {
         this.method = method;
     }
@@ -78,10 +89,10 @@ public class RequestObject<T> extends JsonrpcObject {
      *
      * @return {@code true} if reserved, {@code false} otherwise
      */
-    @JsonIgnore
-    @JsonbTransient
+    //@JsonIgnore
+    //@JsonbTransient
     @AssertFalse
-    public boolean isMethodReservedForRpcInternal() {
+    private boolean isMethodReservedForRpcInternal() {
         final String method = getMethod();
         return method != null && method.startsWith("rpc.");
     }

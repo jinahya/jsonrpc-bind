@@ -53,29 +53,51 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
     /**
      * Checks if the {@code result} attribute and the {@code error} attribute are exclusive.
      *
-     * @return
+     * @return {@code true} if {@code result} and {@code error} set exclusively, {@code false} otherwise.
      */
-    @JsonIgnore
-    @JsonbTransient
-    @AssertTrue(message = "either result or error can be set")
-    public boolean isResultAndErrorAreExclusive() {
+    //@JsonIgnore
+    //@JsonbTransient
+    @AssertTrue(message = "result and error should be set exclusively")
+    private boolean isResultAndErrorSetExclusively() {
         return (getResult() != null) ^ (getError() != null);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns current value of {@code result} attribute.
+     *
+     * @return current value of {@code result} attribute
+     */
     public T getResult() {
         return result;
     }
 
+    /**
+     * Replaces value of {@code result} attribute with given.
+     *
+     * @param result new value for {@code result} attribute
+     */
     public void setResult(final T result) {
         this.result = result;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns current value of {@code error} attribute.
+     *
+     * @return current value of {@code error} attribute
+     */
     public U getError() {
         return error;
     }
 
+    /**
+     * Replaces value of {@code error} attribute with given.
+     *
+     * @param error new value for {@code error} attribute
+     */
     public void setError(final U error) {
         this.error = error;
     }
