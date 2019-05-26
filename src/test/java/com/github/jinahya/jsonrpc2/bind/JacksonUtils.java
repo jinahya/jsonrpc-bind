@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
 @Slf4j
-public class JacksonUtils {
+public final class JacksonUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -42,11 +42,16 @@ public class JacksonUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T readValue(final String resourceName, final Class<? extends T> valueType)
+    public static <T> T readResource(final String resourceName, final Class<? extends T> valueType)
             throws IOException {
         try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream);
             return OBJECT_MAPPER.readValue(resourceStream, valueType);
         }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private JacksonUtils() {
+        super();
     }
 }

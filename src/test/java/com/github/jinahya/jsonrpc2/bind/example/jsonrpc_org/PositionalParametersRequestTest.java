@@ -11,7 +11,7 @@ class PositionalParametersRequestTest {
 
     @Test
     void readValue01() throws IOException {
-        final PositionalParametersRequest value = JacksonUtils.readValue(
+        final PositionalParametersRequest value = JacksonUtils.readResource(
                 "/examples/jsonrpc_org/positional_parameters_01_request.json", PositionalParametersRequest.class);
         log.debug("value: {}", value);
         log.debug("value.params: {}", value.getParams());
@@ -19,7 +19,7 @@ class PositionalParametersRequestTest {
 
     @Test
     void readValue02() throws IOException {
-        final PositionalParametersRequest value = JacksonUtils.readValue(
+        final PositionalParametersRequest value = JacksonUtils.readResource(
                 "/examples/jsonrpc_org/positional_parameters_02_request.json", PositionalParametersRequest.class);
         log.debug("value: {}", value);
         log.debug("value.params: {}", value.getParams());

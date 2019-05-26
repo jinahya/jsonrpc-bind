@@ -11,14 +11,14 @@ class NamedParametersResponseTest {
 
     @Test
     void readValue01() throws IOException {
-        final NamedParametersResponse value = JacksonUtils.readValue(
+        final NamedParametersResponse value = JacksonUtils.readResource(
                 "/examples/jsonrpc_org/named_parameters_01_response.json", NamedParametersResponse.class);
         log.debug("value: {}", value);
     }
 
     @Test
     void readValue02() throws IOException {
-        final NamedParametersResponse value = JacksonUtils.readValue(
+        final NamedParametersResponse value = JacksonUtils.readResource(
                 "/examples/jsonrpc_org/named_parameters_02_response.json", NamedParametersResponse.class);
         log.debug("value: {}", value);
     }

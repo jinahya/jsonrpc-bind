@@ -11,14 +11,14 @@ class PositionalParametersResponseTest {
 
     @Test
     void readValue01() throws IOException {
-        final PositionalParametersResponse value = JacksonUtils.readValue(
+        final PositionalParametersResponse value = JacksonUtils.readResource(
                 "/examples/jsonrpc_org/positional_parameters_01_response.json", PositionalParametersResponse.class);
         log.debug("value: {}", value);
     }
 
     @Test
     void readValue02() throws IOException {
-        final PositionalParametersResponse value = JacksonUtils.readValue(
+        final PositionalParametersResponse value = JacksonUtils.readResource(
                 "/examples/jsonrpc_org/positional_parameters_02_response.json", PositionalParametersResponse.class);
         log.debug("value: {}", value);
     }

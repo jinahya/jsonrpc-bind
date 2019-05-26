@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static com.github.jinahya.jsonrpc2.bind.JacksonUtils.OBJECT_MAPPER;
-import static com.github.jinahya.jsonrpc2.bind.JacksonUtils.readValue;
-import static com.github.jinahya.jsonrpc2.bind.JsonbUtils.fromJson;
+import static com.github.jinahya.jsonrpc2.bind.JacksonUtils.readResource;
+import static com.github.jinahya.jsonrpc2.bind.JsonbUtils.fromResource;
 
 @Slf4j
 class NonExistentMethodRequestTest {
 
     @Test
     void jackson01() throws IOException {
-        final NonExistentMethodRequest value = readValue(
+        final NonExistentMethodRequest value = readResource(
                 "/examples/jsonrpc_org/non_existent_method_01_request.json", NonExistentMethodRequest.class);
         log.debug("value: {}", value);
         log.debug("json: {}", OBJECT_MAPPER.writeValueAsString(value));
@@ -23,7 +23,7 @@ class NonExistentMethodRequestTest {
 
     @Test
     void jsonb01() throws IOException {
-        final NonExistentMethodRequest value = fromJson(
+        final NonExistentMethodRequest value = fromResource(
                 "/examples/jsonrpc_org/non_existent_method_01_request.json", NonExistentMethodRequest.class);
         log.debug("value: {}", value);
         log.debug("json: {}", JsonbUtils.JSONB.toJson(value));

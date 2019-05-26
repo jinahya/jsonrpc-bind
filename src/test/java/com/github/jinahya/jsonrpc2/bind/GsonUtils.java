@@ -1,7 +1,6 @@
 package com.github.jinahya.jsonrpc2.bind;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -17,16 +16,10 @@ import java.util.function.Supplier;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
 @Slf4j
-public class GsonUtils {
+public final class GsonUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final Gson GSON = new GsonBuilder()
-//            .registerTypeHierarchyAdapter(JsonrpcObject.class, JsonrpcObjectTypeAdapter.class)
-//            .registerTypeAdapter(RequestObject.class, new RequestObjectSerializer())
-//            .registerTypeAdapter(RequestObject.class, new RequestObjectDeserializer())
-//            .registerTypeAdapter(ResponseObject.class, new ResponseObjectSerializer())
-//            .registerTypeAdapter(ResponseObject.class, new ResponseObjectDeserializer())
-            .create();
+    public static final Gson GSON = new Gson();
 
     // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyGson(final Function<? super Gson, ? extends R> function) {
@@ -51,7 +44,7 @@ public class GsonUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T fromJson(final String resourceName, final Class<? extends T> valueType)
+    public static <T> T fromResource(final String resourceName, final Class<? extends T> valueType)
             throws IOException {
         try (InputStream resourceStream = GsonUtils.class.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream);
@@ -59,5 +52,10 @@ public class GsonUtils {
                 return applyGson(v -> v.fromJson(streamReader, valueType));
             }
         }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private GsonUtils() {
+        super();
     }
 }
