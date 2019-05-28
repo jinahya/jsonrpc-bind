@@ -48,7 +48,14 @@ public class ErrorObject<T> implements Serializable {
     /**
      * Represents error objects of unknown type of {@code data} attribute.
      */
-    public static class Undefined extends ErrorObject<Object> {
+    public static class UnknownData extends ErrorObject<Object> {
+
+    }
+
+    /**
+     * Represents error objects without {@code data} attribute.
+     */
+    public static class NoData extends ErrorObject<Void> {
 
     }
 
