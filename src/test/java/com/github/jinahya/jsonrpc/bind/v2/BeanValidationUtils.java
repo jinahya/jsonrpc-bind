@@ -1,5 +1,7 @@
 package com.github.jinahya.jsonrpc.bind.v2;
 
+import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
@@ -14,7 +16,13 @@ import java.util.function.Supplier;
 
 public final class BeanValidationUtils {
 
-    public static final ValidatorFactory VALIDATION_FACTORY = Validation.buildDefaultValidatorFactory();
+//    public static final ValidatorFactory VALIDATION_FACTORY = Validation.buildDefaultValidatorFactory();
+
+    public static final ValidatorFactory VALIDATION_FACTORY
+            = Validation.byDefaultProvider()
+            .configure()
+            .messageInterpolator(new ParameterMessageInterpolator())
+            .buildValidatorFactory();
 
     public static <R> R applyValidator(final Function<? super Validator, ? extends R> function) {
         return function.apply(VALIDATION_FACTORY.getValidator());

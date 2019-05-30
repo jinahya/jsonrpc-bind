@@ -28,9 +28,6 @@
     </license>
   </licenses>
 
-  <!--  <prerequisites>-->
-<!--    <maven>3.3.9</maven>-->
-<!--  </prerequisites>-->
   <scm>
     <connection>scm:git:git@github.com:jinahya/${project.artifactId}.git</connection>
     <developerConnection>scm:git:git@github.com:jinahya/${project.artifactId}.git</developerConnection>
@@ -120,12 +117,12 @@
       <version>1.1.4</version>
       <scope>test</scope>
     </dependency>
-    <dependency><!-- required by hibernate-validator -->
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.el</artifactId>
-      <version>3.0.1-b11</version>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.glassfish</groupId>-->
+<!--      <artifactId>javax.el</artifactId>-->
+<!--      <version>3.0.1-b11</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
@@ -217,7 +214,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>enforce-require-java-version-to-1.8.0</id>
+            <id>enforce-require-java-version-to-[1.8.0,)</id>
             <goals>
               <goal>enforce</goal>
             </goals>
@@ -230,7 +227,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>enforce-require-maven-version-to-1.8.0</id>
+            <id>enforce-require-maven-version-to-[3.3.9,)</id>
             <goals>
               <goal>enforce</goal>
             </goals>
@@ -250,7 +247,7 @@
         <version>${version.maven-surefire}</version>
         <configuration>
           <argLine>
-            <!--            &#45;&#45;illegal-access=warn-->
+<!--            &#45;&#45;illegal-access=warn-->
           </argLine>
         </configuration>
       </plugin>
@@ -329,7 +326,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <!--<version>${version.maven-javadoc-plugin}</version>-->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
