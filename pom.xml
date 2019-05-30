@@ -28,10 +28,6 @@
     </license>
   </licenses>
 
-  <prerequisites>
-    <maven>3.3.9</maven>
-  </prerequisites>
-
   <scm>
     <connection>scm:git:git@github.com:jinahya/${project.artifactId}.git</connection>
     <developerConnection>scm:git:git@github.com:jinahya/${project.artifactId}.git</developerConnection>
@@ -97,6 +93,12 @@
     <!--      <version>1.0</version>-->
     <!--      <scope>provided</scope>-->
     <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>jakarta.xml.bind</groupId>-->
+    <!--      <artifactId>jakarta.xml.bind-api</artifactId>-->
+    <!--      <version>2.3.2</version>-->
+    <!--      <scope>provided</scope>-->
+    <!--    </dependency>-->
     <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
@@ -115,12 +117,12 @@
       <version>1.1.4</version>
       <scope>test</scope>
     </dependency>
-    <dependency><!-- required by hibernate-validator -->
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.el</artifactId>
-      <version>3.0.1-b11</version>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.glassfish</groupId>-->
+<!--      <artifactId>javax.el</artifactId>-->
+<!--      <version>3.0.1-b11</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
@@ -200,14 +202,40 @@
         <version>3.0.0-M2</version>
         <executions>
           <execution>
-            <id>enforce-versions</id>
+            <id>enforce-dependency-convergence</id>
             <goals>
               <goal>enforce</goal>
             </goals>
             <configuration>
               <skip>true</skip>
               <rules>
-                <dependencyConvergence />
+                <dependencyConvergence/>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>enforce-require-java-version-to-[1.8.0,)</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[1.8.0,)</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>enforce-require-maven-version-to-[3.3.9,)</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[3.3.9,)</version>
+                </requireMavenVersion>
               </rules>
             </configuration>
           </execution>
@@ -298,7 +326,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <!--<version>${version.maven-javadoc-plugin}</version>-->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
