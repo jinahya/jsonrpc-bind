@@ -8,7 +8,7 @@
     <version>0.8.3</version>
   </parent>
 
-  <artifactId>jsonrpc2-bind</artifactId>
+  <artifactId>jsonrpc-bind</artifactId>
   <version>0.1.3-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -207,7 +207,7 @@
             <configuration>
               <skip>true</skip>
               <rules>
-                <dependencyConvergence />
+                <dependencyConvergence/>
               </rules>
             </configuration>
           </execution>
@@ -217,6 +217,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${version.maven-surefire}</version>
+        <configuration>
+          <argLine>
+<!--            &#45;&#45;illegal-access=warn-->
+          </argLine>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
