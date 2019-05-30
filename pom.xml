@@ -28,10 +28,9 @@
     </license>
   </licenses>
 
-  <prerequisites>
-    <maven>3.3.9</maven>
-  </prerequisites>
-
+  <!--  <prerequisites>-->
+<!--    <maven>3.3.9</maven>-->
+<!--  </prerequisites>-->
   <scm>
     <connection>scm:git:git@github.com:jinahya/${project.artifactId}.git</connection>
     <developerConnection>scm:git:git@github.com:jinahya/${project.artifactId}.git</developerConnection>
@@ -95,6 +94,12 @@
     <!--      <groupId>javax.json.bind</groupId>-->
     <!--      <artifactId>javax.json.bind-api</artifactId>-->
     <!--      <version>1.0</version>-->
+    <!--      <scope>provided</scope>-->
+    <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>jakarta.xml.bind</groupId>-->
+    <!--      <artifactId>jakarta.xml.bind-api</artifactId>-->
+    <!--      <version>2.3.2</version>-->
     <!--      <scope>provided</scope>-->
     <!--    </dependency>-->
     <dependency>
@@ -200,7 +205,7 @@
         <version>3.0.0-M2</version>
         <executions>
           <execution>
-            <id>enforce-versions</id>
+            <id>enforce-dependency-convergence</id>
             <goals>
               <goal>enforce</goal>
             </goals>
@@ -208,6 +213,32 @@
               <skip>true</skip>
               <rules>
                 <dependencyConvergence/>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>enforce-require-java-version-to-1.8.0</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[1.8.0,)</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>enforce-require-maven-version-to-1.8.0</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[3.3.9,)</version>
+                </requireMavenVersion>
               </rules>
             </configuration>
           </execution>
@@ -219,7 +250,7 @@
         <version>${version.maven-surefire}</version>
         <configuration>
           <argLine>
-<!--            &#45;&#45;illegal-access=warn-->
+            <!--            &#45;&#45;illegal-access=warn-->
           </argLine>
         </configuration>
       </plugin>
