@@ -1,2 +1,2 @@
-# jsonrpc2-types
-Types for JSON-RPC 2.0
+# jsonrpc-types
+Classes for binding types defined in [JSON-RPC](https://www.jsonrpc.org).
