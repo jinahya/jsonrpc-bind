@@ -3,7 +3,7 @@ package com.github.jinahya.jsonrpc2.bind;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;
-import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
@@ -20,10 +20,10 @@ public class RequestObject<T> extends JsonrpcObject {
 
     @Override
     public String toString() {
-        return super.toString() + "{"
-               + "method=" + method
-               + ",params=" + params
-               + "}";
+        return super.toString() + "{" +
+               "method=" + method +
+               ",params=" + params +
+               "}";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -40,8 +40,8 @@ public class RequestObject<T> extends JsonrpcObject {
             return false;
         }
         final RequestObject<?> that = (RequestObject<?>) o;
-        return Objects.equals(getMethod(), that.getMethod())
-               && Objects.equals(getParams(), that.getParams());
+        return Objects.equals(getMethod(), that.getMethod()) &&
+               Objects.equals(getParams(), that.getParams());
     }
 
     @Override
@@ -49,10 +49,31 @@ public class RequestObject<T> extends JsonrpcObject {
         return Objects.hash(super.hashCode(), getMethod(), getParams());
     }
 
+    // ------------------------------------------------------------------------------------------------- Bean-Validation
+
+    /**
+     * Checks if {@code method} attribute is starts with a reserved value for rpc-internal.
+     *
+     * @return {@code true} if reserved, {@code false} otherwise
+     */
+    @JsonIgnore
+    @JsonbTransient
+    @AssertTrue
+    private boolean isMethodValid() {
+        if (method == null) { // covered by @NotEmpty
+            return true;
+        }
+        if (method.startsWith("rpc.")) {
+            return false;
+        }
+        return true;
+    }
+
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Checks if this request object is a notification.
+     * Checks if this request object is a notification. This method check whether the value of {@link #getId()} is
+     * {@code null} or not.
      *
      * @return {@code true} if this request object is a notification, {@code false} otherwise
      * @see <a href="https://www.jsonrpc.org/specification#notification">4.1 Notification (JSON-RPC 2.0
@@ -82,19 +103,6 @@ public class RequestObject<T> extends JsonrpcObject {
      */
     public void setMethod(final String method) {
         this.method = method;
-    }
-
-    /**
-     * Checks if {@code method} attribute is starts with reserved for rpc-internal.
-     *
-     * @return {@code true} if reserved, {@code false} otherwise
-     */
-    //@JsonIgnore
-    //@JsonbTransient
-    @AssertFalse
-    private boolean isMethodReservedForRpcInternal() {
-        final String method = getMethod();
-        return method != null && method.startsWith("rpc.");
     }
 
     // ---------------------------------------------------------------------------------------------------------- params

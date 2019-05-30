@@ -19,10 +19,10 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public String toString() {
-        return super.toString() + "{"
-               + "result=" + result
-               + ",error=" + error
-               + "}";
+        return super.toString() + "{" +
+               "result=" + result +
+               ",error=" + error +
+               "}";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -39,8 +39,8 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
             return false;
         }
         final ResponseObject<?, ?> that = (ResponseObject<?, ?>) o;
-        return Objects.equals(getResult(), that.getResult())
-               && Objects.equals(getError(), that.getError());
+        return Objects.equals(getResult(), that.getResult()) &&
+               Objects.equals(getError(), that.getError());
     }
 
     @Override
@@ -55,10 +55,10 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
      *
      * @return {@code true} if {@code result} and {@code error} set exclusively, {@code false} otherwise.
      */
-    //@JsonIgnore
-    //@JsonbTransient
-    @AssertTrue(message = "result and error should be set exclusively")
-    private boolean isResultAndErrorSetExclusively() {
+    @JsonIgnore
+    @JsonbTransient
+    @AssertTrue(message = "result and error should be exclusive")
+    private boolean isResultAndErrorExclusive() {
         return (getResult() != null) ^ (getError() != null);
     }
 
@@ -77,9 +77,24 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
      * Replaces value of {@code result} attribute with given.
      *
      * @param result new value for {@code result} attribute
+     * @see #setResultExclusively(Object)
      */
     public void setResult(final T result) {
         this.result = result;
+    }
+
+    /**
+     * Sets {@code result} attribute exclusively. This method, if given {@code result} is not {@code null}, sets {@code
+     * error} as {@code null}.
+     *
+     * @param result new value for {@code result} attribute
+     * @see #setResult(Object)
+     */
+    public void setResultExclusively(final T result) {
+        setResult(result);
+        if (getResult() != null) {
+            setError(null);
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -97,9 +112,24 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
      * Replaces value of {@code error} attribute with given.
      *
      * @param error new value for {@code error} attribute
+     * @see #setErrorExclusively(ErrorObject)
      */
     public void setError(final U error) {
         this.error = error;
+    }
+
+    /**
+     * Sets {@code error} attribute exclusively. This method, if given {@code error} is not {@code null}, sets {@code
+     * result} as {@code null}.
+     *
+     * @param error new value for {@code error} attribute
+     * @see #setError(ErrorObject)
+     */
+    public void setErrorExclusively(final U error) {
+        setError(error);
+        if (getError() != null) {
+            setResult(null);
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------

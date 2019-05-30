@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.jinahya.jsonrpc2.bind.BeanValidationUtils.requireValid;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
@@ -34,7 +35,7 @@ public final class JsonTests {
         }
         for (final T value1 : list) {
             for (final T value2 : list) {
-                assertTrue(value1.equals(value2));
+                assertEquals(value1, value2);
             }
         }
     }

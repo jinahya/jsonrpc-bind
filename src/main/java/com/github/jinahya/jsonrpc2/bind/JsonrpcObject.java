@@ -1,5 +1,9 @@
 package com.github.jinahya.jsonrpc2.bind;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.json.bind.annotation.JsonbTransient;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,10 +23,10 @@ public abstract class JsonrpcObject implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "{"
-               + "jsonrpc=" + jsonrpc
-               + ",id=" + id
-               + "}";
+        return super.toString() + "{" +
+               "jsonrpc=" + jsonrpc +
+               ",id=" + id +
+               "}";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -45,18 +49,35 @@ public abstract class JsonrpcObject implements Serializable {
         return Objects.hash(getJsonrpc(), getId());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    @JsonIgnore
+    @JsonbTransient
+    @AssertTrue
+    private boolean isIdValid() {
+        if (id == null) { // a notification
+            return true;
+        }
+        if (id instanceof String) {
+            return true;
+        }
+        if (!(id instanceof Number)) {
+            return false;
+        }
+        return true;
+    }
+
+    // --------------------------------------------------------------------------------------------------------- jsonrpc
 
     /**
      * Returns the current value of {@code jsonrpc} attribute.
      *
      * @return the current value of {@code jsonrpc} attribute.
      */
-    public String getJsonrpc() {
+    public final String getJsonrpc() {
         return jsonrpc;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------- id
 
     /**
      * Returns the current value of {@code id} attribute.
@@ -64,7 +85,13 @@ public abstract class JsonrpcObject implements Serializable {
      * @return the current value of {@code id} attribute.
      */
     public Object getId() {
-        return id;
+        if (id == null) {
+            return id;
+        }
+        if (id instanceof String) {
+            return id;
+        }
+        return ((Number) id).longValue();
     }
 
     /**
@@ -78,34 +105,6 @@ public abstract class JsonrpcObject implements Serializable {
             this.id = ((Number) this.id).longValue();
         }
     }
-
-//    @JsonIgnore
-//    @JsonbTransient
-//    public String getIdAsString() {
-//        return ofNullable(getId()).map(Object::toString).orElse(null);
-//    }
-//
-//    public void setIdAsString(final String id) {
-//        setId(id);
-//    }
-//
-//    @JsonIgnore
-//    @JsonbTransient
-//    public Long getIdAsLong() {
-//        return ofNullable(getIdAsString()).map(Long::valueOf).orElse(null);
-//    }
-//
-//    public void setIdAsLong(final Long id) {
-//        setId(id);
-//    }
-//
-//    public Integer getIdAsInteger() {
-//        return ofNullable(getIdAsString()).map(Integer::valueOf).orElse(null);
-//    }
-//
-//    public void setIdAsInteger(final Integer id) {
-//        setId(id);
-//    }
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
