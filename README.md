@@ -6,7 +6,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.jinahya%3Ajsonrpc-bind%3Adevelop&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.jinahya%3Ajsonrpc-bind%3Adevelop)
 [![Known Vulnerabilities](https://snyk.io/test/github/jinahya/jsonrpc-bind/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/jinahya/jsonrpc-bind?targetFile=pom.xml)
 
-![Maven Central](https://img.shields.io/maven-central/v/com.github.jinahya/jsonrpc-bind.svg)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.jinahya/jsonrpc-bind.svg)](https://search.maven.org/artifact/com.github.jinahya/jsonrpc-bind)
 [![Javadocs](https://javadoc.io/badge/com.github.jinahya/jsonrpc-bind.svg?label=javadoc)](https://javadoc.io/doc/com.github.jinahya/jsonrpc-bind)
 
 Classes for binding [JSON-RPC](https://www.jsonrpc.org) objects.
