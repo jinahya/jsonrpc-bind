@@ -1,13 +1,33 @@
 package com.github.jinahya.jsonrpc.bind.v2;
 
+/*-
+ * #%L
+ * jsonrpc-bind
+ * %%
+ * Copyright (C) 2019 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * An abstract class for request object and response object.
+ * An abstract class for request objects and response objects.
  */
-
 public abstract class JsonrpcObject implements Serializable {
 
     /**
@@ -31,19 +51,19 @@ public abstract class JsonrpcObject implements Serializable {
     /**
      * Indicates whether some other object is "equal to" this one.
      *
-     * @param o the reference object with which to compare.
+     * @param obj the reference object with which to compare.
      * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
      */
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof JsonrpcObject)) {
+        if (!(obj instanceof JsonrpcObject)) {
             return false;
         }
-        final JsonrpcObject that = (JsonrpcObject) o;
-        return getJsonrpc().equals(that.getJsonrpc()) &&
+        final JsonrpcObject that = (JsonrpcObject) obj;
+        return Objects.equals(getJsonrpc(), that.getJsonrpc()) &&
                Objects.equals(getId(), that.getId());
     }
 
@@ -62,8 +82,17 @@ public abstract class JsonrpcObject implements Serializable {
      *
      * @return the current value of {@code jsonrpc} attribute.
      */
-    public final String getJsonrpc() {
+    public String getJsonrpc() {
         return jsonrpc;
+    }
+
+    /**
+     * Replaces the current value of {@code jsonrpc} attribute with given.
+     *
+     * @param jsonrpc new value for {@code jsonrpc} attribute.
+     */
+    public void setJsonrpc(final String jsonrpc) {
+        this.jsonrpc = jsonrpc;
     }
 
     /**
@@ -90,8 +119,9 @@ public abstract class JsonrpcObject implements Serializable {
         }
     }
 
+    @Pattern(regexp = JSONRPC)
     @NotNull
-    private final String jsonrpc = JSONRPC;
+    private String jsonrpc = JSONRPC;
 
     private Object id;
 }

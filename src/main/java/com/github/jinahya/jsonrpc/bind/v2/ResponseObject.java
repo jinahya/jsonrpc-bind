@@ -1,5 +1,25 @@
 package com.github.jinahya.jsonrpc.bind.v2;
 
+/*-
+ * #%L
+ * jsonrpc-bind
+ * %%
+ * Copyright (C) 2019 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;
@@ -29,22 +49,33 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
                "}";
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     */
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ResponseObject)) {
+        if (!(obj instanceof ResponseObject)) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final ResponseObject<?, ?> that = (ResponseObject<?, ?>) o;
+        final ResponseObject<?, ?> that = (ResponseObject<?, ?>) obj;
         return Objects.equals(getResult(), that.getResult()) &&
                Objects.equals(getError(), that.getError());
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), getResult(), getError());
@@ -57,12 +88,10 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
      */
     @JsonIgnore
     @JsonbTransient
-    @AssertTrue(message = "result and error should be exclusive")
+    @AssertTrue(message = "result and error should be set exclusively")
     private boolean isResultAndErrorExclusive() {
         return (getResult() != null) ^ (getError() != null);
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Returns the current value of {@code result} attribute.
@@ -97,8 +126,6 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * Returns the current value of {@code error} attribute.
      *
@@ -132,7 +159,6 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     private T result;
 
     private U error;
