@@ -16,6 +16,11 @@ import java.util.Objects;
  */
 public class RequestObject<T> extends JsonrpcObject {
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString() + "{" +

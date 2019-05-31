@@ -15,8 +15,6 @@ import java.util.Objects;
  */
 public class ErrorObject<T> implements Serializable {
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * The minimum value for codes reserved for pre-defined errors. The value is {@value
      * #MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS}.
@@ -29,7 +27,6 @@ public class ErrorObject<T> implements Serializable {
      */
     public static final long MAX_RESERVED_CODE_FOR_PREDEFINED_ERRORS = -32000L;
 
-    // -----------------------------------------------------------------------------------------------------------------
     public static final long CODE_PARSE_ERROR = -32700L;
 
     public static final long CODE_INVALID_REQUEST = -32600L;
@@ -39,8 +36,6 @@ public class ErrorObject<T> implements Serializable {
     public static final long CODE_INVALID_PARAMS = -32602L;
 
     public static final long CODE_INTERNAL_ERROR = -32603L;
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
@@ -53,8 +48,6 @@ public class ErrorObject<T> implements Serializable {
      * #MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
      */
     public static final long MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32000L;
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Represents error objects of unknown type of {@code data} attribute.
@@ -97,8 +90,11 @@ public class ErrorObject<T> implements Serializable {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString() + "{" +
@@ -107,8 +103,6 @@ public class ErrorObject<T> implements Serializable {
                ",data=" + data +
                "}";
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     @Override
     public boolean equals(final Object o) {
@@ -129,19 +123,17 @@ public class ErrorObject<T> implements Serializable {
         return Objects.hash(getCode(), getMessage(), getData());
     }
 
-    // ------------------------------------------------------------------------------------------------------------ code
-
     /**
-     * Returns current value of {@code code} attribute.
+     * Returns the current value of {@code code} attribute.
      *
-     * @return current value of {@code code} attribute.
+     * @return the current value of {@code code} attribute.
      */
     public long getCode() {
         return code;
     }
 
     /**
-     * Replaces value of {@code code} attribute with given.
+     * Replaces the current value of {@code code} attribute with given.
      *
      * @param code new value for {@code code} attribute
      */
@@ -180,16 +172,16 @@ public class ErrorObject<T> implements Serializable {
     // --------------------------------------------------------------------------------------------------------- message
 
     /**
-     * Returns current value of {@code message} attribute.
+     * Returns the current value of {@code message} attribute.
      *
-     * @return current value of {@code message} attribute
+     * @return the current value of {@code message} attribute
      */
     public String getMessage() {
         return message;
     }
 
     /**
-     * Replaces value of {@code message} attribute with given.
+     * Replaces the current value of {@code message} attribute with given.
      *
      * @param message new value for {@code message} attribute
      */
@@ -200,16 +192,16 @@ public class ErrorObject<T> implements Serializable {
     // ------------------------------------------------------------------------------------------------------------ data
 
     /**
-     * Returns current value of {@code data} attribute.
+     * Returns the current value of {@code data} attribute.
      *
-     * @return current value of {@code data} attribute
+     * @return the current value of {@code data} attribute
      */
     public T getData() {
         return data;
     }
 
     /**
-     * Replaces value of {@code data} attribute with given.
+     * Replaces the current value of {@code data} attribute with given.
      *
      * @param data new value for {@code data} attribute
      */

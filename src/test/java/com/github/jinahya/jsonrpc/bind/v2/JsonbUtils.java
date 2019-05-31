@@ -14,10 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public final class JsonbUtils {
 
-    // -----------------------------------------------------------------------------------------------------------------
     public static final Jsonb JSONB = JsonbBuilder.create();
 
-    // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyJsonb(final Function<? super Jsonb, ? extends R> function) {
         return function.apply(JSONB);
     }
@@ -39,7 +37,15 @@ public final class JsonbUtils {
         acceptJsonb(v -> consumer.accept(v, supplier.get()));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * Opens a resource of specified name and returns an instance of specified type read from it.
+     *
+     * @param resourceName the name of the resource to open.
+     * @param valueType    the type of the value to read.
+     * @param <T>          value type parameter.
+     * @return an instance of parsed value of specified type.
+     * @throws IOException if an I/O error occurs.
+     */
     public static <T> T fromResource(final String resourceName, final Class<? extends T> valueType)
             throws IOException {
         try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
@@ -48,7 +54,6 @@ public final class JsonbUtils {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     private JsonbUtils() {
         super();
     }

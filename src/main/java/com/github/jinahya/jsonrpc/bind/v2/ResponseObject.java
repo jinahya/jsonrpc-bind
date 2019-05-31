@@ -16,7 +16,11 @@ import java.util.Objects;
  */
 public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString() + "{" +
@@ -24,8 +28,6 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
                ",error=" + error +
                "}";
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     @Override
     public boolean equals(final Object o) {
@@ -47,8 +49,6 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
     public int hashCode() {
         return Objects.hash(super.hashCode(), getResult(), getError());
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Checks if the {@code result} attribute and the {@code error} attribute are exclusive.
