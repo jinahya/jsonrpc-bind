@@ -11,7 +11,7 @@ import java.util.Objects;
 public abstract class JsonrpcObject implements Serializable {
 
     /**
-     * A constant for {@code jsonrpc} attribute. The value is {@value #JSONRPC}.
+     * The fixed value for {@code jsonrpc} attribute. The value is {@value #JSONRPC}.
      */
     public static final String JSONRPC = "2.0";
 
@@ -97,13 +97,7 @@ public abstract class JsonrpcObject implements Serializable {
      * @return the current value of {@code id} attribute.
      */
     public Object getId() {
-        if (id == null) {
-            return null;
-        }
-        if (id instanceof String) {
-            return id;
-        }
-        if (id instanceof Number) {
+        if (id instanceof Number && !(this.id instanceof Long)) {
             return ((Number) id).longValue();
         }
         return id;
@@ -116,7 +110,7 @@ public abstract class JsonrpcObject implements Serializable {
      */
     public void setId(final Object id) {
         this.id = id;
-        if (this.id instanceof Number) {
+        if (this.id instanceof Number && !(this.id instanceof Long)) {
             this.id = ((Number) this.id).longValue();
         }
     }
