@@ -12,7 +12,7 @@ jobs:
       - save-cache:
           paths:
             - ~/.m2
-          key: circleci-jsonrpc-bind{{ checksum "pom.xml" }}
+          key: circleci-jsonrpc-bind-{{ checksum "pom.xml" }}
       - run: mvn package
       - store_test_results:
           path: target/surefire-reports
