@@ -1,8 +1,26 @@
 package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
 
-import com.github.jinahya.jsonrpc.bind.v2.GsonUtils;
+/*-
+ * #%L
+ * jsonrpc-bind
+ * %%
+ * Copyright (C) 2019 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import com.github.jinahya.jsonrpc.bind.v2.JsonTests;
-import com.github.jinahya.jsonrpc.bind.v2.MoshiUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -25,43 +43,5 @@ class NamedParametersRequestTest {
                 "/examples/jsonrpc_org/v2/named_parameters_02_request.json",
                 NamedParametersRequest.class
         );
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Test
-    void gson01() throws IOException {
-        final NamedParametersRequest value = GsonUtils.fromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_01_request.json", NamedParametersRequest.class);
-        log.debug("value: {}", value);
-        log.debug("value.id.class: {}", value.getId().getClass());
-        log.debug("gson: {}", GsonUtils.GSON.toJson(value));
-    }
-
-    @Test
-    void gson02() throws IOException {
-        final NamedParametersRequest value = GsonUtils.fromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_02_request.json", NamedParametersRequest.class);
-        log.debug("value: {}", value);
-        log.debug("value.id.class: {}", value.getId().getClass());
-        log.debug("gson: {}", GsonUtils.GSON.toJson(value));
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Test
-    void moshi01() throws IOException {
-        final NamedParametersRequest value = MoshiUtils.fromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_01_request.json", NamedParametersRequest.class);
-        log.debug("value: {}", value);
-        log.debug("value.id.class: {}", value.getId().getClass());
-        log.debug("moshi: {}", MoshiUtils.MOSHI.adapter(NamedParametersRequest.class).toJson(value));
-    }
-
-    @Test
-    void moshi02() throws IOException {
-        final NamedParametersRequest value = MoshiUtils.fromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_02_request.json", NamedParametersRequest.class);
-        log.debug("value: {}", value);
-        log.debug("value.id.class: {}", value.getId().getClass());
-        log.debug("moshi: {}", MoshiUtils.MOSHI.adapter(NamedParametersRequest.class).toJson(value));
     }
 }

@@ -1,5 +1,25 @@
 package com.github.jinahya.jsonrpc.bind.v2;
 
+/*-
+ * #%L
+ * jsonrpc-bind
+ * %%
+ * Copyright (C) 2019 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;
@@ -15,8 +35,6 @@ import java.util.Objects;
  */
 public class ErrorObject<T> implements Serializable {
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * The minimum value for codes reserved for pre-defined errors. The value is {@value
      * #MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS}.
@@ -29,7 +47,6 @@ public class ErrorObject<T> implements Serializable {
      */
     public static final long MAX_RESERVED_CODE_FOR_PREDEFINED_ERRORS = -32000L;
 
-    // -----------------------------------------------------------------------------------------------------------------
     public static final long CODE_PARSE_ERROR = -32700L;
 
     public static final long CODE_INVALID_REQUEST = -32600L;
@@ -39,8 +56,6 @@ public class ErrorObject<T> implements Serializable {
     public static final long CODE_INVALID_PARAMS = -32602L;
 
     public static final long CODE_INTERNAL_ERROR = -32603L;
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
@@ -54,8 +69,6 @@ public class ErrorObject<T> implements Serializable {
      */
     public static final long MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32000L;
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * Represents error objects of unknown type of {@code data} attribute.
      */
@@ -64,7 +77,7 @@ public class ErrorObject<T> implements Serializable {
     }
 
     /**
-     * Represents error objects without {@code data} attribute.
+     * Represents error objects with no value for {@code data} attribute.
      */
     public static class NoData extends ErrorObject<Void> {
 
@@ -97,8 +110,11 @@ public class ErrorObject<T> implements Serializable {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString() + "{" +
@@ -108,40 +124,47 @@ public class ErrorObject<T> implements Serializable {
                "}";
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     */
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ErrorObject)) {
+        if (!(obj instanceof ErrorObject)) {
             return false;
         }
-        final ErrorObject<?> that = (ErrorObject<?>) o;
+        final ErrorObject<?> that = (ErrorObject<?>) obj;
         return getCode() == that.getCode() &&
                Objects.equals(getMessage(), that.getMessage()) &&
                Objects.equals(getData(), that.getData());
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getCode(), getMessage(), getData());
     }
 
-    // ------------------------------------------------------------------------------------------------------------ code
-
     /**
-     * Returns current value of {@code code} attribute.
+     * Returns the current value of {@code code} attribute.
      *
-     * @return current value of {@code code} attribute.
+     * @return the current value of {@code code} attribute.
      */
     public long getCode() {
         return code;
     }
 
     /**
-     * Replaces value of {@code code} attribute with given.
+     * Replaces the current value of {@code code} attribute with given.
      *
      * @param code new value for {@code code} attribute
      */
@@ -151,7 +174,7 @@ public class ErrorObject<T> implements Serializable {
 
     /**
      * Checks the current value of {@code code} attribute is for pre-defined errors. This method checks whether the
-     * current value of {@code code} attribute is between {@link #MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS} and {@link
+     * current value of {@code code} attribute is between {@value #MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS} and {@value
      * #MAX_RESERVED_CODE_FOR_PREDEFINED_ERRORS} (both inclusive) or not.
      *
      * @return {@code true} if the current value of {@code code} attribute is for pre-defined errors.
@@ -164,8 +187,8 @@ public class ErrorObject<T> implements Serializable {
 
     /**
      * Checks the current value of {@code code} attribute is for implementation-defined server errors. This method
-     * checks whether the current value of {@code code} attribute is between {@link
-     * #MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS} and {@link #MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}
+     * checks whether the current value of {@code code} attribute is between {@value
+     * #MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS} and {@value #MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}
      * (both inclusive) or not.
      *
      * @return {@code true} if the current value of {@code code} attribute is for implementation-defined server errors.
@@ -173,23 +196,21 @@ public class ErrorObject<T> implements Serializable {
     @JsonIgnore
     @JsonbTransient
     public boolean isCodeReservedForImplementationDefinedServerErrors() {
-        return code >= MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS
-               && code <= MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
+        return code >= MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS &&
+               code <= MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
     }
 
-    // --------------------------------------------------------------------------------------------------------- message
-
     /**
-     * Returns current value of {@code message} attribute.
+     * Returns the current value of {@code message} attribute.
      *
-     * @return current value of {@code message} attribute
+     * @return the current value of {@code message} attribute
      */
     public String getMessage() {
         return message;
     }
 
     /**
-     * Replaces value of {@code message} attribute with given.
+     * Replaces the current value of {@code message} attribute with given.
      *
      * @param message new value for {@code message} attribute
      */
@@ -197,19 +218,17 @@ public class ErrorObject<T> implements Serializable {
         this.message = message;
     }
 
-    // ------------------------------------------------------------------------------------------------------------ data
-
     /**
-     * Returns current value of {@code data} attribute.
+     * Returns the current value of {@code data} attribute.
      *
-     * @return current value of {@code data} attribute
+     * @return the current value of {@code data} attribute
      */
     public T getData() {
         return data;
     }
 
     /**
-     * Replaces value of {@code data} attribute with given.
+     * Replaces the current value of {@code data} attribute with given.
      *
      * @param data new value for {@code data} attribute
      */
@@ -217,7 +236,6 @@ public class ErrorObject<T> implements Serializable {
         this.data = data;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     private long code;
 
     @NotNull
