@@ -1,9 +1,5 @@
 package com.github.jinahya.jsonrpc.bind.v2;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.json.bind.annotation.JsonbTransient;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,6 +17,11 @@ public abstract class JsonrpcObject implements Serializable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString() + "{" +
@@ -31,6 +32,12 @@ public abstract class JsonrpcObject implements Serializable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param o the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -44,15 +51,20 @@ public abstract class JsonrpcObject implements Serializable {
                Objects.equals(getId(), that.getId());
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getJsonrpc(), getId());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-    @JsonIgnore
-    @JsonbTransient
-    @AssertTrue
+    //@JsonIgnore
+    //@JsonbTransient
+    //@AssertTrue
     private boolean isIdValid() {
         if (id == null) { // a notification
             return true;
@@ -69,7 +81,7 @@ public abstract class JsonrpcObject implements Serializable {
     // --------------------------------------------------------------------------------------------------------- jsonrpc
 
     /**
-     * Returns the current value of {@code jsonrpc} attribute.
+     * Returns the current value of {@code jsonrpc} attribute which is always {@value #JSONRPC}.
      *
      * @return the current value of {@code jsonrpc} attribute.
      */
@@ -86,16 +98,19 @@ public abstract class JsonrpcObject implements Serializable {
      */
     public Object getId() {
         if (id == null) {
-            return id;
+            return null;
         }
         if (id instanceof String) {
             return id;
         }
-        return ((Number) id).longValue();
+        if (id instanceof Number) {
+            return ((Number) id).longValue();
+        }
+        return id;
     }
 
     /**
-     * Replaces current value of {@code id} attribute with given.
+     * Replaces the current value of {@code id} attribute with given.
      *
      * @param id new value for {@code id} attribute.
      */

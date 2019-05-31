@@ -8,4 +8,9 @@ import java.util.List;
 @Slf4j
 public class PositionalParametersRequest extends RequestObject<List<Long>> {
 
+    @Override
+    public String toString() {
+        final List<Long> params = getParams();
+        return super.toString();
+    }
 }

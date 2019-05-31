@@ -173,8 +173,8 @@ public class ErrorObject<T> implements Serializable {
     @JsonIgnore
     @JsonbTransient
     public boolean isCodeReservedForImplementationDefinedServerErrors() {
-        return code >= MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS
-               && code <= MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
+        return code >= MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS &&
+               code <= MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
     }
 
     // --------------------------------------------------------------------------------------------------------- message

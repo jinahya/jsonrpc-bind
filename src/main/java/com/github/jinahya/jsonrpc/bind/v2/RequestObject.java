@@ -3,7 +3,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;
-import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
@@ -16,8 +16,6 @@ import java.util.Objects;
  */
 public class RequestObject<T> extends JsonrpcObject {
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     @Override
     public String toString() {
         return super.toString() + "{" +
@@ -25,8 +23,6 @@ public class RequestObject<T> extends JsonrpcObject {
                ",params=" + params +
                "}";
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     @Override
     public boolean equals(final Object o) {
@@ -49,30 +45,20 @@ public class RequestObject<T> extends JsonrpcObject {
         return Objects.hash(super.hashCode(), getMethod(), getParams());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
-
     /**
-     * Checks if {@code method} attribute is valid.
+     * Checks if method name is reserved for rpc-internal.
      *
-     * @return {@code true} if valid, {@code false} otherwise
+     * @return {@code true} if {@code method} is reserved for rpc-internal, {@code false} otherwise
      */
     @JsonIgnore
     @JsonbTransient
-    @AssertTrue
-    private boolean isMethodValid() {
-        if (method == null) { // covered by @NotEmpty
-            return true;
-        }
-        if (method.startsWith("rpc.")) {
-            return false;
-        }
-        return true;
+    @AssertFalse
+    private boolean isMethodNameReservedForRpcInternal() {
+        return method != null && method.startsWith("rpc.");
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
-
     /**
-     * Checks if this request object is a notification. This method checks whether the value of {@link #getId()} is
+     * Checks if this request object is a notification. This method checks whether {@link #getId()} method returns
      * {@code null} or not.
      *
      * @return {@code true} if this request object is a notification, {@code false} otherwise
@@ -84,8 +70,6 @@ public class RequestObject<T> extends JsonrpcObject {
     public boolean isNotification() {
         return getId() == null;
     }
-
-    // ---------------------------------------------------------------------------------------------------------- method
 
     /**
      * Returns current value of {@code method} attribute.
@@ -105,8 +89,6 @@ public class RequestObject<T> extends JsonrpcObject {
         this.method = method;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- params
-
     /**
      * Returns current value of {@code params} attribute.
      *
@@ -125,7 +107,6 @@ public class RequestObject<T> extends JsonrpcObject {
         this.params = params;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     @NotEmpty
     private String method;
 
