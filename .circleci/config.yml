@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/jsonrpc-bind
     docker:
-      - image circleci/openjdk:latest
+      - image: circleci/openjdk:latest
     steps:
       - checkout
       - restore_cache:
