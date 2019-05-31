@@ -22,13 +22,12 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * An abstract class for request objects and response objects.
  */
-public abstract class JsonrpcObject implements Serializable {
+public abstract class JsonrpcObject {
 
     /**
      * The fixed value for {@code jsonrpc} attribute. The value is {@value #JSONRPC}.
