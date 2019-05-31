@@ -65,16 +65,16 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns current value of {@code result} attribute.
+     * Returns the current value of {@code result} attribute.
      *
-     * @return current value of {@code result} attribute
+     * @return the current value of {@code result} attribute
      */
     public T getResult() {
         return result;
     }
 
     /**
-     * Replaces value of {@code result} attribute with given.
+     * Replaces the current value of {@code result} attribute with given.
      *
      * @param result new value for {@code result} attribute
      * @see #setResultExclusively(Object)
@@ -100,16 +100,16 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns current value of {@code error} attribute.
+     * Returns the current value of {@code error} attribute.
      *
-     * @return current value of {@code error} attribute
+     * @return the current value of {@code error} attribute
      */
     public U getError() {
         return error;
     }
 
     /**
-     * Replaces value of {@code error} attribute with given.
+     * Replaces the current value of {@code error} attribute with given.
      *
      * @param error new value for {@code error} attribute
      * @see #setErrorExclusively(ErrorObject)

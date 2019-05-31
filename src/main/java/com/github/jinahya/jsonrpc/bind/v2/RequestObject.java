@@ -77,16 +77,16 @@ public class RequestObject<T> extends JsonrpcObject {
     }
 
     /**
-     * Returns current value of {@code method} attribute.
+     * Returns the current value of {@code method} attribute.
      *
-     * @return current value of {@code method} attribute
+     * @return the current value of {@code method} attribute
      */
     public String getMethod() {
         return method;
     }
 
     /**
-     * Replace current value of {@code method} attribute with given.
+     * Replace the current value of {@code method} attribute with given.
      *
      * @param method new value for {@code method} attribute
      */
@@ -95,16 +95,16 @@ public class RequestObject<T> extends JsonrpcObject {
     }
 
     /**
-     * Returns current value of {@code params} attribute.
+     * Returns the current value of {@code params} attribute.
      *
-     * @return current value of {@code params} attribute
+     * @return the current value of {@code params} attribute
      */
     public T getParams() {
         return params;
     }
 
     /**
-     * Replaces current value of {@code params} attribute with given.
+     * Replaces the current value of {@code params} attribute with given.
      *
      * @param params new value for {@code params} attribute
      */

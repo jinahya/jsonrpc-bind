@@ -12,8 +12,7 @@ class NamedParametersRequestTest {
     @Test
     void request01() throws IOException {
         JsonTests.doWithResource(
-                "/examples/jsonrpc_org/v2/named_parameters_01_request.json",
-                NamedParametersRequest.class
+                "/examples/jsonrpc_org/v2/named_parameters_01_request.json", NamedParametersRequest.class
         );
     }
 

@@ -15,8 +15,6 @@ public abstract class JsonrpcObject implements Serializable {
      */
     public static final String JSONRPC = "2.0";
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * Returns a string representation of the object.
      *
@@ -29,8 +27,6 @@ public abstract class JsonrpcObject implements Serializable {
                ",id=" + id +
                "}";
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Indicates whether some other object is "equal to" this one.
@@ -61,25 +57,6 @@ public abstract class JsonrpcObject implements Serializable {
         return Objects.hash(getJsonrpc(), getId());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
-    //@JsonIgnore
-    //@JsonbTransient
-    //@AssertTrue
-    private boolean isIdValid() {
-        if (id == null) { // a notification
-            return true;
-        }
-        if (id instanceof String) {
-            return true;
-        }
-        if (!(id instanceof Number)) {
-            return false;
-        }
-        return true;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- jsonrpc
-
     /**
      * Returns the current value of {@code jsonrpc} attribute which is always {@value #JSONRPC}.
      *
@@ -89,15 +66,13 @@ public abstract class JsonrpcObject implements Serializable {
         return jsonrpc;
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
-
     /**
      * Returns the current value of {@code id} attribute.
      *
      * @return the current value of {@code id} attribute.
      */
     public Object getId() {
-        if (id instanceof Number && !(this.id instanceof Long)) {
+        if (id instanceof Number && !(id instanceof Long)) {
             return ((Number) id).longValue();
         }
         return id;
@@ -115,7 +90,6 @@ public abstract class JsonrpcObject implements Serializable {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     @NotNull
     private final String jsonrpc = JSONRPC;
 
