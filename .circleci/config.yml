@@ -7,12 +7,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: circleci-jsonrpc-bind-{{ checksum "pom.xml" }}
+          key: jsonrpc-bind-{{ checksum "pom.xml" }}
       - run: mvn dependency:go-offline
       - save-cache:
           paths:
             - ~/.m2
-          key: circleci-jsonrpc-bind-{{ checksum "pom.xml" }}
+          key: jsonrpc-bind-{{ checksum "pom.xml" }}
       - run: mvn package
       - store_test_results:
           path: target/surefire-reports
