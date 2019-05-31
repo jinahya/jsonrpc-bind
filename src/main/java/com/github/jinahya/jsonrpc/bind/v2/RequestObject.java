@@ -52,9 +52,9 @@ public class RequestObject<T> extends JsonrpcObject {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Checks if {@code method} attribute is starts with a reserved value for rpc-internal.
+     * Checks if {@code method} attribute is valid.
      *
-     * @return {@code true} if reserved, {@code false} otherwise
+     * @return {@code true} if valid, {@code false} otherwise
      */
     @JsonIgnore
     @JsonbTransient
@@ -72,7 +72,7 @@ public class RequestObject<T> extends JsonrpcObject {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Checks if this request object is a notification. This method check whether the value of {@link #getId()} is
+     * Checks if this request object is a notification. This method checks whether the value of {@link #getId()} is
      * {@code null} or not.
      *
      * @return {@code true} if this request object is a notification, {@code false} otherwise
@@ -97,7 +97,7 @@ public class RequestObject<T> extends JsonrpcObject {
     }
 
     /**
-     * Replaces value of {@code method} attribute with given.
+     * Replace current value of {@code method} attribute with given.
      *
      * @param method new value for {@code method} attribute
      */
@@ -117,7 +117,7 @@ public class RequestObject<T> extends JsonrpcObject {
     }
 
     /**
-     * Replaces value of {@code params} attribute with given.
+     * Replaces current value of {@code params} attribute with given.
      *
      * @param params new value for {@code params} attribute
      */
