@@ -23,6 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;
+import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import java.util.Objects;
 
@@ -159,7 +160,9 @@ public class ResponseObject<T, U extends ErrorObject<?>> extends JsonrpcObject {
         }
     }
 
+    @Valid
     private T result;
 
+    @Valid
     private U error;
 }

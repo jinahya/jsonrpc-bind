@@ -23,6 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;
+import javax.validation.Valid;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
@@ -146,5 +147,6 @@ public class RequestObject<T> extends JsonrpcObject {
     @NotEmpty
     private String method;
 
+    @Valid
     private T params;
 }
