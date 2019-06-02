@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static com.github.jinahya.jsonrpc.bind.v2.BeanValidationUtils.requireValid;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
 @Slf4j
@@ -63,7 +64,10 @@ public final class JacksonUtils {
             throws IOException {
         try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream);
-            return OBJECT_MAPPER.readValue(resourceStream, valueType);
+            final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, valueType));
+            log.debug("value: {}", value);
+            log.debug("json: {}", OBJECT_MAPPER.writeValueAsString(value));
+            return value;
         }
     }
 

@@ -32,7 +32,7 @@ public class ErrorObjectNoDataTest {
 
     @Test
     void assertDataDataReturnsNull() {
-        final ErrorObject<Void> errorObject = new ErrorObject.NoData();
+        final ResponseObject.ErrorObject<Void> errorObject = new ResponseObject.ErrorObject.NoData();
         assertNull(errorObject.getData());
         final Void data;
         try {
@@ -45,7 +45,7 @@ public class ErrorObjectNoDataTest {
             return;
         }
         try {
-            final Field field = ErrorObject.class.getDeclaredField("data");
+            final Field field = ResponseObject.ErrorObject.class.getDeclaredField("data");
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
@@ -68,8 +68,8 @@ public class ErrorObjectNoDataTest {
         } catch (final Exception roe) {
             return;
         }
-        final ErrorObject.NoData errorObject = new ErrorObject.NoData();
+        final ResponseObject.ErrorObject.NoData errorObject = new ResponseObject.ErrorObject.NoData();
         assertThrows(IllegalArgumentException.class, () -> errorObject.setData(data));
-        assertNull(new ErrorObject.NoData().getData());
+        assertNull(new ResponseObject.ErrorObject.NoData().getData());
     }
 }

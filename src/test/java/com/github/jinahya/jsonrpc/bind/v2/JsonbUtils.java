@@ -20,6 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.io.IOException;
@@ -30,8 +32,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static com.github.jinahya.jsonrpc.bind.v2.BeanValidationUtils.requireValid;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Slf4j
 public final class JsonbUtils {
 
     public static final Jsonb JSONB = JsonbBuilder.create();
@@ -70,7 +74,10 @@ public final class JsonbUtils {
             throws IOException {
         try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream);
-            return applyJsonb(v -> v.fromJson(resourceStream, valueType));
+            final T value = requireValid(applyJsonb(v -> v.fromJson(resourceStream, valueType)));
+            log.debug("value: {}", value);
+            log.debug("json: {}", (String) applyJsonb(v -> v.toJson(value)));
+            return value;
         }
     }
 

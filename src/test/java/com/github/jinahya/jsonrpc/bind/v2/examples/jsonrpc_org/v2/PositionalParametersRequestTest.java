@@ -20,24 +20,37 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.JsonTests;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-@Slf4j
-class PositionalParametersRequestTest {
+import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-    @Test
-    void request01() throws IOException {
-        JsonTests.doWithResource("/examples/jsonrpc_org/v2/positional_parameters_01_request.json",
-                                 PositionalParametersRequest.class);
+@Slf4j
+class PositionalParametersRequestTest extends RequestObjectTest<PositionalParametersRequest> {
+
+    PositionalParametersRequestTest() {
+        super(PositionalParametersRequest.class);
     }
 
     @Test
-    void request02() throws IOException {
-        JsonTests.doWithResource("/examples/jsonrpc_org/v2/positional_parameters_02_request.json",
-                                 PositionalParametersRequest.class);
+    void positional_parameters_01_request() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_01_request.json", v -> {
+            assertIterableEquals(asList(42, 23), v.getParams());
+            assertEquals(1L, v.getId());
+        });
+    }
+
+    @Test
+    void positional_parameters_02_request() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_02_request.json", v -> {
+            assertIterableEquals(asList(23, 42), v.getParams());
+            assertEquals(2L, v.getId());
+        });
     }
 }

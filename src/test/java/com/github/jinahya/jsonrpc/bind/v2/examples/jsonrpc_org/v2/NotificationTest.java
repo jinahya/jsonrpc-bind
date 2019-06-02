@@ -20,28 +20,47 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.JsonTests;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.function.Consumer;
 
+import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
-class NotificationTest {
+class NotificationTest extends RequestObjectTest<Notification> {
 
-    @Test
-    void request01() throws IOException {
-        JsonTests.doWithResource("/examples/jsonrpc_org/v2/notification_01_request.json", Notification.class, v -> {
+    NotificationTest() {
+        super(Notification.class);
+    }
+
+    @Override
+    protected void acceptValueFromResource(final String name, final Consumer<? super Notification> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
             assertTrue(v.isNotification());
+            consumer.accept(v);
         });
     }
 
     @Test
-    void request02() throws IOException {
-        JsonTests.doWithResource("/examples/jsonrpc_org/v2/notification_02_request.json", Notification.class, v -> {
-            assertTrue(v.isNotification());
+    void notification_01_request() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/notification_01_request.json", v -> {
+            final List<Integer> params = v.getParams();
+            assertIterableEquals(asList(1, 2, 3, 4, 5), params);
+        });
+    }
+
+    @Test
+    void notification_02_request() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/notification_02_request.json", v -> {
+            assertNull(v.getParams());
         });
     }
 }

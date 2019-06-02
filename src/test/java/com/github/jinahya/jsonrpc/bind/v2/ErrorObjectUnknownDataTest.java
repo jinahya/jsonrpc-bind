@@ -29,23 +29,23 @@ public class ErrorObjectUnknownDataTest {
 
     @Test
     void testGetCode() {
-        final long code = new ErrorObject.UnknownData().getCode();
+        final long code = new ResponseObject.ErrorObject.UnknownData().getCode();
     }
 
     @Test
     void testSetCode() {
-        new ErrorObject.UnknownData().setCode(current().nextLong());
+        new ResponseObject.ErrorObject.UnknownData().setCode(current().nextLong());
     }
 
     @Test
     void testGetMessage() {
-        final String message = new ErrorObject.UnknownData().getMessage();
+        final String message = new ResponseObject.ErrorObject.UnknownData().getMessage();
         assertNull(message);
     }
 
     @Test
     void testSetMessage() {
-        new ErrorObject.UnknownData().setMessage(null);
-        new ErrorObject.UnknownData().setMessage("message");
+        new ResponseObject.ErrorObject.UnknownData().setMessage(null);
+        new ResponseObject.ErrorObject.UnknownData().setMessage("message");
     }
 }

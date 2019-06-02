@@ -20,24 +20,34 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.JsonTests;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-@Slf4j
-class NamedParametersResponseTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    @Test
-    void response01() throws IOException {
-        JsonTests.doWithResource("/examples/jsonrpc_org/v2/named_parameters_01_response.json",
-                                 NamedParametersResponse.class);
+@Slf4j
+class NamedParametersResponseTest extends ResponseObjectTest<NamedParametersResponse> {
+
+    NamedParametersResponseTest() {
+        super(NamedParametersResponse.class);
     }
 
     @Test
-    void response02() throws IOException {
-        JsonTests.doWithResource("/examples/jsonrpc_org/v2/named_parameters_02_response.json",
-                                 NamedParametersResponse.class);
+    void named_parameters_01_response() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_01_response.json", v -> {
+            assertEquals(19, v.getResult());
+            assertEquals(3L, v.getId());
+        });
+    }
+
+    @Test
+    void named_parameters_02_response() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_02_response.json", v -> {
+            assertEquals(19, v.getResult());
+            assertEquals(4L, v.getId());
+        });
     }
 }

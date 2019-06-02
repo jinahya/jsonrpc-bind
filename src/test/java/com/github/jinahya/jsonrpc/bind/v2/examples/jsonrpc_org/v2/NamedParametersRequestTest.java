@@ -20,28 +20,58 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.JsonTests;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NamedParametersRequestTest {
+class NamedParametersRequestTest extends RequestObjectTest<NamedParametersRequest> {
 
-    @Test
-    void request01() throws IOException {
-        JsonTests.doWithResource(
-                "/examples/jsonrpc_org/v2/named_parameters_01_request.json",
-                NamedParametersRequest.class
-        );
+    NamedParametersRequestTest() {
+        super(NamedParametersRequest.class);
+    }
+
+    @Override
+    protected void acceptValueFromResource(final String name, final Consumer<? super NamedParametersRequest> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
+            consumer.accept(v);
+        });
+    }
+
+    @Override
+    protected <U> void acceptValueFromResource(final String name, final Supplier<? extends U> supplier,
+                                               final BiConsumer<? super NamedParametersRequest, ? super U> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, supplier, (v, u) -> {
+            consumer.accept(v, u);
+        });
     }
 
     @Test
-    void request02() throws IOException {
-        JsonTests.doWithResource(
-                "/examples/jsonrpc_org/v2/named_parameters_02_request.json",
-                NamedParametersRequest.class
-        );
+    void named_parameters_01_request() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_01_request.json", v -> {
+            assertEquals("subtract", v.getMethod());
+            assertEquals(23, v.getParams().getSubtrahend());
+            assertEquals(42, v.getParams().getMinuend());
+            assertEquals(3L, v.getId());
+        });
+    }
+
+    @Test
+    void named_parameters_02_request() throws IOException {
+        acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_02_request.json", v -> {
+            assertEquals("subtract", v.getMethod());
+            assertEquals(23, v.getParams().getSubtrahend());
+            assertEquals(42, v.getParams().getMinuend());
+            assertEquals(4L, v.getId());
+        });
     }
 }

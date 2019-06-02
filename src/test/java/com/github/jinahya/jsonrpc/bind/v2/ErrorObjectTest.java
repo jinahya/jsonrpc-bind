@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2;
 
 /*-
  * #%L
@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,12 +20,14 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject;
-import lombok.extern.slf4j.Slf4j;
+import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+public abstract class ErrorObjectTest<T extends ResponseObject.ErrorObject<?>> {
 
-@Slf4j
-public class PositionalParametersRequest extends RequestObject<List<Integer>> {
+    public ErrorObjectTest(final Class<? extends T> errorClass) {
+        super();
+        this.errorClass = requireNonNull(errorClass, "errorClass is null");
+    }
 
+    protected final Class<? extends T> errorClass;
 }

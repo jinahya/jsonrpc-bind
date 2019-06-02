@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2;
 
 /*-
  * #%L
@@ -20,12 +20,12 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject;
-import lombok.extern.slf4j.Slf4j;
+/**
+ * An abstract class for testing subclasses of {@link RequestObject}.
+ */
+public abstract class RequestObjectTest<T extends RequestObject<?>> extends JsonrpcObjectTest<T> {
 
-import java.util.List;
-
-@Slf4j
-public class PositionalParametersRequest extends RequestObject<List<Integer>> {
-
+    public RequestObjectTest(final Class<? extends T> requestClass) {
+        super(requestClass);
+    }
 }

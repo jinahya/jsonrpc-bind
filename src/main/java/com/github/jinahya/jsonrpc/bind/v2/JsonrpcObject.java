@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
@@ -76,6 +77,11 @@ public abstract class JsonrpcObject {
         return Objects.hash(getJsonrpc(), getId());
     }
 
+    @AssertTrue
+    private boolean isIdAnInstanceOfStringOrNumber() {
+        return id == null || id instanceof String || id instanceof Number;
+    }
+
     /**
      * Returns the current value of {@code jsonrpc} attribute which is always {@value #JSONRPC}.
      *
@@ -100,9 +106,6 @@ public abstract class JsonrpcObject {
      * @return the current value of {@code id} attribute.
      */
     public Object getId() {
-        if (id instanceof Number && !(id instanceof Long)) {
-            return ((Number) id).longValue();
-        }
         return id;
     }
 
@@ -113,7 +116,7 @@ public abstract class JsonrpcObject {
      */
     public void setId(final Object id) {
         this.id = id;
-        if (this.id instanceof Number && !(this.id instanceof Long)) {
+        if (this.id != null && this.id instanceof Number && !(this.id instanceof Long)) {
             this.id = ((Number) this.id).longValue();
         }
     }
