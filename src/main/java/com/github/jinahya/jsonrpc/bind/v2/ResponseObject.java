@@ -81,47 +81,6 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
         public static final long MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32000L;
 
         /**
-         * Represents error objects of unknown type of {@code data} attribute.
-         */
-        public static class UnknownData extends ErrorObject<Object> {
-
-        }
-
-        /**
-         * Represents error objects with no value for {@code data} attribute.
-         */
-        public static class NoData extends ErrorObject<Void> {
-
-            /**
-             * {@inheritDoc} The {@code getData} method of {@code NoData} class always returns {@code null}.
-             *
-             * @return {@code null}
-             */
-            @Override
-            public final Void getData() {
-                final Void data = super.getData();
-                if (data != null) {
-                    setData(null);
-                    return getData();
-                }
-                return data;
-            }
-
-            /**
-             * {@inheritDoc} The {@code setData} method of {@code NoData} class does nothing.
-             *
-             * @param data new value for {@code data} attribute
-             */
-            @Override
-            public final void setData(final Void data) {
-                if (data != null) { // https://stackoverflow.com/a/644730/330457
-                    throw new IllegalArgumentException("can't set a non-null data: " + data);
-                }
-                super.setData(data);
-            }
-        }
-
-        /**
          * Returns a string representation of the object.
          *
          * @return a string representation of the object.
