@@ -23,12 +23,15 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Objects;
 
 /**
  * An abstract class for request objects and response objects.
  */
 public abstract class JsonrpcObject {
+
+    public static final String NAME_JSONRPC = "jsonrpc";
+
+    public static final String NAME_ID = "id";
 
     /**
      * The fixed value for {@code jsonrpc} attribute. The value is {@value #JSONRPC}.

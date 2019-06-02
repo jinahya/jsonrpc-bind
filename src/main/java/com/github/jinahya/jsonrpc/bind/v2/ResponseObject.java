@@ -37,6 +37,10 @@ import javax.validation.constraints.NotNull;
  */
 public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends JsonrpcObject {
 
+    public static final String NAME_RESULT = "result";
+
+    public static final String NAME_ERROR = "error";
+
     /**
      * Represents error objects.
      *
@@ -79,6 +83,10 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
          * #MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
          */
         public static final long MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32000L;
+
+        public static class UnknownData extends ErrorObject<Object> {
+
+        }
 
         /**
          * Returns a string representation of the object.

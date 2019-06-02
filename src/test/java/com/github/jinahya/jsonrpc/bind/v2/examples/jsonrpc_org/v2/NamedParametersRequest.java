@@ -32,8 +32,8 @@ public class NamedParametersRequest extends RequestObject<NamedParametersRequest
     @Data
     public static class Params {
 
-        private long minuend;
+        private int minuend;
 
-        private long subtrahend;
+        private int subtrahend;
     }
 }

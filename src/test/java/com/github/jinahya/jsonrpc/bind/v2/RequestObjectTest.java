@@ -20,12 +20,37 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import lombok.extern.slf4j.Slf4j;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.function.Consumer;
+
 /**
  * An abstract class for testing subclasses of {@link RequestObject}.
  */
+@Slf4j
 public abstract class RequestObjectTest<T extends RequestObject<?>> extends JsonrpcObjectTest<T> {
 
     public RequestObjectTest(final Class<? extends T> requestClass) {
         super(requestClass);
+    }
+
+    @Override
+    protected void acceptValueFromResource(final String name, final Consumer<? super T> consumer) throws IOException {
+        super.acceptValueFromResource(name, consumer);
+        try (InputStream resourceStream = RequestObjectTest.class.getResourceAsStream(name)) {
+            try (JsonReader reader = Json.createReader(resourceStream)) {
+                final JsonObject object = reader.readObject();
+                final String method = object.getString(RequestObject.NAME_METHOD);
+                log.debug("method: " + method);
+                final JsonValue paramsValue = object.get(RequestObject.NAME_PARAMS);
+                log.debug("paramsValue: {}", paramsValue);
+            }
+        }
     }
 }

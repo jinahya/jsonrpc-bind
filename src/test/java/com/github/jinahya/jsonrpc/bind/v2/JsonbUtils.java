@@ -72,8 +72,8 @@ public final class JsonbUtils {
      */
     public static <T> T fromResource(final String resourceName, final Class<? extends T> valueType)
             throws IOException {
-        try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
-            assertNotNull(resourceStream);
+        try (InputStream resourceStream = JsonbUtils.class.getResourceAsStream(resourceName)) {
+            assertNotNull(resourceStream, "null resource stream for " + resourceName);
             final T value = requireValid(applyJsonb(v -> v.fromJson(resourceStream, valueType)));
             log.debug("value: {}", value);
             log.debug("json: {}", (String) applyJsonb(v -> v.toJson(value)));

@@ -22,7 +22,6 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
 
 import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

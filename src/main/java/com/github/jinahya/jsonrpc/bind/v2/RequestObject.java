@@ -36,6 +36,10 @@ import javax.validation.constraints.NotEmpty;
  */
 public class RequestObject<T> extends JsonrpcObject {
 
+    public static final String NAME_METHOD = "method";
+
+    public static final String NAME_PARAMS = "params";
+
     /**
      * Returns a string representation of the object.
      *
