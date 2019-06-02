@@ -22,10 +22,28 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+import java.util.function.Consumer;
+
+import static java.util.Optional.ofNullable;
+
 @Slf4j
 public abstract class ResponseObjectTest<T extends ResponseObject<?, ?>> extends JsonrpcObjectTest<ResponseObject> {
 
     public ResponseObjectTest(final Class<? extends T> responseClass) {
         super(responseClass);
+    }
+
+    @Override
+    protected void acceptValueFromResource(final String name, final Consumer<? super ResponseObject> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
+            ofNullable(v.getError()).ifPresent(e -> {
+                final boolean codeReservedForPredefinedErrors = e.isCodeReservedForPredefinedErrors();
+                final boolean codeReservedForImplementationDefinedServerErrors
+                        = e.isCodeReservedForImplementationDefinedServerErrors();
+            });
+            consumer.accept(v);
+        });
     }
 }

@@ -26,7 +26,6 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotEmpty;
-import java.util.Objects;
 
 /**
  * Represents request objects.
@@ -48,38 +47,6 @@ public class RequestObject<T> extends JsonrpcObject {
                "method=" + method +
                ",params=" + params +
                "}";
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     *
-     * @param obj the reference object with which to compare.
-     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof RequestObject)) {
-            return false;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        final RequestObject<?> that = (RequestObject<?>) obj;
-        return Objects.equals(getMethod(), that.getMethod()) &&
-               Objects.equals(getParams(), that.getParams());
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     *
-     * @return a hash code value for this object.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getMethod(), getParams());
     }
 
     /**

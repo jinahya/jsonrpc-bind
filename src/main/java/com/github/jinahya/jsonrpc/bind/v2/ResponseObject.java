@@ -26,7 +26,6 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 /**
  * Represents response objects.
@@ -137,36 +136,6 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
         }
 
         /**
-         * Indicates whether some other object is "equal to" this one.
-         *
-         * @param obj the reference object with which to compare.
-         * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
-         */
-        @Override
-        public boolean equals(final Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (!(obj instanceof ErrorObject)) {
-                return false;
-            }
-            final ErrorObject<?> that = (ErrorObject<?>) obj;
-            return getCode() == that.getCode() &&
-                   Objects.equals(getMessage(), that.getMessage()) &&
-                   Objects.equals(getData(), that.getData());
-        }
-
-        /**
-         * Returns a hash code value for the object.
-         *
-         * @return a hash code value for this object.
-         */
-        @Override
-        public int hashCode() {
-            return Objects.hash(getCode(), getMessage(), getData());
-        }
-
-        /**
          * Returns the current value of {@code code} attribute.
          *
          * @return the current value of {@code code} attribute.
@@ -271,38 +240,6 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
     }
 
     /**
-     * Indicates whether some other object is "equal to" this one.
-     *
-     * @param obj the reference object with which to compare.
-     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof ResponseObject)) {
-            return false;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        final ResponseObject<?, ?> that = (ResponseObject<?, ?>) obj;
-        return Objects.equals(getResult(), that.getResult()) &&
-               Objects.equals(getError(), that.getError());
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     *
-     * @return a hash code value for this object.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getResult(), getError());
-    }
-
-    /**
      * Checks if the {@code result} attribute and the {@code error} attribute are exclusive.
      *
      * @return {@code true} if {@code result} and {@code error} set exclusively, {@code false} otherwise.
@@ -327,24 +264,9 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      * Replaces the current value of {@code result} attribute with given.
      *
      * @param result new value for {@code result} attribute
-     * @see #setResultExclusively(Object)
      */
     public void setResult(final T result) {
         this.result = result;
-    }
-
-    /**
-     * Sets {@code result} attribute exclusively. This method, if given {@code result} is not {@code null}, sets {@code
-     * error} as {@code null}.
-     *
-     * @param result new value for {@code result} attribute
-     * @see #setResult(Object)
-     */
-    public void setResultExclusively(final T result) {
-        setResult(result);
-        if (getResult() != null) {
-            setError(null);
-        }
     }
 
     /**
@@ -360,24 +282,9 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      * Replaces the current value of {@code error} attribute with given.
      *
      * @param error new value for {@code error} attribute
-     * @see #setErrorExclusively(ErrorObject)
      */
     public void setError(final U error) {
         this.error = error;
-    }
-
-    /**
-     * Sets {@code error} attribute exclusively. This method, if given {@code error} is not {@code null}, sets {@code
-     * result} as {@code null}.
-     *
-     * @param error new value for {@code error} attribute
-     * @see #setError(ErrorObject)
-     */
-    public void setErrorExclusively(final U error) {
-        setError(error);
-        if (getError() != null) {
-            setResult(null);
-        }
     }
 
     @Valid
