@@ -88,6 +88,10 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
 
         }
 
+        public static class NoData extends ErrorObject<Void> {
+
+        }
+
         /**
          * Returns a string representation of the object.
          *

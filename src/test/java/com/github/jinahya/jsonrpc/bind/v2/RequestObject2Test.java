@@ -54,10 +54,10 @@ public abstract class RequestObject2Test<T extends RequestObject<U>, U> extends 
                 log.debug("requestObject: {}", requestObject);
                 final String methodValue = requestObject.getString(RequestObject.NAME_METHOD);
                 log.debug("methodValue: " + methodValue);
-                final JsonObject paramsObject = requestObject.getJsonObject(RequestObject.NAME_PARAMS);
-                log.debug("paramsObject: {}", paramsObject);
-                if (paramsObject != null && paramsClass != Void.class) {
-                    final U paramsValue = JsonbUtils.applyJsonb(v -> v.fromJson(paramsObject.toString(), paramsClass));
+                final JsonValue paramsJsonValue = requestObject.get(RequestObject.NAME_PARAMS);
+                log.debug("paramsJsonValue: {}", paramsJsonValue);
+                if (paramsJsonValue != null && paramsClass != Void.class) {
+                    final U paramsValue = JsonbUtils.applyJsonb(v -> v.fromJson(paramsJsonValue.toString(), paramsClass));
                     log.debug("paramsValue: {}", paramsValue);
                 }
                 final JsonValue idValue = requestObject.get(JsonrpcObject.NAME_ID);

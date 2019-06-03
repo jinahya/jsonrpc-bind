@@ -20,21 +20,24 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObject2Test;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 @Slf4j
-class PositionalParametersRequestTest extends RequestObjectTest<PositionalParametersRequest> {
+class PositionalParametersRequestTest extends RequestObject2Test<PositionalParametersRequest, List<Integer>> {
 
+    @SuppressWarnings({"unchecked"})
     PositionalParametersRequestTest() {
-        super(PositionalParametersRequest.class);
+        // https://stackoverflow.com/q/2390662/330457
+        super(PositionalParametersRequest.class, (Class<List<Integer>>) (Class<?>) List.class);
     }
 
     @Test

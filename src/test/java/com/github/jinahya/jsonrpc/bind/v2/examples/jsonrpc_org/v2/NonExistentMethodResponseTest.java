@@ -20,17 +20,18 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject.NoData;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObject2Test;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 @Slf4j
-class NonExistentMethodResponseTest extends ResponseObjectTest<NonExistentMethodResponse> {
+class NonExistentMethodResponseTest extends ResponseObject2Test<NonExistentMethodResponse, Void, NoData, Void> {
 
     NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class);
+        super(NonExistentMethodResponse.class, Void.class, NoData.class, Void.class);
     }
 
     @Test
