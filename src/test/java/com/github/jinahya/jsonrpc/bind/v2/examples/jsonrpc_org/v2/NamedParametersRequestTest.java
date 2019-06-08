@@ -20,7 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject2Test;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NamedParametersRequestTest extends RequestObject2Test<NamedParametersRequest, NamedParametersRequest.Params> {
+class NamedParametersRequestTest extends RequestObjectTest<NamedParametersRequest, NamedParametersRequest.Params> {
 
     NamedParametersRequestTest() {
         super(NamedParametersRequest.class, NamedParametersRequest.Params.class);

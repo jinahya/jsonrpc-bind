@@ -20,7 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject2Test;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 @Slf4j
-class PositionalParametersRequestTest extends RequestObject2Test<PositionalParametersRequest, List<Integer>> {
+class PositionalParametersRequestTest extends RequestObjectTest<PositionalParametersRequest, List<Integer>> {
 
     @SuppressWarnings({"unchecked"})
     PositionalParametersRequestTest() {

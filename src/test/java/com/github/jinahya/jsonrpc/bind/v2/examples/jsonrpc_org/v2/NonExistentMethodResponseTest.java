@@ -20,24 +20,27 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject.NoData;
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject2Test;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject.UnknownData;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 @Slf4j
-class NonExistentMethodResponseTest extends ResponseObject2Test<NonExistentMethodResponse, Void, NoData, Void> {
+class NonExistentMethodResponseTest
+        extends ResponseObjectTest<NonExistentMethodResponse, Void, UnknownData, Object> {
 
     NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class, Void.class, NoData.class, Void.class);
+        super(NonExistentMethodResponse.class, Void.class, UnknownData.class, Void.class);
     }
 
     @Test
-    void non_existent_method_01_request() throws IOException {
+    void non_existent_method_01_response() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/non_existent_method_01_response.json", v -> {
-                });
+                "/examples/jsonrpc_org/v2/non_existent_method_01_response.json",
+                v -> {
+                }
+        );
     }
 }

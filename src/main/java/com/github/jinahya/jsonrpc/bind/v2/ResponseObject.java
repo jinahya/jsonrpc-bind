@@ -52,15 +52,15 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
 
         /**
          * The minimum value for codes reserved for pre-defined errors. The value is {@value
-         * #MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS}.
+         * #MIN_CODE_FOR_PREDEFINED_ERRORS}.
          */
-        public static final long MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS = -32768L;
+        public static final long MIN_CODE_FOR_PREDEFINED_ERRORS = -32768L;
 
         /**
          * The maximum value for codes reserved for pre-defined errors. The value is {@value
-         * #MAX_RESERVED_CODE_FOR_PREDEFINED_ERRORS}.
+         * #MAX_CODE_FOR_PREDEFINED_ERRORS}.
          */
-        public static final long MAX_RESERVED_CODE_FOR_PREDEFINED_ERRORS = -32000L;
+        public static final long MAX_CODE_FOR_PREDEFINED_ERRORS = -32000L;
 
         public static final long CODE_PARSE_ERROR = -32700L;
 
@@ -74,20 +74,24 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
 
         /**
          * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
+         * #MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
          */
-        public static final long MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32099L;
+        public static final long MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32099L;
 
         /**
          * The maximum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
+         * #MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
          */
-        public static final long MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32000L;
+        public static final long MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32000L;
 
+        /**
+         * A class for representing error objects of unknown data types.
+         */
         public static class UnknownData extends ErrorObject<Object> {
 
         }
 
+        @Deprecated
         public static class NoData extends ErrorObject<Void> {
 
         }
@@ -126,21 +130,21 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
 
         /**
          * Checks the current value of {@code code} attribute is for pre-defined errors. This method checks whether the
-         * current value of {@code code} attribute is between {@value #MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS} and
-         * {@value #MAX_RESERVED_CODE_FOR_PREDEFINED_ERRORS} (both inclusive) or not.
+         * current value of {@code code} attribute is between {@value #MIN_CODE_FOR_PREDEFINED_ERRORS} and {@value
+         * #MAX_CODE_FOR_PREDEFINED_ERRORS} (both inclusive) or not.
          *
          * @return {@code true} if the current value of {@code code} attribute is for pre-defined errors.
          */
         @JsonIgnore
         @JsonbTransient
-        public boolean isCodeReservedForPredefinedErrors() {
-            return code >= MIN_RESERVED_CODE_FOR_PREDEFINED_ERRORS && code <= MAX_RESERVED_CODE_FOR_PREDEFINED_ERRORS;
+        public boolean isCodeForPredefinedErrors() {
+            return code >= MIN_CODE_FOR_PREDEFINED_ERRORS && code <= MAX_CODE_FOR_PREDEFINED_ERRORS;
         }
 
         /**
          * Checks the current value of {@code code} attribute is for implementation-defined server errors. This method
          * checks whether the current value of {@code code} attribute is between {@value
-         * #MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS} and {@value #MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}
+         * #MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS} and {@value #MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}
          * (both inclusive) or not.
          *
          * @return {@code true} if the current value of {@code code} attribute is for implementation-defined server
@@ -148,9 +152,9 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
          */
         @JsonIgnore
         @JsonbTransient
-        public boolean isCodeReservedForImplementationDefinedServerErrors() {
-            return code >= MIN_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS &&
-                   code <= MAX_RESERVED_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
+        public boolean isCodeForImplementationDefinedServerErrors() {
+            return code >= MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS &&
+                   code <= MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
         }
 
         /**

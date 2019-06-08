@@ -61,7 +61,7 @@ public class RequestObject<T> extends JsonrpcObject {
     @JsonIgnore
     @JsonbTransient
     @AssertFalse
-    private boolean isMethodNameReservedForRpcInternal() {
+    private boolean isMethodNameForRpcInternal() {
         return method != null && method.startsWith("rpc.");
     }
 

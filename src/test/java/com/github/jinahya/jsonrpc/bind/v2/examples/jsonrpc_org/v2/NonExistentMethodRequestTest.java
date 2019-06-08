@@ -20,14 +20,14 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject2Test;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 @Slf4j
-class NonExistentMethodRequestTest extends RequestObject2Test<NonExistentMethodRequest, Void> {
+class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRequest, Void> {
 
     NonExistentMethodRequestTest() {
         super(NonExistentMethodRequest.class, Void.class);
@@ -35,8 +35,11 @@ class NonExistentMethodRequestTest extends RequestObject2Test<NonExistentMethodR
 
     @Test
     void non_existent_method_01_request() throws IOException {
-        acceptValueFromResource("/examples/jsonrpc_org/v2/non_existent_method_01_request.json", v -> {
-        });
+        acceptValueFromResource(
+                "/examples/jsonrpc_org/v2/non_existent_method_01_request.json",
+                v -> {
+                }
+        );
     }
 }
 

@@ -22,28 +22,60 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.function.Consumer;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 
+/**
+ * An abstract class for testing subclasses of {@link ResponseObject}.
+ *
+ * @param <T> response object type parameter
+ * @param <U> result type parameter
+ * @param <V> error type parameter
+ * @param <W> error data type parameter
+ */
 @Slf4j
-public abstract class ResponseObjectTest<T extends ResponseObject<?, ?>> extends JsonrpcObjectTest<ResponseObject> {
+public abstract class ResponseObjectTest<T extends ResponseObject<U, V>, U, V extends ResponseObject.ErrorObject<W>, W>
+        extends JsonrpcObjectTest<T> {
 
-    public ResponseObjectTest(final Class<? extends T> responseClass) {
+    public ResponseObjectTest(final Class<? extends T> responseClass, final Class<? extends U> resultClass,
+                              final Class<? extends V> errorClass, final Class<? extends W> errorDataClass) {
         super(responseClass);
+        this.resultClass = requireNonNull(resultClass, "resultClass is null");
+        this.errorClass = requireNonNull(errorClass, "errorClass is null");
+        this.errorDataClass = requireNonNull(errorDataClass, "errorDataClass is null");
     }
 
     @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super ResponseObject> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super T> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             ofNullable(v.getError()).ifPresent(e -> {
-                final boolean codeReservedForPredefinedErrors = e.isCodeReservedForPredefinedErrors();
-                final boolean codeReservedForImplementationDefinedServerErrors
-                        = e.isCodeReservedForImplementationDefinedServerErrors();
+                final boolean codeForPredefinedErrors = e.isCodeForPredefinedErrors();
+                final boolean codeForImplementationDefinedServerErrors = e.isCodeForImplementationDefinedServerErrors();
             });
             consumer.accept(v);
         });
+        try (InputStream resourceStream = ResponseObjectTest.class.getResourceAsStream(name)) {
+            try (JsonReader reader = Json.createReader(resourceStream)) {
+                final JsonObject responseObject = reader.readObject();
+                log.debug("responseObject: {}", responseObject);
+                final JsonValue resultValue = responseObject.get(ResponseObject.NAME_RESULT);
+                log.debug("resultValue: {}", resultValue);
+            }
+        }
     }
+
+    protected final Class<? extends U> resultClass;
+
+    protected final Class<? extends V> errorClass;
+
+    protected final Class<? extends W> errorDataClass;
 }

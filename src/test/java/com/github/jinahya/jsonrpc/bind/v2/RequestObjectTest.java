@@ -23,21 +23,29 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.json.Json;
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonString;
 import javax.json.JsonValue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * An abstract class for testing subclasses of {@link RequestObject}.
+ *
+ * @param <T> request object type parameter
+ * @param <U> request object params type parameter
  */
 @Slf4j
-public abstract class RequestObjectTest<T extends RequestObject<?>> extends JsonrpcObjectTest<T> {
+public abstract class RequestObjectTest<T extends RequestObject<U>, U> extends JsonrpcObjectTest<T> {
 
-    public RequestObjectTest(final Class<? extends T> requestClass) {
+    public RequestObjectTest(final Class<? extends T> requestClass, final Class<? extends U> paramsClass) {
         super(requestClass);
+        this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
     }
 
     @Override
@@ -45,12 +53,29 @@ public abstract class RequestObjectTest<T extends RequestObject<?>> extends Json
         super.acceptValueFromResource(name, consumer);
         try (InputStream resourceStream = RequestObjectTest.class.getResourceAsStream(name)) {
             try (JsonReader reader = Json.createReader(resourceStream)) {
-                final JsonObject object = reader.readObject();
-                final String method = object.getString(RequestObject.NAME_METHOD);
-                log.debug("method: " + method);
-                final JsonValue paramsValue = object.get(RequestObject.NAME_PARAMS);
-                log.debug("paramsValue: {}", paramsValue);
+                final JsonObject requestObject = reader.readObject();
+                log.debug("requestObject: {}", requestObject);
+                final String methodValue = requestObject.getString(RequestObject.NAME_METHOD);
+                log.debug("methodValue: " + methodValue);
+                final JsonValue paramsJsonValue = requestObject.get(RequestObject.NAME_PARAMS);
+                log.debug("paramsJsonValue: {}", paramsJsonValue);
+                if (paramsJsonValue != null && paramsClass != Void.class) {
+                    final U paramsValue = JsonbUtils.applyJsonb(
+                            v -> v.fromJson(paramsJsonValue.toString(), paramsClass));
+                    log.debug("paramsValue: {}", paramsValue);
+                }
+                final JsonValue idValue = requestObject.get(JsonrpcObject.NAME_ID);
+                log.debug("idValue: {}", idValue);
+                if (idValue != null) {
+                    if (idValue.getValueType() == JsonValue.ValueType.STRING) {
+                        log.debug("id as String: {}", ((JsonString) idValue).getString());
+                    } else if (idValue.getValueType() == JsonValue.ValueType.NUMBER) {
+                        log.debug("id as Number: {}", ((JsonNumber) idValue).bigIntegerValueExact());
+                    }
+                }
             }
         }
     }
+
+    protected final Class<? extends U> paramsClass;
 }

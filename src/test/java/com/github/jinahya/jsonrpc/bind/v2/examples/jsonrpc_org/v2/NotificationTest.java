@@ -34,10 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
-class NotificationTest extends RequestObjectTest<Notification> {
+class NotificationTest extends RequestObjectTest<Notification, List<Integer>> {
 
+    @SuppressWarnings({"unchecked"})
     NotificationTest() {
-        super(Notification.class);
+        super(Notification.class, (Class<List<Integer>>) (Class<?>) List.class);
     }
 
     @Override

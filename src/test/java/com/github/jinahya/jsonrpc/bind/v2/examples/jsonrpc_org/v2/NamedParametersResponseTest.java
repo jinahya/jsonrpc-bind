@@ -21,7 +21,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  */
 
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject2Test;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,8 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NamedParametersResponseTest extends ResponseObject2Test<NamedParametersResponse, Integer, ResponseObject.ErrorObject.UnknownData, Object> {
+class NamedParametersResponseTest
+        extends ResponseObjectTest<NamedParametersResponse, Integer, ResponseObject.ErrorObject<Object>, Object> {
 
     NamedParametersResponseTest() {
         super(NamedParametersResponse.class, Integer.class, ResponseObject.ErrorObject.UnknownData.class, Object.class);
