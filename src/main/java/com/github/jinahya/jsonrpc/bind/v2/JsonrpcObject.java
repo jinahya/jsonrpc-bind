@@ -56,13 +56,6 @@ public abstract class JsonrpcObject<IdType> {
                + "}";
     }
 
-//    @JsonIgnore
-//    @JsonbTransient
-//    @AssertTrue(message = "id must be a Number or String")
-//    private boolean isIdAnInstanceOfStringOrNumber() {
-//        return id == null || id instanceof String || id instanceof Number;
-//    }
-
     /**
      * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} attribute.
      *
