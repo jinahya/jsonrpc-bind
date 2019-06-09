@@ -27,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NamedParametersRequest extends RequestObject<Integer, NamedParametersRequest.Params> {
 
-    public static final String METHOD = "subtract";
-
     @Data
     public static class Params {
 

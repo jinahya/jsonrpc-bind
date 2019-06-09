@@ -32,6 +32,8 @@ import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * An abstract class for testing subclasses of {@link ResponseObject}.
@@ -65,9 +67,29 @@ public abstract class ResponseObjectTest<
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
+            ofNullable(v.getResult()).ifPresent(r -> {
+                try {
+                    v.setError(errorClass.getConstructor().newInstance());
+                    assertNotNull(v.getError());
+                    v.setResult(r);
+                    assertNotNull(v.getError());
+                    v.setResultExclusively(r);
+                    assertNull(v.getError());
+                } catch (final ReflectiveOperationException roe) {
+                    roe.printStackTrace();
+                }
+            });
             ofNullable(v.getError()).ifPresent(e -> {
-                final boolean codeForPredefinedErrors = e.isCodeForPredefinedErrors();
-                final boolean codeForImplementationDefinedServerErrors = e.isCodeForImplementationDefinedServerErrors();
+                try {
+                    v.setResult(resultClass.getConstructor().newInstance());
+                    assertNotNull(v.getResult());
+                    v.setError(e);
+                    assertNotNull(v.getResult());
+                    v.setErrorExclusively(e);
+                    assertNull(v.getResult());
+                } catch (final ReflectiveOperationException roe) {
+                    roe.printStackTrace();
+                }
             });
             consumer.accept(v);
         });

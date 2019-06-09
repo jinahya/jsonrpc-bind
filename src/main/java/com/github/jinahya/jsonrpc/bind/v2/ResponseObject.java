@@ -129,34 +129,34 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
             this.code = code;
         }
 
-        /**
-         * Checks the current value of {@code code} attribute is for pre-defined errors. This method checks whether the
-         * current value of {@code code} attribute is between {@value #MIN_CODE_FOR_PREDEFINED_ERRORS} and {@value
-         * #MAX_CODE_FOR_PREDEFINED_ERRORS} (both inclusive) or not.
-         *
-         * @return {@code true} if the current value of {@code code} attribute is for pre-defined errors.
-         */
-        @JsonIgnore
-        @JsonbTransient
-        public boolean isCodeForPredefinedErrors() {
-            return code >= MIN_CODE_FOR_PREDEFINED_ERRORS && code <= MAX_CODE_FOR_PREDEFINED_ERRORS;
-        }
+//        /**
+//         * Checks the current value of {@code code} attribute is for pre-defined errors. This method checks whether the
+//         * current value of {@code code} attribute is between {@value #MIN_CODE_FOR_PREDEFINED_ERRORS} and {@value
+//         * #MAX_CODE_FOR_PREDEFINED_ERRORS} (both inclusive) or not.
+//         *
+//         * @return {@code true} if the current value of {@code code} attribute is for pre-defined errors.
+//         */
+//        @JsonIgnore
+//        @JsonbTransient
+//        public boolean isCodeForPredefinedErrors() {
+//            return code >= MIN_CODE_FOR_PREDEFINED_ERRORS && code <= MAX_CODE_FOR_PREDEFINED_ERRORS;
+//        }
 
-        /**
-         * Checks the current value of {@code code} attribute is for implementation-defined server errors. This method
-         * checks whether the current value of {@code code} attribute is between {@value
-         * #MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS} and {@value #MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}
-         * (both inclusive) or not.
-         *
-         * @return {@code true} if the current value of {@code code} attribute is for implementation-defined server
-         * errors.
-         */
-        @JsonIgnore
-        @JsonbTransient
-        public boolean isCodeForImplementationDefinedServerErrors() {
-            return code >= MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS &&
-                   code <= MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
-        }
+//        /**
+//         * Checks the current value of {@code code} attribute is for implementation-defined server errors. This method
+//         * checks whether the current value of {@code code} attribute is between {@value
+//         * #MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS} and {@value #MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}
+//         * (both inclusive) or not.
+//         *
+//         * @return {@code true} if the current value of {@code code} attribute is for implementation-defined server
+//         * errors.
+//         */
+//        @JsonIgnore
+//        @JsonbTransient
+//        public boolean isCodeForImplementationDefinedServerErrors() {
+//            return code >= MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS &&
+//                   code <= MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
+//        }
 
         /**
          * Returns the current value of {@code message} attribute.

@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -53,6 +54,7 @@ class NotificationTest extends RequestObjectTest<Notification, Object, List<Inte
     @Test
     void notification_01_request() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/notification_01_request.json", v -> {
+            assertEquals("update", v.getMethod());
             final List<Integer> params = v.getParams();
             assertIterableEquals(asList(1, 2, 3, 4, 5), params);
         });
@@ -61,6 +63,7 @@ class NotificationTest extends RequestObjectTest<Notification, Object, List<Inte
     @Test
     void notification_02_request() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/notification_02_request.json", v -> {
+            assertEquals("foobar", v.getMethod());
             assertNull(v.getParams());
         });
     }

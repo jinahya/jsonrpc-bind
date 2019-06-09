@@ -52,8 +52,7 @@ public abstract class AbstractResponseObjectTest<ObjectType extends ResponseObje
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             ofNullable(v.getError()).ifPresent(e -> {
-                final boolean codeForPredefinedErrors = e.isCodeForPredefinedErrors();
-                final boolean codeForImplementationDefinedServerErrors = e.isCodeForImplementationDefinedServerErrors();
+                e.setData(e.getData());
             });
             consumer.accept(v);
         });
