@@ -47,10 +47,10 @@ public class RequestObject<T> extends JsonrpcObject {
      */
     @Override
     public String toString() {
-        return super.toString() + "{" +
-               "method=" + method +
-               ",params=" + params +
-               "}";
+        return super.toString() + "{"
+               + "method=" + method
+               + ",params=" + params
+               + "}";
     }
 
     /**
