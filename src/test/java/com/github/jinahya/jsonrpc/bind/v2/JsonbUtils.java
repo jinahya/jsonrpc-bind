@@ -75,8 +75,8 @@ public final class JsonbUtils {
         try (InputStream resourceStream = JsonbUtils.class.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
             final T value = requireValid(applyJsonb(v -> v.fromJson(resourceStream, valueType)));
-            log.debug("value: {}", value);
-            log.debug("json: {}", (String) applyJsonb(v -> v.toJson(value)));
+            log.debug("jsonb: {}", value);
+            log.debug("jsonb: {}", (String) applyJsonb(v -> v.toJson(value)));
             return value;
         }
     }

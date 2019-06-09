@@ -20,10 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
@@ -32,16 +30,17 @@ import java.math.BigInteger;
 /**
  * An abstract class for request objects and response objects.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class JsonrpcObject {
 
-    public static final String NAME_JSONRPC = "jsonrpc";
+    public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
-    public static final String NAME_ID = "id";
+    public static final String PROPERTY_NAME_ID = "id";
 
     /**
-     * The fixed value for {@value #NAME_JSONRPC} attribute. The value is {@value #VALUE_JSONRPC}.
+     * The fixed value for {@value #PROPERTY_NAME_JSONRPC} attribute. The value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
-    public static final String VALUE_JSONRPC = "2.0";
+    public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
     /**
      * Returns a string representation of the object.
@@ -50,23 +49,23 @@ public abstract class JsonrpcObject {
      */
     @Override
     public String toString() {
-        return super.toString() + "{" +
-               "jsonrpc=" + jsonrpc +
-               ",id=" + id +
-               "}";
+        return super.toString() + "{"
+               + "jsonrpc=" + jsonrpc
+               + ",id=" + id
+               + "}";
     }
 
-    @JsonIgnore
-    @JsonbTransient
-    @AssertTrue(message = "id must be a Number or String")
-    private boolean isIdAnInstanceOfStringOrNumber() {
-        return id == null || id instanceof String || id instanceof Number;
-    }
+//    @JsonIgnore
+//    @JsonbTransient
+//    @AssertTrue(message = "id must be a Number or String")
+//    private boolean isIdAnInstanceOfStringOrNumber() {
+//        return id == null || id instanceof String || id instanceof Number;
+//    }
 
     /**
-     * Returns the current value of {@value #NAME_JSONRPC} attribute.
+     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} attribute.
      *
-     * @return the current value of {@value #NAME_JSONRPC} attribute.
+     * @return the current value of {@value #PROPERTY_NAME_JSONRPC} attribute.
      */
     public String getJsonrpc() {
         return jsonrpc;
@@ -116,10 +115,9 @@ public abstract class JsonrpcObject {
         }
     }
 
-    @Pattern(regexp = VALUE_JSONRPC)
+    @Pattern(regexp = PROPERTY_VALUE_JSONRPC)
     @NotNull
-    private String jsonrpc = VALUE_JSONRPC;
+    private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 
-    // null for a notification
     private Object id;
 }

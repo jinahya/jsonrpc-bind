@@ -67,7 +67,7 @@ public abstract class ResponseObjectTest<T extends ResponseObject<U, V>, U, V ex
             try (JsonReader reader = Json.createReader(resourceStream)) {
                 final JsonObject responseObject = reader.readObject();
                 log.debug("responseObject: {}", responseObject);
-                final JsonValue resultValue = responseObject.get(ResponseObject.NAME_RESULT);
+                final JsonValue resultValue = responseObject.get(ResponseObject.PROPERTY_NAME_RESULT);
                 log.debug("resultValue: {}", resultValue);
             }
         }

@@ -37,9 +37,9 @@ import javax.validation.constraints.NotNull;
  */
 public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends JsonrpcObject {
 
-    public static final String NAME_RESULT = "result";
+    public static final String PROPERTY_NAME_RESULT = "result";
 
-    public static final String NAME_ERROR = "error";
+    public static final String PROPERTY_NAME_ERROR = "error";
 
     /**
      * Represents error objects.
@@ -103,11 +103,11 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
          */
         @Override
         public String toString() {
-            return super.toString() + "{" +
-                   "code=" + code +
-                   ",message=" + message +
-                   ",data=" + data +
-                   "}";
+            return super.toString() + "{"
+                   + "code=" + code
+                   + ",message=" + message
+                   + ",data=" + data
+                   + "}";
         }
 
         /**
@@ -208,10 +208,10 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      */
     @Override
     public String toString() {
-        return super.toString() + "{" +
-               "result=" + result +
-               ",error=" + error +
-               "}";
+        return super.toString() + "{"
+               + "result=" + result
+               + ",error=" + error
+               + "}";
     }
 
     /**
@@ -244,6 +244,13 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
         this.result = result;
     }
 
+    public void setResultExclusively(final T result) {
+        setResult(result);
+        if (getResult() != null) {
+            setError(null);
+        }
+    }
+
     /**
      * Returns the current value of {@code error} attribute.
      *
@@ -260,6 +267,13 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      */
     public void setError(final U error) {
         this.error = error;
+    }
+
+    public void setErrorExclusively(final U error) {
+        setError(error);
+        if (getError() != null) {
+            setResult(null);
+        }
     }
 
     @Valid

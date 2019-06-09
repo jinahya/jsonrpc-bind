@@ -36,9 +36,9 @@ import javax.validation.constraints.NotEmpty;
  */
 public class RequestObject<T> extends JsonrpcObject {
 
-    public static final String NAME_METHOD = "method";
+    public static final String PROPERTY_NAME_METHOD = "method";
 
-    public static final String NAME_PARAMS = "params";
+    public static final String PROPERTY_NAME_PARAMS = "params";
 
     /**
      * Returns a string representation of the object.
@@ -53,17 +53,17 @@ public class RequestObject<T> extends JsonrpcObject {
                + "}";
     }
 
-    /**
-     * Checks if method name is reserved for rpc-internal.
-     *
-     * @return {@code true} if {@code method} is reserved for rpc-internal, {@code false} otherwise
-     */
-    @JsonIgnore
-    @JsonbTransient
-    @AssertFalse
-    private boolean isMethodNameForRpcInternal() {
-        return method != null && method.startsWith("rpc.");
-    }
+//    /**
+//     * Checks if method name is reserved for rpc-internal.
+//     *
+//     * @return {@code true} if {@code method} is reserved for rpc-internal, {@code false} otherwise
+//     */
+//    @JsonIgnore
+//    @JsonbTransient
+//    @AssertFalse
+//    private boolean isMethodNameForRpcInternal() {
+//        return method != null && method.startsWith("rpc.");
+//    }
 
     /**
      * Checks if this request object is a notification. This method checks whether {@link #getId()} method returns

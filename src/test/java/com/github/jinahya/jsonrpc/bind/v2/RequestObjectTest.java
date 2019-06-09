@@ -55,16 +55,16 @@ public abstract class RequestObjectTest<T extends RequestObject<U>, U> extends J
             try (JsonReader reader = Json.createReader(resourceStream)) {
                 final JsonObject requestObject = reader.readObject();
                 log.debug("requestObject: {}", requestObject);
-                final String methodValue = requestObject.getString(RequestObject.NAME_METHOD);
+                final String methodValue = requestObject.getString(RequestObject.PROPERTY_NAME_METHOD);
                 log.debug("methodValue: " + methodValue);
-                final JsonValue paramsJsonValue = requestObject.get(RequestObject.NAME_PARAMS);
+                final JsonValue paramsJsonValue = requestObject.get(RequestObject.PROPERTY_NAME_PARAMS);
                 log.debug("paramsJsonValue: {}", paramsJsonValue);
                 if (paramsJsonValue != null && paramsClass != Void.class) {
                     final U paramsValue = JsonbUtils.applyJsonb(
                             v -> v.fromJson(paramsJsonValue.toString(), paramsClass));
                     log.debug("paramsValue: {}", paramsValue);
                 }
-                final JsonValue idValue = requestObject.get(JsonrpcObject.NAME_ID);
+                final JsonValue idValue = requestObject.get(JsonrpcObject.PROPERTY_NAME_ID);
                 log.debug("idValue: {}", idValue);
                 if (idValue != null) {
                     if (idValue.getValueType() == JsonValue.ValueType.STRING) {

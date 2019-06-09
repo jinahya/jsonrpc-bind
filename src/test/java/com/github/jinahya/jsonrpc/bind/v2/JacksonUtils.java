@@ -65,8 +65,8 @@ public final class JacksonUtils {
         try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
             final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, valueType));
-            log.debug("value: {}", value);
-            log.debug("json: {}", OBJECT_MAPPER.writeValueAsString(value));
+            log.debug("jackson: {}", value);
+            log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(value));
             return value;
         }
     }
