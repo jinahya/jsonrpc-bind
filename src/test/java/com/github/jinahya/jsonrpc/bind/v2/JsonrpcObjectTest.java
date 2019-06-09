@@ -30,28 +30,32 @@ import static java.util.Objects.requireNonNull;
 /**
  * An abstract class for testing subclasses of {@link JsonrpcObject}.
  *
- * @param <T> subclass type parameter
+ * @param <ObjectType> subclass type parameter
+ * @param <IdType>     id type parameter
  */
-abstract class JsonrpcObjectTest<T extends JsonrpcObject> {
+abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdType> {
 
-    JsonrpcObjectTest(final Class<? extends T> objectClass) {
+    JsonrpcObjectTest(final Class<? extends ObjectType> objectClass, final Class<? extends IdType> idClass) {
         super();
         this.objectClass = requireNonNull(objectClass, "objectClass is null");
+        this.idClass = requireNonNull(idClass, "idClass is null");
     }
 
-    protected void acceptValueFromResource(final String name, final Consumer<? super T> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         consumer.accept(JsonbUtils.fromResource(name, objectClass));
         consumer.accept(JacksonUtils.readResource(name, objectClass));
     }
 
     protected <U> void acceptValueFromResource(final String name, final Supplier<? extends U> supplier,
-                                               final BiConsumer<? super T, ? super U> consumer)
+                                               final BiConsumer<? super ObjectType, ? super U> consumer)
             throws IOException {
         acceptValueFromResource(name, v -> {
             consumer.accept(v, supplier.get());
         });
     }
 
-    protected final Class<? extends T> objectClass;
+    protected final Class<? extends ObjectType> objectClass;
+
+    protected final Class<? extends IdType> idClass;
 }

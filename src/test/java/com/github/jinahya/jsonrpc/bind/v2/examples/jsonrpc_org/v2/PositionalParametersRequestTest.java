@@ -32,19 +32,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 @Slf4j
-class PositionalParametersRequestTest extends RequestObjectTest<PositionalParametersRequest, List<Integer>> {
+class PositionalParametersRequestTest extends RequestObjectTest<PositionalParametersRequest, Integer, List<Integer>> {
 
     @SuppressWarnings({"unchecked"})
     PositionalParametersRequestTest() {
         // https://stackoverflow.com/q/2390662/330457
-        super(PositionalParametersRequest.class, (Class<List<Integer>>) (Class<?>) List.class);
+        super(PositionalParametersRequest.class, Integer.class, (Class<List<Integer>>) (Class<?>) List.class);
     }
 
     @Test
     void positional_parameters_01_request() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_01_request.json", v -> {
             assertIterableEquals(asList(42, 23), v.getParams());
-            assertEquals(1L, v.getId());
+            assertEquals(1, v.getId());
         });
     }
 
@@ -52,7 +52,7 @@ class PositionalParametersRequestTest extends RequestObjectTest<PositionalParame
     void positional_parameters_02_request() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_02_request.json", v -> {
             assertIterableEquals(asList(23, 42), v.getParams());
-            assertEquals(2L, v.getId());
+            assertEquals(2, v.getId());
         });
     }
 }

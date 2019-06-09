@@ -24,6 +24,6 @@ import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class NamedParametersResponse extends ResponseObject<Integer, ResponseObject.ErrorObject<Object>> {
+public class NamedParametersResponse extends ResponseObject<Integer, Integer, ResponseObject.ErrorObject<Object>> {
 
 }

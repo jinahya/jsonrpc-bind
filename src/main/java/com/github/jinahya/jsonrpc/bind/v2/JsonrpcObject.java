@@ -22,16 +22,17 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 /**
  * An abstract class for request objects and response objects.
+ *
+ * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public abstract class JsonrpcObject {
+public abstract class JsonrpcObject<IdType> {
 
     public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
@@ -94,30 +95,14 @@ public abstract class JsonrpcObject {
      *
      * @param id new value for {@code id} attribute.
      */
-    public void setId(final Object id) {
+    public void setId(final IdType id) {
         this.id = id;
-        if (this.id != null && !(this.id instanceof String)) {
-            if (this.id instanceof BigDecimal) {
-                try {
-                    this.id = ((BigDecimal) this.id).longValueExact();
-                } catch (final ArithmeticException ae) {
-                    // empty
-                }
-            } else if (this.id instanceof BigInteger) {
-                try {
-                    this.id = ((BigInteger) this.id).longValueExact();
-                } catch (final ArithmeticException ae) {
-                    // empty
-                }
-            } else if (this.id instanceof Number && !(this.id instanceof Long)) {
-                this.id = ((Number) this.id).longValue();
-            }
-        }
     }
 
     @Pattern(regexp = PROPERTY_VALUE_JSONRPC)
     @NotNull
     private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 
-    private Object id;
+    @Valid
+    private IdType id;
 }

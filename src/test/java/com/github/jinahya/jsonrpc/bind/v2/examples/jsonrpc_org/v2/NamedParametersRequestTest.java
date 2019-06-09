@@ -32,10 +32,11 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NamedParametersRequestTest extends RequestObjectTest<NamedParametersRequest, NamedParametersRequest.Params> {
+class NamedParametersRequestTest
+        extends RequestObjectTest<NamedParametersRequest, Integer, NamedParametersRequest.Params> {
 
     NamedParametersRequestTest() {
-        super(NamedParametersRequest.class, NamedParametersRequest.Params.class);
+        super(NamedParametersRequest.class, Integer.class, NamedParametersRequest.Params.class);
     }
 
     @Override
@@ -61,7 +62,7 @@ class NamedParametersRequestTest extends RequestObjectTest<NamedParametersReques
             assertEquals("subtract", v.getMethod());
             assertEquals(23, v.getParams().getSubtrahend());
             assertEquals(42, v.getParams().getMinuend());
-            assertEquals(3L, v.getId());
+            assertEquals(3, v.getId());
         });
     }
 
@@ -71,7 +72,7 @@ class NamedParametersRequestTest extends RequestObjectTest<NamedParametersReques
             assertEquals("subtract", v.getMethod());
             assertEquals(23, v.getParams().getSubtrahend());
             assertEquals(42, v.getParams().getMinuend());
-            assertEquals(4L, v.getId());
+            assertEquals(4, v.getId());
         });
     }
 }

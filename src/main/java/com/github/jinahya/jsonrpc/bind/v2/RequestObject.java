@@ -24,17 +24,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
-import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotEmpty;
 
 /**
  * Represents request objects.
  *
- * @param <T> {@code params} type parameter
+ * @param <ParamsType> {@value #PROPERTY_NAME_PARAMS} type parameter
  * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class RequestObject<T> extends JsonrpcObject {
+public class RequestObject<IdType, ParamsType> extends JsonrpcObject<IdType> {
 
     public static final String PROPERTY_NAME_METHOD = "method";
 
@@ -102,7 +101,7 @@ public class RequestObject<T> extends JsonrpcObject {
      *
      * @return the current value of {@code params} attribute
      */
-    public T getParams() {
+    public ParamsType getParams() {
         return params;
     }
 
@@ -111,7 +110,7 @@ public class RequestObject<T> extends JsonrpcObject {
      *
      * @param params new value for {@code params} attribute
      */
-    public void setParams(final T params) {
+    public void setParams(final ParamsType params) {
         this.params = params;
     }
 
@@ -119,5 +118,5 @@ public class RequestObject<T> extends JsonrpcObject {
     private String method;
 
     @Valid
-    private T params;
+    private ParamsType params;
 }

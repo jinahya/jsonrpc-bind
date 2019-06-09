@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Consumer;
 
-import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -38,27 +37,14 @@ import static java.util.Optional.ofNullable;
  *
  * @param <ObjectType> response object type parameter
  * @param <IdType>     id type parameter
- * @param <ResultType> result type parameter
- * @param <ErrorType>  error type parameter
- * @param <DataType>   error data type parameter
  */
 @Slf4j
-public abstract class ResponseObjectTest<
-        ObjectType extends ResponseObject<IdType, ResultType, ErrorType>,
-        IdType,
-        ResultType,
-        ErrorType extends ResponseObject.ErrorObject<DataType>,
-        DataType>
-        extends AbstractResponseObjectTest<ObjectType, IdType> {
+public abstract class AbstractResponseObjectTest<ObjectType extends ResponseObject<IdType, ?, ?>, IdType>
+        extends JsonrpcObjectTest<ObjectType, IdType> {
 
-    public ResponseObjectTest(final Class<? extends ObjectType> responseClass, final Class<? extends IdType> idClass,
-                              final Class<? extends ResultType> resultClass,
-                              final Class<? extends ErrorType> errorClass,
-                              final Class<? extends DataType> errorDataClass) {
+    public AbstractResponseObjectTest(final Class<? extends ObjectType> responseClass,
+                                      final Class<? extends IdType> idClass) {
         super(responseClass, idClass);
-        this.resultClass = requireNonNull(resultClass, "resultClass is null");
-        this.errorClass = requireNonNull(errorClass, "errorClass is null");
-        this.errorDataClass = requireNonNull(errorDataClass, "errorDataClass is null");
     }
 
     @Override
@@ -71,7 +57,7 @@ public abstract class ResponseObjectTest<
             });
             consumer.accept(v);
         });
-        try (InputStream resourceStream = ResponseObjectTest.class.getResourceAsStream(name)) {
+        try (InputStream resourceStream = getClass().getResourceAsStream(name)) {
             try (JsonReader reader = Json.createReader(resourceStream)) {
                 final JsonObject responseObject = reader.readObject();
                 log.debug("responseObject: {}", responseObject);
@@ -80,10 +66,4 @@ public abstract class ResponseObjectTest<
             }
         }
     }
-
-    protected final Class<? extends ResultType> resultClass;
-
-    protected final Class<? extends ErrorType> errorClass;
-
-    protected final Class<? extends DataType> errorDataClass;
 }

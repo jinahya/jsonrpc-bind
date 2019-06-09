@@ -32,17 +32,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class PositionalParametersResponseTest
-        extends ResponseObjectTest<PositionalParametersResponse, Integer, ErrorObject<Object>, Object> {
+        extends ResponseObjectTest<PositionalParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
 
     PositionalParametersResponseTest() {
-        super(PositionalParametersResponse.class, Integer.class, UnknownData.class, Object.class);
+        super(PositionalParametersResponse.class, Integer.class, Integer.class, UnknownData.class, Object.class);
     }
 
     @Test
     void positional_parameters_01_response() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_01_response.json", v -> {
             assertEquals(19, v.getResult());
-            assertEquals(1L, v.getId());
+            assertEquals(1, v.getId());
         });
     }
 
@@ -50,7 +50,7 @@ class PositionalParametersResponseTest
     void positional_parameters_02_response() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_02_response.json", v -> {
             assertEquals(-19, v.getResult());
-            assertEquals(2L, v.getId());
+            assertEquals(2, v.getId());
         });
     }
 }

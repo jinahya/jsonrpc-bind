@@ -20,28 +20,29 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
+import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject.UnknownData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class NamedParametersResponseTest
-        extends ResponseObjectTest<NamedParametersResponse, Integer, ResponseObject.ErrorObject<Object>, Object> {
+        extends ResponseObjectTest<NamedParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
 
     NamedParametersResponseTest() {
-        super(NamedParametersResponse.class, Integer.class, ResponseObject.ErrorObject.UnknownData.class, Object.class);
+        super(NamedParametersResponse.class, Integer.class, Integer.class, UnknownData.class, Object.class);
     }
 
     @Test
     void named_parameters_01_response() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_01_response.json", v -> {
             assertEquals(19, v.getResult());
-            assertEquals(3L, v.getId());
+            assertEquals(3, v.getId());
         });
     }
 
@@ -49,7 +50,7 @@ class NamedParametersResponseTest
     void named_parameters_02_response() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_02_response.json", v -> {
             assertEquals(19, v.getResult());
-            assertEquals(4L, v.getId());
+            assertEquals(4, v.getId());
         });
     }
 }

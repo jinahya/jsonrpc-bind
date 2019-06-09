@@ -21,11 +21,10 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  */
 
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
-
 @Slf4j
-public class PositionalParametersResponse extends ResponseObject<Integer, ErrorObject<Object>> {
+public class PositionalParametersResponse extends ResponseObject<Integer, Integer, ErrorObject<Object>> {
 
 }

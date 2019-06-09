@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 @Slf4j
-class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRequest, Void> {
+class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRequest, String, Object> {
 
     NonExistentMethodRequestTest() {
-        super(NonExistentMethodRequest.class, Void.class);
+        super(NonExistentMethodRequest.class, String.class, Object.class);
     }
 
     @Test

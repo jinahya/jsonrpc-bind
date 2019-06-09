@@ -24,6 +24,6 @@ import com.github.jinahya.jsonrpc.bind.v2.RequestObject;
 
 import java.util.List;
 
-public class Notification extends RequestObject<List<Integer>> {
+public class Notification extends RequestObject<Object, List<Integer>> {
 
 }

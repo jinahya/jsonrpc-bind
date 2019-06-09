@@ -37,19 +37,22 @@ import static java.util.Objects.requireNonNull;
 /**
  * An abstract class for testing subclasses of {@link RequestObject}.
  *
- * @param <T> request object type parameter
- * @param <U> request object params type parameter
+ * @param <ObjectType> request object type parameter
+ * @param <ParamsType> request object params type parameter
  */
 @Slf4j
-public abstract class RequestObjectTest<T extends RequestObject<U>, U> extends JsonrpcObjectTest<T> {
+public abstract class RequestObjectTest<ObjectType extends RequestObject<IdType, ParamsType>, IdType, ParamsType>
+        extends AbstractRequestObjectTest<ObjectType, IdType> {
 
-    public RequestObjectTest(final Class<? extends T> requestClass, final Class<? extends U> paramsClass) {
-        super(requestClass);
+    public RequestObjectTest(final Class<? extends ObjectType> requestClass, final Class<? extends IdType> idClass,
+                             final Class<? extends ParamsType> paramsClass) {
+        super(requestClass, idClass);
         this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
     }
 
     @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super T> consumer) throws IOException {
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
+            throws IOException {
         super.acceptValueFromResource(name, consumer);
         try (InputStream resourceStream = RequestObjectTest.class.getResourceAsStream(name)) {
             try (JsonReader reader = Json.createReader(resourceStream)) {
@@ -60,7 +63,7 @@ public abstract class RequestObjectTest<T extends RequestObject<U>, U> extends J
                 final JsonValue paramsJsonValue = requestObject.get(RequestObject.PROPERTY_NAME_PARAMS);
                 log.debug("paramsJsonValue: {}", paramsJsonValue);
                 if (paramsJsonValue != null && paramsClass != Void.class) {
-                    final U paramsValue = JsonbUtils.applyJsonb(
+                    final ParamsType paramsValue = JsonbUtils.applyJsonb(
                             v -> v.fromJson(paramsJsonValue.toString(), paramsClass));
                     log.debug("paramsValue: {}", paramsValue);
                 }
@@ -77,5 +80,5 @@ public abstract class RequestObjectTest<T extends RequestObject<U>, U> extends J
         }
     }
 
-    protected final Class<? extends U> paramsClass;
+    protected final Class<? extends ParamsType> paramsClass;
 }

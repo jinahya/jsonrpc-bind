@@ -30,12 +30,13 @@ import javax.validation.constraints.NotNull;
 /**
  * Represents response objects.
  *
- * @param <T> result type parameter
- * @param <U> error type parameter
+ * @param <ResultType> result type parameter
+ * @param <ParamsType> error type parameter
  * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends JsonrpcObject {
+public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObject.ErrorObject<?>>
+        extends JsonrpcObject<IdType> {
 
     public static final String PROPERTY_NAME_RESULT = "result";
 
@@ -231,7 +232,7 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      *
      * @return the current value of {@code result} attribute
      */
-    public T getResult() {
+    public ResultType getResult() {
         return result;
     }
 
@@ -240,11 +241,11 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      *
      * @param result new value for {@code result} attribute
      */
-    public void setResult(final T result) {
+    public void setResult(final ResultType result) {
         this.result = result;
     }
 
-    public void setResultExclusively(final T result) {
+    public void setResultExclusively(final ResultType result) {
         setResult(result);
         if (getResult() != null) {
             setError(null);
@@ -256,7 +257,7 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      *
      * @return the current value of {@code error} attribute
      */
-    public U getError() {
+    public ParamsType getError() {
         return error;
     }
 
@@ -265,11 +266,11 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
      *
      * @param error new value for {@code error} attribute
      */
-    public void setError(final U error) {
+    public void setError(final ParamsType error) {
         this.error = error;
     }
 
-    public void setErrorExclusively(final U error) {
+    public void setErrorExclusively(final ParamsType error) {
         setError(error);
         if (getError() != null) {
             setResult(null);
@@ -277,8 +278,8 @@ public class ResponseObject<T, U extends ResponseObject.ErrorObject<?>> extends 
     }
 
     @Valid
-    private T result;
+    private ResultType result;
 
     @Valid
-    private U error;
+    private ParamsType error;
 }
