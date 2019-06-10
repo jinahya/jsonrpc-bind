@@ -37,7 +37,7 @@ import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 @Slf4j
 public final class JacksonUtils {
 
-    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(); // fully thread-safe!
 
     public static <R> R applyObjectMapper(final Function<? super ObjectMapper, ? extends R> function) {
         return function.apply(OBJECT_MAPPER);
@@ -48,27 +48,42 @@ public final class JacksonUtils {
         return applyObjectMapper(v -> function.apply(v, supplier.get()));
     }
 
-    public void acceptObjectMapper(final Consumer<? super ObjectMapper> consumer) {
+    public static void acceptObjectMapper(final Consumer<? super ObjectMapper> consumer) {
         applyObjectMapper(v -> {
             consumer.accept(v);
             return null;
         });
     }
 
-    public <U> void acceptObjectMapper(final Supplier<? extends U> supplier,
-                                       final BiConsumer<? super ObjectMapper, ? super U> consumer) {
+    public static <U> void acceptObjectMapper(final Supplier<? extends U> supplier,
+                                              final BiConsumer<? super ObjectMapper, ? super U> consumer) {
         acceptObjectMapper(v -> consumer.accept(v, supplier.get()));
     }
 
-    public static <T> T readResource(final String resourceName, final Class<? extends T> valueType)
+    public static <T> T readResource(final String resourceName, final Class<? extends T> valueClass,
+                                     final BiConsumer<? super T, ? super String> valueConsumer)
             throws IOException {
         try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
-            final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, valueType));
+            final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, valueClass));
+            final String string = OBJECT_MAPPER.writeValueAsString(value);
             log.debug("jackson: {}", value);
-            log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(value));
+            log.debug("jackson: {}", string);
+            valueConsumer.accept(value, string);
             return value;
         }
+    }
+
+    public static <T> T readResource(final String resourceName, final Class<? extends T> valueClass,
+                                     final Consumer<? super String> stringConsumer)
+            throws IOException {
+        return readResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
+    }
+
+    public static <T> T readResource(final String resourceName, final Class<? extends T> valueClass)
+            throws IOException {
+        return readResource(resourceName, valueClass, s -> {
+        });
     }
 
     private JacksonUtils() {

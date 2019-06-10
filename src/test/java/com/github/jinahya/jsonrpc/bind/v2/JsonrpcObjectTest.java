@@ -41,10 +41,20 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
         this.idClass = requireNonNull(idClass, "idClass is null");
     }
 
+    protected void fromResource(final String name, final BiConsumer<? super ObjectType, ? super String> consumer)
+            throws IOException {
+        JsonbUtils.fromResource(name, objectClass, consumer);
+        JacksonUtils.readResource(name, objectClass, consumer);
+        GsonUtils.fromResource(name, objectClass, consumer);
+        MoshiUtils.fromResource(name, objectClass, consumer);
+    }
+
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         consumer.accept(JsonbUtils.fromResource(name, objectClass));
         consumer.accept(JacksonUtils.readResource(name, objectClass));
+        consumer.accept(GsonUtils.fromResource(name, objectClass));
+        consumer.accept(MoshiUtils.fromResource(name, objectClass));
     }
 
     protected <U> void acceptValueFromResource(final String name, final Supplier<? extends U> supplier,

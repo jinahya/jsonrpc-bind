@@ -22,12 +22,25 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * An abstract class for testing subclasses of {@link com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject}.
+ *
+ * @param <T> error object type parameter
+ */
 public abstract class ErrorObjectTest<T extends ResponseObject.ErrorObject<?>> {
 
+    /**
+     * Creates a new instance with specified class of error object.
+     *
+     * @param errorClass the class of error object for {@link #errorClass}.
+     */
     public ErrorObjectTest(final Class<? extends T> errorClass) {
         super();
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
     }
 
+    /**
+     * The error object class to test.
+     */
     protected final Class<? extends T> errorClass;
 }
