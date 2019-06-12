@@ -20,11 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Represents request objects.
@@ -35,8 +32,14 @@ import javax.validation.constraints.NotEmpty;
  */
 public class RequestObject<IdType, ParamsType> extends JsonrpcObject<IdType> {
 
+    /**
+     * The property name for {@code method}.
+     */
     public static final String PROPERTY_NAME_METHOD = "method";
 
+    /**
+     * The property name for {@code params}.
+     */
     public static final String PROPERTY_NAME_PARAMS = "params";
 
     /**
@@ -64,57 +67,57 @@ public class RequestObject<IdType, ParamsType> extends JsonrpcObject<IdType> {
 //        return method != null && method.startsWith("rpc.");
 //    }
 
-    /**
-     * Checks if this request object is a notification. This method checks whether {@link #getId()} method returns
-     * {@code null} or not.
-     *
-     * @return {@code true} if this request object is a notification, {@code false} otherwise
-     * @see <a href="https://www.jsonrpc.org/specification#notification">4.1 Notification (JSON-RPC 2.0
-     * Specification)</a>
-     */
-    @JsonIgnore
-    @JsonbTransient
-    public boolean isNotification() {
-        return getId() == null;
-    }
+//    /**
+//     * Checks if this request object is a notification. This method checks whether {@link #getId()} method returns
+//     * {@code null} or not.
+//     *
+//     * @return {@code true} if this request object is a notification, {@code false} otherwise
+//     * @see <a href="https://www.jsonrpc.org/specification#notification">4.1 Notification (JSON-RPC 2.0
+//     * Specification)</a>
+//     */
+//    @JsonIgnore
+//    @JsonbTransient
+//    public boolean isNotification() {
+//        return getId() == null;
+//    }
 
     /**
-     * Returns the current value of {@code method} attribute.
+     * Returns the current value of {@value #PROPERTY_NAME_METHOD} property.
      *
-     * @return the current value of {@code method} attribute
+     * @return the current value of {@value #PROPERTY_NAME_METHOD} property.
      */
     public String getMethod() {
         return method;
     }
 
     /**
-     * Replace the current value of {@code method} attribute with given.
+     * Replace the current value of {@value #PROPERTY_NAME_METHOD} property with given.
      *
-     * @param method new value for {@code method} attribute
+     * @param method new value for {@value #PROPERTY_NAME_METHOD} property.
      */
     public void setMethod(final String method) {
         this.method = method;
     }
 
     /**
-     * Returns the current value of {@code params} attribute.
+     * Returns the current value of {@value #PROPERTY_NAME_PARAMS} property.
      *
-     * @return the current value of {@code params} attribute
+     * @return the current value of {@value #PROPERTY_NAME_PARAMS} property.
      */
     public ParamsType getParams() {
         return params;
     }
 
     /**
-     * Replaces the current value of {@code params} attribute with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with given.
      *
-     * @param params new value for {@code params} attribute
+     * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */
     public void setParams(final ParamsType params) {
         this.params = params;
     }
 
-    @NotEmpty
+    @NotBlank
     private String method;
 
     @Valid

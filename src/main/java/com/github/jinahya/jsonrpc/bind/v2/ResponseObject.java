@@ -38,8 +38,14 @@ import javax.validation.constraints.NotNull;
 public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObject.ErrorObject<?>>
         extends JsonrpcObject<IdType> {
 
+    /**
+     * The property name for {@code result}.
+     */
     public static final String PROPERTY_NAME_RESULT = "result";
 
+    /**
+     * The property name for {@code error}.
+     */
     public static final String PROPERTY_NAME_ERROR = "error";
 
     /**
@@ -50,6 +56,21 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
      * Specification)</a>
      */
     public static class ErrorObject<T> {
+
+        /**
+         * The property name for {@code code}.
+         */
+        public static final String PROPERTY_NAME_CODE = "code";
+
+        /**
+         * The property name for {@code message}.
+         */
+        public static final String PROPERTY_NAME_MESSAGE = "message";
+
+        /**
+         * The property name for {@code data}.
+         */
+        public static final String PROPERTY_NAME_DATA = "data";
 
         /**
          * The minimum value for codes reserved for pre-defined errors. The value is {@value
@@ -92,10 +113,10 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
 
         }
 
-        @Deprecated
-        public static class NoData extends ErrorObject<Void> {
-
-        }
+//        @Deprecated
+//        public static class NoData extends ErrorObject<Void> {
+//
+//        }
 
         /**
          * Returns a string representation of the object.
@@ -112,83 +133,54 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
         }
 
         /**
-         * Returns the current value of {@code code} attribute.
+         * Returns the current value of {@value #PROPERTY_NAME_CODE} property.
          *
-         * @return the current value of {@code code} attribute.
+         * @return the current value of {@value #PROPERTY_NAME_CODE} property.
          */
         public long getCode() {
             return code;
         }
 
         /**
-         * Replaces the current value of {@code code} attribute with given.
+         * Replaces the current value of {@value #PROPERTY_NAME_CODE} property with given.
          *
-         * @param code new value for {@code code} attribute
+         * @param code new value for {@value #PROPERTY_NAME_CODE} property.
          */
         public void setCode(final long code) {
             this.code = code;
         }
 
-//        /**
-//         * Checks the current value of {@code code} attribute is for pre-defined errors. This method checks whether the
-//         * current value of {@code code} attribute is between {@value #MIN_CODE_FOR_PREDEFINED_ERRORS} and {@value
-//         * #MAX_CODE_FOR_PREDEFINED_ERRORS} (both inclusive) or not.
-//         *
-//         * @return {@code true} if the current value of {@code code} attribute is for pre-defined errors.
-//         */
-//        @JsonIgnore
-//        @JsonbTransient
-//        public boolean isCodeForPredefinedErrors() {
-//            return code >= MIN_CODE_FOR_PREDEFINED_ERRORS && code <= MAX_CODE_FOR_PREDEFINED_ERRORS;
-//        }
-
-//        /**
-//         * Checks the current value of {@code code} attribute is for implementation-defined server errors. This method
-//         * checks whether the current value of {@code code} attribute is between {@value
-//         * #MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS} and {@value #MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}
-//         * (both inclusive) or not.
-//         *
-//         * @return {@code true} if the current value of {@code code} attribute is for implementation-defined server
-//         * errors.
-//         */
-//        @JsonIgnore
-//        @JsonbTransient
-//        public boolean isCodeForImplementationDefinedServerErrors() {
-//            return code >= MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS &&
-//                   code <= MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS;
-//        }
-
         /**
-         * Returns the current value of {@code message} attribute.
+         * Returns the current value of {@value #PROPERTY_NAME_MESSAGE} property.
          *
-         * @return the current value of {@code message} attribute
+         * @return the current value of {@value #PROPERTY_NAME_MESSAGE} property.
          */
         public String getMessage() {
             return message;
         }
 
         /**
-         * Replaces the current value of {@code message} attribute with given.
+         * Replaces the current value of {@value #PROPERTY_NAME_MESSAGE} property.
          *
-         * @param message new value for {@code message} attribute
+         * @param message new value for {@value #PROPERTY_NAME_MESSAGE} property.
          */
         public void setMessage(final String message) {
             this.message = message;
         }
 
         /**
-         * Returns the current value of {@code data} attribute.
+         * Returns the current value of {@value #PROPERTY_NAME_DATA} property.
          *
-         * @return the current value of {@code data} attribute
+         * @return the current value of {@value #PROPERTY_NAME_DATA} property.
          */
         public T getData() {
             return data;
         }
 
         /**
-         * Replaces the current value of {@code data} attribute with given.
+         * Replaces the current value of {@value #PROPERTY_NAME_DATA} property.
          *
-         * @param data new value for {@code data} attribute
+         * @param data new value for {@value #PROPERTY_NAME_DATA} property.
          */
         public void setData(final T data) {
             this.data = data;
@@ -216,35 +208,43 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
     }
 
     /**
-     * Checks if the {@code result} attribute and the {@code error} attribute are exclusive.
+     * Checks if the {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} property are
+     * exclusive.
      *
-     * @return {@code true} if {@code result} and {@code error} set exclusively, {@code false} otherwise.
+     * @return {@code true} if {@value #PROPERTY_NAME_RESULT} and {@value #PROPERTY_NAME_ERROR} set exclusively, {@code
+     * false} otherwise.
      */
     @JsonIgnore
     @JsonbTransient
-    @AssertTrue(message = "result and error should be set exclusively")
+    @AssertTrue(message = "either the result or the error should be set exclusively")
     private boolean isResultAndErrorExclusive() {
         return (getResult() != null) ^ (getError() != null);
     }
 
     /**
-     * Returns the current value of {@code result} attribute.
+     * Returns the current value of {@value #PROPERTY_NAME_RESULT} property.
      *
-     * @return the current value of {@code result} attribute
+     * @return the current value of {@value #PROPERTY_NAME_RESULT} property.
      */
     public ResultType getResult() {
         return result;
     }
 
     /**
-     * Replaces the current value of {@code result} attribute with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with given.
      *
-     * @param result new value for {@code result} attribute
+     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
      */
     public void setResult(final ResultType result) {
         this.result = result;
     }
 
+    /**
+     * Sets the current value of {@value #PROPERTY_NAME_RESULT} property exclusively. This method, if given {@code
+     * result} argument is not {@code null}, sets {@value #PROPERTY_NAME_ERROR} property with {@code null}.
+     *
+     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
+     */
     public void setResultExclusively(final ResultType result) {
         setResult(result);
         if (getResult() != null) {
@@ -253,23 +253,29 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
     }
 
     /**
-     * Returns the current value of {@code error} attribute.
+     * Returns the current value of {@value #PROPERTY_NAME_ERROR} property.
      *
-     * @return the current value of {@code error} attribute
+     * @return the current value of {@value #PROPERTY_NAME_ERROR} property.
      */
     public ParamsType getError() {
         return error;
     }
 
     /**
-     * Replaces the current value of {@code error} attribute with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with given.
      *
-     * @param error new value for {@code error} attribute
+     * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
      */
     public void setError(final ParamsType error) {
         this.error = error;
     }
 
+    /**
+     * Sets the current value of {@value #PROPERTY_NAME_ERROR} property exclusively. This method, if given {@code error}
+     * argument is not {@code null}, sets {@value #PROPERTY_NAME_RESULT} property with  {@code null}.
+     *
+     * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
+     */
     public void setErrorExclusively(final ParamsType error) {
         setError(error);
         if (getError() != null) {
