@@ -31,11 +31,11 @@ import javax.validation.constraints.NotNull;
  * Represents response objects.
  *
  * @param <ResultType> result type parameter
- * @param <ParamsType> error type parameter
+ * @param <ErrorType> error type parameter
  * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObject.ErrorObject<?>>
+public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject.ErrorObject<?>>
         extends JsonrpcObject<IdType> {
 
     /**
@@ -51,11 +51,11 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
     /**
      * Represents error objects.
      *
-     * @param <T> data type parameter
+     * @param <DataType> data type parameter
      * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Objects (JSON RPC 2.0
      * Specification)</a>
      */
-    public static class ErrorObject<T> {
+    public static class ErrorObject<DataType> {
 
         /**
          * The property name for {@code code}.
@@ -173,7 +173,7 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
          *
          * @return the current value of {@value #PROPERTY_NAME_DATA} property.
          */
-        public T getData() {
+        public DataType getData() {
             return data;
         }
 
@@ -182,7 +182,7 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
          *
          * @param data new value for {@value #PROPERTY_NAME_DATA} property.
          */
-        public void setData(final T data) {
+        public void setData(final DataType data) {
             this.data = data;
         }
 
@@ -191,7 +191,7 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
         @NotNull
         private String message;
 
-        private T data;
+        private DataType data;
     }
 
     /**
@@ -257,7 +257,7 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
      *
      * @return the current value of {@value #PROPERTY_NAME_ERROR} property.
      */
-    public ParamsType getError() {
+    public ErrorType getError() {
         return error;
     }
 
@@ -266,7 +266,7 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
      */
-    public void setError(final ParamsType error) {
+    public void setError(final ErrorType error) {
         this.error = error;
     }
 
@@ -276,7 +276,7 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
      */
-    public void setErrorExclusively(final ParamsType error) {
+    public void setErrorExclusively(final ErrorType error) {
         setError(error);
         if (getError() != null) {
             setResult(null);
@@ -287,5 +287,5 @@ public class ResponseObject<IdType, ResultType, ParamsType extends ResponseObjec
     private ResultType result;
 
     @Valid
-    private ParamsType error;
+    private ErrorType error;
 }

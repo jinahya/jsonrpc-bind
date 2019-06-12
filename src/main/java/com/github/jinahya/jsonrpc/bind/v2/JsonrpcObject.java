@@ -34,8 +34,14 @@ import javax.validation.constraints.Pattern;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class JsonrpcObject<IdType> {
 
+    /**
+     * The property name for {@code jsonrpc}.
+     */
     public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
+    /**
+     * The property name for {@code id}.
+     */
     public static final String PROPERTY_NAME_ID = "id";
 
     /**
@@ -57,36 +63,36 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} attribute.
+     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property.
      *
-     * @return the current value of {@value #PROPERTY_NAME_JSONRPC} attribute.
+     * @return the current value of {@value #PROPERTY_NAME_JSONRPC} property.
      */
     public String getJsonrpc() {
         return jsonrpc;
     }
 
     /**
-     * Replaces the current value of {@code jsonrpc} attribute with given.
+     * Replaces the current value of {@value #PROPERTY_VALUE_JSONRPC} property with given.
      *
-     * @param jsonrpc new value for {@code jsonrpc} attribute.
+     * @param jsonrpc new value for {@value #PROPERTY_VALUE_JSONRPC} property.
      */
     public void setJsonrpc(final String jsonrpc) {
         this.jsonrpc = jsonrpc;
     }
 
     /**
-     * Returns the current value of {@code id} attribute.
+     * Returns the current value of {@value #PROPERTY_NAME_ID} property.
      *
-     * @return the current value of {@code id} attribute.
+     * @return the current value of {@value #PROPERTY_NAME_ID} property.
      */
     public Object getId() {
         return id;
     }
 
     /**
-     * Replaces the current value of {@code id} attribute with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given.
      *
-     * @param id new value for {@code id} attribute.
+     * @param id new value for {@value #PROPERTY_NAME_ID} property.
      */
     public void setId(final IdType id) {
         this.id = id;
