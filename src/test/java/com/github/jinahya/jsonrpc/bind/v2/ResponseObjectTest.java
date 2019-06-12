@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @param <IdType>     id type parameter
  * @param <ResultType> result type parameter
  * @param <ErrorType>  error type parameter
- * @param <DataType>   error data type parameter
+ * @param <DataType>   data type parameter
  */
 @Slf4j
 public abstract class ResponseObjectTest<
@@ -56,11 +56,11 @@ public abstract class ResponseObjectTest<
     public ResponseObjectTest(final Class<? extends ObjectType> responseClass, final Class<? extends IdType> idClass,
                               final Class<? extends ResultType> resultClass,
                               final Class<? extends ErrorType> errorClass,
-                              final Class<? extends DataType> errorDataClass) {
+                              final Class<? extends DataType> dataClass) {
         super(responseClass, idClass);
         this.resultClass = requireNonNull(resultClass, "resultClass is null");
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
-        this.errorDataClass = requireNonNull(errorDataClass, "errorDataClass is null");
+        this.dataClass = requireNonNull(dataClass, "dataClass is null");
     }
 
     @Override
@@ -107,5 +107,5 @@ public abstract class ResponseObjectTest<
 
     protected final Class<? extends ErrorType> errorClass;
 
-    protected final Class<? extends DataType> errorDataClass;
+    protected final Class<? extends DataType> dataClass;
 }
