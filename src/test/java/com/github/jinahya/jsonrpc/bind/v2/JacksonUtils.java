@@ -20,6 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +40,8 @@ import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 public final class JacksonUtils {
 
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(); // fully thread-safe!
+
+    public static final JsonFactory JSON_FACTORY = new JsonFactory();
 
     public static <R> R applyObjectMapper(final Function<? super ObjectMapper, ? extends R> function) {
         return function.apply(OBJECT_MAPPER);
@@ -60,10 +64,20 @@ public final class JacksonUtils {
         acceptObjectMapper(v -> consumer.accept(v, supplier.get()));
     }
 
+    public static <T> void readTreeFromResource(final String resourceName, final Class<? extends T> valueClass,
+                                                final Consumer<? super JsonNode> treeConsumer)
+            throws IOException {
+        try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
+            assertNotNull(resourceStream, "null resource stream for " + resourceName);
+            final JsonNode tree = OBJECT_MAPPER.readTree(resourceStream);
+            treeConsumer.accept(tree);
+        }
+    }
+
     public static <T> T readResource(final String resourceName, final Class<? extends T> valueClass,
                                      final BiConsumer<? super T, ? super String> valueConsumer)
             throws IOException {
-        try (InputStream resourceStream = JacksonUtils.class.getResourceAsStream(resourceName)) {
+        try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
             final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, valueClass));
             final String string = OBJECT_MAPPER.writeValueAsString(value);
