@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
  * Represents response objects.
  *
  * @param <ResultType> result type parameter
- * @param <ErrorType> error type parameter
+ * @param <ErrorType>  error type parameter
  * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
  * Specification)</a>
  */
@@ -74,37 +74,57 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
 
         /**
          * The minimum value for codes reserved for pre-defined errors. The value is {@value
-         * #MIN_CODE_FOR_PREDEFINED_ERRORS}.
+         * #MIN_CODE_PREDEFINED_ERROR}.
          */
-        public static final long MIN_CODE_FOR_PREDEFINED_ERRORS = -32768L;
+        public static final long MIN_CODE_PREDEFINED_ERROR = -32768L;
 
         /**
          * The maximum value for codes reserved for pre-defined errors. The value is {@value
-         * #MAX_CODE_FOR_PREDEFINED_ERRORS}.
+         * #MAX_CODE_PREDEFINED_ERROR}.
          */
-        public static final long MAX_CODE_FOR_PREDEFINED_ERRORS = -32000L;
+        public static final long MAX_CODE_PREDEFINED_ERROR = -32000L;
 
+        /**
+         * The code value for <i>parse error</i> meaning an invalid json received by the server or an error occurred on
+         * the server while parsing the JSON text. The value is {@value #CODE_PARSE_ERROR}.
+         */
         public static final long CODE_PARSE_ERROR = -32700L;
 
+        /**
+         * The code value for <i>invalid request</i> meaning the JSON sent is not a valid request object. The value is
+         * {@value #CODE_INVALID_REQUEST}.
+         */
         public static final long CODE_INVALID_REQUEST = -32600L;
 
+        /**
+         * The code value for <i>method not found</i> meaning the mehos does not exist nor available. The value is
+         * {@value #CODE_METHOD_NOT_FOUND}.
+         */
         public static final long CODE_METHOD_NOT_FOUND = -32601L;
 
+        /**
+         * The code value for <i>invalid params</i> meaning invalid parameter(s). The value is {@value
+         * #CODE_INVALID_PARAMS}.
+         */
         public static final long CODE_INVALID_PARAMS = -32602L;
 
+        /**
+         * The code value for <i>internal error</i> meaning an internal JSON-RPC error. The value is {@value
+         * #CODE_INTERNAL_ERROR}.
+         */
         public static final long CODE_INTERNAL_ERROR = -32603L;
 
         /**
          * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
+         * #MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
          */
-        public static final long MIN_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32099L;
+        public static final long MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32099L;
 
         /**
          * The maximum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS}.
+         * #MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
          */
-        public static final long MAX_CODE_FOR_IMPLEMENTATION_DEFINED_SERVER_ERRORS = -32000L;
+        public static final long MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000L;
 
         /**
          * A class for representing error objects of unknown data types.
@@ -191,6 +211,7 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
         @NotNull
         private String message;
 
+        @Valid
         private DataType data;
     }
 
