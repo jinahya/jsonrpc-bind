@@ -38,6 +38,7 @@ public final class BeanValidationUtils {
 
 //    public static final ValidatorFactory VALIDATION_FACTORY = Validation.buildDefaultValidatorFactory();
 
+    // https://stackoverflow.com/a/54750045/330457
     public static final ValidatorFactory VALIDATION_FACTORY
             = Validation.byDefaultProvider()
             .configure()
