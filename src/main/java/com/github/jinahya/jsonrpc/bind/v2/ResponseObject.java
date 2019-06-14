@@ -91,7 +91,7 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
         public static final long CODE_PARSE_ERROR = -32700L;
 
         /**
-         * The code value for <i>invalid request</i> meaning the JSON sent is not a valid request object. The value is
+         * The code value for <i>invalid calculatorRequest</i> meaning the JSON sent is not a valid calculatorRequest object. The value is
          * {@value #CODE_INVALID_REQUEST}.
          */
         public static final long CODE_INVALID_REQUEST = -32600L;

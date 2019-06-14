@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class AdditionParams {
+public class AdditionParams implements CalculatorParams {
 
     @NotNull
     @Setter

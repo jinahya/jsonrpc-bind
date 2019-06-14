@@ -37,8 +37,8 @@ import static java.util.Objects.requireNonNull;
 /**
  * An abstract class for testing subclasses of {@link RequestObject}.
  *
- * @param <ObjectType> request object type parameter
- * @param <ParamsType> request object params type parameter
+ * @param <ObjectType> calculatorRequest object type parameter
+ * @param <ParamsType> calculatorRequest object params type parameter
  */
 @Slf4j
 public abstract class RequestObjectTest<ObjectType extends RequestObject<IdType, ParamsType>, IdType, ParamsType>

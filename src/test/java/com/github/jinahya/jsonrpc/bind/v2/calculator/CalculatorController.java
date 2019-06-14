@@ -2,22 +2,21 @@ package com.github.jinahya.jsonrpc.bind.v2.calculator;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.request.CalculatorRequest;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.request.params.AdditionParams;
-import com.github.jinahya.jsonrpc.bind.v2.calculator.request.params.CalculationParams;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.request.params.DivisionParam;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.request.params.MultiplicationParam;
+import com.github.jinahya.jsonrpc.bind.v2.calculator.request.params.CalculatorParams;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.request.params.SubtractionParams;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.response.CalculatorResponse;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.response.CalculatorResponseError;
 import com.github.jinahya.jsonrpc.bind.v2.calculator.response.CalculatorResponseErrorData;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.ConstraintViolationException;
@@ -35,19 +34,17 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 
 import static com.github.jinahya.jsonrpc.bind.v2.BeanValidationUtils.requireValid;
+import static com.github.jinahya.jsonrpc.bind.v2.JacksonUtils.OBJECT_MAPPER;
 
 @RestController
+@Slf4j
 public class CalculatorController {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    private static ObjectMapper OBJECT_MAPPER = null;
+    public static final String PATH_NAME_CALL = "call";
 
-    private static ObjectMapper objectMapper() {
-        if (OBJECT_MAPPER == null) {
-            OBJECT_MAPPER = new ObjectMapper();
-        }
-        return OBJECT_MAPPER;
-    }
+    public static final String PATH_VALUE_CALL = "call";
+
+    public static final String PATH_TEMPLATE_CALL = "{" + PATH_NAME_CALL + ":" + PATH_VALUE_CALL + "}";
 
     // -----------------------------------------------------------------------------------------------------------------
     @Documented
@@ -55,18 +52,19 @@ public class CalculatorController {
     @Retention(RetentionPolicy.RUNTIME)
     @interface CalculatorProcedure {
 
+        String method() default "";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @PostMapping(
-            value = "/call",
+            value = "/" + PATH_TEMPLATE_CALL,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<?> call(@RequestBody final InputStream bodyStream) throws IOException {
-        final CalculatorRequest request;
+    public ResponseEntity<?> call(final InputStream bodyStream) throws IOException {
+        final CalculatorRequest calculatorRequest;
         try {
-            request = requireValid(objectMapper().readValue(bodyStream, CalculatorRequest.class));
+            calculatorRequest = requireValid(OBJECT_MAPPER.readValue(bodyStream, CalculatorRequest.class));
         } catch (final JsonParseException jpe) {
             return ResponseEntity.ok(
                     CalculatorResponse.of(
@@ -79,24 +77,33 @@ public class CalculatorController {
                     CalculatorResponse.of(
                             CalculatorResponseError.of(
                                     ResponseObject.ErrorObject.CODE_INVALID_REQUEST,
-                                    "invalid request; " + cve.getConstraintViolations().iterator().next().getMessage(),
+                                    "invalid calculatorRequest; "
+                                    + cve.getConstraintViolations().iterator().next().getMessage(),
                                     CalculatorResponseErrorData.of(null, null))));
         }
-        final String requestMethod = request.getMethod();
+        final String requestMethod = calculatorRequest.getMethod();
         Method method = null;
         Class<?> parameterType = null;
         for (final Method m : getClass().getDeclaredMethods()) {
-            if (!m.getName().equals(requestMethod)) {
+//            if (!m.getName().equals(requestMethod)) {
+//                continue;
+//            }
+            final CalculatorProcedure procedure = m.getAnnotation(CalculatorProcedure.class);
+            if (procedure == null) {
                 continue;
             }
-            if (!m.isAnnotationPresent(CalculatorProcedure.class)) {
+            String procedureMethod = procedure.method();
+            if (procedureMethod.isEmpty()) {
+                procedureMethod = m.getName();
+            }
+            if (!procedureMethod.equals(requestMethod)) {
                 continue;
             }
             final Class<?>[] parameterTypes = m.getParameterTypes();
             if (parameterTypes.length != 1) {
                 continue;
             }
-            if (!CalculationParams.class.isAssignableFrom(parameterTypes[0])) {
+            if (!CalculatorParams.class.isAssignableFrom(parameterTypes[0])) {
                 continue;
             }
             if (!m.isAccessible()) {
@@ -112,14 +119,14 @@ public class CalculatorController {
                             CalculatorResponseError.of(
                                     ResponseObject.ErrorObject.CODE_METHOD_NOT_FOUND,
                                     "unknown method: " + requestMethod,
-                                    CalculatorResponseErrorData.of(request, null)
+                                    CalculatorResponseErrorData.of(calculatorRequest, null)
                             )
                     )
             );
         }
-        final JsonNode requestParams = request.getParams();
-        final Object parameter = objectMapper().readValue(
-                objectMapper().writeValueAsString(requestParams), parameterType);
+        final JsonNode requestParams = calculatorRequest.getParams();
+        final Object parameter = OBJECT_MAPPER.readValue(
+                OBJECT_MAPPER.writeValueAsString(requestParams), parameterType);
         final BigDecimal result;
         try {
             result = (BigDecimal) method.invoke(this, parameter);
@@ -131,7 +138,7 @@ public class CalculatorController {
                                 CalculatorResponseError.of(
                                         ResponseObject.ErrorObject.CODE_INTERNAL_ERROR,
                                         cause.getMessage(),
-                                        CalculatorResponseErrorData.of(request, ((ArithmeticException) cause))
+                                        CalculatorResponseErrorData.of(calculatorRequest, ((ArithmeticException) cause))
                                 )
                         )
                 );
@@ -141,7 +148,7 @@ public class CalculatorController {
                             CalculatorResponseError.of(
                                     ResponseObject.ErrorObject.CODE_INTERNAL_ERROR,
                                     cause.getMessage(),
-                                    CalculatorResponseErrorData.of(request, null)
+                                    CalculatorResponseErrorData.of(calculatorRequest, null)
                             )
                     )
             );
@@ -151,35 +158,35 @@ public class CalculatorController {
                             CalculatorResponseError.of(
                                     ResponseObject.ErrorObject.CODE_INTERNAL_ERROR,
                                     e.getMessage(),
-                                    CalculatorResponseErrorData.of(request, null)
+                                    CalculatorResponseErrorData.of(calculatorRequest, null)
                             )
                     )
             );
         }
-        final String requestId = request.getId();
-        final CalculatorResponse response = new CalculatorResponse();
-        response.setResult(result);
-        response.setId(requestId);
-        return ResponseEntity.ok(response);
+        final String requestId = calculatorRequest.getId();
+        final CalculatorResponse calculatorResponse = new CalculatorResponse();
+        calculatorResponse.setResult(result);
+        calculatorResponse.setId(requestId);
+        return ResponseEntity.ok(calculatorResponse);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @CalculatorProcedure
+    @CalculatorProcedure(method = CalculatorRequest.METHOD_ADD)
     public BigDecimal add(@Valid @NotNull final AdditionParams additionParams) {
         return calculator.add(additionParams.getAddend(), additionParams.getAugend());
     }
 
-    @CalculatorProcedure
+    @CalculatorProcedure(method = CalculatorRequest.METHOD_SUBTRACT)
     public BigDecimal subtract(@Valid @NotNull final SubtractionParams subtractionParams) {
         return calculator.subtract(subtractionParams.getMinuend(), subtractionParams.getSubtrahend());
     }
 
-    @CalculatorProcedure
+    @CalculatorProcedure(method = CalculatorRequest.METHOD_MULTIPLY)
     public BigDecimal multiply(@Valid @NotNull final MultiplicationParam multiplicationParam) {
         return calculator.multiply(multiplicationParam.getMultiplier(), multiplicationParam.getMultiplicand());
     }
 
-    @CalculatorProcedure
+    @CalculatorProcedure(method = CalculatorRequest.METHOD_DIVIDE)
     public BigDecimal divide(@Valid @NotNull final DivisionParam divisionParam) {
         return calculator.divide(divisionParam.getDividend(), divisionParam.getDivisor(),
                                  divisionParam.getRoundingMode());

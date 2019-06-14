@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
- * An abstract class for request objects and response objects.
+ * An abstract class for calculatorRequest objects and response objects.
  *
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  */

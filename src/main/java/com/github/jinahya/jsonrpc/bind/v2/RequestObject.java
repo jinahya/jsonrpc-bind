@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Represents request objects.
+ * Represents calculatorRequest objects.
  *
  * @param <ParamsType> {@value #PROPERTY_NAME_PARAMS} type parameter
  * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
@@ -68,10 +68,10 @@ public class RequestObject<IdType, ParamsType> extends JsonrpcObject<IdType> {
 //    }
 
 //    /**
-//     * Checks if this request object is a notification. This method checks whether {@link #getId()} method returns
+//     * Checks if this calculatorRequest object is a notification. This method checks whether {@link #getId()} method returns
 //     * {@code null} or not.
 //     *
-//     * @return {@code true} if this request object is a notification, {@code false} otherwise
+//     * @return {@code true} if this calculatorRequest object is a notification, {@code false} otherwise
 //     * @see <a href="https://www.jsonrpc.org/specification#notification">4.1 Notification (JSON-RPC 2.0
 //     * Specification)</a>
 //     */

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * .
+ * An interface for a calculator.
  *
  * @see <a href="https://www.factmonster.com/math-science/mathematics/terms-used-in-equations">Terms Used in
  * Equations</a>
