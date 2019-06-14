@@ -41,16 +41,16 @@ class PositionalParametersResponseTest
     @Test
     void positional_parameters_01_response() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_01_response.json", v -> {
-            assertEquals(19, v.getResult());
-            assertEquals(1, v.getId());
+            assertEquals(19, (int) v.getResult());
+            assertEquals(1, (int) v.getId());
         });
     }
 
     @Test
     void positional_parameters_02_response() throws IOException {
         acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_02_response.json", v -> {
-            assertEquals(-19, v.getResult());
-            assertEquals(2, v.getId());
+            assertEquals(-19, (int) v.getResult());
+            assertEquals(2, (int) v.getId());
         });
     }
 }

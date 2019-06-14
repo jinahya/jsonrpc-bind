@@ -138,6 +138,14 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
 //
 //        }
 
+//        public <T extends ErrorObject<U>, U> T of(final Supplier<? extends T> supplier, final int code, final String message, final U data) {
+//            final T supplied = supplier.get();
+//            supplied.setCode(code);
+//            supplied.setMessage(message);
+//            supplied.setData(data);
+//            return supplied;
+//        }
+
         /**
          * Returns a string representation of the object.
          *

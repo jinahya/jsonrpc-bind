@@ -3,15 +3,13 @@ package com.github.jinahya.jsonrpc.bind.v2.calculator;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class AdditionParams {
+public class CalculationResult {
 
+    @NotNull
     @Setter
     @Getter
-    private BigDecimal addend;
-
-    @Setter
-    @Getter
-    private BigDecimal augend;
+    private BigDecimal value;
 }

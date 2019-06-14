@@ -85,7 +85,7 @@ public abstract class JsonrpcObject<IdType> {
      *
      * @return the current value of {@value #PROPERTY_NAME_ID} property.
      */
-    public Object getId() {
+    public IdType getId() {
         return id;
     }
 
