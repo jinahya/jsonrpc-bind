@@ -132,7 +132,7 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>6.1.0.Alpha4</version>
+      <version>6.1.0.Alpha5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -434,7 +434,30 @@
       <dependencies>
         <dependency>
           <groupId>org.apache.johnzon</groupId>
+          <artifactId>johnzon-core</artifactId>
+          <version>${version.org.apache.johnzon}</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.johnzon</groupId>
           <artifactId>johnzon-jsonb</artifactId>
+          <!-- https://issues.apache.org/jira/browse/JOHNZON-214 -->
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.johnzon</groupId>
+              <artifactId>johnzon-core</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.johnzon</groupId>
+              <artifactId>johnzon-mapper</artifactId>
+            </exclusion>
+          </exclusions>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.johnzon</groupId>
+          <artifactId>johnzon-mapper</artifactId>
+          <version>${version.org.apache.johnzon}</version>
           <scope>test</scope>
         </dependency>
         <dependency>
