@@ -55,8 +55,7 @@ public abstract class ResponseObjectTest<
 
     public ResponseObjectTest(final Class<? extends ObjectType> responseClass, final Class<? extends IdType> idClass,
                               final Class<? extends ResultType> resultClass,
-                              final Class<? extends ErrorType> errorClass,
-                              final Class<? extends DataType> dataClass) {
+                              final Class<? extends ErrorType> errorClass, final Class<? extends DataType> dataClass) {
         super(responseClass, idClass);
         this.resultClass = requireNonNull(resultClass, "resultClass is null");
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
