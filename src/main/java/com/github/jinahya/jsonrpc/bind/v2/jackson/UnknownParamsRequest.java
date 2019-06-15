@@ -11,12 +11,16 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class JsonNodeParamsRequest<IdType> extends RequestObject<IdType, JsonNode> {
+public class UnknownParamsRequest<IdType> extends RequestObject<IdType, JsonNode> {
 
     public <T> T getParams(final Supplier<ObjectMapper> mapperSupplier, final Class<? extends T> paramsClass)
             throws IOException {
+        final JsonNode params = getParams();
+        if (params == null) {
+            return null;
+        }
         final ObjectMapper mapper = mapperSupplier.get();
-        final String string = mapper.writeValueAsString(getParams());
+        final String string = mapper.writeValueAsString(params);
         return mapperSupplier.get().readValue(string, paramsClass);
     }
 

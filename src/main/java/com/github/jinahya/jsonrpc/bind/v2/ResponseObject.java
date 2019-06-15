@@ -21,6 +21,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
@@ -137,6 +139,14 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
 //        public static class NoData extends ErrorObject<Void> {
 //
 //        }
+
+        public static class DescriptiveData<RequestType extends RequestObject<?, ?>> extends ErrorObject<Throwable> {
+
+            @Valid
+            @Setter
+            @Getter
+            private RequestType request;
+        }
 
 //        public <T extends ErrorObject<U>, U> T of(final Supplier<? extends T> supplier, final int code, final String message, final U data) {
 //            final T supplied = supplier.get();
