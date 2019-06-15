@@ -9,15 +9,15 @@
 
 Classes for binding [JSON-RPC](https://www.jsonrpc.org) objects (with no external dependencies).
 
-# Abstract
+## Abstract
 
-# Classes
+## Classes
 
-## `JsonrpcObject<IdType>`
+### `JsonrpcObject<IdType>`
 
-### Why `<IdType>`?
+#### Why `<IdType>`?
 
-## `RequestObject<IdType, ParamsType>`
+### `RequestObject<IdType, ParamsType>`
 
 ```java
 class AdditionParams {
@@ -36,7 +36,7 @@ request.getParams().setAugend(BigDecimal.ONE);
 request.getParams().setAddend(BigDecimal.ONE);
 ```
 
-## `ResponseObject<IdType, ResultType, ErrorType extends ErrorObject<?>>`
+### `ResponseObject<IdType, ResultType, ErrorType extends ErrorObject<?>>`
 
 ```java
 public class SubtractionResponse
@@ -50,7 +50,7 @@ error.setData(new AtithmeticException());
 response.setErrorExclusive(error);
 ```
 
-### `ErrorObject<DataType>`
+#### `ErrorObject<DataType>`
 
 ```java
 public class CalculationError extends ErrorObject<ArithmeticException> {
