@@ -21,15 +21,11 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Constructor;
-import java.util.function.Supplier;
 
 /**
  * Represents response objects.
@@ -129,63 +125,6 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
          * #MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
          */
         public static final long MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000L;
-
-        /**
-         * A class for representing error objects of unknown data types.
-         */
-        public static class UnknownData extends ErrorObject<Object> {
-
-        }
-
-//        @Deprecated
-//        public static class NoData extends ErrorObject<Void> {
-//
-//        }
-
-        public static class DescriptiveData<RequestType extends RequestObject<?, ?>> extends ErrorObject<Throwable> {
-
-            @Valid
-            @Setter
-            @Getter
-            private RequestType request;
-        }
-
-        public static <T extends ErrorObject<DataType>, DataType> T of(final Supplier<? extends T> supplier,
-                                                                       final long code, final String message,
-                                                                       final DataType data) {
-            final T instance = supplier.get();
-            instance.setCode(code);
-            instance.setMessage(message);
-            instance.setData(data);
-            return instance;
-        }
-
-        public static <T extends ErrorObject<DataType>, DataType> T of(final Class<? extends T> type, final long code,
-                                                                       final String message, final DataType data) {
-            return of(
-                    () -> {
-                        try {
-                            final Constructor<? extends T> constructor = type.getDeclaredConstructor();
-                            if (!constructor.isAccessible()) {
-                                constructor.setAccessible(true);
-                            }
-                            return constructor.newInstance();
-                        } catch (final ReflectiveOperationException roe) {
-                            throw new RuntimeException(roe);
-                        }
-                    },
-                    code,
-                    message,
-                    data);
-        }
-
-//        public <T extends ErrorObject<U>, U> T of(final Supplier<? extends T> supplier, final int code, final String message, final U data) {
-//            final T supplied = supplier.get();
-//            supplied.setCode(code);
-//            supplied.setMessage(message);
-//            supplied.setData(data);
-//            return supplied;
-//        }
 
         /**
          * Returns a string representation of the object.
