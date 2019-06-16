@@ -33,9 +33,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class NamedParametersResponseTest
         extends ResponseObjectTest<NamedParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
 
+    @SuppressWarnings({"unchecked"})
     NamedParametersResponseTest() {
 //        super(NamedParametersResponse.class, Integer.class, Integer.class, UnknownData.class, Object.class);
-        super(NamedParametersResponse.class, Integer.class, Integer.class, (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
+        super(NamedParametersResponse.class, Integer.class, Integer.class,
+              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
     }
 
     @Test

@@ -33,8 +33,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PositionalParametersResponseTest
         extends ResponseObjectTest<PositionalParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
 
+    @SuppressWarnings({"unchecked"})
     PositionalParametersResponseTest() {
-        super(PositionalParametersResponse.class, Integer.class, Integer.class, (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
+        super(PositionalParametersResponse.class, Integer.class, Integer.class,
+              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
     }
 
     @Test

@@ -97,7 +97,7 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
         public static final long CODE_INVALID_REQUEST = -32600L;
 
         /**
-         * The code value for <i>method not found</i> meaning the mehos does not exist nor available. The value is
+         * The code value for <i>method not found</i> meaning the method does not exist nor available. The value is
          * {@value #CODE_METHOD_NOT_FOUND}.
          */
         public static final long CODE_METHOD_NOT_FOUND = -32601L;

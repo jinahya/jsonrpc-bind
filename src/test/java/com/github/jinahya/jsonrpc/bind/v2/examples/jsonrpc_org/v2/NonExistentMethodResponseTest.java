@@ -31,8 +31,10 @@ import java.io.IOException;
 class NonExistentMethodResponseTest
         extends ResponseObjectTest<NonExistentMethodResponse, String, Object, ErrorObject<Object>, Object> {
 
+    @SuppressWarnings({"unchecked"})
     NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class, String.class, Object.class, (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
+        super(NonExistentMethodResponse.class, String.class, Object.class,
+              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
     }
 
     @Test
