@@ -20,8 +20,10 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -96,6 +98,35 @@ public abstract class JsonrpcObject<IdType> {
      */
     public void setId(final IdType id) {
         this.id = id;
+    }
+
+    /**
+     * Sets specified object's {@value #PROPERTY_NAME_ID} with this objects's {@value #PROPERTY_NAME_ID}.
+     *
+     * @param object the object whose {@value #PROPERTY_NAME_ID} property is set with this object's {@value
+     *               #PROPERTY_NAME_ID} property.
+     * @param <T>    object type parameter.
+     * @see #getId()
+     * @see #setId(Object)
+     */
+    @JsonIgnore
+    @JsonbTransient
+    public <T extends JsonrpcObject<? super IdType>> void setIdTo(final T object) {
+        object.setId(getId());
+    }
+
+    /**
+     * Sets this object's {@value #PROPERTY_NAME_ID} property with specified object's {@value #PROPERTY_NAME_ID}
+     * property.
+     *
+     * @param object the object whose {@value #PROPERTY_NAME_ID} property is used to set this object's {@value
+     *               #PROPERTY_NAME_ID} property.
+     * @param <T>    object type parameter.
+     */
+    @JsonIgnore
+    @JsonbTransient
+    public <T extends JsonrpcObject<? extends IdType>> void setIdFrom(final T object) {
+        object.setIdTo(this);
     }
 
     @Pattern(regexp = PROPERTY_VALUE_JSONRPC)

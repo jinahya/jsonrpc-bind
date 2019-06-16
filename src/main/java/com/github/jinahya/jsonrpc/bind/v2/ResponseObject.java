@@ -28,6 +28,8 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Constructor;
+import java.util.function.Supplier;
 
 /**
  * Represents response objects.
@@ -146,6 +148,35 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
             @Setter
             @Getter
             private RequestType request;
+        }
+
+        public static <T extends ErrorObject<DataType>, DataType> T of(final Supplier<? extends T> supplier,
+                                                                       final long code, final String message,
+                                                                       final DataType data) {
+            final T instance = supplier.get();
+            instance.setCode(code);
+            instance.setMessage(message);
+            instance.setData(data);
+            return instance;
+        }
+
+        public static <T extends ErrorObject<DataType>, DataType> T of(final Class<? extends T> type, final long code,
+                                                                       final String message, final DataType data) {
+            return of(
+                    () -> {
+                        try {
+                            final Constructor<? extends T> constructor = type.getDeclaredConstructor();
+                            if (!constructor.isAccessible()) {
+                                constructor.setAccessible(true);
+                            }
+                            return constructor.newInstance();
+                        } catch (final ReflectiveOperationException roe) {
+                            throw new RuntimeException(roe);
+                        }
+                    },
+                    code,
+                    message,
+                    data);
         }
 
 //        public <T extends ErrorObject<U>, U> T of(final Supplier<? extends T> supplier, final int code, final String message, final U data) {

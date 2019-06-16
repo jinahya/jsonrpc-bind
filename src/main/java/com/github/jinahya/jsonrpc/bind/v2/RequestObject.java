@@ -55,32 +55,6 @@ public class RequestObject<IdType, ParamsType> extends JsonrpcObject<IdType> {
                + "}";
     }
 
-//    /**
-//     * Checks if method name is reserved for rpc-internal.
-//     *
-//     * @return {@code true} if {@code method} is reserved for rpc-internal, {@code false} otherwise
-//     */
-//    @JsonIgnore
-//    @JsonbTransient
-//    @AssertFalse
-//    private boolean isMethodNameForRpcInternal() {
-//        return method != null && method.startsWith("rpc.");
-//    }
-
-//    /**
-//     * Checks if this calculatorRequest object is a notification. This method checks whether {@link #getId()} method returns
-//     * {@code null} or not.
-//     *
-//     * @return {@code true} if this calculatorRequest object is a notification, {@code false} otherwise
-//     * @see <a href="https://www.jsonrpc.org/specification#notification">4.1 Notification (JSON-RPC 2.0
-//     * Specification)</a>
-//     */
-//    @JsonIgnore
-//    @JsonbTransient
-//    public boolean isNotification() {
-//        return getId() == null;
-//    }
-
     /**
      * Returns the current value of {@value #PROPERTY_NAME_METHOD} property.
      *
