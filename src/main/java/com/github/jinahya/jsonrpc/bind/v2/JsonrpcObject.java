@@ -101,9 +101,9 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Sets specified object's {@value #PROPERTY_NAME_ID} with this objects's {@value #PROPERTY_NAME_ID}.
+     * Copies specified object's {@value #PROPERTY_NAME_ID} to this objects's {@value #PROPERTY_NAME_ID}.
      *
-     * @param object the object whose {@value #PROPERTY_NAME_ID} property is set with this object's {@value
+     * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied from this object's {@value
      *               #PROPERTY_NAME_ID} property.
      * @param <T>    object type parameter.
      * @see #getId()
@@ -111,22 +111,22 @@ public abstract class JsonrpcObject<IdType> {
      */
     @JsonIgnore
     @JsonbTransient
-    public <T extends JsonrpcObject<? super IdType>> void setIdTo(final T object) {
+    public <T extends JsonrpcObject<? super IdType>> void copyIdTo(final T object) {
         object.setId(getId());
     }
 
     /**
-     * Sets this object's {@value #PROPERTY_NAME_ID} property with specified object's {@value #PROPERTY_NAME_ID}
+     * Copies this object's {@value #PROPERTY_NAME_ID} property to specified object's {@value #PROPERTY_NAME_ID}
      * property.
      *
-     * @param object the object whose {@value #PROPERTY_NAME_ID} property is used to set this object's {@value
+     * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied to this object's {@value
      *               #PROPERTY_NAME_ID} property.
      * @param <T>    object type parameter.
      */
     @JsonIgnore
     @JsonbTransient
-    public <T extends JsonrpcObject<? extends IdType>> void setIdFrom(final T object) {
-        object.setIdTo(this);
+    public <T extends JsonrpcObject<? extends IdType>> void copyIdFrom(final T object) {
+        object.copyIdTo(this);
     }
 
     @Pattern(regexp = PROPERTY_VALUE_JSONRPC)
