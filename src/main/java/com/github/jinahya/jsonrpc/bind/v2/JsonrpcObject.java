@@ -109,8 +109,8 @@ public abstract class JsonrpcObject<IdType> {
      * @see #getId()
      * @see #setId(Object)
      */
-    @JsonIgnore
-    @JsonbTransient
+    //@JsonIgnore
+    //@JsonbTransient
     public <T extends JsonrpcObject<? super IdType>> void copyIdTo(final T object) {
         object.setId(getId());
     }
@@ -123,8 +123,8 @@ public abstract class JsonrpcObject<IdType> {
      *               #PROPERTY_NAME_ID} property.
      * @param <T>    object type parameter.
      */
-    @JsonIgnore
-    @JsonbTransient
+    //@JsonIgnore
+    //@JsonbTransient
     public <T extends JsonrpcObject<? extends IdType>> void copyIdFrom(final T object) {
         object.copyIdTo(this);
     }
