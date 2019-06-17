@@ -35,24 +35,29 @@ class NamedParametersResponseTest
 
     @SuppressWarnings({"unchecked"})
     NamedParametersResponseTest() {
-//        super(NamedParametersResponse.class, Integer.class, Integer.class, UnknownData.class, Object.class);
         super(NamedParametersResponse.class, Integer.class, Integer.class,
               (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
     }
 
     @Test
     void named_parameters_01_response() throws IOException {
-        acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_01_response.json", v -> {
-            assertEquals(Integer.valueOf(19), v.getResult());
-            assertEquals(Integer.valueOf(3), v.getId());
-        });
+        acceptValueFromResource(
+                "/examples/jsonrpc_org/v2/named_parameters_01_response.json",
+                v -> {
+                    assertEquals(19, (int) v.getResult());
+                    assertEquals(3, (int) v.getId());
+                }
+        );
     }
 
     @Test
     void named_parameters_02_response() throws IOException {
-        acceptValueFromResource("/examples/jsonrpc_org/v2/named_parameters_02_response.json", v -> {
-            assertEquals(19, (int) v.getResult());
-            assertEquals(4, (int) v.getId());
-        });
+        acceptValueFromResource(
+                "/examples/jsonrpc_org/v2/named_parameters_02_response.json",
+                v -> {
+                    assertEquals(19, (int) v.getResult());
+                    assertEquals(4, (int) v.getId());
+                }
+        );
     }
 }
