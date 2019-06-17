@@ -53,10 +53,13 @@ class PositionalParametersRequestTest extends RequestObjectTest<PositionalParame
 
     @Test
     void positional_parameters_02_request() throws IOException {
-        acceptValueFromResource("/examples/jsonrpc_org/v2/positional_parameters_02_request.json", v -> {
-            assertEquals("subtract", v.getMethod());
-            assertIterableEquals(asList(23, 42), v.getParams());
-            assertEquals(2, (int) v.getId());
-        });
+        acceptValueFromResource(
+                "/examples/jsonrpc_org/v2/positional_parameters_02_request.json",
+                v -> {
+                    assertEquals("subtract", v.getMethod());
+                    assertIterableEquals(asList(23, 42), v.getParams());
+                    assertEquals(2, (int) v.getId());
+                }
+        );
     }
 }

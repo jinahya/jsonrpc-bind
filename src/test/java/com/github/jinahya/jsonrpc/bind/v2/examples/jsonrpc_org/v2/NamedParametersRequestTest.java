@@ -74,7 +74,7 @@ class NamedParametersRequestTest
                     assertEquals("subtract", v.getMethod());
                     assertEquals(23, v.getParams().getSubtrahend());
                     assertEquals(42, v.getParams().getMinuend());
-                    assertEquals(Integer.valueOf(3), v.getId());
+                    assertEquals(3, (int) v.getId());
                 }
         );
         JacksonUtils.readTreeFromResource(

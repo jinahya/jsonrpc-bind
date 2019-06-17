@@ -51,24 +51,24 @@ public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject
     /**
      * Represents error objects.
      *
-     * @param <DataType> data type parameter
+     * @param <DataType> data type parameter.
      * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Objects (JSON RPC 2.0
      * Specification)</a>
      */
     public static class ErrorObject<DataType> {
 
         /**
-         * The property name for {@code code}.
+         * The name for {@code code} property.
          */
         public static final String PROPERTY_NAME_CODE = "code";
 
         /**
-         * The property name for {@code message}.
+         * The name for {@code message} property.
          */
         public static final String PROPERTY_NAME_MESSAGE = "message";
 
         /**
-         * The property name for {@code data}.
+         * The property for {@code data} property.
          */
         public static final String PROPERTY_NAME_DATA = "data";
 

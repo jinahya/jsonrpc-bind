@@ -20,10 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
