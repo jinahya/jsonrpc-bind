@@ -32,5 +32,13 @@ public abstract class _Object<IdType> implements Serializable {
         this.id = id;
     }
 
+    public <T extends _Object<? extends IdType>> void copyIdFrom(final T object) {
+        setId(object.getId());
+    }
+
+    public <T extends _Object<? super IdType>> void copyIdTo(final T object) {
+        object.copyIdFrom(this);
+    }
+
     private IdType id;
 }
