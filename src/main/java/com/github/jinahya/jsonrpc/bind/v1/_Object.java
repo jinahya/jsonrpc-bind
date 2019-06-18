@@ -2,7 +2,7 @@ package com.github.jinahya.jsonrpc.bind.v1;
 
 import java.io.Serializable;
 
-abstract class AbstractObject<IdType> implements Serializable {
+abstract class _Object<IdType> implements Serializable {
 
     public IdType getId() {
         return id;

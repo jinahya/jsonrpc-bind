@@ -3,7 +3,7 @@ package com.github.jinahya.jsonrpc.bind.v1;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-abstract class AbstractRequest<ParamType, IdType> extends AbstractObject<IdType> {
+abstract class _Request<ParamType, IdType> extends _Object<IdType> {
 
     public String getMethod() {
         return method;

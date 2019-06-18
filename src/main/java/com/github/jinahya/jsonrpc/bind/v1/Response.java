@@ -1,6 +1,6 @@
 package com.github.jinahya.jsonrpc.bind.v1;
 
-public class Response<ResultType, ErrorType, IdType> extends AbstractObject<IdType> {
+public class Response<ResultType, ErrorType, IdType> extends _Object<IdType> {
 
     public ResultType getResult() {
         return result;
