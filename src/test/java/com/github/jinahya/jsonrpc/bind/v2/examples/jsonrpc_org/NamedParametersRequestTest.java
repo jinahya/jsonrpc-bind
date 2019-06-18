@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -69,7 +69,8 @@ class NamedParametersRequestTest
     @Test
     void named_parameters_01_request() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_01_request.json",
+//                "/com/github/jinahya/jsonrpc/bind/v2/examples.jsonrpc_org/named_parameters_01_request.json",
+                "named_parameters_01_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
                     assertEquals(23, v.getParams().getSubtrahend());
@@ -78,7 +79,7 @@ class NamedParametersRequestTest
                 }
         );
         JacksonUtils.readTreeFromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_01_request.json",
                 NamedParametersRequest.class,
                 tree -> {
                     final JsonNode idNode = tree.get(RequestObject.PROPERTY_NAME_ID);
@@ -95,7 +96,7 @@ class NamedParametersRequestTest
     @Test
     void named_parameters_02_request() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_02_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_02_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
                     assertEquals(23, v.getParams().getSubtrahend());

@@ -55,7 +55,7 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         super.acceptValueFromResource(name, consumer);
-        try (InputStream resourceStream = RequestObjectTest.class.getResourceAsStream(name)) {
+        try (InputStream resourceStream = getClass().getResourceAsStream(name)) {
             try (JsonReader reader = Json.createReader(resourceStream)) {
                 final JsonObject requestObject = reader.readObject();
                 log.debug("requestObject: {}", requestObject);

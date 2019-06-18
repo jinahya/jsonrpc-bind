@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -46,6 +47,7 @@
     <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
     <version.maven-surefire>3.0.0-M3</version.maven-surefire>
     <version.com.fasterxml.jackson.core>2.9.9</version.com.fasterxml.jackson.core>
+    <version.com.squareup.moshi>1.8.0</version.com.squareup.moshi>
     <version.org.apache.johnzon>1.1.12</version.org.apache.johnzon>
     <version.org.junit.jupiter>5.4.2</version.org.junit.jupiter>
   </properties>
@@ -97,7 +99,13 @@
     <dependency>
       <groupId>com.squareup.moshi</groupId>
       <artifactId>moshi</artifactId>
-      <version>1.8.0</version>
+      <version>${version.com.squareup.moshi}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.squareup.moshi</groupId>
+      <artifactId>moshi-adapters</artifactId>
+      <version>${version.com.squareup.moshi}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -203,7 +211,7 @@
             <configuration>
               <skip>true</skip>
               <rules>
-                <dependencyConvergence />
+                <dependencyConvergence/>
               </rules>
             </configuration>
           </execution>

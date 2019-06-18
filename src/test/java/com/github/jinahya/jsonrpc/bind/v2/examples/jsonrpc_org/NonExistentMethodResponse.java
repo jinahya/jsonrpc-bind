@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -21,9 +21,8 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  */
 
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 
-@Slf4j
-public class NamedParametersResponse extends ResponseObject<Integer, ResponseObject.ErrorObject<Object>, Integer> {
+public class NonExistentMethodResponse extends ResponseObject<Object, ErrorObject<Object>, String> {
 
 }

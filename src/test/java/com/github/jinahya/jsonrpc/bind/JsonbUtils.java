@@ -61,10 +61,10 @@ public final class JsonbUtils {
         acceptJsonb(v -> consumer.accept(v, supplier.get()));
     }
 
-    public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass,
+    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
                                      final BiConsumer<? super T, ? super String> stringConsumer)
             throws IOException {
-        try (InputStream stream = JsonbUtils.class.getResourceAsStream(resourceName)) {
+        try (InputStream stream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(stream, "null resource stream for " + resourceName);
             return applyJsonb(v -> {
                 final T value = requireValid(v.fromJson(stream, valueClass));
@@ -77,10 +77,10 @@ public final class JsonbUtils {
         }
     }
 
-    public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass,
+    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
                                      final Consumer<? super String> stringConsumer)
             throws IOException {
-        return fromResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
+        return withResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
     }
 
     /**
@@ -92,9 +92,9 @@ public final class JsonbUtils {
      * @return an instance of parsed value of specified type.
      * @throws IOException if an I/O error occurs.
      */
-    public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass)
+    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
-        return fromResource(resourceName, valueClass, s -> {
+        return withResource(resourceName, valueClass, s -> {
         });
     }
 

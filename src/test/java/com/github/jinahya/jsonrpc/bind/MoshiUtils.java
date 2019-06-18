@@ -21,6 +21,8 @@ package com.github.jinahya.jsonrpc.bind;
  */
 
 import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonReader;
+import com.squareup.moshi.JsonWriter;
 import com.squareup.moshi.Moshi;
 import lombok.extern.slf4j.Slf4j;
 import okio.Okio;
@@ -38,7 +40,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 public final class MoshiUtils {
 
-    public static final Moshi MOSHI = new Moshi.Builder().build(); // https://github.com/square/moshi/issues/468
+    static class MoshiVoidAdapter extends JsonAdapter<Void> {
+
+        @Override
+        public Void fromJson(final JsonReader reader) throws IOException {
+            return reader.nextNull();
+        }
+
+        @Override
+        public void toJson(final JsonWriter writer, final Void value) throws IOException {
+            writer.nullValue();
+        }
+    }
+
+    // https://github.com/square/moshi/issues/468
+    public static final Moshi MOSHI = new Moshi.Builder().add(Void.class, new MoshiVoidAdapter()).build();
 
     public static <R> R applyMoshi(final Function<? super Moshi, ? extends R> function) {
         return function.apply(MOSHI);
@@ -61,7 +77,7 @@ public final class MoshiUtils {
         acceptMoshi(v -> consumer.accept(v, supplier.get()));
     }
 
-    public static <T> T fromResource(final String resourceName, final Class<T> valueClass,
+    public static <T> T withResource(final String resourceName, final Class<T> valueClass,
                                      final BiConsumer<? super T, ? super String> valueConsumer)
             throws IOException {
         try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
@@ -76,15 +92,15 @@ public final class MoshiUtils {
         }
     }
 
-    public static <T> T fromResource(final String resourceName, final Class<T> valueClass,
+    public static <T> T withResource(final String resourceName, final Class<T> valueClass,
                                      final Consumer<? super String> stringConsumer)
             throws IOException {
-        return fromResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
+        return withResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
     }
 
-    public static <T> T fromResource(final String resourceName, final Class<T> valueClass)
+    public static <T> T withResource(final String resourceName, final Class<T> valueClass)
             throws IOException {
-        return fromResource(resourceName, valueClass, s -> {
+        return withResource(resourceName, valueClass, s -> {
         });
     }
 

@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -45,30 +45,35 @@ class NotificationTest extends RequestObjectTest<Notification, Object, List<Inte
     protected void acceptValueFromResource(final String name, final Consumer<? super Notification> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
-            //assertTrue(v.isNotification());
             consumer.accept(v);
         });
     }
 
     @Test
     void notification_01_request() throws IOException {
-        fromResource("/examples/jsonrpc_org/v2/notification_01_request.json", (v, s) -> {
-            assertEquals("update", v.getMethod());
-            final List<Integer> params = v.getParams();
-            assertIterableEquals(asList(1, 2, 3, 4, 5), params);
-        });
-        acceptValueFromResource("/examples/jsonrpc_org/v2/notification_01_request.json", v -> {
-            assertEquals("update", v.getMethod());
-            final List<Integer> params = v.getParams();
-            assertIterableEquals(asList(1, 2, 3, 4, 5), params);
-        });
+        withResource(
+                "notification_01_request.json",
+                (v, s) -> {
+                    assertEquals("update", v.getMethod());
+                    final List<Integer> params = v.getParams();
+                    assertIterableEquals(asList(1, 2, 3, 4, 5), params);
+                });
+        acceptValueFromResource(
+                "notification_01_request.json",
+                v -> {
+                    assertEquals("update", v.getMethod());
+                    final List<Integer> params = v.getParams();
+                    assertIterableEquals(asList(1, 2, 3, 4, 5), params);
+                });
     }
 
     @Test
     void notification_02_request() throws IOException {
-        acceptValueFromResource("/examples/jsonrpc_org/v2/notification_02_request.json", v -> {
-            assertEquals("foobar", v.getMethod());
-            assertNull(v.getParams());
-        });
+        acceptValueFromResource(
+                "notification_02_request.json",
+                v -> {
+                    assertEquals("foobar", v.getMethod());
+                    assertNull(v.getParams());
+                });
     }
 }

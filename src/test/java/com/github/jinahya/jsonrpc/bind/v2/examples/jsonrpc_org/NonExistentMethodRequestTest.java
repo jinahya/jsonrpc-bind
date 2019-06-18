@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -20,29 +20,26 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 @Slf4j
-class NonExistentMethodResponseTest
-        extends ResponseObjectTest<NonExistentMethodResponse, String, Object, ErrorObject<Object>, Object> {
+class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRequest, String, Object> {
 
-    @SuppressWarnings({"unchecked"})
-    NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class, String.class, Object.class,
-              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
+    NonExistentMethodRequestTest() {
+        super(NonExistentMethodRequest.class, String.class, Object.class);
     }
 
     @Test
-    void non_existent_method_01_response() throws IOException {
+    void non_existent_method_01_request() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/non_existent_method_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_request.json",
                 v -> {
                 }
         );
     }
 }
+

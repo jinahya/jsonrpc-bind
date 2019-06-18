@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -20,43 +20,43 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NamedParametersResponseTest
-        extends ResponseObjectTest<NamedParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
+class PositionalParametersResponseTest
+        extends ResponseObjectTest<PositionalParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
 
     @SuppressWarnings({"unchecked"})
-    NamedParametersResponseTest() {
-        super(NamedParametersResponse.class, Integer.class, Integer.class,
+    PositionalParametersResponseTest() {
+        super(PositionalParametersResponse.class, Integer.class, Integer.class,
               (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
     }
 
     @Test
-    void named_parameters_01_response() throws IOException {
+    void positional_parameters_01_response() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_01_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
-                    assertEquals(3, (int) v.getId());
+                    assertEquals(1, (int) v.getId());
                 }
         );
     }
 
     @Test
-    void named_parameters_02_response() throws IOException {
+    void positional_parameters_02_response() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/named_parameters_02_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_02_response.json",
                 v -> {
-                    assertEquals(19, (int) v.getResult());
-                    assertEquals(4, (int) v.getId());
+                    assertEquals(-19, (int) v.getResult());
+                    assertEquals(2, (int) v.getId());
                 }
         );
     }

@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v1.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -20,26 +20,29 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.jsonrpc.bind.v1.ResponseTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-@Slf4j
-class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRequest, String, Object> {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-    NonExistentMethodRequestTest() {
-        super(NonExistentMethodRequest.class, String.class, Object.class);
+class EchoResponseTest extends ResponseTest<EchoResponse, String, Object, Integer> {
+
+    EchoResponseTest() {
+        super(EchoResponse.class, String.class, Object.class, Integer.class);
     }
 
     @Test
-    void non_existent_method_01_request() throws IOException {
-        acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/non_existent_method_01_request.json",
-                v -> {
+    void echo_01_response() throws IOException {
+        withResource(
+                "echo_01_response.json",
+                (v, s) -> {
+                    assertEquals("Hello JSON-RPC", v.getResult());
+                    assertNull(v.getError());
+                    assertEquals(1, (int) v.getId());
                 }
         );
     }
 }
-

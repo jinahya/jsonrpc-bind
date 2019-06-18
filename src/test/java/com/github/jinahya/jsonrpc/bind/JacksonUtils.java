@@ -74,7 +74,7 @@ public final class JacksonUtils {
         }
     }
 
-    public static <T> T readResource(final String resourceName, final Class<? extends T> valueClass,
+    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
                                      final BiConsumer<? super T, ? super String> valueConsumer)
             throws IOException {
         try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
@@ -88,15 +88,15 @@ public final class JacksonUtils {
         }
     }
 
-    public static <T> T readResource(final String resourceName, final Class<? extends T> valueClass,
+    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
                                      final Consumer<? super String> stringConsumer)
             throws IOException {
-        return readResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
+        return withResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
     }
 
-    public static <T> T readResource(final String resourceName, final Class<? extends T> valueClass)
+    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
-        return readResource(resourceName, valueClass, s -> {
+        return withResource(resourceName, valueClass, s -> {
         });
     }
 

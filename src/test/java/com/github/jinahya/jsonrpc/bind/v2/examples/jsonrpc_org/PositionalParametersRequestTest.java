@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -43,7 +43,7 @@ class PositionalParametersRequestTest extends RequestObjectTest<PositionalParame
     @Test
     void positional_parameters_01_request() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/positional_parameters_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_01_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
                     assertIterableEquals(asList(42, 23), v.getParams());
@@ -54,7 +54,7 @@ class PositionalParametersRequestTest extends RequestObjectTest<PositionalParame
     @Test
     void positional_parameters_02_request() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/positional_parameters_02_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_02_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
                     assertIterableEquals(asList(23, 42), v.getParams());

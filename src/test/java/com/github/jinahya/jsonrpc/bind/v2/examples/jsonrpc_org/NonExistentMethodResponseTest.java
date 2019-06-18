@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -27,36 +27,21 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @Slf4j
-class PositionalParametersResponseTest
-        extends ResponseObjectTest<PositionalParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
+class NonExistentMethodResponseTest
+        extends ResponseObjectTest<NonExistentMethodResponse, String, Object, ErrorObject<Object>, Object> {
 
     @SuppressWarnings({"unchecked"})
-    PositionalParametersResponseTest() {
-        super(PositionalParametersResponse.class, Integer.class, Integer.class,
+    NonExistentMethodResponseTest() {
+        super(NonExistentMethodResponse.class, String.class, Object.class,
               (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
     }
 
     @Test
-    void positional_parameters_01_response() throws IOException {
+    void non_existent_method_01_response() throws IOException {
         acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/positional_parameters_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_response.json",
                 v -> {
-                    assertEquals(19, (int) v.getResult());
-                    assertEquals(1, (int) v.getId());
-                }
-        );
-    }
-
-    @Test
-    void positional_parameters_02_response() throws IOException {
-        acceptValueFromResource(
-                "/examples/jsonrpc_org/v2/positional_parameters_02_response.json",
-                v -> {
-                    assertEquals(-19, (int) v.getResult());
-                    assertEquals(2, (int) v.getId());
                 }
         );
     }

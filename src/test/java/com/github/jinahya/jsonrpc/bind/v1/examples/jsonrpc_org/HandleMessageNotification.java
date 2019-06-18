@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
+package com.github.jinahya.jsonrpc.bind.v1.examples.jsonrpc_org;
 
 /*-
  * #%L
@@ -20,12 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.jsonrpc.bind.v1.Notification;
 
-import java.util.List;
-
-@Slf4j
-public class PositionalParametersRequest extends RequestObject<List<Integer>, Integer> {
+public class HandleMessageNotification extends Notification<String> {
 
 }
