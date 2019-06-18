@@ -39,7 +39,7 @@ import static java.util.Optional.ofNullable;
  * @param <IdType>     id type parameter
  */
 @Slf4j
-public abstract class AbstractResponseObjectTest<ObjectType extends ResponseObject<IdType, ?, ?>, IdType>
+public abstract class AbstractResponseObjectTest<ObjectType extends ResponseObject<?, ?, IdType>, IdType>
         extends JsonrpcObjectTest<ObjectType, IdType> {
 
     public AbstractResponseObjectTest(final Class<? extends ObjectType> responseClass,

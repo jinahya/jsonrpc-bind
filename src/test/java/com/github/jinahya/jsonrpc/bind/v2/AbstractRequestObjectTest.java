@@ -36,7 +36,7 @@ import java.util.function.Consumer;
  * @param <IdType>     id type parameter
  */
 @Slf4j
-public abstract class AbstractRequestObjectTest<ObjectType extends RequestObject<IdType, ?>, IdType>
+public abstract class AbstractRequestObjectTest<ObjectType extends RequestObject<?, IdType>, IdType>
         extends JsonrpcObjectTest<ObjectType, IdType> {
 
     public AbstractRequestObjectTest(final Class<? extends ObjectType> requestClass,

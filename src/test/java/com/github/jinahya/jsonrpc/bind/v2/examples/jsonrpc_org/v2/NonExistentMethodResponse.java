@@ -23,6 +23,6 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 
-public class NonExistentMethodResponse extends ResponseObject<String, Object, ErrorObject<Object>> {
+public class NonExistentMethodResponse extends ResponseObject<Object, ErrorObject<Object>, String> {
 
 }

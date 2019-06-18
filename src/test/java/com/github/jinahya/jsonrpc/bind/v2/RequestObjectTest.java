@@ -41,7 +41,7 @@ import static java.util.Objects.requireNonNull;
  * @param <ParamsType> calculatorRequest object params type parameter
  */
 @Slf4j
-public abstract class RequestObjectTest<ObjectType extends RequestObject<IdType, ParamsType>, IdType, ParamsType>
+public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsType, IdType>, IdType, ParamsType>
         extends AbstractRequestObjectTest<ObjectType, IdType> {
 
     public RequestObjectTest(final Class<? extends ObjectType> requestClass, final Class<? extends IdType> idClass,

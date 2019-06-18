@@ -32,10 +32,11 @@ import javax.validation.constraints.NotNull;
  *
  * @param <ResultType> result type parameter
  * @param <ErrorType>  error type parameter
+ * @param <IdType>     id type parameter.
  * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class ResponseObject<IdType, ResultType, ErrorType extends ResponseObject.ErrorObject<?>>
+public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorObject<?>, IdType>
         extends JsonrpcObject<IdType> {
 
     /**

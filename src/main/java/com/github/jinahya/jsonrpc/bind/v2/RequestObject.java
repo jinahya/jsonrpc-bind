@@ -27,10 +27,11 @@ import javax.validation.constraints.NotBlank;
  * Represents calculatorRequest objects.
  *
  * @param <ParamsType> {@value #PROPERTY_NAME_PARAMS} type parameter
+ * @param <IdType>     {@value #PROPERTY_NAME_ID} type parameter.
  * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class RequestObject<IdType, ParamsType> extends JsonrpcObject<IdType> {
+public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
 
     /**
      * The property name for {@code method}.

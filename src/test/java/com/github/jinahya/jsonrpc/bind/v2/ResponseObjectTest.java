@@ -46,7 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  */
 @Slf4j
 public abstract class ResponseObjectTest<
-        ObjectType extends ResponseObject<IdType, ResultType, ErrorType>,
+        ObjectType extends ResponseObject<ResultType, ErrorType, IdType>,
         IdType,
         ResultType,
         ErrorType extends ResponseObject.ErrorObject<DataType>,
