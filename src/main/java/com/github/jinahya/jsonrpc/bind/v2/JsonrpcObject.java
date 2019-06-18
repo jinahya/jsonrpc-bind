@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 /**
  * An abstract class for calculatorRequest objects and response objects.
@@ -32,7 +33,7 @@ import javax.validation.constraints.Pattern;
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public abstract class JsonrpcObject<IdType> {
+public abstract class JsonrpcObject<IdType> implements Serializable {
 
     /**
      * The property name for {@code jsonrpc}.

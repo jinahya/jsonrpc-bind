@@ -4,6 +4,10 @@ public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
 
     @Override
     public void setId(final Void id) {
-        // does nothing
+        if (id == null) {
+            super.setId(id);
+            return;
+        }
+        throw new IllegalArgumentException("id is not null");
     }
 }
