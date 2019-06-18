@@ -31,12 +31,20 @@ class AdditionRequest extends RequestObject<String, AdditionParams> {
 ```
 ```java
 final AdditionRequest request = new AdditionRequest();
+request.setMethod("add");
 request.setParams(new AdditionParams());
 request.getParams().setAugend(BigDecimal.ONE);
 request.getParams().setAddend(BigDecimal.ONE);
+request.getId("1");
 ```
 
 ### `ResponseObject<IdType, ResultType, ErrorType extends ErrorObject<?>>`
+
+#### `IdType`
+
+#### `ResultType`
+
+#### `ErrorType`
 
 ```java
 public class SubtractionResponse
@@ -51,6 +59,8 @@ response.setErrorExclusive(error);
 ```
 
 #### `ErrorObject<DataType>`
+
+##### `DataType`
 
 ```java
 public class CalculationError extends ErrorObject<ArithmeticException> {
