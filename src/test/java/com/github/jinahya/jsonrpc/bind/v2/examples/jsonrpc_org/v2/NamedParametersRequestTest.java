@@ -21,7 +21,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.v2;
  */
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.jinahya.jsonrpc.bind.v2.JacksonUtils;
+import com.github.jinahya.jsonrpc.bind.JacksonUtils;
 import com.github.jinahya.jsonrpc.bind.v2.RequestObject;
 import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;

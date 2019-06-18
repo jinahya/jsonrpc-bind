@@ -1,0 +1,1 @@
+package com.github.jinahya.jsonrpc.bind.v1;

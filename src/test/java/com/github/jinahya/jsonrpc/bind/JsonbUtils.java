@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2;
+package com.github.jinahya.jsonrpc.bind;
 
 /*-
  * #%L
@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.github.jinahya.jsonrpc.bind.v2.BeanValidationUtils.requireValid;
+import static com.github.jinahya.jsonrpc.bind.BeanValidationUtils.requireValid;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Slf4j

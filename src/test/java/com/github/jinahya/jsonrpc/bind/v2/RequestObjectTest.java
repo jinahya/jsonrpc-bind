@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import com.github.jinahya.jsonrpc.bind.JsonbUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.json.Json;
