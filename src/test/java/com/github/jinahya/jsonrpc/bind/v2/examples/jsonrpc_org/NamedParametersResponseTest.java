@@ -31,18 +31,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class NamedParametersResponseTest
-        extends ResponseObjectTest<NamedParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
+        extends ResponseObjectTest<NamedParametersResponse, Integer, ErrorObject<Object>, Integer> {
 
     @SuppressWarnings({"unchecked"})
     NamedParametersResponseTest() {
-        super(NamedParametersResponse.class, Integer.class, Integer.class,
-              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
+        super(NamedParametersResponse.class, Integer.class, (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class,
+              Integer.class);
     }
 
     @Test
     void named_parameters_01_response() throws IOException {
         acceptValueFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_01_response.json",
+                "named_parameters_01_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
                     assertEquals(3, (int) v.getId());
@@ -53,7 +53,7 @@ class NamedParametersResponseTest
     @Test
     void named_parameters_02_response() throws IOException {
         acceptValueFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_02_response.json",
+                "named_parameters_02_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
                     assertEquals(4, (int) v.getId());

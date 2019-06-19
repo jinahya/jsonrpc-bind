@@ -29,18 +29,18 @@ import java.io.IOException;
 
 @Slf4j
 class NonExistentMethodResponseTest
-        extends ResponseObjectTest<NonExistentMethodResponse, String, Object, ErrorObject<Object>, Object> {
+        extends ResponseObjectTest<NonExistentMethodResponse, Object, ErrorObject<Object>, String> {
 
     @SuppressWarnings({"unchecked"})
     NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class, String.class, Object.class,
-              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
+        super(NonExistentMethodResponse.class, Object.class,
+              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, String.class);
     }
 
     @Test
     void non_existent_method_01_response() throws IOException {
         acceptValueFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_response.json",
+                "non_existent_method_01_response.json",
                 v -> {
                 }
         );

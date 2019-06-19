@@ -30,7 +30,6 @@ import java.io.Serializable;
  *
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  */
-//@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class JsonrpcObject<IdType> implements Serializable {
 
     /**
@@ -106,8 +105,6 @@ public abstract class JsonrpcObject<IdType> implements Serializable {
      * @see #getId()
      * @see #setId(Object)
      */
-    //@JsonIgnore
-    //@JsonbTransient
     public <T extends JsonrpcObject<? super IdType>> void copyIdTo(final T object) {
         object.setId(getId());
     }
@@ -120,8 +117,6 @@ public abstract class JsonrpcObject<IdType> implements Serializable {
      *               #PROPERTY_NAME_ID} property.
      * @param <T>    object type parameter.
      */
-    //@JsonIgnore
-    //@JsonbTransient
     public <T extends JsonrpcObject<? extends IdType>> void copyIdFrom(final T object) {
         object.copyIdTo(this);
     }

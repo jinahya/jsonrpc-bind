@@ -27,16 +27,16 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 @Slf4j
-class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRequest, String, Object> {
+class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRequest, Object, String> {
 
     NonExistentMethodRequestTest() {
-        super(NonExistentMethodRequest.class, String.class, Object.class);
+        super(NonExistentMethodRequest.class, Object.class, String.class);
     }
 
     @Test
     void non_existent_method_01_request() throws IOException {
         acceptValueFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_request.json",
+                "non_existent_method_01_request.json",
                 v -> {
                 }
         );

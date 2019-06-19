@@ -34,11 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @Slf4j
-class NotificationTest extends RequestObjectTest<Notification, Object, List<Integer>> {
+class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Object> {
 
     @SuppressWarnings({"unchecked"})
     NotificationTest() {
-        super(Notification.class, Object.class, (Class<List<Integer>>) (Class<?>) List.class);
+        super(Notification.class, (Class<List<Integer>>) (Class<?>) List.class, Object.class);
     }
 
     @Override
@@ -51,20 +51,22 @@ class NotificationTest extends RequestObjectTest<Notification, Object, List<Inte
 
     @Test
     void notification_01_request() throws IOException {
-        withResource(
-                "notification_01_request.json",
-                (v, s) -> {
-                    assertEquals("update", v.getMethod());
-                    final List<Integer> params = v.getParams();
-                    assertIterableEquals(asList(1, 2, 3, 4, 5), params);
-                });
         acceptValueFromResource(
                 "notification_01_request.json",
                 v -> {
                     assertEquals("update", v.getMethod());
                     final List<Integer> params = v.getParams();
                     assertIterableEquals(asList(1, 2, 3, 4, 5), params);
-                });
+                }
+        );
+        acceptValueFromResource(
+                "notification_01_request.json",
+                v -> {
+                    assertEquals("update", v.getMethod());
+                    final List<Integer> params = v.getParams();
+                    assertIterableEquals(asList(1, 2, 3, 4, 5), params);
+                }
+        );
     }
 
     @Test
@@ -74,6 +76,7 @@ class NotificationTest extends RequestObjectTest<Notification, Object, List<Inte
                 v -> {
                     assertEquals("foobar", v.getMethod());
                     assertNull(v.getParams());
-                });
+                }
+        );
     }
 }

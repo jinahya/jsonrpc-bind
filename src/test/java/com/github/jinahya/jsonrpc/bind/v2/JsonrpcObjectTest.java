@@ -46,14 +46,6 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
         this.idClass = requireNonNull(idClass, "idClass is null");
     }
 
-    protected void withResource(final String name, final BiConsumer<? super ObjectType, ? super String> consumer)
-            throws IOException {
-        JsonbUtils.withResource(name, objectClass, consumer);
-        JacksonUtils.withResource(name, objectClass, consumer);
-        GsonUtils.withResource(name, objectClass, consumer);
-        MoshiUtils.withResource(name, objectClass, consumer);
-    }
-
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         consumer.accept(JsonbUtils.withResource(name, objectClass));

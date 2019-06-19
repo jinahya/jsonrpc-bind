@@ -31,18 +31,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class PositionalParametersResponseTest
-        extends ResponseObjectTest<PositionalParametersResponse, Integer, Integer, ErrorObject<Object>, Object> {
+        extends ResponseObjectTest<PositionalParametersResponse, Integer, ErrorObject<Object>, Integer> {
 
     @SuppressWarnings({"unchecked"})
     PositionalParametersResponseTest() {
-        super(PositionalParametersResponse.class, Integer.class, Integer.class,
-              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Object.class);
+        super(PositionalParametersResponse.class, Integer.class,
+              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, Integer.class);
     }
 
     @Test
     void positional_parameters_01_response() throws IOException {
         acceptValueFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_01_response.json",
+                "positional_parameters_01_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
                     assertEquals(1, (int) v.getId());
@@ -53,7 +53,7 @@ class PositionalParametersResponseTest
     @Test
     void positional_parameters_02_response() throws IOException {
         acceptValueFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_02_response.json",
+                "positional_parameters_02_response.json",
                 v -> {
                     assertEquals(-19, (int) v.getResult());
                     assertEquals(2, (int) v.getId());

@@ -221,9 +221,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @return {@code true} if {@value #PROPERTY_NAME_RESULT} and {@value #PROPERTY_NAME_ERROR} set exclusively, {@code
      * false} otherwise.
      */
-    //@JsonIgnore
-    //@JsonbTransient
-    @AssertTrue(message = "either the result or the error should be set exclusively")
+    @AssertTrue(message = "result and error should be set exclusively")
     private boolean isResultAndErrorExclusive() {
         return (getResult() != null) ^ (getError() != null);
     }

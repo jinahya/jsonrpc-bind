@@ -20,9 +20,6 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  * #L%
  */
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.github.jinahya.jsonrpc.bind.JacksonUtils;
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject;
 import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -36,10 +33,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class NamedParametersRequestTest
-        extends RequestObjectTest<NamedParametersRequest, Integer, NamedParametersRequest.Params> {
+        extends RequestObjectTest<NamedParametersRequest, NamedParametersRequest.Params, Integer> {
 
     NamedParametersRequestTest() {
-        super(NamedParametersRequest.class, Integer.class, NamedParametersRequest.Params.class);
+        super(NamedParametersRequest.class, NamedParametersRequest.Params.class, Integer.class);
     }
 
     @Override
@@ -69,7 +66,6 @@ class NamedParametersRequestTest
     @Test
     void named_parameters_01_request() throws IOException {
         acceptValueFromResource(
-//                "/com/github/jinahya/jsonrpc/bind/v2/examples.jsonrpc_org/named_parameters_01_request.json",
                 "named_parameters_01_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
@@ -78,25 +74,12 @@ class NamedParametersRequestTest
                     assertEquals(3, (int) v.getId());
                 }
         );
-        JacksonUtils.readTreeFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_01_request.json",
-                NamedParametersRequest.class,
-                tree -> {
-                    final JsonNode idNode = tree.get(RequestObject.PROPERTY_NAME_ID);
-                    log.debug("idNode.textual: {}", idNode.isTextual());
-                    log.debug("idNode.number: {}", idNode.isNumber());
-                    log.debug("idNode.integralNumber: {}", idNode.isIntegralNumber());
-                    log.debug("idNode.floatingPointNumber: {}", idNode.isFloatingPointNumber());
-                    log.debug("idNode.asText() -> {}", idNode.asText());
-                    log.debug("idNode.textValue() -> {}", idNode.textValue());
-                }
-        );
     }
 
     @Test
     void named_parameters_02_request() throws IOException {
         acceptValueFromResource(
-                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_02_request.json",
+                "named_parameters_02_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
                     assertEquals(23, v.getParams().getSubtrahend());

@@ -20,8 +20,6 @@ package com.github.jinahya.jsonrpc.bind.calculator;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.JsonProcedure;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -29,15 +27,15 @@ import java.math.BigDecimal;
 public interface CalculatorService {
 
     // -----------------------------------------------------------------------------------------------------------------
-    @JsonProcedure
+    @CalculatorProcedure
     @NotNull BigDecimal add(@Valid @NotNull CalculatorRequestParams.AdditionParams additionParams);
 
-    @JsonProcedure
+    @CalculatorProcedure
     @NotNull BigDecimal subtract(@Valid @NotNull CalculatorRequestParams.SubtractionParams subtractionParams);
 
-    @JsonProcedure
+    @CalculatorProcedure
     @NotNull BigDecimal multiply(@Valid @NotNull CalculatorRequestParams.MultiplicationParam multiplicationParam);
 
-    @JsonProcedure
+    @CalculatorProcedure
     @NotNull BigDecimal divide(@Valid @NotNull CalculatorRequestParams.DivisionParam divisionParam);
 }

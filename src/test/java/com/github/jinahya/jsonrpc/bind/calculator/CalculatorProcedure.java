@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind;
+package com.github.jinahya.jsonrpc.bind.calculator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface JsonProcedure {
+public @interface CalculatorProcedure {
 
     String method() default "";
 }

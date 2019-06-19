@@ -20,18 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.JsonbUtils;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.json.Json;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonString;
-import javax.json.JsonValue;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 
@@ -42,43 +31,13 @@ import static java.util.Objects.requireNonNull;
  * @param <ParamsType> calculatorRequest object params type parameter
  */
 @Slf4j
-public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsType, IdType>, IdType, ParamsType>
+public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsType, IdType>, ParamsType, IdType>
         extends AbstractRequestObjectTest<ObjectType, IdType> {
 
-    public RequestObjectTest(final Class<? extends ObjectType> requestClass, final Class<? extends IdType> idClass,
-                             final Class<? extends ParamsType> paramsClass) {
+    public RequestObjectTest(final Class<? extends ObjectType> requestClass,
+                             final Class<? extends ParamsType> paramsClass, final Class<? extends IdType> idClass) {
         super(requestClass, idClass);
         this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
-    }
-
-    @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
-            throws IOException {
-        super.acceptValueFromResource(name, consumer);
-        try (InputStream resourceStream = getClass().getResourceAsStream(name)) {
-            try (JsonReader reader = Json.createReader(resourceStream)) {
-                final JsonObject requestObject = reader.readObject();
-                log.debug("requestObject: {}", requestObject);
-                final String methodValue = requestObject.getString(RequestObject.PROPERTY_NAME_METHOD);
-                log.debug("methodValue: " + methodValue);
-                final JsonValue paramsJsonValue = requestObject.get(RequestObject.PROPERTY_NAME_PARAMS);
-                log.debug("paramsJsonValue: {}", paramsJsonValue);
-                if (paramsJsonValue != null && paramsClass != Void.class) {
-                    final ParamsType paramsValue = JsonbUtils.applyJsonb(
-                            v -> v.fromJson(paramsJsonValue.toString(), paramsClass));
-                    log.debug("paramsValue: {}", paramsValue);
-                }
-                final JsonValue idValue = requestObject.get(JsonrpcObject.PROPERTY_NAME_ID);
-                log.debug("idValue: {}", idValue);
-                if (idValue != null) {
-                    if (idValue.getValueType() == JsonValue.ValueType.STRING) {
-                        log.debug("id as String: {}", ((JsonString) idValue).getString());
-                    } else if (idValue.getValueType() == JsonValue.ValueType.NUMBER) {
-                        log.debug("id as Number: {}", ((JsonNumber) idValue).bigIntegerValueExact());
-                    }
-                }
-            }
-        }
     }
 
     protected final Class<? extends ParamsType> paramsClass;
