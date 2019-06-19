@@ -40,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 public final class MoshiUtils {
 
+    // https://github.com/square/moshi/issues/866
     static class VoidAdapter extends JsonAdapter<Void> {
 
         @Override

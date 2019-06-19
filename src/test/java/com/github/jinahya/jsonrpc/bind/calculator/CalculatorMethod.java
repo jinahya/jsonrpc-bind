@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v1.examples.jsonrpc_org;
+package com.github.jinahya.jsonrpc.bind.calculator;
 
 /*-
  * #%L
@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v1.examples.jsonrpc_org;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,13 @@ package com.github.jinahya.jsonrpc.bind.v1.examples.jsonrpc_org;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v1.Response;
+public enum CalculatorMethod {
 
-public class PostMessageResponse extends Response<Integer, Object, Long> {
+    ADD,
 
+    SUBTRACT,
+
+    MULTIPLY,
+
+    DIVIDE;
 }
