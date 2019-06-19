@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind.calculator;
  * #L%
  */
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -42,10 +43,7 @@ public interface Calculator {
      * @see <a href="http://mathworld.wolfram.com/Augend.html">Augend (MathWorld)</a>
      * @see <a href="http://mathworld.wolfram.com/Addend.html">Addend (MathWorld)</a>
      */
-    // argend + addend -> apply +addend to augend
-    default BigDecimal add(final BigDecimal addend, final BigDecimal augend) {
-        return addend.add(augend);
-    }
+    @NotNull BigDecimal add(@NotNull BigDecimal addend, @NotNull BigDecimal augend);
 
     /**
      * Subtracts specified subtrahend from specified minuend.
@@ -58,11 +56,7 @@ public interface Calculator {
      * @see <a href="http://mathworld.wolfram.com/Minuend.html">Minuend (MathWorld)</a>
      * @see <a href="http://mathworld.wolfram.com/Subtrahend.html">Subtrahend (MathWorld)</a>
      */
-    // A - B = A + (-B) => apply +(-B) to A
-    // The difference from minuend to subtrahend
-    default BigDecimal subtract(final BigDecimal minuend, final BigDecimal subtrahend) {
-        return minuend.subtract(subtrahend);
-    }
+    @NotNull BigDecimal subtract(@NotNull BigDecimal minuend, @NotNull BigDecimal subtrahend);
 
     /**
      * Returns the value of specified multiplicand multiplied by specified multiplier.
@@ -75,28 +69,7 @@ public interface Calculator {
      * @see <a href="http://mathworld.wolfram.com/Multiplier.html">Multiplier (MathWorld)</a>
      * @see <a href="http://mathworld.wolfram.com/Multiplicand.html">Multiplicand (MathWorld)</a>
      */
-    // multiplier times multiplicand
-    default BigDecimal multiply(final BigDecimal multiplier, final BigDecimal multiplicand) {
-        return multiplier.multiply(multiplicand);
-    }
-
-    /**
-     * Returns the value of specified dividend divided by specified divisor.
-     *
-     * @param dividend the dividend.
-     * @param divisor  the divisor.
-     * @return the result of {@code dividend / divisor}.
-     * @see BigDecimal#divide(BigDecimal)
-     * @see <a href="http://mathworld.wolfram.com/Division.html">Division (MathWorld)</a>
-     * @see <a href="http://mathworld.wolfram.com/Dividend.html">Dividend (MathWorld)</a>
-     * @see <a href="http://mathworld.wolfram.com/Divisor.html">Divisor (MathWorld)</a>
-     * @deprecated Use {@link #divide(BigDecimal, BigDecimal, RoundingMode)}
-     */
-    // the dividend is divided by the divisor to get a quotient
-    @Deprecated
-    default BigDecimal divide(final BigDecimal dividend, final BigDecimal divisor) {
-        return dividend.divide(divisor);
-    }
+    @NotNull BigDecimal multiply(@NotNull BigDecimal multiplier, @NotNull BigDecimal multiplicand);
 
     /**
      * Returns the value of specified dividend divided by specified divisor using specified rounding mode.
@@ -110,8 +83,6 @@ public interface Calculator {
      * @see <a href="http://mathworld.wolfram.com/Dividend.html">Dividend (MathWorld)</a>
      * @see <a href="http://mathworld.wolfram.com/Divisor.html">Divisor (MathWorld)</a>
      */
-    // the dividend is divided by the divisor to get a quotient
-    default BigDecimal divide(final BigDecimal dividend, final BigDecimal divisor, final RoundingMode roundingMode) {
-        return dividend.divide(divisor, roundingMode);
-    }
+    @NotNull BigDecimal divide(@NotNull BigDecimal dividend, @NotNull BigDecimal divisor,
+                               @NotNull RoundingMode roundingMode);
 }

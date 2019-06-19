@@ -1,3 +1,7 @@
+/**
+ * Defines classes for binding objects defined in <a href="https://www.jsonrpc.org/specification_v1">JSON-RPC 1.0
+ * Specification</a>.
+ */
 package com.github.jinahya.jsonrpc.bind.v1;
 /*-
  * #%L

@@ -41,11 +41,6 @@ public class CalculatorImpl implements Calculator {
     }
 
     @Override
-    public BigDecimal divide(final BigDecimal dividend, final BigDecimal divisor) {
-        return dividend.divide(divisor);
-    }
-
-    @Override
     public BigDecimal divide(final BigDecimal dividend, final BigDecimal divisor, final RoundingMode roundingMode) {
         return dividend.divide(divisor, roundingMode);
     }
