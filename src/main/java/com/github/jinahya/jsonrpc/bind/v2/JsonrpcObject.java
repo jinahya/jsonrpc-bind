@@ -20,8 +20,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -32,7 +30,7 @@ import java.io.Serializable;
  *
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class JsonrpcObject<IdType> implements Serializable {
 
     /**

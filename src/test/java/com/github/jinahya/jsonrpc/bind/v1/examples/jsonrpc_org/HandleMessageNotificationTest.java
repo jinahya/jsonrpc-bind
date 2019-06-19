@@ -50,7 +50,7 @@ class HandleMessageNotificationTest extends NotificationTest<HandleMessageNotifi
     void handleMessage_01_notification() throws IOException {
         withResource(
                 "handleMessage_01_notification.json",
-                (v, s) -> {
+                v -> {
                     assertEquals("handleMessage", v.getMethod());
                     assertIterableEquals(asList("user1", "we were just talking"), v.getParams());
                 }
@@ -61,7 +61,7 @@ class HandleMessageNotificationTest extends NotificationTest<HandleMessageNotifi
     void handleMessage_02_notification() throws IOException {
         withResource(
                 "handleMessage_02_notification.json",
-                (v, s) -> {
+                v -> {
                     assertEquals("handleMessage", v.getMethod());
                     assertIterableEquals(asList("user3", "sorry, gotta go now, ttyl"), v.getParams());
                 }

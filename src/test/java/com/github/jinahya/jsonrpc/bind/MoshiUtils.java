@@ -40,11 +40,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 public final class MoshiUtils {
 
-    static class MoshiVoidAdapter extends JsonAdapter<Void> {
+    static class VoidAdapter extends JsonAdapter<Void> {
 
         @Override
         public Void fromJson(final JsonReader reader) throws IOException {
-            return reader.nextNull();
+            reader.skipValue();
+            return null;
         }
 
         @Override
@@ -54,7 +55,7 @@ public final class MoshiUtils {
     }
 
     // https://github.com/square/moshi/issues/468
-    public static final Moshi MOSHI = new Moshi.Builder().add(Void.class, new MoshiVoidAdapter()).build();
+    public static final Moshi MOSHI = new Moshi.Builder().add(Void.class, new VoidAdapter()).build();
 
     public static <R> R applyMoshi(final Function<? super Moshi, ? extends R> function) {
         return function.apply(MOSHI);

@@ -20,9 +20,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
@@ -224,8 +221,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @return {@code true} if {@value #PROPERTY_NAME_RESULT} and {@value #PROPERTY_NAME_ERROR} set exclusively, {@code
      * false} otherwise.
      */
-    @JsonIgnore
-    @JsonbTransient
+    //@JsonIgnore
+    //@JsonbTransient
     @AssertTrue(message = "either the result or the error should be set exclusively")
     private boolean isResultAndErrorExclusive() {
         return (getResult() != null) ^ (getError() != null);

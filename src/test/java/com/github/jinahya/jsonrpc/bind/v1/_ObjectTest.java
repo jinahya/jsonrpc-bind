@@ -27,6 +27,7 @@ import com.github.jinahya.jsonrpc.bind.MoshiUtils;
 
 import java.io.IOException;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 
@@ -44,6 +45,13 @@ abstract class _ObjectTest<_ObjectType extends _Object<IdType>, IdType> {
         JacksonUtils.withResource(name, objectClass, consumer);
         GsonUtils.withResource(name, objectClass, consumer);
         MoshiUtils.withResource(name, objectClass, consumer);
+    }
+
+    protected void withResource(final String name, final Consumer<? super _ObjectType> consumer) throws IOException {
+        consumer.accept(JsonbUtils.withResource(name, objectClass));
+        consumer.accept(JacksonUtils.withResource(name, objectClass));
+        consumer.accept(GsonUtils.withResource(name, objectClass));
+        consumer.accept(MoshiUtils.withResource(name, objectClass));
     }
 
     protected final Class<? extends _ObjectType> objectClass;
