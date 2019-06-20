@@ -24,18 +24,84 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 public interface CalculatorRequestParams {
 
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.ANNOTATION_TYPE})
+    @interface Argument {
+
+    }
+
+    @Argument
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD})
+    @interface Argument1 {
+
+    }
+
+    @Argument
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD})
+    @interface Argument2 {
+
+    }
+
+    static <T extends CalculatorRequestParams> Field of(@NotNull final Class<? extends T> paramsClass,
+                                                        @NotNull final Class<? extends Annotation> annotationClass)
+            throws ReflectiveOperationException {
+        if (annotationClass.getAnnotation(Argument.class) == null) {
+            throw new IllegalArgumentException("annotationClass(" + annotationClass + ") is not annotated with "
+                                               + Argument.class);
+        }
+        for (final Field declaredField : paramsClass.getDeclaredFields()) {
+            if (declaredField.getAnnotation(annotationClass) != null) {
+                if (!declaredField.isAccessible()) {
+                    declaredField.setAccessible(true);
+                }
+                return declaredField;
+            }
+        }
+        throw new NoSuchMethodException("no declared method in " + paramsClass + " annotated with " + annotationClass);
+    }
+
+    static <T extends CalculatorRequestParams> T of(
+            @NotNull final Class<? extends T> paramsClass,
+            @Size(min = 2, max = 2) @NotNull final List<@NotNull ? extends BigDecimal> positionedParams) {
+        try {
+            final Constructor<? extends T> constructor = paramsClass.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            final T instance = constructor.newInstance();
+            of(paramsClass, Argument1.class).set(instance, positionedParams.get(0));
+            of(paramsClass, Argument2.class).set(instance, positionedParams.get(1));
+            return instance;
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
+    }
+
     class AdditionParams implements CalculatorRequestParams {
 
+        @Argument1
         @NotNull
         @Setter
         @Getter
         private BigDecimal augend;
 
+        @Argument2
         @NotNull
         @Setter
         @Getter
@@ -44,11 +110,13 @@ public interface CalculatorRequestParams {
 
     class SubtractionParams implements CalculatorRequestParams {
 
+        @Argument1
         @NotNull
         @Setter
         @Getter
         private BigDecimal minuend;
 
+        @Argument2
         @NotNull
         @Setter
         @Getter
@@ -57,11 +125,13 @@ public interface CalculatorRequestParams {
 
     class MultiplicationParam implements CalculatorRequestParams {
 
+        @Argument1
         @NotNull
         @Setter
         @Getter
         private BigDecimal multiplicand;
 
+        @Argument2
         @NotNull
         @Setter
         @Getter
@@ -72,11 +142,13 @@ public interface CalculatorRequestParams {
 
         public static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
 
+        @Argument1
         @NotNull
         @Setter
         @Getter
         private BigDecimal dividend;
 
+        @Argument2
         @NotNull
         @Setter
         @Getter
