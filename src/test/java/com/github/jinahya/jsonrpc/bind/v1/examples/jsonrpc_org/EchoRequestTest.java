@@ -44,10 +44,13 @@ class EchoRequestTest extends RequestTest<EchoRequest, String, Integer> {
      */
     @Test
     void echo_01_request() throws IOException {
-        withResource("echo_01_request.json", (v, s) -> {
-            assertEquals("echo", v.getMethod());
-            assertIterableEquals(singletonList("Hello JSON-RPC"), v.getParams());
-            assertEquals(1, (int) v.getId());
-        });
+        withResource(
+                "echo_01_request.json",
+                v -> {
+                    assertEquals("echo", v.getMethod());
+                    assertIterableEquals(singletonList("Hello JSON-RPC"), v.getParams());
+                    assertEquals(1, (int) v.getId());
+                }
+        );
     }
 }

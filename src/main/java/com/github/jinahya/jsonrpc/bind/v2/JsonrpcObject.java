@@ -97,25 +97,27 @@ public abstract class JsonrpcObject<IdType> implements Serializable {
     }
 
     /**
-     * Copies specified object's {@value #PROPERTY_NAME_ID} to this objects's {@value #PROPERTY_NAME_ID}.
+     * Copies this object's {@value #PROPERTY_NAME_ID} property to specified object's {@value #PROPERTY_NAME_ID}
+     * property.
      *
      * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied from this object's {@value
      *               #PROPERTY_NAME_ID} property.
      * @param <T>    object type parameter.
      * @see #getId()
      * @see #setId(Object)
+     * @see #copyIdFrom(JsonrpcObject)
      */
     public <T extends JsonrpcObject<? super IdType>> void copyIdTo(final T object) {
         object.setId(getId());
     }
 
     /**
-     * Copies this object's {@value #PROPERTY_NAME_ID} property to specified object's {@value #PROPERTY_NAME_ID}
-     * property.
+     * Copies specified object's {@value #PROPERTY_NAME_ID} to this objects's {@value #PROPERTY_NAME_ID}.
      *
      * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied to this object's {@value
      *               #PROPERTY_NAME_ID} property.
      * @param <T>    object type parameter.
+     * @see #copyIdTo(JsonrpcObject)
      */
     public <T extends JsonrpcObject<? extends IdType>> void copyIdFrom(final T object) {
         object.copyIdTo(this);

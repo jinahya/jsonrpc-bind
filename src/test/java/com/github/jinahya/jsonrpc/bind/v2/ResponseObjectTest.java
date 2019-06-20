@@ -22,6 +22,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+import java.util.function.Consumer;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -44,6 +47,16 @@ public abstract class ResponseObjectTest<
         super(responseClass, idClass);
         this.resultClass = requireNonNull(resultClass, "resultClass is null");
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
+    }
+
+    @Override
+    protected void acceptValueFromResource(String name, Consumer<? super ObjectType> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
+            consumer.accept(v);
+            v.setResultExclusively(v.getResult());
+            v.setErrorExclusively(v.getError());
+        });
     }
 
     protected final Class<? extends ResultType> resultClass;

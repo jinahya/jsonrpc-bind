@@ -38,10 +38,13 @@ class EchoResponseTest extends ResponseTest<EchoResponse, String, Object, Intege
     void echo_01_response() throws IOException {
         withResource(
                 "echo_01_response.json",
-                (v, s) -> {
+                v -> {
                     assertEquals("Hello JSON-RPC", v.getResult());
                     assertNull(v.getError());
                     assertEquals(1, (int) v.getId());
+                    final EchoRequest request = new EchoRequest();
+                    request.copyIdFrom(v);
+                    assertEquals(v.getId(), request.getId());
                 }
         );
     }
