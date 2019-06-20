@@ -210,6 +210,57 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         private DataType data;
     }
 
+    static class ResponseObjectBuilder<
+            BuilderType extends ResponseObjectBuilder<BuilderType, ObjectType, ResultType, ErrorType, IdType>,
+            ObjectType extends ResponseObject<ResultType, ErrorType, IdType>,
+            ResultType,
+            ErrorType extends ErrorObject<?>,
+            IdType>
+            extends JsonrpcObjectBuilder<BuilderType, ObjectType, IdType> {
+
+        ResponseObjectBuilder(final Class<? extends ObjectType> objectClass) {
+            super(objectClass);
+        }
+
+        @SuppressWarnings({"unchecked"})
+        public BuilderType result(final ResultType result) {
+            this.result = result;
+            return (BuilderType) this;
+        }
+
+        @SuppressWarnings({"unchecked"})
+        public BuilderType error(final ErrorType error) {
+            this.error = error;
+            return (BuilderType) this;
+        }
+
+        @Override
+        public ObjectType build() {
+            final ObjectType instance = super.build();
+            instance.setResult(result);
+            instance.setError(error);
+            return instance;
+        }
+
+        private ResultType result;
+
+        private ErrorType error;
+    }
+
+    public static class Builder<ResultType, ErrorType extends ErrorObject<?>, IdType>
+            extends ResponseObjectBuilder<
+            Builder<ResultType, ErrorType, IdType>,
+            ResponseObject<ResultType, ErrorType, IdType>,
+            ResultType,
+            ErrorType,
+            IdType> {
+
+        @SuppressWarnings({"unchecked"})
+        public Builder() {
+            super((Class<? extends ResponseObject<ResultType, ErrorType, IdType>>) (Class<?>) ResponseObject.class);
+        }
+    }
+
     /**
      * Returns a string representation of the object.
      *

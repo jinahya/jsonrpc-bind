@@ -21,6 +21,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -39,7 +40,7 @@ import static java.util.Objects.requireNonNull;
 public abstract class ResponseObjectTest<
         ObjectType extends ResponseObject<ResultType, ErrorType, IdType>, ResultType,
         ErrorType extends ResponseObject.ErrorObject<?>, IdType>
-        extends AbstractResponseObjectTest<ObjectType, IdType> {
+        extends JsonrpcObjectTest<ObjectType, IdType> {
 
     public ResponseObjectTest(final Class<? extends ObjectType> responseClass,
                               final Class<? extends ResultType> resultClass,
@@ -57,6 +58,13 @@ public abstract class ResponseObjectTest<
             v.setResultExclusively(v.getResult());
             v.setErrorExclusively(v.getError());
         });
+    }
+
+    @Test
+    void build() {
+        final ResponseObject<ResultType, ErrorType, IdType> built
+                = new ResponseObject.Builder<ResultType, ErrorType, IdType>().build();
+        log.debug("built: {}", built);
     }
 
     protected final Class<? extends ResultType> resultClass;

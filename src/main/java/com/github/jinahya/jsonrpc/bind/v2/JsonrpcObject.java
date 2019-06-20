@@ -24,6 +24,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * An abstract class for calculatorRequest objects and response objects.
@@ -46,6 +49,41 @@ public abstract class JsonrpcObject<IdType> implements Serializable {
      * The fixed value for {@value #PROPERTY_NAME_JSONRPC} attribute. The value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
+
+    static class JsonrpcObjectBuilder<
+            BuilderType extends JsonrpcObjectBuilder<BuilderType, ObjectType, IdType>,
+            ObjectType extends JsonrpcObject<IdType>,
+            IdType> {
+
+        JsonrpcObjectBuilder(final Class<? extends ObjectType> objectClass) {
+            super();
+            this.objectClass = requireNonNull(objectClass, "objectClass is null");
+        }
+
+        @SuppressWarnings({"unchecked"})
+        public BuilderType id(final IdType id) {
+            this.id = id;
+            return (BuilderType) this;
+        }
+
+        public ObjectType build() {
+            try {
+                final Constructor<? extends ObjectType> constructor = objectClass.getDeclaredConstructor();
+                if (!constructor.isAccessible()) {
+                    constructor.setAccessible(true);
+                }
+                final ObjectType instance = constructor.newInstance();
+                instance.setId(id);
+                return instance;
+            } catch (final ReflectiveOperationException roe) {
+                throw new RuntimeException(roe);
+            }
+        }
+
+        private final Class<? extends ObjectType> objectClass;
+
+        private IdType id;
+    }
 
     /**
      * Returns a string representation of the object.

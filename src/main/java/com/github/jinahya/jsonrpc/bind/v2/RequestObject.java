@@ -43,6 +43,44 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
 
+    static class RequestObjectBuilder<
+            BuilderType extends RequestObjectBuilder<BuilderType, ObjectType, ParamsType, IdType>,
+            ObjectType extends RequestObject<ParamsType, IdType>,
+            ParamsType,
+            IdType>
+            extends JsonrpcObjectBuilder<BuilderType, ObjectType, IdType> {
+
+        RequestObjectBuilder(final Class<? extends ObjectType> objectClass) {
+            super(objectClass);
+        }
+
+        @SuppressWarnings({"unchecked"})
+        public BuilderType params(final ParamsType params) {
+            this.params = params;
+            return (BuilderType) this;
+        }
+
+        @Override
+        public ObjectType build() {
+            final ObjectType instance = super.build();
+            instance.setParams(params);
+            return instance;
+        }
+
+        private ParamsType params;
+    }
+
+    public static class Builder<ParamsType, IdType>
+            extends RequestObjectBuilder<Builder<ParamsType, IdType>, RequestObject<ParamsType, IdType>,
+            ParamsType,
+            IdType> {
+
+        @SuppressWarnings({"unchecked"})
+        public Builder() {
+            super((Class<? extends RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class);
+        }
+    }
+
     /**
      * Returns a string representation of the object.
      *

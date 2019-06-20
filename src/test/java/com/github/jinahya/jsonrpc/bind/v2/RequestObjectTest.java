@@ -21,7 +21,15 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.util.function.Consumer;
+
+import static com.github.jinahya.jsonrpc.bind.GsonUtils.GSON;
+import static com.github.jinahya.jsonrpc.bind.JacksonUtils.OBJECT_MAPPER;
+import static com.github.jinahya.jsonrpc.bind.JsonbUtils.JSONB;
+import static com.github.jinahya.jsonrpc.bind.MoshiUtils.MOSHI;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -32,12 +40,42 @@ import static java.util.Objects.requireNonNull;
  */
 @Slf4j
 public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsType, IdType>, ParamsType, IdType>
-        extends AbstractRequestObjectTest<ObjectType, IdType> {
+        extends JsonrpcObjectTest<ObjectType, IdType> {
 
     public RequestObjectTest(final Class<? extends ObjectType> requestClass,
                              final Class<? extends ParamsType> paramsClass, final Class<? extends IdType> idClass) {
         super(requestClass, idClass);
         this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
+    }
+
+    @Override
+    protected void acceptValueFromResource(String name, Consumer<? super ObjectType> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
+            consumer.accept(v);
+            final RequestObject<ParamsType, IdType> built
+                    = new RequestObject.Builder<ParamsType, IdType>()
+                    .params(v.getParams())
+                    .id(v.getId())
+                    .build();
+            log.debug("built: {}", built);
+            log.debug("jsonb: {}", JSONB.toJson(built));
+            try {
+                log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(built));
+            } catch (final IOException ioe) {
+                ioe.printStackTrace();
+            }
+            log.debug("gson: {}", GSON.toJson(built));
+            log.debug("moshi: {}", MOSHI.adapter((Class<RequestObject<ParamsType, IdType>>) objectClass).toJson(built));
+        });
+    }
+
+    @Test
+    void build() {
+        final RequestObject<ParamsType, IdType> built = new RequestObject.Builder<ParamsType, IdType>().build();
+        log.debug("built: {}", built);
+        final String string = JSONB.toJson(built);
+        log.debug("string: {}", string);
     }
 
     protected final Class<? extends ParamsType> paramsClass;
