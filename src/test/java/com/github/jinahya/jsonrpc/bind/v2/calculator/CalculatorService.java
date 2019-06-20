@@ -20,9 +20,14 @@ package com.github.jinahya.jsonrpc.bind.v2.calculator;
  * #L%
  */
 
+import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -49,42 +54,74 @@ public interface CalculatorService {
     String METHOD_DIVIDE_POSITIONED = "divide_positioned";
 
     // -----------------------------------------------------------------------------------------------------------------
+    static Method findCalculatorMethod(@NonNull final Class<?> leafClass, @NonNull final String requestMethod) {
+        final Logger log = LoggerFactory.getLogger(CalculatorService.class);
+        for (final Method declaredMethod : leafClass.getDeclaredMethods()) {
+            final CalculatorProcedure calculatorProcedure = declaredMethod.getAnnotation(CalculatorProcedure.class);
+            if (calculatorProcedure == null) {
+                log.debug("not annotated with {}: {}", CalculatorProcedure.class, declaredMethod);
+                continue;
+            }
+            final String procedureMethod = calculatorProcedure.method();
+            if (!procedureMethod.equals(requestMethod)) {
+                log.debug("procedureMethod({}) <> requestMethod({})", procedureMethod, requestMethod);
+                continue;
+            }
+            return declaredMethod;
+        }
+        for (final Class<?> interfaceClass : leafClass.getInterfaces()) {
+            final Method method = findCalculatorMethod(interfaceClass, requestMethod);
+            if (method != null) {
+                return method;
+            }
+        }
+        final Class<?> superClass = leafClass.getSuperclass();
+        if (superClass != null) {
+            final Method method = findCalculatorMethod(superClass, requestMethod);
+            if (method != null) {
+                return method;
+            }
+        }
+        return null;
+    }
+
+    // ------------------------------------------------------------------------------------------------------------- add
     @CalculatorProcedure(method = METHOD_ADD_NAMED)
     @NotNull BigDecimal add(@Valid @NotNull CalculatorRequestParams.AdditionParams named);
 
     @CalculatorProcedure(method = METHOD_ADD_POSITIONED)
     default @NotNull BigDecimal add(
-            @Size(min = 2, max = 2) @NotNull List<@NotNull ? extends BigDecimal> positioned) {
+            @Size(min = 2, max = 2) @NotNull List</*@NotNull*/ ? extends BigDecimal> positioned) {
         return add(CalculatorRequestParams.of(CalculatorRequestParams.AdditionParams.class, positioned));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------- subtract
     @CalculatorProcedure(method = METHOD_SUBTRACT_NAMED)
     @NotNull BigDecimal subtract(@Valid @NotNull CalculatorRequestParams.SubtractionParams named);
 
     @CalculatorProcedure(method = METHOD_SUBTRACT_POSITIONED)
     default @NotNull BigDecimal subtract(
-            @Size(min = 2, max = 2) @NotNull List<@NotNull ? extends BigDecimal> positioned) {
+            @Size(min = 2, max = 2) @NotNull List</*@NotNull*/ ? extends BigDecimal> positioned) {
         return subtract(CalculatorRequestParams.of(CalculatorRequestParams.SubtractionParams.class, positioned));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------- multiply
     @CalculatorProcedure(method = METHOD_MULTIPLY_NAMED)
     @NotNull BigDecimal multiply(@Valid @NotNull CalculatorRequestParams.MultiplicationParam named);
 
     @CalculatorProcedure(method = METHOD_MULTIPLY_POSITIONED)
     default @NotNull BigDecimal multiply(
-            @Size(min = 2, max = 2) @NotNull List<@NotNull ? extends BigDecimal> positioned) {
+            @Size(min = 2, max = 2) @NotNull List</*@NotNull*/ ? extends BigDecimal> positioned) {
         return multiply(CalculatorRequestParams.of(CalculatorRequestParams.MultiplicationParam.class, positioned));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------- divide
     @CalculatorProcedure(method = METHOD_DIVIDE_NAMED)
-    @NotNull BigDecimal divide(@Valid @NotNull CalculatorRequestParams.DivisionParam divisionParam);
+    @NotNull BigDecimal divide(@Valid @NotNull CalculatorRequestParams.DivisionParam named);
 
     @CalculatorProcedure(method = METHOD_DIVIDE_POSITIONED)
     default @NotNull BigDecimal divide(
-            @Size(min = 2, max = 2) @NotNull List<@NotNull ? extends BigDecimal> positioned) {
+            @Size(min = 2, max = 2) @NotNull List</*@NotNull*/ ? extends BigDecimal> positioned) {
         return divide(CalculatorRequestParams.of(CalculatorRequestParams.DivisionParam.class, positioned));
     }
 }

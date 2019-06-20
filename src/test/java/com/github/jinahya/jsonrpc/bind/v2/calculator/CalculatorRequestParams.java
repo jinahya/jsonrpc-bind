@@ -95,6 +95,14 @@ public interface CalculatorRequestParams {
 
     class AdditionParams implements CalculatorRequestParams {
 
+        @Override
+        public String toString() {
+            return super.toString() + "{"
+                   + "augend=" + augend
+                   + ",addend=" + addend
+                   + "}";
+        }
+
         @Argument1
         @NotNull
         @Setter
