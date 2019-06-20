@@ -20,23 +20,16 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
-public abstract class _Object<IdType> {
+import static java.util.Objects.requireNonNull;
 
-    public IdType getId() {
-        return id;
+abstract class AbstractRequestTest<T extends AbstractRequest<ParamType, IdType>, ParamType, IdType>
+        extends IdentifiableTest<T, IdType> {
+
+    AbstractRequestTest(final Class<? extends T> objectClass, final Class<? extends ParamType> paramClass,
+                        final Class<? extends IdType> idClass) {
+        super(objectClass, idClass);
+        this.paramClass = requireNonNull(paramClass, "paramClass is null");
     }
 
-    public void setId(final IdType id) {
-        this.id = id;
-    }
-
-    public <T extends _Object<? super IdType>> void copyIdTo(final T object) {
-        object.setId(getId());
-    }
-
-    public <T extends _Object<? extends IdType>> void copyIdFrom(final T object) {
-        object.copyIdTo(this);
-    }
-
-    private IdType id;
+    protected final Class<? extends ParamType> paramClass;
 }

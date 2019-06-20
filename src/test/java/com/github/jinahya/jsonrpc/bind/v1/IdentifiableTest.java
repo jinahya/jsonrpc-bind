@@ -30,9 +30,9 @@ import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 
-abstract class _ObjectTest<_ObjectType extends _Object<IdType>, IdType> {
+abstract class IdentifiableTest<_ObjectType extends Identifiable<IdType>, IdType> {
 
-    _ObjectTest(final Class<? extends _ObjectType> objectClass, final Class<? extends IdType> idClass) {
+    IdentifiableTest(final Class<? extends _ObjectType> objectClass, final Class<? extends IdType> idClass) {
         super();
         this.objectClass = requireNonNull(objectClass, "objectClass is null");
         this.idClass = requireNonNull(idClass, "idClass is null");

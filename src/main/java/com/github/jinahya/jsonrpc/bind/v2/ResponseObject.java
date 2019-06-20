@@ -214,7 +214,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * An abstract class for defining builders of specific subclass of {@link ResponseObject}.
      *
      * @param <T> builder type parameter .
-     * @param <U> subclass type parameter.
+     * @param <U> response object type parameter.
      * @param <V> result type parameter.
      * @param <W> error type parameter.
      * @param <X> id type parameter.

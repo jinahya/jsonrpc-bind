@@ -20,7 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
-public class Response<ResultType, ErrorType, IdType> extends _Object<IdType> {
+public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType> {
 
     public ResultType getResult() {
         return result;

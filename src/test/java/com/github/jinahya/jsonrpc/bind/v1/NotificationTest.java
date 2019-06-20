@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NotificationTest<NotificationType extends Notification<ParamType>, ParamType>
-        extends _RequestTest<NotificationType, ParamType, Void> {
+        extends AbstractRequestTest<NotificationType, ParamType, Void> {
 
     public NotificationTest(final Class<? extends NotificationType> objectClass,
                             final Class<? extends ParamType> paramClass) {

@@ -22,12 +22,17 @@ package com.github.jinahya.jsonrpc.bind.v1;
 
 import static java.util.Objects.requireNonNull;
 
-public abstract class ResponseTest<T extends Response<ResultType, ErrorType, IdType>, ResultType, ErrorType, IdType>
-        extends _ObjectTest<T, IdType> {
+public abstract class ResponseTest<
+        ResponseType extends Response<ResultType, ErrorType, IdType>,
+        ResultType,
+        ErrorType,
+        IdType>
+        extends IdentifiableTest<ResponseType, IdType> {
 
-    public ResponseTest(final Class<? extends T> objectClass, final Class<? extends ResultType> resultClass,
-                        final Class<? extends ErrorType> errorClass, final Class<? extends IdType> idClass) {
-        super(objectClass, idClass);
+    public ResponseTest(final Class<? extends ResponseType> responseClass,
+                        final Class<? extends ResultType> resultClass, final Class<? extends ErrorType> errorClass,
+                        final Class<? extends IdType> idClass) {
+        super(responseClass, idClass);
         this.resultClass = requireNonNull(resultClass, "resultClass is null");
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
     }
