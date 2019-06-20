@@ -28,7 +28,7 @@ import java.lang.reflect.Constructor;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for calculatorRequest objects and response objects.
+ * An abstract class for request objects and response objects.
  *
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  */
@@ -49,29 +49,32 @@ public abstract class JsonrpcObject<IdType> {
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
-    static class JsonrpcObjectBuilder<
-            BuilderType extends JsonrpcObjectBuilder<BuilderType, ObjectType, IdType>,
-            ObjectType extends JsonrpcObject<IdType>,
-            IdType> {
+    static class JsonrpcObjectBuilder<T extends JsonrpcObjectBuilder<T, U, V>, U extends JsonrpcObject<V>, V> {
 
-        JsonrpcObjectBuilder(final Class<? extends ObjectType> objectClass) {
+        JsonrpcObjectBuilder(final Class<? extends U> objectClass) {
             super();
             this.objectClass = requireNonNull(objectClass, "objectClass is null");
         }
 
+        /**
+         * Sets {@value #PROPERTY_NAME_ID} property with specified value and returns this builder instance.
+         *
+         * @param id the value for {@value #PROPERTY_NAME_ID} property.
+         * @return this builder instance.
+         */
         @SuppressWarnings({"unchecked"})
-        public BuilderType id(final IdType id) {
+        public T id(final V id) {
             this.id = id;
-            return (BuilderType) this;
+            return (T) this;
         }
 
-        public ObjectType build() {
+        public U build() {
             try {
-                final Constructor<? extends ObjectType> constructor = objectClass.getDeclaredConstructor();
+                final Constructor<? extends U> constructor = objectClass.getDeclaredConstructor();
                 if (!constructor.isAccessible()) {
                     constructor.setAccessible(true);
                 }
-                final ObjectType instance = constructor.newInstance();
+                final U instance = constructor.newInstance();
                 instance.setId(id);
                 return instance;
             } catch (final ReflectiveOperationException roe) {
@@ -79,9 +82,9 @@ public abstract class JsonrpcObject<IdType> {
             }
         }
 
-        private final Class<? extends ObjectType> objectClass;
+        private final Class<? extends U> objectClass;
 
-        private IdType id;
+        private V id;
     }
 
     /**

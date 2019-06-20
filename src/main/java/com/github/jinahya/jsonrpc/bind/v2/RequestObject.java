@@ -43,41 +43,114 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
 
-    static class RequestObjectBuilder<
-            BuilderType extends RequestObjectBuilder<BuilderType, ObjectType, ParamsType, IdType>,
-            ObjectType extends RequestObject<ParamsType, IdType>,
-            ParamsType,
-            IdType>
-            extends JsonrpcObjectBuilder<BuilderType, ObjectType, IdType> {
+    /**
+     * An abstract class for defining builders of specific subclass of {@link RequestObject}.
+     *
+     * @param <T> builder type parameter.
+     * @param <U> request object type parameter.
+     * @param <V> {@value #PROPERTY_NAME_PARAMS} type parameter.
+     * @param <W> {@value #PROPERTY_NAME_ID} type parameter.
+     */
+    protected abstract static class AbstractBuilder<
+            T extends AbstractBuilder<T, U, V, W>,
+            U extends RequestObject<V, W>,
+            V,
+            W>
+            extends JsonrpcObjectBuilder<T, U, W> {
 
-        RequestObjectBuilder(final Class<? extends ObjectType> objectClass) {
+        /**
+         * Creates a new instance for specified request object class.
+         *
+         * @param objectClass the request object class.
+         */
+        public AbstractBuilder(final Class<? extends U> objectClass) {
             super(objectClass);
         }
 
+        /**
+         * Sets {@value #PROPERTY_NAME_PARAMS} property with specified value and returns this builder instance.
+         *
+         * @param params the value for {@value #PROPERTY_NAME_PARAMS} property.
+         * @return this builder instance.
+         */
         @SuppressWarnings({"unchecked"})
-        public BuilderType params(final ParamsType params) {
+        public T params(final V params) {
             this.params = params;
-            return (BuilderType) this;
+            return (T) this;
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @param id the value for {@value #PROPERTY_NAME_ID} property.
+         * @return {@inheritDoc}
+         */
         @Override
-        public ObjectType build() {
-            final ObjectType instance = super.build();
+        public T id(final W id) {
+            return super.id(id);
+        }
+
+        /**
+         * Builds this builder and returns the built value.
+         *
+         * @return the built value.
+         */
+        @Override
+        public U build() {
+            final U instance = super.build();
             instance.setParams(params);
             return instance;
         }
 
-        private ParamsType params;
+        private V params;
     }
 
-    public static class Builder<ParamsType, IdType>
-            extends RequestObjectBuilder<Builder<ParamsType, IdType>, RequestObject<ParamsType, IdType>,
-            ParamsType,
-            IdType> {
+    /**
+     * A class for building an instance of {@link RequestObject}.
+     *
+     * @param <T> {@value #PROPERTY_NAME_PARAMS} type parameter.
+     * @param <U> {@value #PROPERTY_NAME_ID} type parameter.
+     */
+    public static class Builder<T, U> extends AbstractBuilder<Builder<T, U>, RequestObject<T, U>, T, U> {
 
+        /**
+         * Creates a new instance.
+         */
         @SuppressWarnings({"unchecked"})
         public Builder() {
-            super((Class<? extends RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class);
+            super((Class<? extends RequestObject<T, U>>) (Class<?>) RequestObject.class);
+        }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param params the value for {@value #PROPERTY_NAME_PARAMS} property.
+         * @return {@inheritDoc}
+         */
+        @Override
+        public Builder<T, U> params(final T params) {
+            return super.params(params);
+        }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param id the value for {@value #PROPERTY_NAME_ID} property.
+         * @return {@inheritDoc}
+         */
+        @Override
+        public Builder<T, U> id(final U id) {
+            return super.id(id);
+        }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@inheritDoc}
+         */
+        @Override
+        public RequestObject<T, U> build() {
+            return super.build();
         }
     }
 

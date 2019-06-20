@@ -66,7 +66,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         public static final String PROPERTY_NAME_MESSAGE = "message";
 
         /**
-         * The property for {@code data} property.
+         * The name for {@code data} property.
          */
         public static final String PROPERTY_NAME_DATA = "data";
 
@@ -210,54 +210,80 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         private DataType data;
     }
 
-    static class ResponseObjectBuilder<
-            BuilderType extends ResponseObjectBuilder<BuilderType, ObjectType, ResultType, ErrorType, IdType>,
-            ObjectType extends ResponseObject<ResultType, ErrorType, IdType>,
-            ResultType,
-            ErrorType extends ErrorObject<?>,
-            IdType>
-            extends JsonrpcObjectBuilder<BuilderType, ObjectType, IdType> {
+    /**
+     * An abstract class for defining builders of specific subclass of {@link ResponseObject}.
+     *
+     * @param <T> builder type parameter .
+     * @param <U> subclass type parameter.
+     * @param <V> result type parameter.
+     * @param <W> error type parameter.
+     * @param <X> id type parameter.
+     */
+    protected static abstract class AbstractBuilder<
+            T extends AbstractBuilder<T, U, V, W, X>,
+            U extends ResponseObject<V, W, X>,
+            V,
+            W extends ErrorObject<?>,
+            X>
+            extends JsonrpcObjectBuilder<T, U, X> {
 
-        ResponseObjectBuilder(final Class<? extends ObjectType> objectClass) {
+        public AbstractBuilder(final Class<? extends U> objectClass) {
             super(objectClass);
         }
 
+        /**
+         * Sets {@value #PROPERTY_NAME_RESULT} property with specified value and returns this builder instance.
+         *
+         * @param result the value for {@value #PROPERTY_NAME_RESULT} property.
+         * @return this builder instance.
+         */
         @SuppressWarnings({"unchecked"})
-        public BuilderType result(final ResultType result) {
+        public T result(final V result) {
             this.result = result;
-            return (BuilderType) this;
+            return (T) this;
         }
 
+        /**
+         * Sets {@value #PROPERTY_NAME_ERROR} property with specified value and returns this builder instance.
+         *
+         * @param error the value for {@value #PROPERTY_NAME_ERROR} property.
+         * @return this builder instance.
+         */
         @SuppressWarnings({"unchecked"})
-        public BuilderType error(final ErrorType error) {
+        public T error(final W error) {
             this.error = error;
-            return (BuilderType) this;
+            return (T) this;
         }
 
         @Override
-        public ObjectType build() {
-            final ObjectType instance = super.build();
+        public U build() {
+            final U instance = super.build();
             instance.setResult(result);
             instance.setError(error);
             return instance;
         }
 
-        private ResultType result;
+        private V result;
 
-        private ErrorType error;
+        private W error;
     }
 
-    public static class Builder<ResultType, ErrorType extends ErrorObject<?>, IdType>
-            extends ResponseObjectBuilder<
-            Builder<ResultType, ErrorType, IdType>,
-            ResponseObject<ResultType, ErrorType, IdType>,
-            ResultType,
-            ErrorType,
-            IdType> {
+    /**
+     * A class for building {@link ResponseObject} of specified type parameters.
+     *
+     * @param <T> result type parameter.
+     * @param <U> error type parameter.
+     * @param <V> id type parameter.
+     */
+    public static class Builder<T, U extends ErrorObject<?>, V>
+            extends AbstractBuilder<Builder<T, U, V>, ResponseObject<T, U, V>, T, U, V> {
 
+        /**
+         * Creates a new instance.
+         */
         @SuppressWarnings({"unchecked"})
         public Builder() {
-            super((Class<? extends ResponseObject<ResultType, ErrorType, IdType>>) (Class<?>) ResponseObject.class);
+            super((Class<? extends ResponseObject<T, U, V>>) (Class<?>) ResponseObject.class);
         }
     }
 
