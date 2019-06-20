@@ -118,6 +118,14 @@ public interface CalculatorRequestParams {
 
     class SubtractionParams implements CalculatorRequestParams {
 
+        @Override
+        public String toString() {
+            return super.toString() + "{"
+                   + "minuend=" + minuend
+                   + ",subtrahend=" + subtrahend
+                   + "}";
+        }
+
         @Argument1
         @NotNull
         @Setter
@@ -132,6 +140,14 @@ public interface CalculatorRequestParams {
     }
 
     class MultiplicationParam implements CalculatorRequestParams {
+
+        @Override
+        public String toString() {
+            return super.toString() + "{"
+                   + "multiplicand=" + multiplicand
+                   + ",multiplier=" + multiplier
+                   + "}";
+        }
 
         @Argument1
         @NotNull
@@ -149,6 +165,15 @@ public interface CalculatorRequestParams {
     class DivisionParam implements CalculatorRequestParams {
 
         public static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
+
+        @Override
+        public String toString() {
+            return super.toString() + "{"
+                   + "dividend=" + dividend
+                   + ",divisor=" + divisor
+                   + ",roundingMode=" + roundingMode
+                   + "}";
+        }
 
         @Argument1
         @NotNull
