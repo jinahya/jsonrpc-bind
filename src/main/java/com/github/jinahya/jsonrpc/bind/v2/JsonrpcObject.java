@@ -121,10 +121,16 @@ public abstract class JsonrpcObject<IdType> implements Serializable {
         object.copyIdTo(this);
     }
 
+    /**
+     * An attribute for {@value #PROPERTY_NAME_JSONRPC} property. Default value is {@value #PROPERTY_VALUE_JSONRPC}.
+     */
     @Pattern(regexp = PROPERTY_VALUE_JSONRPC)
     @NotNull
     private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 
+    /**
+     * An attribute for {@value #PROPERTY_NAME_ID} property.
+     */
     @Valid
     private IdType id;
 }

@@ -27,13 +27,13 @@ import java.math.BigDecimal;
 public interface CalculatorService {
 
     // -----------------------------------------------------------------------------------------------------------------
-    @CalculatorProcedure
+    @CalculatorProcedure(method = "add")
     @NotNull BigDecimal add(@Valid @NotNull CalculatorRequestParams.AdditionParams additionParams);
 
     @CalculatorProcedure
     @NotNull BigDecimal subtract(@Valid @NotNull CalculatorRequestParams.SubtractionParams subtractionParams);
 
-    @CalculatorProcedure
+    @CalculatorProcedure(method = "multiply")
     @NotNull BigDecimal multiply(@Valid @NotNull CalculatorRequestParams.MultiplicationParam multiplicationParam);
 
     @CalculatorProcedure

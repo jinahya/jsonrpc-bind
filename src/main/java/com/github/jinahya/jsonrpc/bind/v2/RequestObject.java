@@ -92,9 +92,15 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
         this.params = params;
     }
 
+    /**
+     * An attribute for {@value #PROPERTY_NAME_METHOD} property.
+     */
     @NotBlank
     private String method;
 
+    /**
+     * An attribute for {@value #PROPERTY_NAME_PARAMS} property.
+     */
     @Valid
     private ParamsType params;
 }

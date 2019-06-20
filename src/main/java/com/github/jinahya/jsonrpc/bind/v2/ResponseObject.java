@@ -25,7 +25,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 /**
- * Represents response objects.
+ * A class for representing <a href="https://www.jsonrpc.org/specification#response_object">Response Object</a>s.
  *
  * @param <ResultType> result type parameter
  * @param <ErrorType>  error type parameter
@@ -47,10 +47,10 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     public static final String PROPERTY_NAME_ERROR = "error";
 
     /**
-     * Represents error objects.
+     * A class for representing <a href="https://www.jsonrpc.org/specification#error_object">Error Object</a>s.
      *
      * @param <DataType> data type parameter.
-     * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Objects (JSON RPC 2.0
+     * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Object (JSON-RPC 2.0
      * Specification)</a>
      */
     public static class ErrorObject<DataType> {
@@ -192,11 +192,20 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             this.data = data;
         }
 
+        /**
+         * The attribute for {@value #PROPERTY_NAME_CODE} property.
+         */
         private long code;
 
+        /**
+         * The attribute for {@value #PROPERTY_NAME_MESSAGE} property.
+         */
         @NotNull
         private String message;
 
+        /**
+         * The attribute for {@value #PROPERTY_NAME_DATA} property.
+         */
         @Valid
         private DataType data;
     }
@@ -239,16 +248,19 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with given.
      *
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
+     * @see #setResultExclusively(Object)
      */
     public void setResult(final ResultType result) {
         this.result = result;
     }
 
     /**
-     * Sets the current value of {@value #PROPERTY_NAME_RESULT} property exclusively. This method, if given {@code
-     * result} argument is not {@code null}, sets {@value #PROPERTY_NAME_ERROR} property with {@code null}.
+     * Sets {@value #PROPERTY_NAME_RESULT} property with specified value <i>exclusively</i>. This method invokes {@link
+     * #setResult(Object)} with specified value and, if {@link #getResult()} method returns {@code null}, invokes {@link
+     * #setError(ErrorObject)} method with {@code null}.
      *
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
+     * @see #setResult(Object)
      */
     public void setResultExclusively(final ResultType result) {
         setResult(result);
@@ -270,16 +282,19 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with given.
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
+     * @see #setErrorExclusively(ErrorObject)
      */
     public void setError(final ErrorType error) {
         this.error = error;
     }
 
     /**
-     * Sets the current value of {@value #PROPERTY_NAME_ERROR} property exclusively. This method, if given {@code error}
-     * argument is not {@code null}, sets {@value #PROPERTY_NAME_RESULT} property with  {@code null}.
+     * Sets {@value #PROPERTY_NAME_ERROR} property with specified value <i>exclusively</i>. This method invokes {@link
+     * #setError(ErrorObject)} with specified argument and, if {@link #getError()} method returns {@code null}, invokes
+     * {@link #setResult(Object)} method with {@code null}.
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
+     * @see #setError(ErrorObject)
      */
     public void setErrorExclusively(final ErrorType error) {
         setError(error);
@@ -288,9 +303,15 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
     }
 
+    /**
+     * An attribute for {@value #PROPERTY_NAME_RESULT} property.
+     */
     @Valid
     private ResultType result;
 
+    /**
+     * An attribute for {@value #PROPERTY_NAME_ERROR} property.
+     */
     @Valid
     private ErrorType error;
 }
