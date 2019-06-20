@@ -23,7 +23,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
 import static java.util.Objects.requireNonNull;
@@ -33,7 +32,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  */
-public abstract class JsonrpcObject<IdType> implements Serializable {
+public abstract class JsonrpcObject<IdType> {
 
     /**
      * The property name for {@code jsonrpc}.
