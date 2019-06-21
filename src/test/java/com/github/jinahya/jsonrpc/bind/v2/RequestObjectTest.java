@@ -48,6 +48,7 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
         this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
     }
 
+    @SuppressWarnings({"unchecked"})
     @Override
     protected void acceptValueFromResource(String name, Consumer<? super ObjectType> consumer)
             throws IOException {
