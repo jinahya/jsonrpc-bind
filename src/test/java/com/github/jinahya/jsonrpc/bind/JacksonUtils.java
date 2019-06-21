@@ -94,10 +94,16 @@ public final class JacksonUtils {
         return withResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
     }
 
-    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass)
+    public static <T> T readValue(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
-        return withResource(resourceName, valueClass, s -> {
-        });
+        try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
+            assertNotNull(resourceStream, "null resource stream for " + resourceName);
+            final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, valueClass));
+            final String string = OBJECT_MAPPER.writeValueAsString(value);
+            log.debug("jackson: {}", value);
+            log.debug("jackson: {}", string);
+            return value;
+        }
     }
 
     private JacksonUtils() {

@@ -49,7 +49,7 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         consumer.accept(JsonbUtils.withResource(name, objectClass));
-        consumer.accept(JacksonUtils.withResource(name, objectClass));
+        consumer.accept(JacksonUtils.readValue(name, objectClass));
         consumer.accept(GsonUtils.withResource(name, objectClass));
         consumer.accept(MoshiUtils.withResource(name, objectClass));
     }
