@@ -38,19 +38,12 @@ abstract class IdentifiableTest<_ObjectType extends Identifiable<IdType>, IdType
         this.idClass = requireNonNull(idClass, "idClass is null");
     }
 
-//    protected void withResource(final String name, final BiConsumer<? super _ObjectType, ? super String> consumer)
-//            throws IOException {
-//        JsonbUtils.withResource(name, objectClass, consumer);
-//        JacksonUtils.withResource(name, objectClass, consumer);
-//        GsonUtils.withResource(name, objectClass, consumer);
-//        MoshiUtils.withResource(name, objectClass, consumer);
-//    }
-
-    protected void withResource(final String name, final Consumer<? super _ObjectType> consumer) throws IOException {
-        consumer.accept(JsonbUtils.fromJson(name, objectClass));
+    protected void acceptValueFromResource(final String name, final Consumer<? super _ObjectType> consumer)
+            throws IOException {
+        consumer.accept(JsonbUtils.fromResource(name, objectClass));
         consumer.accept(JacksonUtils.readValueFromResource(name, objectClass));
-        consumer.accept(GsonUtils.fromJson(name, objectClass));
-        consumer.accept(MoshiUtils.fromJson(name, objectClass));
+        consumer.accept(GsonUtils.fromResource(name, objectClass));
+        consumer.accept(MoshiUtils.fromResource(name, objectClass));
     }
 
     protected final Class<? extends _ObjectType> objectClass;

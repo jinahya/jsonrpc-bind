@@ -36,9 +36,9 @@ class PostMessageResponseTest extends ResponseTest<PostMessageResponse, Integer,
     }
 
     @Override
-    protected void withResource(final String name, final Consumer<? super PostMessageResponse> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super PostMessageResponse> consumer)
             throws IOException {
-        super.withResource(name, v -> {
+        super.acceptValueFromResource(name, v -> {
             consumer.accept(v);
             final PostMessageRequest request = new PostMessageRequest();
             v.copyIdTo(request);
@@ -48,7 +48,7 @@ class PostMessageResponseTest extends ResponseTest<PostMessageResponse, Integer,
 
     @Test
     void postMessage_01_response() throws IOException {
-        withResource(
+        acceptValueFromResource(
                 "postMessage_01_response.json",
                 v -> {
                     assertEquals(1, (int) v.getResult());
@@ -60,7 +60,7 @@ class PostMessageResponseTest extends ResponseTest<PostMessageResponse, Integer,
 
     @Test
     void postMessage_02_response() throws IOException {
-        withResource(
+        acceptValueFromResource(
                 "postMessage_02_response.json",
                 v -> {
                     assertEquals(1, (int) v.getResult());

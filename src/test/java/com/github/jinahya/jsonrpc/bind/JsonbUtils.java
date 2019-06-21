@@ -74,7 +74,7 @@ public final class JsonbUtils {
      * @return an instance of parsed value of specified type.
      * @throws IOException if an I/O error occurs.
      */
-    public static <T> T fromJson(final String resourceName, final Class<? extends T> valueClass)
+    public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
         try (InputStream stream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(stream, "null resource stream for " + resourceName);

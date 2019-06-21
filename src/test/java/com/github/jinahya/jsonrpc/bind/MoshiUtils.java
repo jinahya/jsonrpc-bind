@@ -82,7 +82,7 @@ public final class MoshiUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T fromJson(final String resourceName, final Class<T> valueClass)
+    public static <T> T fromResource(final String resourceName, final Class<T> valueClass)
             throws IOException {
         try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);

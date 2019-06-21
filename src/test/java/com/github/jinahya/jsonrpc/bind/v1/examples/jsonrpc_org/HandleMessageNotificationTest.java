@@ -48,7 +48,7 @@ class HandleMessageNotificationTest extends NotificationTest<HandleMessageNotifi
      */
     @Test
     void handleMessage_01_notification() throws IOException {
-        withResource(
+        acceptValueFromResource(
                 "handleMessage_01_notification.json",
                 v -> {
                     assertEquals("handleMessage", v.getMethod());
@@ -59,7 +59,7 @@ class HandleMessageNotificationTest extends NotificationTest<HandleMessageNotifi
 
     @Test
     void handleMessage_02_notification() throws IOException {
-        withResource(
+        acceptValueFromResource(
                 "handleMessage_02_notification.json",
                 v -> {
                     assertEquals("handleMessage", v.getMethod());

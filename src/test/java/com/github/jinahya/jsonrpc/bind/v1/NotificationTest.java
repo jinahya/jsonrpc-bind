@@ -36,9 +36,9 @@ public abstract class NotificationTest<NotificationType extends Notification<Par
     }
 
     @Override
-    protected void withResource(final String name, final Consumer<? super NotificationType> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super NotificationType> consumer)
             throws IOException {
-        super.withResource(name, v -> {
+        super.acceptValueFromResource(name, v -> {
             consumer.accept(v);
             v.setId(null);
             try {

@@ -37,7 +37,7 @@ class PostMessageRequestTest extends RequestTest<PostMessageRequest, String, Lon
 
     @Test
     void postMessage_01_request() throws IOException {
-        withResource(
+        acceptValueFromResource(
                 "postMessage_01_request.json",
                 v -> {
                     assertEquals("postMessage", v.getMethod());
@@ -49,7 +49,7 @@ class PostMessageRequestTest extends RequestTest<PostMessageRequest, String, Lon
 
     @Test
     void postMessage_02_request() throws IOException {
-        withResource(
+        acceptValueFromResource(
                 "postMessage_02_request.json",
                 v -> {
                     assertEquals("postMessage", v.getMethod());

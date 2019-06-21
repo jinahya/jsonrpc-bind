@@ -65,7 +65,7 @@ public final class GsonUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T fromJson(final String resourceName, final Class<? extends T> valueClass)
+    public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
         try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);

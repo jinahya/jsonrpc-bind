@@ -44,7 +44,7 @@ class EchoRequestTest extends RequestTest<EchoRequest, String, Integer> {
      */
     @Test
     void echo_01_request() throws IOException {
-        withResource(
+        acceptValueFromResource(
                 "echo_01_request.json",
                 v -> {
                     assertEquals("echo", v.getMethod());
