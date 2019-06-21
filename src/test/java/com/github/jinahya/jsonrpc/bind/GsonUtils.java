@@ -39,8 +39,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 public final class GsonUtils {
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static final Gson GSON = new Gson(); // thread-safe!
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyGson(final Function<? super Gson, ? extends R> function) {
         return function.apply(GSON);
     }
@@ -62,8 +64,8 @@ public final class GsonUtils {
         acceptGson(v -> consumer.accept(v, supplier.get()));
     }
 
-    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
-                                     final BiConsumer<? super T, ? super String> valueConsumer)
+    // -----------------------------------------------------------------------------------------------------------------
+    public static <T> T fromJson(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
         try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
@@ -73,24 +75,12 @@ public final class GsonUtils {
                 final String string = v.toJson(value);
                 log.debug("gson: {}", value);
                 log.debug("gson: {}", string);
-                valueConsumer.accept(value, string);
                 return value;
             });
         }
     }
 
-    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
-                                     final Consumer<? super String> stringConsumer)
-            throws IOException {
-        return withResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
-    }
-
-    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass)
-            throws IOException {
-        return withResource(resourceName, valueClass, s -> {
-        });
-    }
-
+    // -----------------------------------------------------------------------------------------------------------------
     private GsonUtils() {
         super();
     }

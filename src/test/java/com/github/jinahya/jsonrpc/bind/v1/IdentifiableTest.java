@@ -47,10 +47,10 @@ abstract class IdentifiableTest<_ObjectType extends Identifiable<IdType>, IdType
 //    }
 
     protected void withResource(final String name, final Consumer<? super _ObjectType> consumer) throws IOException {
-        consumer.accept(JsonbUtils.withResource(name, objectClass));
-        consumer.accept(JacksonUtils.readValue(name, objectClass));
-        consumer.accept(GsonUtils.withResource(name, objectClass));
-        consumer.accept(MoshiUtils.withResource(name, objectClass));
+        consumer.accept(JsonbUtils.fromJson(name, objectClass));
+        consumer.accept(JacksonUtils.readValueFromResource(name, objectClass));
+        consumer.accept(GsonUtils.fromJson(name, objectClass));
+        consumer.accept(MoshiUtils.fromJson(name, objectClass));
     }
 
     protected final Class<? extends _ObjectType> objectClass;

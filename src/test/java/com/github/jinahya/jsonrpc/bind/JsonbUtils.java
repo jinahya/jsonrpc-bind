@@ -38,8 +38,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 public final class JsonbUtils {
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static final Jsonb JSONB = JsonbBuilder.create();
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyJsonb(final Function<? super Jsonb, ? extends R> function) {
         return function.apply(JSONB);
     }
@@ -61,27 +63,7 @@ public final class JsonbUtils {
         acceptJsonb(v -> consumer.accept(v, supplier.get()));
     }
 
-    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
-                                     final BiConsumer<? super T, ? super String> stringConsumer)
-            throws IOException {
-        try (InputStream stream = valueClass.getResourceAsStream(resourceName)) {
-            assertNotNull(stream, "null resource stream for " + resourceName);
-            return applyJsonb(v -> {
-                final T value = requireValid(v.fromJson(stream, valueClass));
-                final String string = v.toJson(value);
-                log.debug("jsonb: {}", value);
-                log.debug("jsonb: {}", string);
-                stringConsumer.accept(value, string);
-                return value;
-            });
-        }
-    }
-
-    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass,
-                                     final Consumer<? super String> stringConsumer)
-            throws IOException {
-        return withResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Opens a resource of specified name and returns an instance of specified type read from it.
@@ -92,12 +74,21 @@ public final class JsonbUtils {
      * @return an instance of parsed value of specified type.
      * @throws IOException if an I/O error occurs.
      */
-    public static <T> T withResource(final String resourceName, final Class<? extends T> valueClass)
+    public static <T> T fromJson(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
-        return withResource(resourceName, valueClass, s -> {
-        });
+        try (InputStream stream = valueClass.getResourceAsStream(resourceName)) {
+            assertNotNull(stream, "null resource stream for " + resourceName);
+            return applyJsonb(v -> {
+                final T value = requireValid(v.fromJson(stream, valueClass));
+                final String string = v.toJson(value);
+                log.debug("jsonb: {}", value);
+                log.debug("jsonb: {}", string);
+                return value;
+            });
+        }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private JsonbUtils() {
         super();
     }

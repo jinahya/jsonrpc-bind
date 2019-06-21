@@ -40,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 public final class MoshiUtils {
 
+    // -----------------------------------------------------------------------------------------------------------------
     // https://github.com/square/moshi/issues/866
     static class VoidAdapter extends JsonAdapter<Void> {
 
@@ -58,6 +59,7 @@ public final class MoshiUtils {
     // https://github.com/square/moshi/issues/468
     public static final Moshi MOSHI = new Moshi.Builder().add(Void.class, new VoidAdapter()).build();
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyMoshi(final Function<? super Moshi, ? extends R> function) {
         return function.apply(MOSHI);
     }
@@ -79,8 +81,8 @@ public final class MoshiUtils {
         acceptMoshi(v -> consumer.accept(v, supplier.get()));
     }
 
-    public static <T> T withResource(final String resourceName, final Class<T> valueClass,
-                                     final BiConsumer<? super T, ? super String> valueConsumer)
+    // -----------------------------------------------------------------------------------------------------------------
+    public static <T> T fromJson(final String resourceName, final Class<T> valueClass)
             throws IOException {
         try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
@@ -89,23 +91,12 @@ public final class MoshiUtils {
             final String string = adapter.toJson(value);
             log.debug("moshi: {}", value);
             log.debug("moshi: {}", string);
-            valueConsumer.accept(value, string);
             return value;
         }
     }
 
-    public static <T> T withResource(final String resourceName, final Class<T> valueClass,
-                                     final Consumer<? super String> stringConsumer)
-            throws IOException {
-        return withResource(resourceName, valueClass, (v, s) -> stringConsumer.accept(s));
-    }
-
-    public static <T> T withResource(final String resourceName, final Class<T> valueClass)
-            throws IOException {
-        return withResource(resourceName, valueClass, s -> {
-        });
-    }
-
+    // -----------------------------------------------------------------------------------------------------------------
     private MoshiUtils() {
+        super();
     }
 }
