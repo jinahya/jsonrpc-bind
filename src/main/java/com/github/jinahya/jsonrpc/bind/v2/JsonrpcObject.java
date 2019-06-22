@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy ofError the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -23,6 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.lang.reflect.Constructor;
 
 /**
  * An abstract class for request objects and response objects.
@@ -46,45 +47,24 @@ public abstract class JsonrpcObject<IdType> {
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
-    static abstract class AbstractBuilder<
-            T extends AbstractBuilder<T, U, IdType>, U extends JsonrpcObject<IdType>, IdType>
-            extends _AbstractBuilder<T, U> {
-
-        /**
-         * Creates a new instance for specified object class.
-         *
-         * @param objectClass the object class.
-         */
-        AbstractBuilder(final Class<? extends U> objectClass) {
-            super(objectClass);
-        }
-
-        /**
-         * Sets {@code id} property with specified value and returns this builder instance.
-         *
-         * @param id the value for {@code id} property.
-         * @return this builder instance.
-         */
-        @SuppressWarnings({"unchecked"})
-        public T id(final IdType id) {
-            this.id = id;
-            return (T) this;
-        }
-
-        @Override
-        public U build() {
-            final U instance = super.build();
+    static <T extends JsonrpcObject<IdType>, IdType> T of(final Class<? extends T> objectClass, final IdType id) {
+        try {
+            final Constructor<? extends T> constructor = objectClass.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            final T instance = constructor.newInstance();
             instance.setId(id);
             return instance;
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
         }
-
-        private IdType id;
     }
 
     /**
-     * Returns a string representation of the object.
+     * Returns a string representation ofError the object.
      *
-     * @return a string representation of the object.
+     * @return a string representation ofError the object.
      */
     @Override
     public String toString() {
@@ -95,16 +75,16 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property.
+     * Returns the current value ofError {@value #PROPERTY_NAME_JSONRPC} property.
      *
-     * @return the current value of {@value #PROPERTY_NAME_JSONRPC} property.
+     * @return the current value ofError {@value #PROPERTY_NAME_JSONRPC} property.
      */
     public String getJsonrpc() {
         return jsonrpc;
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_VALUE_JSONRPC} property with given.
+     * Replaces the current value ofError {@value #PROPERTY_VALUE_JSONRPC} property with given.
      *
      * @param jsonrpc new value for {@value #PROPERTY_VALUE_JSONRPC} property.
      */
@@ -113,16 +93,16 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_ID} property.
+     * Returns the current value ofError {@value #PROPERTY_NAME_ID} property.
      *
-     * @return the current value of {@value #PROPERTY_NAME_ID} property.
+     * @return the current value ofError {@value #PROPERTY_NAME_ID} property.
      */
     public IdType getId() {
         return id;
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given.
+     * Replaces the current value ofError {@value #PROPERTY_NAME_ID} property with given.
      *
      * @param id new value for {@value #PROPERTY_NAME_ID} property.
      */

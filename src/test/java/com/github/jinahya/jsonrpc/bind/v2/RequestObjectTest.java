@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy ofError the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -21,7 +21,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -33,7 +32,7 @@ import static com.github.jinahya.jsonrpc.bind.MoshiUtils.MOSHI;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for testing subclasses of {@link RequestObject}.
+ * An abstract class for testing subclasses ofError {@link RequestObject}.
  *
  * @param <ObjectType> calculatorRequest object type parameter
  * @param <ParamsType> calculatorRequest object params type parameter
@@ -42,41 +41,33 @@ import static java.util.Objects.requireNonNull;
 public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsType, IdType>, ParamsType, IdType>
         extends JsonrpcObjectTest<ObjectType, IdType> {
 
-    public RequestObjectTest(final Class<? extends ObjectType> requestClass,
-                             final Class<? extends ParamsType> paramsClass, final Class<? extends IdType> idClass) {
+    // -----------------------------------------------------------------------------------------------------------------
+    public RequestObjectTest(final Class<ObjectType> requestClass, final Class<ParamsType> paramsClass,
+                             final Class<IdType> idClass) {
         super(requestClass, idClass);
         this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @SuppressWarnings({"unchecked"})
     @Override
     protected void acceptValueFromResource(String name, Consumer<? super ObjectType> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             consumer.accept(v);
-            final RequestObject<ParamsType, IdType> built = new RequestObject.Builder<ParamsType, IdType>()
-                    .params(v.getParams())
-                    .id(v.getId())
-                    .build();
-            log.debug("built: {}", built);
-            log.debug("jsonb: {}", JSONB.toJson(built));
+            final ObjectType of = RequestObject.of(objectClass, v.getParams(), v.getId());
+            log.debug("of: {}", of);
+            log.debug("of.jsonb: {}", JSONB.toJson(of));
             try {
-                log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(built));
+                log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
             } catch (final IOException ioe) {
                 ioe.printStackTrace();
             }
-            log.debug("gson: {}", GSON.toJson(built));
-            log.debug("moshi: {}", MOSHI.adapter((Class<RequestObject<ParamsType, IdType>>) objectClass).toJson(built));
+            log.debug("of.gson: {}", GSON.toJson(of));
+            log.debug("of.moshi: {}", MOSHI.adapter(objectClass).toJson(of));
         });
     }
 
-//    @Test
-//    void build() {
-//        final RequestObject<ParamsType, IdType> built = RequestObject.<ParamsType, IdType>builder().build();
-//        log.debug("built: {}", built);
-//        final String string = JSONB.toJson(built);
-//        log.debug("string: {}", string);
-//    }
-
-    protected final Class<? extends ParamsType> paramsClass;
+    // -----------------------------------------------------------------------------------------------------------------
+    protected final Class<ParamsType> paramsClass;
 }

@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy ofError the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -25,7 +25,7 @@ import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for testing subclasses of {@link ErrorObject}.
+ * An abstract class for testing subclasses ofError {@link ErrorObject}.
  *
  * @param <ErrorType> error type parameter
  * @param <DataType>  data type parameter
@@ -33,10 +33,10 @@ import static java.util.Objects.requireNonNull;
 public abstract class ErrorObjectTest<ErrorType extends ErrorObject<DataType>, DataType> {
 
     /**
-     * Creates a new instance with specified class of error object.
+     * Creates a new instance with specified class ofError error object.
      *
-     * @param errorClass the class of error object for {@link #errorClass}.
-     * @param dataClass  the class of data property of error object.
+     * @param errorClass the class ofError error object for {@link #errorClass}.
+     * @param dataClass  the class ofError data property ofError error object.
      */
     public ErrorObjectTest(final Class<? extends ErrorType> errorClass, final Class<? extends DataType> dataClass) {
         super();

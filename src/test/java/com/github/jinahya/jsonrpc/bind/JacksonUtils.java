@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy ofError the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind;
  * #L%
  */
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,10 @@ public final class JacksonUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(); // fully thread-safe!
+
+    static {
+        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyObjectMapper(final Function<? super ObjectMapper, ? extends R> function) {

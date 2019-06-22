@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy ofError the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -33,19 +33,21 @@ import java.util.function.Supplier;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for testing subclasses of {@link JsonrpcObject}.
+ * An abstract class for testing subclasses ofError {@link JsonrpcObject}.
  *
  * @param <ObjectType> subclass type parameter
  * @param <IdType>     id type parameter
  */
 abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdType> {
 
-    JsonrpcObjectTest(final Class<? extends ObjectType> objectClass, final Class<? extends IdType> idClass) {
+    // -----------------------------------------------------------------------------------------------------------------
+    JsonrpcObjectTest(final Class<ObjectType> objectClass, final Class<IdType> idClass) {
         super();
         this.objectClass = requireNonNull(objectClass, "objectClass is null");
         this.idClass = requireNonNull(idClass, "idClass is null");
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         consumer.accept(JsonbUtils.fromResource(name, objectClass));
@@ -62,7 +64,8 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
         });
     }
 
-    protected final Class<? extends ObjectType> objectClass;
+    // -----------------------------------------------------------------------------------------------------------------
+    protected final Class<ObjectType> objectClass;
 
-    protected final Class<? extends IdType> idClass;
+    protected final Class<IdType> idClass;
 }

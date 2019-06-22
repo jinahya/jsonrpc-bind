@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy ofError the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -46,85 +46,17 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     public static final String PROPERTY_NAME_PARAMS = "params";
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * An abstract class for defining builders of specific subclass of {@link RequestObject}.
-     *
-     * @param <T>          builder type parameter.
-     * @param <U>          request object type parameter.
-     * @param <ParamsType> params type parameter.
-     * @param <IdType>     id type parameter.
-     */
-    protected abstract static class AbstractBuilder<
-            T extends AbstractBuilder<T, U, ParamsType, IdType>,
-            U extends RequestObject<ParamsType, IdType>,
-            ParamsType,
-            IdType>
-            extends JsonrpcObject.AbstractBuilder<T, U, IdType> {
-
-        /**
-         * Creates a new instance for specified request object class.
-         *
-         * @param objectClass the request object class.
-         */
-        protected AbstractBuilder(final Class<? extends U> objectClass) {
-            super(objectClass);
-        }
-
-        /**
-         * Sets {@value #PROPERTY_NAME_PARAMS} property with specified value and returns this builder instance.
-         *
-         * @param params the value for {@value #PROPERTY_NAME_PARAMS} property.
-         * @return this builder instance.
-         */
-        @SuppressWarnings({"unchecked"})
-        public T params(final ParamsType params) {
-            this.params = params;
-            return (T) this;
-        }
-
-        @Override
-        public U build() {
-            final U instance = super.build();
-            instance.setParams(params);
-            return instance;
-        }
-
-        private ParamsType params;
+    protected static <T extends RequestObject<ParamsType, IdType>, ParamsType, IdType> T of(
+            final Class<? extends T> objectClass, final ParamsType params, final IdType id) {
+        final T instance = JsonrpcObject.of(objectClass, id);
+        instance.setParams(params);
+        return instance;
     }
 
-    /**
-     * A class for building instances of {@link RequestObject} of specified type parameters.
-     *
-     * @param <ParamsType> params type parameter
-     * @param <IdType>     id type parameter
-     * @see #builder()
-     */
-    public static class Builder<ParamsType, IdType>
-            extends AbstractBuilder<Builder<ParamsType, IdType>,
-            RequestObject<ParamsType, IdType>,
-            ParamsType,
-            IdType> {
-
-        /**
-         * Creates a new instance.
-         */
-        @SuppressWarnings({"unchecked"})
-        public Builder() {
-            super((Class<? extends RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class);
-        }
+    @SuppressWarnings({"unchecked"})
+    public static <ParamsType, IdType> RequestObject<ParamsType, IdType> of(final ParamsType params, final IdType id) {
+        return of((Class<RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class, params, id);
     }
-
-//    /**
-//     * Creates a new builder for specified type parameters.
-//     *
-//     * @param <ParamsType> params type parameter.
-//     * @param <IdType>     id type parameter
-//     * @return an instance of {@link RequestObject} of specified type parameters.
-//     */
-//    public static <ParamsType, IdType> Builder<ParamsType, IdType> builder() {
-//        return new Builder<>();
-//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -137,9 +69,9 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a string representation of the object.
+     * Returns a string representation ofError the object.
      *
-     * @return a string representation of the object.
+     * @return a string representation ofError the object.
      */
     @Override
     public String toString() {
@@ -152,16 +84,16 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // ---------------------------------------------------------------------------------------------------------- method
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_METHOD} property.
+     * Returns the current value ofError {@value #PROPERTY_NAME_METHOD} property.
      *
-     * @return the current value of {@value #PROPERTY_NAME_METHOD} property.
+     * @return the current value ofError {@value #PROPERTY_NAME_METHOD} property.
      */
     public String getMethod() {
         return method;
     }
 
     /**
-     * Replace the current value of {@value #PROPERTY_NAME_METHOD} property with given.
+     * Replace the current value ofError {@value #PROPERTY_NAME_METHOD} property with given.
      *
      * @param method new value for {@value #PROPERTY_NAME_METHOD} property.
      */
@@ -172,16 +104,16 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // ---------------------------------------------------------------------------------------------------------- params
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_PARAMS} property.
+     * Returns the current value ofError {@value #PROPERTY_NAME_PARAMS} property.
      *
-     * @return the current value of {@value #PROPERTY_NAME_PARAMS} property.
+     * @return the current value ofError {@value #PROPERTY_NAME_PARAMS} property.
      */
     public ParamsType getParams() {
         return params;
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with given.
+     * Replaces the current value ofError {@value #PROPERTY_NAME_PARAMS} property with given.
      *
      * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */
