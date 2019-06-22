@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.squareup.moshi.JsonAdapter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +50,7 @@ public abstract class ResponseObjectTest<
         ErrorType extends ResponseObject.ErrorObject<?>, IdType>
         extends JsonrpcObjectTest<ObjectType, IdType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * Creates a new instance for specified response object class and its type parameter classes.
      *
@@ -64,6 +66,7 @@ public abstract class ResponseObjectTest<
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
     protected void acceptValueFromResource(final String name, Consumer<? super ObjectType> consumer)
             throws IOException {
@@ -77,8 +80,8 @@ public abstract class ResponseObjectTest<
                 log.debug("of.jsonb: {}", JSONB.toJson(of));
                 try {
                     log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final IOException ioe) {
-                    ioe.printStackTrace();
+                } catch (final JsonProcessingException jpe) {
+                    throw new RuntimeException(jpe);
                 }
                 log.debug("of.gson: {}", GSON.toJson(of));
                 log.debug("of.moshi: {}", MOSHI.adapter(objectClass).toJson(of));
@@ -90,8 +93,8 @@ public abstract class ResponseObjectTest<
                 log.debug("of.jsonb: {}", JSONB.toJson(of));
                 try {
                     log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final IOException ioe) {
-                    ioe.printStackTrace();
+                } catch (final JsonProcessingException jpe) {
+                    throw new RuntimeException(jpe);
                 }
                 log.debug("of.gson: {}", GSON.toJson(of));
                 @SuppressWarnings({"unchecked"})
@@ -105,8 +108,8 @@ public abstract class ResponseObjectTest<
                 log.debug("ofResult jsonb: {}", JSONB.toJson(of));
                 try {
                     log.debug("ofResult jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final IOException ioe) {
-                    ioe.printStackTrace();
+                } catch (final JsonProcessingException jpe) {
+                    throw new RuntimeException(jpe);
                 }
                 log.debug("ofResult gson: {}", GSON.toJson(of));
                 @SuppressWarnings({"unchecked"}) final JsonAdapter<ResponseObject<ResultType, ?, IdType>> adapter =
@@ -119,8 +122,8 @@ public abstract class ResponseObjectTest<
                 log.debug("ofError.jsonb: {}", JSONB.toJson(of));
                 try {
                     log.debug("ofError.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final IOException ioe) {
-                    ioe.printStackTrace();
+                } catch (final JsonProcessingException jpe) {
+                    throw new RuntimeException(jpe);
                 }
                 log.debug("ofError.gson: {}", GSON.toJson(of));
                 @SuppressWarnings({"unchecked"})
@@ -131,6 +134,7 @@ public abstract class ResponseObjectTest<
         });
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     protected final Class<ResultType> resultClass;
 
     protected final Class<ErrorType> errorClass;

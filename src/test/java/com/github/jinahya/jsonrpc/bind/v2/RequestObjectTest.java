@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,9 +20,14 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.NamedParametersRequest;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Types;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.function.Consumer;
 
 import static com.github.jinahya.jsonrpc.bind.GsonUtils.GSON;
@@ -55,16 +60,35 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             consumer.accept(v);
-            final ObjectType of = RequestObject.of(objectClass, v.getParams(), v.getId());
-            log.debug("of: {}", of);
-            log.debug("of.jsonb: {}", JSONB.toJson(of));
-            try {
-                log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-            } catch (final IOException ioe) {
-                ioe.printStackTrace();
+            {
+                final RequestObject<ParamsType, IdType> of = RequestObject.of(v.getParams(), v.getId());
+                log.debug("of: {}", of);
+                log.debug("of.jsonb: {}", JSONB.toJson(of));
+                try {
+                    log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
+                } catch (final JsonProcessingException jpe) {
+                    throw new RuntimeException(jpe);
+                }
+                log.debug("of.gson: {}", GSON.toJson(of));
+                {
+                    final Type type = Types.newParameterizedType(RequestObject.class, paramsClass, idClass);
+                    final JsonAdapter<RequestObject<ParamsType, IdType>> adapter
+                            = MOSHI.adapter(type);
+                    log.debug("of.moshi: {}", adapter.toJson(of));
+                }
             }
-            log.debug("of.gson: {}", GSON.toJson(of));
-            log.debug("of.moshi: {}", MOSHI.adapter(objectClass).toJson(of));
+            {
+                final ObjectType of = RequestObject.of(objectClass, v.getParams(), v.getId());
+                log.debug("of: {}", of);
+                log.debug("of.jsonb: {}", JSONB.toJson(of));
+                try {
+                    log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
+                } catch (final JsonProcessingException jpe) {
+                    throw new RuntimeException(jpe);
+                }
+                log.debug("of.gson: {}", GSON.toJson(of));
+                log.debug("of.moshi: {}", MOSHI.adapter(objectClass).toJson(of));
+            }
         });
     }
 

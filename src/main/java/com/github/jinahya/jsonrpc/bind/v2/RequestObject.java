@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,23 +36,46 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code method}.
+     * The property name for {@code $.method}.
      */
     public static final String PROPERTY_NAME_METHOD = "method";
 
     /**
-     * The property name for {@code params}.
+     * The property name for {@code $.params}.
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance of specified class whose {@value #PROPERTY_NAME_PARAMS} property and {@value
+     * #PROPERTY_NAME_ID} property set with given.
+     *
+     * @param objectClass  the type of object to create.
+     * @param params       a value for {@value #PROPERTY_NAME_PARAMS} property.
+     * @param id           a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>          object type parameter
+     * @param <ParamsType> params type parameter
+     * @param <IdType>     id type parameter
+     * @return a new instance.
+     */
     protected static <T extends RequestObject<ParamsType, IdType>, ParamsType, IdType> T of(
             final Class<? extends T> objectClass, final ParamsType params, final IdType id) {
-        final T instance = JsonrpcObject.of(objectClass, id);
+        final T instance = of(objectClass, id);
         instance.setParams(params);
         return instance;
     }
 
+    /**
+     * Creates a new instance whose {@value #PROPERTY_NAME_PARAMS} property and {@value #PROPERTY_NAME_ID} property set
+     * with given.
+     *
+     * @param params       a value for {@value #PROPERTY_NAME_PARAMS} property.
+     * @param id           a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <ParamsType> params type parameter
+     * @param <IdType>     id type parameter
+     * @return a new instance.
+     */
     @SuppressWarnings({"unchecked"})
     public static <ParamsType, IdType> RequestObject<ParamsType, IdType> of(final ParamsType params, final IdType id) {
         return of((Class<RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class, params, id);

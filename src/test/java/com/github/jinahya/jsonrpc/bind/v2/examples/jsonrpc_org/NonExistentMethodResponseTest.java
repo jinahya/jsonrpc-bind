@@ -27,6 +27,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @Slf4j
 class NonExistentMethodResponseTest
         extends ResponseObjectTest<NonExistentMethodResponse, Object, ErrorObject<Object>, String> {
@@ -42,6 +44,9 @@ class NonExistentMethodResponseTest
         acceptValueFromResource(
                 "non_existent_method_01_response.json",
                 v -> {
+                    final ErrorObject<Object> error = v.getError();
+                    assertEquals(-32601, error.getCode());
+                    assertEquals("Method not found", error.getMessage());
                 }
         );
     }

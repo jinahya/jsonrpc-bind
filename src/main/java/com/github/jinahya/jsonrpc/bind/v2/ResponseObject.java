@@ -40,12 +40,12 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code result}.
+     * The property name for {@code $.result}.
      */
     public static final String PROPERTY_NAME_RESULT = "result";
 
     /**
-     * The property name for {@code error}.
+     * The property name for {@code $.error}.
      */
     public static final String PROPERTY_NAME_ERROR = "error";
 
@@ -320,11 +320,34 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance of specified type whose {@value #PROPERTY_NAME_ERROR} property and {@value
+     * #PROPERTY_NAME_ID} property set with given.
+     *
+     * @param objectClass the class of object to create.
+     * @param error       a value for {@value #PROPERTY_NAME_ERROR} property.
+     * @param id          a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>         object type parameter
+     * @param <V>         error type parameter
+     * @param <W>         id type parameter
+     * @return a new instance.
+     */
     protected static <T extends ResponseObject<Object, V, W>, V extends ErrorObject<?>, W> T ofError(
             final Class<? extends T> objectClass, final V error, final W id) {
         return of(objectClass, null, error, id);
     }
 
+    /**
+     * Creates a new instance whose {@value #PROPERTY_NAME_ERROR} property and {@value #PROPERTY_NAME_ID} property set
+     * with given.
+     *
+     * @param error       a value for {@value #PROPERTY_NAME_ERROR} property.
+     * @param id          a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <V>         error type parameter
+     * @param <W>         id type parameter
+     * @return a new instance.
+     */
     @SuppressWarnings({"unchecked"})
     public static <V extends ErrorObject<?>, W> ResponseObject<?, V, W> ofError(final V error, final W id) {
         return ofError(ResponseObject.class, error, id);

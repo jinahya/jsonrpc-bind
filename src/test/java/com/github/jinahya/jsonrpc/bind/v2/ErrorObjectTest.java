@@ -32,6 +32,7 @@ import static java.util.Objects.requireNonNull;
  */
 public abstract class ErrorObjectTest<ErrorType extends ErrorObject<DataType>, DataType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * Creates a new instance with specified class ofError error object.
      *
@@ -44,6 +45,7 @@ public abstract class ErrorObjectTest<ErrorType extends ErrorObject<DataType>, D
         this.dataClass = requireNonNull(dataClass, "dataClass is null");
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * The error object class to test.
      */

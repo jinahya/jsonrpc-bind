@@ -35,12 +35,12 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code jsonrpc}.
+     * The property name for {@code $.jsonrpc}.
      */
     public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
     /**
-     * The property name for {@code id}.
+     * The property name for {@code $.id}.
      */
     public static final String PROPERTY_NAME_ID = "id";
 
@@ -50,6 +50,16 @@ public abstract class JsonrpcObject<IdType> {
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance whose {@value #PROPERTY_NAME_ID} parameter set with given.
+     *
+     * @param objectClass the class of object to create.
+     * @param id          a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>         object type parameter
+     * @param <IdType>    id type parameter
+     * @return a new instance.
+     */
     static <T extends JsonrpcObject<IdType>, IdType> T of(final Class<? extends T> objectClass, final IdType id) {
         try {
             final Constructor<? extends T> constructor = objectClass.getDeclaredConstructor();
@@ -65,6 +75,7 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns a string representation ofError the object.
      *
@@ -97,6 +108,7 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns the current value ofError {@value #PROPERTY_NAME_ID} property.
      *
@@ -143,6 +155,7 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * An attribute for {@value #PROPERTY_NAME_JSONRPC} property. Default value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
