@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -63,7 +64,7 @@ public abstract class ResponseObjectTest<
     @Test
     void build() {
         final ResponseObject<ResultType, ErrorType, IdType> built
-                = new ResponseObject.Builder<ResultType, ErrorType, IdType>().build();
+                = ResponseObject.<ResultType, ErrorType, IdType>builder().build();
         log.debug("built: {}", built);
     }
 

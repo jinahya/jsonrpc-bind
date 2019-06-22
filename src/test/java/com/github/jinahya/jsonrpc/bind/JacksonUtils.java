@@ -64,7 +64,8 @@ public final class JacksonUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static JsonNode readTreeFromResource(final String resourceName, final Class clientClass) throws IOException {
+    public static JsonNode readTreeFromResource(final String resourceName, final Class<?> clientClass)
+            throws IOException {
         try (InputStream resourceStream = clientClass.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
             return OBJECT_MAPPER.readTree(resourceStream);

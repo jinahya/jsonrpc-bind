@@ -36,6 +36,8 @@ import javax.validation.constraints.NotNull;
 public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorObject<?>, IdType>
         extends JsonrpcObject<IdType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * The property name for {@code result}.
      */
@@ -45,6 +47,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * The property name for {@code error}.
      */
     public static final String PROPERTY_NAME_ERROR = "error";
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * A class for representing <a href="https://www.jsonrpc.org/specification#error_object">Error Object</a>s.
@@ -124,6 +128,70 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          */
         public static final long MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000L;
 
+        // -------------------------------------------------------------------------------------------------------------
+
+        /**
+         * An abstract class for builder classes of subclasses of {@link ErrorObject}.
+         *
+         * @param <T>        builder type parameter
+         * @param <U>        error object type parameter
+         * @param <DataType> data type parameter
+         */
+        protected static abstract class AbstractBuilder<
+                T extends AbstractBuilder<T, U, DataType>, U extends ErrorObject<DataType>, DataType>
+                extends _AbstractBuilder<T, U> {
+
+            /**
+             * Creates a new instance for specified error object class.
+             *
+             * @param objectClass the error object class.
+             */
+            protected AbstractBuilder(final Class<? extends U> objectClass) {
+                super(objectClass);
+            }
+
+            /**
+             * {@inheritDoc}
+             *
+             * @return {@inheritDoc}
+             */
+            @Override
+            public U build() {
+                final U instance = super.build();
+                instance.setData(data);
+                return instance;
+            }
+
+            /**
+             * Sets {@code data} attribute and return this builder instance.
+             *
+             * @param data new value for {@value #PROPERTY_NAME_DATA} attribute.
+             * @return this builder instance.
+             */
+            @SuppressWarnings({"unchecked"})
+            public T data(final DataType data) {
+                this.data = data;
+                return (T) this;
+            }
+
+            private DataType data;
+        }
+
+        public static class Builder<DataType>
+                extends AbstractBuilder<Builder<DataType>, ErrorObject<DataType>, DataType> {
+
+            @SuppressWarnings({"unchecked"})
+            private Builder() {
+                super((Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class);
+            }
+        }
+
+        public static <DataType> Builder<DataType> builder() {
+            return new Builder<>();
+        }
+
+        // -------------------------------------------------------------------------------------------------------------
+
         /**
          * Returns a string representation of the object.
          *
@@ -137,6 +205,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                    + ",data=" + data
                    + "}";
         }
+
+        // -------------------------------------------------------------------------------------------------------- code
 
         /**
          * Returns the current value of {@value #PROPERTY_NAME_CODE} property.
@@ -156,6 +226,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             this.code = code;
         }
 
+        // ----------------------------------------------------------------------------------------------------- message
+
         /**
          * Returns the current value of {@value #PROPERTY_NAME_MESSAGE} property.
          *
@@ -173,6 +245,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         public void setMessage(final String message) {
             this.message = message;
         }
+
+        // -------------------------------------------------------------------------------------------------------- data
 
         /**
          * Returns the current value of {@value #PROPERTY_NAME_DATA} property.
@@ -192,6 +266,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             this.data = data;
         }
 
+        // -------------------------------------------------------------------------------------------------------------
+
         /**
          * The attribute for {@value #PROPERTY_NAME_CODE} property.
          */
@@ -210,24 +286,31 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         private DataType data;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * An abstract class for defining builders of specific subclass of {@link ResponseObject}.
      *
-     * @param <T> builder type parameter .
-     * @param <U> response object type parameter.
-     * @param <V> result type parameter.
-     * @param <W> error type parameter.
-     * @param <X> id type parameter.
+     * @param <T>          builder type parameter .
+     * @param <U>          response object type parameter.
+     * @param <ResultType> result type parameter.
+     * @param <ErrorType>  error type parameter.
+     * @param <IdType>     id type parameter.
      */
     protected static abstract class AbstractBuilder<
-            T extends AbstractBuilder<T, U, V, W, X>,
-            U extends ResponseObject<V, W, X>,
-            V,
-            W extends ErrorObject<?>,
-            X>
-            extends JsonrpcObjectBuilder<T, U, X> {
+            T extends AbstractBuilder<T, U, ResultType, ErrorType, IdType>,
+            U extends ResponseObject<ResultType, ErrorType, IdType>,
+            ResultType,
+            ErrorType extends ErrorObject<?>,
+            IdType>
+            extends JsonrpcObject.AbstractBuilder<T, U, IdType> {
 
-        public AbstractBuilder(final Class<? extends U> objectClass) {
+        /**
+         * Creates a new instance for specified response object class.
+         *
+         * @param objectClass the response object class to build.
+         */
+        protected AbstractBuilder(final Class<? extends U> objectClass) {
             super(objectClass);
         }
 
@@ -238,7 +321,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @return this builder instance.
          */
         @SuppressWarnings({"unchecked"})
-        public T result(final V result) {
+        public T result(final ResultType result) {
             this.result = result;
             return (T) this;
         }
@@ -250,7 +333,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @return this builder instance.
          */
         @SuppressWarnings({"unchecked"})
-        public T error(final W error) {
+        public T error(final ErrorType error) {
             this.error = error;
             return (T) this;
         }
@@ -263,29 +346,39 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             return instance;
         }
 
-        private V result;
+        private ResultType result;
 
-        private W error;
+        private ErrorType error;
     }
 
     /**
      * A class for building {@link ResponseObject} of specified type parameters.
      *
-     * @param <T> result type parameter.
-     * @param <U> error type parameter.
-     * @param <V> id type parameter.
+     * @param <ResultType> result type parameter.
+     * @param <ErrorType>  error type parameter.
+     * @param <X>          id type parameter.
      */
-    public static class Builder<T, U extends ErrorObject<?>, V>
-            extends AbstractBuilder<Builder<T, U, V>, ResponseObject<T, U, V>, T, U, V> {
+    public static class Builder<ResultType, ErrorType extends ErrorObject<?>, X>
+            extends AbstractBuilder<
+            Builder<ResultType, ErrorType, X>,
+            ResponseObject<ResultType, ErrorType, X>,
+            ResultType,
+            ErrorType, X> {
 
         /**
          * Creates a new instance.
          */
         @SuppressWarnings({"unchecked"})
-        public Builder() {
-            super((Class<? extends ResponseObject<T, U, V>>) (Class<?>) ResponseObject.class);
+        private Builder() {
+            super((Class<? extends ResponseObject<ResultType, ErrorType, X>>) (Class<?>) ResponseObject.class);
         }
     }
+
+    public static <ResultType, ErrorType extends ErrorObject<?>, IdType> Builder<ResultType, ErrorType, IdType> builder() {
+        return new Builder<>();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Returns a string representation of the object.
@@ -300,6 +393,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                + "}";
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Checks if the {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} property are
      * exclusive.
@@ -311,6 +406,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     private boolean isResultAndErrorExclusive() {
         return (getResult() != null) ^ (getError() != null);
     }
+
+    // ---------------------------------------------------------------------------------------------------------- result
 
     /**
      * Returns the current value of {@value #PROPERTY_NAME_RESULT} property.
@@ -346,6 +443,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
     }
 
+    // ----------------------------------------------------------------------------------------------------------- error
+
     /**
      * Returns the current value of {@value #PROPERTY_NAME_ERROR} property.
      *
@@ -379,6 +478,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             setResult(null);
         }
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * An attribute for {@value #PROPERTY_NAME_RESULT} property.

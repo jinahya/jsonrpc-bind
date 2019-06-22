@@ -54,8 +54,7 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             consumer.accept(v);
-            final RequestObject<ParamsType, IdType> built
-                    = new RequestObject.Builder<ParamsType, IdType>()
+            final RequestObject<ParamsType, IdType> built = RequestObject.<ParamsType, IdType>builder()
                     .params(v.getParams())
                     .id(v.getId())
                     .build();
@@ -73,7 +72,7 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
 
     @Test
     void build() {
-        final RequestObject<ParamsType, IdType> built = new RequestObject.Builder<ParamsType, IdType>().build();
+        final RequestObject<ParamsType, IdType> built = RequestObject.<ParamsType, IdType>builder().build();
         log.debug("built: {}", built);
         final String string = JSONB.toJson(built);
         log.debug("string: {}", string);

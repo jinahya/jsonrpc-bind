@@ -33,6 +33,8 @@ import javax.validation.constraints.NotBlank;
  */
 public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * The property name for {@code method}.
      */
@@ -43,27 +45,29 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * An abstract class for defining builders of specific subclass of {@link RequestObject}.
      *
-     * @param <T> builder type parameter.
-     * @param <U> request object type parameter.
-     * @param <V> {@value #PROPERTY_NAME_PARAMS} type parameter.
-     * @param <W> {@value #PROPERTY_NAME_ID} type parameter.
+     * @param <T>          builder type parameter.
+     * @param <U>          request object type parameter.
+     * @param <ParamsType> params type parameter.
+     * @param <IdType>     id type parameter.
      */
     protected abstract static class AbstractBuilder<
-            T extends AbstractBuilder<T, U, V, W>,
-            U extends RequestObject<V, W>,
-            V,
-            W>
-            extends JsonrpcObjectBuilder<T, U, W> {
+            T extends AbstractBuilder<T, U, ParamsType, IdType>,
+            U extends RequestObject<ParamsType, IdType>,
+            ParamsType,
+            IdType>
+            extends JsonrpcObject.AbstractBuilder<T, U, IdType> {
 
         /**
          * Creates a new instance for specified request object class.
          *
          * @param objectClass the request object class.
          */
-        public AbstractBuilder(final Class<? extends U> objectClass) {
+        protected AbstractBuilder(final Class<? extends U> objectClass) {
             super(objectClass);
         }
 
@@ -74,27 +78,11 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
          * @return this builder instance.
          */
         @SuppressWarnings({"unchecked"})
-        public T params(final V params) {
+        public T params(final ParamsType params) {
             this.params = params;
             return (T) this;
         }
 
-        /**
-         * {@inheritDoc}
-         *
-         * @param id the value for {@value #PROPERTY_NAME_ID} property.
-         * @return {@inheritDoc}
-         */
-        @Override
-        public T id(final W id) {
-            return super.id(id);
-        }
-
-        /**
-         * Builds this builder and returns the built value.
-         *
-         * @return the built value.
-         */
         @Override
         public U build() {
             final U instance = super.build();
@@ -102,57 +90,51 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
             return instance;
         }
 
-        private V params;
+        private ParamsType params;
     }
 
     /**
-     * A class for building an instance of {@link RequestObject}.
+     * A class for building instances of {@link RequestObject} of specified type parameters.
      *
-     * @param <T> {@value #PROPERTY_NAME_PARAMS} type parameter.
-     * @param <U> {@value #PROPERTY_NAME_ID} type parameter.
+     * @param <ParamsType> params type parameter
+     * @param <IdType>     id type parameter
+     * @see #builder()
      */
-    public static class Builder<T, U> extends AbstractBuilder<Builder<T, U>, RequestObject<T, U>, T, U> {
+    public static class Builder<ParamsType, IdType>
+            extends AbstractBuilder<Builder<ParamsType, IdType>,
+            RequestObject<ParamsType, IdType>,
+            ParamsType,
+            IdType> {
 
         /**
          * Creates a new instance.
          */
         @SuppressWarnings({"unchecked"})
-        public Builder() {
-            super((Class<? extends RequestObject<T, U>>) (Class<?>) RequestObject.class);
-        }
-
-        /**
-         * {@inheritDoc}
-         *
-         * @param params the value for {@value #PROPERTY_NAME_PARAMS} property.
-         * @return {@inheritDoc}
-         */
-        @Override
-        public Builder<T, U> params(final T params) {
-            return super.params(params);
-        }
-
-        /**
-         * {@inheritDoc}
-         *
-         * @param id the value for {@value #PROPERTY_NAME_ID} property.
-         * @return {@inheritDoc}
-         */
-        @Override
-        public Builder<T, U> id(final U id) {
-            return super.id(id);
-        }
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@inheritDoc}
-         */
-        @Override
-        public RequestObject<T, U> build() {
-            return super.build();
+        private Builder() {
+            super((Class<? extends RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class);
         }
     }
+
+    /**
+     * Creates a new builder for specified type parameters.
+     *
+     * @param <ParamsType> params type parameter.
+     * @param <IdType>     id type parameter
+     * @return an instance of {@link RequestObject} of specified type parameters.
+     */
+    public static <ParamsType, IdType> Builder<ParamsType, IdType> builder() {
+        return new Builder<>();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     */
+    public RequestObject() {
+        super();
+    }
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Returns a string representation of the object.
@@ -166,6 +148,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
                + ",params=" + params
                + "}";
     }
+
+    // ---------------------------------------------------------------------------------------------------------- method
 
     /**
      * Returns the current value of {@value #PROPERTY_NAME_METHOD} property.
@@ -185,6 +169,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
         this.method = method;
     }
 
+    // ---------------------------------------------------------------------------------------------------------- params
+
     /**
      * Returns the current value of {@value #PROPERTY_NAME_PARAMS} property.
      *
@@ -202,6 +188,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     public void setParams(final ParamsType params) {
         this.params = params;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * An attribute for {@value #PROPERTY_NAME_METHOD} property.

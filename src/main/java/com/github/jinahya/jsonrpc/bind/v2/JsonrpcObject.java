@@ -23,9 +23,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.lang.reflect.Constructor;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * An abstract class for request objects and response objects.
@@ -49,42 +46,39 @@ public abstract class JsonrpcObject<IdType> {
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
-    static class JsonrpcObjectBuilder<T extends JsonrpcObjectBuilder<T, U, V>, U extends JsonrpcObject<V>, V> {
+    static abstract class AbstractBuilder<
+            T extends AbstractBuilder<T, U, IdType>, U extends JsonrpcObject<IdType>, IdType>
+            extends _AbstractBuilder<T, U> {
 
-        JsonrpcObjectBuilder(final Class<? extends U> objectClass) {
-            super();
-            this.objectClass = requireNonNull(objectClass, "objectClass is null");
+        /**
+         * Creates a new instance for specified object class.
+         *
+         * @param objectClass the object class.
+         */
+        AbstractBuilder(final Class<? extends U> objectClass) {
+            super(objectClass);
         }
 
         /**
-         * Sets {@value #PROPERTY_NAME_ID} property with specified value and returns this builder instance.
+         * Sets {@code id} property with specified value and returns this builder instance.
          *
-         * @param id the value for {@value #PROPERTY_NAME_ID} property.
+         * @param id the value for {@code id} property.
          * @return this builder instance.
          */
         @SuppressWarnings({"unchecked"})
-        public T id(final V id) {
+        public T id(final IdType id) {
             this.id = id;
             return (T) this;
         }
 
+        @Override
         public U build() {
-            try {
-                final Constructor<? extends U> constructor = objectClass.getDeclaredConstructor();
-                if (!constructor.isAccessible()) {
-                    constructor.setAccessible(true);
-                }
-                final U instance = constructor.newInstance();
-                instance.setId(id);
-                return instance;
-            } catch (final ReflectiveOperationException roe) {
-                throw new RuntimeException(roe);
-            }
+            final U instance = super.build();
+            instance.setId(id);
+            return instance;
         }
 
-        private final Class<? extends U> objectClass;
-
-        private V id;
+        private IdType id;
     }
 
     /**
