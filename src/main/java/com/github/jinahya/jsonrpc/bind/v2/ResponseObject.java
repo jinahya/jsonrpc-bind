@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy ofError the License at
+ * You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -130,6 +130,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         public static final long MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000L;
 
         // -------------------------------------------------------------------------------------------------------------
+
+        /**
+         * Creates a new instance of specified type with specified data with it.
+         *
+         * @param objectClass object class to create.
+         * @param data        value for {@value #PROPERTY_NAME_DATA} property.
+         * @param <T>         object type paramter
+         * @param <DataType>  data type parameter.
+         * @return new instance of specified object type.
+         */
         protected static <T extends ErrorObject<DataType>, DataType> T of(final Class<? extends T> objectClass,
                                                                           final DataType data) {
             try {
@@ -145,9 +155,25 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             }
         }
 
+        /**
+         * Creates a new instance with specified data.
+         *
+         * @param data       the value for {@value #PROPERTY_NAME_DATA}.
+         * @param <DataType> data type parameter.
+         * @return a new instance.
+         */
         @SuppressWarnings({"unchecked"})
         public static <DataType> ErrorObject<DataType> of(final DataType data) {
             return of((Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class, data);
+        }
+
+        // -------------------------------------------------------------------------------------------------------------
+
+        /**
+         * Creates a new instance.
+         */
+        public ErrorObject() {
+            super();
         }
 
         // -------------------------------------------------------------------------------------------------------------
@@ -262,11 +288,32 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * creates a new instance of specified object type with given result and id.
+     *
+     * @param objectClass object class to create.
+     * @param result      the value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param id          the value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>         object type parameter.
+     * @param <U>         result type parameter.
+     * @param <W>         id type parameter.
+     * @return a new instance of specified object type.
+     */
     protected static <T extends ResponseObject<U, ErrorObject<?>, W>, U, W> T ofResult(
             final Class<T> objectClass, final U result, final W id) {
         return of(objectClass, result, null, id);
     }
 
+    /**
+     * Creates a new instance with given result and id.
+     *
+     * @param result the value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param id     the value for {@value #PROPERTY_NAME_ID} property.
+     * @param <U>    result type parameter
+     * @param <W>    id type parameter
+     * @return a new response object.
+     */
     @SuppressWarnings({"unchecked"})
     public static <U, W> ResponseObject<U, ?, W> ofResult(final U result, final W id) {
         return ofResult(ResponseObject.class, result, id);
@@ -281,6 +328,15 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     @SuppressWarnings({"unchecked"})
     public static <V extends ErrorObject<?>, W> ResponseObject<?, V, W> ofError(final V error, final W id) {
         return ofError(ResponseObject.class, error, id);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     */
+    public ResponseObject() {
+        super();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

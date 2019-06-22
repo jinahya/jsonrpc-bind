@@ -8,10 +8,10 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy ofError the License at
- *
+ * You may obtain a copy of the License at
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ package com.github.jinahya.jsonrpc.bind.v1;
 
 public abstract class Identifiable<IdType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     public IdType getId() {
         return id;
     }
@@ -38,5 +39,6 @@ public abstract class Identifiable<IdType> {
         object.copyIdTo(this);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private IdType id;
 }

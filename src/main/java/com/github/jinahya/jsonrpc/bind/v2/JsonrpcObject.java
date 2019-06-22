@@ -8,7 +8,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy ofError the License at
+ * You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -32,6 +32,8 @@ import java.lang.reflect.Constructor;
  */
 public abstract class JsonrpcObject<IdType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * The property name for {@code jsonrpc}.
      */
@@ -47,6 +49,7 @@ public abstract class JsonrpcObject<IdType> {
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
+    // -----------------------------------------------------------------------------------------------------------------
     static <T extends JsonrpcObject<IdType>, IdType> T of(final Class<? extends T> objectClass, final IdType id) {
         try {
             final Constructor<? extends T> constructor = objectClass.getDeclaredConstructor();
@@ -61,6 +64,7 @@ public abstract class JsonrpcObject<IdType> {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * Returns a string representation ofError the object.
      *
@@ -92,6 +96,7 @@ public abstract class JsonrpcObject<IdType> {
         this.jsonrpc = jsonrpc;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * Returns the current value ofError {@value #PROPERTY_NAME_ID} property.
      *
@@ -137,6 +142,7 @@ public abstract class JsonrpcObject<IdType> {
         object.copyIdTo(this);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * An attribute for {@value #PROPERTY_NAME_JSONRPC} property. Default value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
