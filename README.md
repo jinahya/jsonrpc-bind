@@ -14,19 +14,24 @@ Classes for binding [JSON-RPC](https://www.jsonrpc.org) objects (with no externa
 ## Classes
 
 ### `JsonrpcObject<IdType>`
+An abstract class for both request objects and response objects.
 
-#### Why `<IdType>`?
+#### `<IdType>`
+The type parameter for `$.id`.
 
 ### `RequestObject<IdType, ParamsType>`
 
+#### `ParamsType`
+The type paramter for `$.params`.
+
 ```java
 class AdditionParams {
-    @Setter @Getter private BigDecimal augend;
-    @Setter @Getter private BigDecimal addend;
+    private BigDecimal augend;
+    private BigDecimal addend;
 }
 ```
 ```java
-class AdditionRequest extends RequestObject<String, AdditionParams> {
+class AdditionRequest extends RequestObject<AdditionParams, String> {
 }
 ```
 ```java
@@ -38,32 +43,40 @@ request.getParams().setAddend(BigDecimal.ONE);
 request.getId("1");
 ```
 
-### `ResponseObject<IdType, ResultType, ErrorType extends ErrorObject<?>>`
-
-#### `IdType`
+### `ResponseObject<ResultType, ErrorType extends ErrorObject<?>, IdType>`
 
 #### `ResultType`
+The type parameter for `$.result`.
 
 #### `ErrorType`
+The type parameter for `$.error`.
 
 ```java
-public class SubtractionResponse
-        extends ResponseObject<String, BigDecimal, CaluclationError> {
+public class AdditionResponse
+        extends ResponseObject<BigDecimal, CalculationError, String> {
 } 
 ```
 ```java
-final SubtractionResponse response = new SubtractionResponse();
-final CalulationError error = new CalculationError();
-error.setData(new AtithmeticException());
-response.setErrorExclusive(error);
+ResponseObject<AdditionResult, AdditionError, String> response = new AdditionResponse();
+
+response.setCode(20000);
+response.setMessage("Ok");
+response.setResult(BigDecimal.ONE.add(BigDecimal.ONE));
+
+response.setCode(40000);
+response.setMessage("bad request");
+ErrorObject<ArithmeticException> error = new CalculationError();
+response.setErrorExclusive(error); // clear the result
+response.getError().setData(new AtithmeticException());
 ```
 
 #### `ErrorObject<DataType>`
 
 ##### `DataType`
+The type parameter for `$.error.data`.
 
 ```java
-public class CalculationError extends ErrorObject<ArithmeticException> {
+class CalculationError extends ResponseObject.ErrorObject<ArithmeticException> {
     
 }
 ```
