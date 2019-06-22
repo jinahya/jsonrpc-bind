@@ -110,21 +110,21 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
          * Creates a new instance.
          */
         @SuppressWarnings({"unchecked"})
-        private Builder() {
+        public Builder() {
             super((Class<? extends RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class);
         }
     }
 
-    /**
-     * Creates a new builder for specified type parameters.
-     *
-     * @param <ParamsType> params type parameter.
-     * @param <IdType>     id type parameter
-     * @return an instance of {@link RequestObject} of specified type parameters.
-     */
-    public static <ParamsType, IdType> Builder<ParamsType, IdType> builder() {
-        return new Builder<>();
-    }
+//    /**
+//     * Creates a new builder for specified type parameters.
+//     *
+//     * @param <ParamsType> params type parameter.
+//     * @param <IdType>     id type parameter
+//     * @return an instance of {@link RequestObject} of specified type parameters.
+//     */
+//    public static <ParamsType, IdType> Builder<ParamsType, IdType> builder() {
+//        return new Builder<>();
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

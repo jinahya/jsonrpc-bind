@@ -181,14 +181,14 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                 extends AbstractBuilder<Builder<DataType>, ErrorObject<DataType>, DataType> {
 
             @SuppressWarnings({"unchecked"})
-            private Builder() {
+            public Builder() {
                 super((Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class);
             }
         }
 
-        public static <DataType> Builder<DataType> builder() {
-            return new Builder<>();
-        }
+//        public static <DataType> Builder<DataType> builder() {
+//            return new Builder<>();
+//        }
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -369,14 +369,14 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * Creates a new instance.
          */
         @SuppressWarnings({"unchecked"})
-        private Builder() {
+        public Builder() {
             super((Class<? extends ResponseObject<ResultType, ErrorType, X>>) (Class<?>) ResponseObject.class);
         }
     }
 
-    public static <ResultType, ErrorType extends ErrorObject<?>, IdType> Builder<ResultType, ErrorType, IdType> builder() {
-        return new Builder<>();
-    }
+//    public static <ResultType, ErrorType extends ErrorObject<?>, IdType> Builder<ResultType, ErrorType, IdType> builder() {
+//        return new Builder<>();
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
