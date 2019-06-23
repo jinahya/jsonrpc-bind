@@ -342,10 +342,10 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * Creates a new instance whose {@value #PROPERTY_NAME_ERROR} property and {@value #PROPERTY_NAME_ID} property set
      * with given.
      *
-     * @param error       a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id          a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <V>         error type parameter
-     * @param <W>         id type parameter
+     * @param error a value for {@value #PROPERTY_NAME_ERROR} property.
+     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <V>   error type parameter
+     * @param <W>   id type parameter
      * @return a new instance.
      */
     @SuppressWarnings({"unchecked"})

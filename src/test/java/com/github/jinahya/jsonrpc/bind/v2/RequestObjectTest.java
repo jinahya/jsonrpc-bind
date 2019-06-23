@@ -21,7 +21,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org.NamedParametersRequest;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Types;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +29,10 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.function.Consumer;
 
-import static com.github.jinahya.jsonrpc.bind.GsonUtils.GSON;
-import static com.github.jinahya.jsonrpc.bind.JacksonUtils.OBJECT_MAPPER;
-import static com.github.jinahya.jsonrpc.bind.JsonbUtils.JSONB;
-import static com.github.jinahya.jsonrpc.bind.MoshiUtils.MOSHI;
+import static com.github.jinahya.jsonrpc.bind.GsonTests.GSON;
+import static com.github.jinahya.jsonrpc.bind.JacksonTests.OBJECT_MAPPER;
+import static com.github.jinahya.jsonrpc.bind.JsonbTests.JSONB;
+import static com.github.jinahya.jsonrpc.bind.MoshiTests.MOSHI;
 import static java.util.Objects.requireNonNull;
 
 /**

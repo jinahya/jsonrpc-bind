@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Slf4j
-public final class MoshiUtils {
+public final class MoshiTests {
 
     // -----------------------------------------------------------------------------------------------------------------
     // https://github.com/square/moshi/issues/866
@@ -82,8 +82,7 @@ public final class MoshiUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T fromResource(final String resourceName, final Class<T> valueClass)
-            throws IOException {
+    public static <T> T fromResource(final String resourceName, final Class<T> valueClass) throws IOException {
         try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(resourceStream, "null resource stream for " + resourceName);
             final JsonAdapter<T> adapter = MOSHI.adapter(valueClass);
@@ -96,7 +95,7 @@ public final class MoshiUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private MoshiUtils() {
+    private MoshiTests() {
         super();
     }
 }
