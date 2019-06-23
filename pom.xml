@@ -198,7 +198,7 @@
             <configuration>
               <skip>true</skip>
               <rules>
-                <dependencyConvergence />
+                <dependencyConvergence/>
               </rules>
             </configuration>
           </execution>
@@ -235,9 +235,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${version.maven-surefire}</version>
         <configuration>
-          <argLine>
-            <!--            &#45;&#45;illegal-access=warn-->
-          </argLine>
+          <argLine>-Xmx1024m</argLine>
         </configuration>
       </plugin>
       <plugin>
