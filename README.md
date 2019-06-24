@@ -11,7 +11,9 @@ Classes for binding [JSON-RPC](https://www.jsonrpc.org) objects (with no externa
 
 ## Abstract
 
-## Classes
+## 1.0
+
+## 2.0
 
 ### `JsonrpcObject<IdType>`
 An abstract class for both request objects and response objects.
@@ -21,8 +23,8 @@ The type parameter for `$.id`.
 
 ### `RequestObject<IdType, ParamsType>`
 
-#### `ParamsType`
-The type paramter for `$.params`.
+#### `<ParamsType>`
+The type parameter for `$.params`.
 
 ```java
 class AdditionParams {
@@ -45,10 +47,10 @@ request.getId("1");
 
 ### `ResponseObject<ResultType, ErrorType extends ErrorObject<?>, IdType>`
 
-#### `ResultType`
+#### `<ResultType>`
 The type parameter for `$.result`.
 
-#### `ErrorType`
+#### `<ErrorType>`
 The type parameter for `$.error`.
 
 ```java
@@ -72,7 +74,7 @@ response.getError().setData(new AtithmeticException());
 
 #### `ErrorObject<DataType>`
 
-##### `DataType`
+##### `<DataType>`
 The type parameter for `$.error.data`.
 
 ```java
