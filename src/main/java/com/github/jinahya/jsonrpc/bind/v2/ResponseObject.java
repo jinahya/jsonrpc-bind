@@ -165,7 +165,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         /**
          * Indicates whether some other object is "equal to" this one.
          *
-         * @param obj the reference object which which to compare
+         * @param obj the reference object with which to compare
          * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
          */
         @Override

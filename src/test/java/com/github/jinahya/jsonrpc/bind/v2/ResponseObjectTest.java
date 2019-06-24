@@ -23,12 +23,16 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * An abstract class for testing subclasses of {@link ResponseObject}.
@@ -74,20 +78,86 @@ public abstract class ResponseObjectTest<
                 v.setErrorExclusively(v.getError());
             }
             {
+                assertEquals(v, v);
+                assertNotEquals(new Object(), v);
                 final ObjectType obj = objectInstance();
                 obj.setResult(v.getResult());
                 obj.setError(v.getError());
                 obj.setId(v.getId());
-                assertTrue(v.equals(obj));
-                assertTrue(obj.equals(v));
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
+            {
+                final ErrorType error = v.getError();
+                if (error != null) {
+                    assertEquals(error, error);
+                    assertNotEquals(new Object(), error);
+                    final ErrorType obj = errorInstance();
+                    obj.setCode(error.getCode());
+                    obj.setMessage(error.getMessage());
+                    try {
+                        dataSetterHandler().invoke(obj, error.getData());
+                    } catch (final Throwable t) {
+                        throw new RuntimeException(t);
+                    }
+                    assertEquals(error, obj);
+                    assertEquals(error.hashCode(), obj.hashCode());
+                }
+            }
         });
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    protected ErrorType errorInstance() {
+        try {
+            final Constructor<ErrorType> constructor = errorClass.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            return constructor.newInstance();
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated
+    protected Method dataSetter() {
+        if (dataSetter == null) {
+            try {
+                dataSetter = ResponseObject.ErrorObject.class.getMethod("setData", Object.class);
+                if (!dataSetter.isAccessible()) {
+                    dataSetter.setAccessible(true);
+                }
+            } catch (final ReflectiveOperationException roe) {
+                throw new RuntimeException(roe);
+            }
+        }
+        return dataSetter;
+    }
+
+    protected MethodHandle dataSetterHandler() {
+        if (dataSetterHandler == null) {
+            try {
+                final Field field = ResponseObject.ErrorObject.class.getDeclaredField("data");
+                if (!field.isEnumConstant()) {
+                    field.setAccessible(true);
+                }
+                dataSetterHandler = MethodHandles.publicLookup().unreflectSetter(field);
+            } catch (final ReflectiveOperationException roe) {
+                throw new RuntimeException(roe);
+            }
+        }
+        return dataSetterHandler;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     protected final Class<ResultType> resultClass;
 
     protected final Class<ErrorType> errorClass;
+
+    @Deprecated
+    private transient Method dataSetter;
+
+    private transient MethodHandle dataSetterHandler;
 }

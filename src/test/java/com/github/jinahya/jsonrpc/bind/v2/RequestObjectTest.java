@@ -27,6 +27,8 @@ import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -56,12 +58,12 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
                 consumer.accept(v);
             }
             {
+                assertEquals(v, v);
+                assertNotEquals(new Object(), v);
                 final ObjectType obj = objectInstance();
                 obj.setMethod(v.getMethod());
                 obj.setParams(v.getParams());
                 obj.setId(v.getId());
-                assertTrue(v.equals(obj));
-                assertTrue(obj.equals(v));
                 assertEquals(v, obj);
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
