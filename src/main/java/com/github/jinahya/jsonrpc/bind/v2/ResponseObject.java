@@ -23,15 +23,15 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
- * A class for representing <a href="https://www.jsonrpc.org/specification#response_object">Response Object</a>s.
+ * A class for binding response objects.
  *
  * @param <ResultType> result type parameter
  * @param <ErrorType>  error type parameter
- * @param <IdType>     id type parameter.
- * @see <a href="https://www.jsonrpc.org/specification#response_object">5. Response Object (JSON-RPC 2.0
- * Specification)</a>
+ * @param <IdType>     id type parameter
+ * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0 Specification)</a>
  */
 public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorObject<?>, IdType>
         extends JsonrpcObject<IdType> {
@@ -51,28 +51,31 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A class for representing <a href="https://www.jsonrpc.org/specification#error_object">Error Object</a>s.
+     * A class for binding {@value #PROPERTY_NAME_ERROR} property of response objects.
      *
-     * @param <DataType> data type parameter.
-     * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Object (JSON-RPC 2.0
-     * Specification)</a>
+     * @param <DataType> data type parameter
+     * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0 Specification)</a>
      */
     public static class ErrorObject<DataType> {
 
+        // -------------------------------------------------------------------------------------------------------------
+
         /**
-         * The name for {@code code} property.
+         * The property name for {@code $.error.code}.
          */
         public static final String PROPERTY_NAME_CODE = "code";
 
         /**
-         * The name for {@code message} property.
+         * The property name for {@code $.error.message}.
          */
         public static final String PROPERTY_NAME_MESSAGE = "message";
 
         /**
-         * The name for {@code data} property.
+         * The property name for {@code $.error.data}.
          */
         public static final String PROPERTY_NAME_DATA = "data";
+
+        // -------------------------------------------------------------------------------------------------------------
 
         /**
          * The minimum value for codes reserved for pre-defined errors. The value is {@value
@@ -85,6 +88,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * #MAX_CODE_PREDEFINED_ERROR}.
          */
         public static final long MAX_CODE_PREDEFINED_ERROR = -32000L;
+
+        // -------------------------------------------------------------------------------------------------------------
 
         /**
          * The code value for <i>parse error</i> meaning an invalid json received by the server or an error occurred on
@@ -115,6 +120,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * #CODE_INTERNAL_ERROR}.
          */
         public static final long CODE_INTERNAL_ERROR = -32603L;
+
+        // -------------------------------------------------------------------------------------------------------------
 
         /**
          * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
@@ -153,6 +160,38 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                    + "}";
         }
 
+        // -------------------------------------------------------------------------------------------------------------
+
+        /**
+         * Indicates whether some other object is "equal to" this one.
+         *
+         * @param obj the reference object which which to compare
+         * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
+         */
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof ErrorObject)) {
+                return false;
+            }
+            final ErrorObject<?> that = (ErrorObject<?>) obj;
+            return getCode() == that.getCode()
+                   && Objects.equals(getMessage(), that.getMessage())
+                   && Objects.equals(getData(), that.getData());
+        }
+
+        /**
+         * Returns a hash code value for the object.
+         *
+         * @return a hash code value for this object.
+         */
+        @Override
+        public int hashCode() {
+            return Objects.hash(getCode(), getMessage(), getData());
+        }
+
         // -------------------------------------------------------------------------------------------------------- code
 
         /**
@@ -165,7 +204,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
 
         /**
-         * Replaces the current value of {@value #PROPERTY_NAME_CODE} property with given.
+         * Replaces the current value of {@value #PROPERTY_NAME_CODE} property with specified value.
          *
          * @param code new value for {@value #PROPERTY_NAME_CODE} property.
          */
@@ -185,7 +224,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
 
         /**
-         * Replaces the current value of {@value #PROPERTY_NAME_MESSAGE} property.
+         * Replaces the current value of {@value #PROPERTY_NAME_MESSAGE} property with specified value.
          *
          * @param message new value for {@value #PROPERTY_NAME_MESSAGE} property.
          */
@@ -205,7 +244,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
 
         /**
-         * Replaces the current value of {@value #PROPERTY_NAME_DATA} property.
+         * Replaces the current value of {@value #PROPERTY_NAME_DATA} property with specified value.
          *
          * @param data new value for {@value #PROPERTY_NAME_DATA} property.
          */
@@ -216,18 +255,18 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The attribute for {@value #PROPERTY_NAME_CODE} property.
+         * An attribute for {@value #PROPERTY_NAME_CODE} property.
          */
         private long code;
 
         /**
-         * The attribute for {@value #PROPERTY_NAME_MESSAGE} property.
+         * An attribute for {@value #PROPERTY_NAME_MESSAGE} property.
          */
         @NotNull
         private String message;
 
         /**
-         * The attribute for {@value #PROPERTY_NAME_DATA} property.
+         * An attribute for {@value #PROPERTY_NAME_DATA} property.
          */
         @Valid
         private DataType data;
@@ -260,6 +299,39 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof ResponseObject)) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final ResponseObject<?, ?, ?> that = (ResponseObject<?, ?, ?>) obj;
+        return Objects.equals(getResult(), that.getResult()) && Objects.equals(getError(), that.getError());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getResult(), getError());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * Checks if the {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} property are
      * exclusive.
      *
@@ -267,7 +339,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * false} otherwise.
      */
     @AssertTrue(message = "result and error should be set exclusively")
-    private boolean isResultAndErrorExclusive() {
+    protected boolean isResultAndErrorExclusive() {
         return (getResult() != null) ^ (getError() != null);
     }
 
@@ -283,7 +355,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with specified value.
      *
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
      * @see #setResultExclusively(Object)
@@ -293,9 +365,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     /**
-     * Sets {@value #PROPERTY_NAME_RESULT} property with specified value <i>exclusively</i>. This method invokes {@link
-     * #setResult(Object)} with specified value and, if {@link #getResult()} method returns {@code null}, invokes {@link
-     * #setError(ErrorObject)} method with {@code null}.
+     * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with specified value <i>exclusively</i>.
+     * This method invokes {@link #setResult(Object)} with specified value and, if {@link #getResult()} method returns
+     * {@code null}, invokes {@link #setError(ErrorObject)} method with {@code null}.
      *
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
      * @see #setResult(Object)
@@ -319,7 +391,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with specified value.
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
      * @see #setErrorExclusively(ErrorObject)
@@ -329,9 +401,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     /**
-     * Sets {@value #PROPERTY_NAME_ERROR} property with specified value <i>exclusively</i>. This method invokes {@link
-     * #setError(ErrorObject)} with specified argument and, if {@link #getError()} method returns {@code null}, invokes
-     * {@link #setResult(Object)} method with {@code null}.
+     * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with specified value <i>exclusively</i>.
+     * This method invokes {@link #setError(ErrorObject)} with specified argument and, if {@link #getError()} method
+     * returns {@code null}, invokes {@link #setResult(Object)} method with {@code null}.
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
      * @see #setError(ErrorObject)

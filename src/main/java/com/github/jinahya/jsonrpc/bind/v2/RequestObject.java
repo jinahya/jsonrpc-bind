@@ -22,14 +22,14 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 /**
- * Represents calculatorRequest objects.
+ * A class for binding response objects.
  *
- * @param <ParamsType> {@value #PROPERTY_NAME_PARAMS} type parameter
- * @param <IdType>     {@value #PROPERTY_NAME_ID} type parameter.
- * @see <a href="https://www.jsonrpc.org/specification#request_object">4. Request Object (JSON-RPC 2.0
- * Specification)</a>
+ * @param <ParamsType> params type parameter
+ * @param <IdType>     id type parameter.
+ * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0 Specification)</a>
  */
 public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
 
@@ -69,6 +69,39 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
                + "}";
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof RequestObject)) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final RequestObject<?, ?> that = (RequestObject<?, ?>) obj;
+        return Objects.equals(getMethod(), that.getMethod()) && Objects.equals(getParams(), that.getParams());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getMethod(), getParams());
+    }
+
     // ---------------------------------------------------------------------------------------------------------- method
 
     /**
@@ -81,7 +114,7 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     }
 
     /**
-     * Replace the current value of {@value #PROPERTY_NAME_METHOD} property with given.
+     * Replace the current value of {@value #PROPERTY_NAME_METHOD} property with specified value.
      *
      * @param method new value for {@value #PROPERTY_NAME_METHOD} property.
      */
@@ -101,7 +134,7 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with specified value.
      *
      * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */

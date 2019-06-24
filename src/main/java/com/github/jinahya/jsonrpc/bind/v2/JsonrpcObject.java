@@ -23,11 +23,12 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 
 /**
  * An abstract class for request objects and response objects.
  *
- * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
+ * @param <IdType> id type parameter
  */
 public abstract class JsonrpcObject<IdType> {
 
@@ -72,6 +73,39 @@ public abstract class JsonrpcObject<IdType> {
                + "}";
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param obj the reference object which which to compare
+     * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof JsonrpcObject)) {
+            return false;
+        }
+        final JsonrpcObject<?> that = (JsonrpcObject<?>) obj;
+        return Objects.equals(getJsonrpc(), that.getJsonrpc()) &&
+               Objects.equals(getId(), that.getId());
+    }
+
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getJsonrpc(), getId());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property.
      *
@@ -82,9 +116,9 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_VALUE_JSONRPC} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_JSONRPC} property with specified value.
      *
-     * @param jsonrpc new value for {@value #PROPERTY_VALUE_JSONRPC} property.
+     * @param jsonrpc new value for {@value #PROPERTY_NAME_JSONRPC} property.
      */
     public void setJsonrpc(final String jsonrpc) {
         this.jsonrpc = jsonrpc;
@@ -102,7 +136,7 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with specified value.
      *
      * @param id new value for {@value #PROPERTY_NAME_ID} property.
      */
@@ -126,7 +160,8 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Copies specified object's {@value #PROPERTY_NAME_ID} to this objects's {@value #PROPERTY_NAME_ID}.
+     * Copies specified object's {@value #PROPERTY_NAME_ID} property to this objects's {@value #PROPERTY_NAME_ID}
+     * property.
      *
      * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied to this object's {@value
      *               #PROPERTY_NAME_ID} property.
