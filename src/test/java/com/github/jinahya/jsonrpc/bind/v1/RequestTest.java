@@ -23,6 +23,13 @@ package com.github.jinahya.jsonrpc.bind.v1;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+/**
+ * An abstract class for testing subclasses of {@link Request}.
+ *
+ * @param <RequestType> request type parameter
+ * @param <ParamType>   params element type parameter
+ * @param <IdType>      id type parameter
+ */
 public abstract class RequestTest<RequestType extends Request<ParamType, IdType>, ParamType, IdType>
         extends AbstractRequestTest<RequestType, ParamType, IdType> {
 
