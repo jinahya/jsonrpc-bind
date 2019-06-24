@@ -20,9 +20,43 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+import javax.validation.constraints.AssertFalse;
+
+/**
+ * A class for binding responses.
+ *
+ * @param <ResultType> result type parameter
+ * @param <ErrorType>  error type parameter
+ * @param <IdType>     id type parameter
+ */
 public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * A property name for {@code $.result}.
+     */
+    public static final String PROPERTY_NAME_RESULT = "result";
+
+    /**
+     * A property name for {@code $.error}.
+     */
+    public static final String PROPERTY_NAME_ERROR = "error";
+
+    // -------------------------------------------------------------------------------------------------------------- id
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @AssertFalse
+    @Override
+    protected boolean isIdSemanticallyNull() {
+        return super.isIdSemanticallyNull();
+    }
+
+    // ---------------------------------------------------------------------------------------------------------- result
     public ResultType getResult() {
         return result;
     }
@@ -31,7 +65,7 @@ public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType
         this.result = result;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------------- error
     public ErrorType getError() {
         return error;
     }

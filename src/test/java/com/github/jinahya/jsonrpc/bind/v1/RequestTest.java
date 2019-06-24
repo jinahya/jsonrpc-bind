@@ -20,11 +20,32 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+import java.io.IOException;
+import java.util.function.Consumer;
+
 public abstract class RequestTest<RequestType extends Request<ParamType, IdType>, ParamType, IdType>
         extends AbstractRequestTest<RequestType, ParamType, IdType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     public RequestTest(final Class<? extends RequestType> requestClass, final Class<? extends ParamType> paramClass,
                        final Class<? extends IdType> idClass) {
         super(requestClass, paramClass, idClass);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void acceptValueFromResource(final String name, final Consumer<? super RequestType> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
+            {
+                consumer.accept(v);
+            }
+            {
+                final Request<Object, IdType> request = new Request<>();
+                request.copyIdFrom(v);
+                final Response<Object, Object, IdType> response = new Response<>();
+                response.copyIdFrom(v);
+            }
+        });
     }
 }

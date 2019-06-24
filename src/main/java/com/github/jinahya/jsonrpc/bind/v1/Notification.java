@@ -20,14 +20,32 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+import javax.validation.constraints.AssertTrue;
+
+/**
+ * A class for binding notifications whose each {@value #PROPERTY_NAME_ID} property is {@code null}.
+ *
+ * @param <ParamType> param type parameter
+ */
 public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * {@inheritDoc} The {@link #setId(Void)} method of {@code Notification} class does nothing.
+     *
+     * @param id new value for {@value #PROPERTY_NAME_ID} parameter.
+     */
     @Override
     public void setId(final Void id) {
-        if (id == null) {
-            super.setId(id);
+        if (true) {
             return;
         }
-        throw new IllegalArgumentException("id is not null");
+    }
+
+    @AssertTrue
+    @Override
+    protected boolean isIdSemanticallyNull() {
+        return super.isIdSemanticallyNull();
     }
 }

@@ -25,7 +25,6 @@ import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NotificationTest<NotificationType extends Notification<ParamType>, ParamType>
         extends AbstractRequestTest<NotificationType, ParamType, Void> {
@@ -48,7 +47,6 @@ public abstract class NotificationTest<NotificationType extends Notification<Par
                 }
                 final Void id = constructor.newInstance();
                 assertNotNull(id);
-                assertThrows(IllegalArgumentException.class, () -> v.setId(id));
             } catch (final ReflectiveOperationException roe) {
                 roe.printStackTrace();
             }

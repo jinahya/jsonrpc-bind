@@ -23,7 +23,20 @@ package com.github.jinahya.jsonrpc.bind.v1;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * An abstract class for requests and notification.
+ *
+ * @param <ParamType> params element type parameter
+ * @param <IdType>    id type parameter
+ */
 public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<IdType> {
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * A property name for {@code $.params}.
+     */
+    public static final String PROPERTY_NAME_PARAMS = "params";
 
     // -----------------------------------------------------------------------------------------------------------------
     public String getMethod() {

@@ -20,7 +20,19 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+/**
+ * An abstract class for binding identifiable objects.
+ *
+ * @param <IdType> id type parameter.
+ */
 public abstract class Identifiable<IdType> {
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * A property name for {@code $.id}.
+     */
+    public static final String PROPERTY_NAME_ID = "id";
 
     // -----------------------------------------------------------------------------------------------------------------
     public IdType getId() {
@@ -29,6 +41,16 @@ public abstract class Identifiable<IdType> {
 
     public void setId(final IdType id) {
         this.id = id;
+    }
+
+    /**
+     * Indicates whether the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code null}.
+     *
+     * @return {@code true} if the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code
+     * null}; {@code false} otherwise.
+     */
+    protected boolean isIdSemanticallyNull() {
+        return getId() == null;
     }
 
     public <T extends Identifiable<? super IdType>> void copyIdTo(final T object) {

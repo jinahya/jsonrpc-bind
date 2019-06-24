@@ -20,13 +20,33 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;
 
+/**
+ * A class for binding requests.
+ *
+ * @param <ParamType> params element type parameter
+ * @param <IdType>    id type parameter
+ */
 public class Request<ParamType, IdType> extends AbstractRequest<ParamType, IdType> {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
     @NotNull
     @Override
     public IdType getId() {
         return super.getId();
+    }
+
+    @AssertFalse
+    @Override
+    protected boolean isIdSemanticallyNull() {
+        return super.isIdSemanticallyNull();
     }
 }
