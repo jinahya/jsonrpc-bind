@@ -49,7 +49,6 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @SuppressWarnings({"unchecked"})
     @Override
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
