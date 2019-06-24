@@ -79,11 +79,11 @@ public final class JsonbTests {
         try (InputStream stream = valueClass.getResourceAsStream(resourceName)) {
             assertNotNull(stream, "null resource stream for " + resourceName);
             return applyJsonb(v -> {
-                final T value = requireValid(v.fromJson(stream, valueClass));
+                final T value = v.fromJson(stream, valueClass);
                 final String string = v.toJson(value);
                 log.debug("jsonb: {}", value);
                 log.debug("jsonb: {}", string);
-                return value;
+                return requireValid(value);
             });
         }
     }

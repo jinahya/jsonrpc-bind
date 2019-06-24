@@ -41,7 +41,7 @@ class NamedParametersResponseTest
     }
 
     @Override
-    protected void acceptValueFromResource(String name, Consumer<? super NamedParametersResponse> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super NamedParametersResponse> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             consumer.accept(v);

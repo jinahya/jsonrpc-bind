@@ -332,15 +332,17 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Checks if the {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} property are
-     * exclusive.
+     * Checks whether the {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} are exclusively
+     * set to each other.
      *
-     * @return {@code true} if {@value #PROPERTY_NAME_RESULT} and {@value #PROPERTY_NAME_ERROR} set exclusively, {@code
-     * false} otherwise.
+     * @return {@code true} if {@value #PROPERTY_NAME_RESULT} property and {@value #PROPERTY_NAME_ERROR} property set
+     * exclusively, {@code false} otherwise.
+     * @see #isResultSemanticallyNull()
+     * @see #isErrorSemanticallyNull()
      */
     @AssertTrue(message = "result and error should be set exclusively")
-    protected boolean isResultAndErrorExclusive() {
-        return (getResult() != null) ^ (getError() != null);
+    private boolean isResultAndErrorExclusive() {
+        return isResultSemanticallyNull() ^ isErrorSemanticallyNull();
     }
 
     // ---------------------------------------------------------------------------------------------------------- result
@@ -379,6 +381,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
     }
 
+    /**
+     * Checks whether the current value of {@value #PROPERTY_NAME_RESULT} property is semantically {@code null}.
+     *
+     * @return {@code true} if the current value of {@value #PROPERTY_NAME_RESULT} property is semantically {@code
+     * null}; {@code false} otherwise.
+     */
+    protected boolean isResultSemanticallyNull() {
+        return getResult() == null;
+    }
+
     // ----------------------------------------------------------------------------------------------------------- error
 
     /**
@@ -413,6 +425,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         if (getError() != null) {
             setResult(null);
         }
+    }
+
+    /**
+     * Checks whether the current value of {@value #PROPERTY_NAME_ERROR} property is semantically {@code null}.
+     *
+     * @return {@code true} if the current value of {@value #PROPERTY_NAME_ERROR} property is semantically {@code null};
+     * {@code false} otherwise.
+     */
+    protected boolean isErrorSemanticallyNull() {
+        return getError() == null;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
