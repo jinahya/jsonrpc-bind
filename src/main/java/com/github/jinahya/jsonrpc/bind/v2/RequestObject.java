@@ -89,7 +89,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
             return false;
         }
         final RequestObject<?, ?> that = (RequestObject<?, ?>) obj;
-        return Objects.equals(getMethod(), that.getMethod()) && Objects.equals(getParams(), that.getParams());
+        return Objects.equals(getMethod(), that.getMethod())
+               && Objects.equals(getParams(), that.getParams());
     }
 
     /**

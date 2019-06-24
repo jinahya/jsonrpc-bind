@@ -90,8 +90,8 @@ public abstract class JsonrpcObject<IdType> {
             return false;
         }
         final JsonrpcObject<?> that = (JsonrpcObject<?>) obj;
-        return Objects.equals(getJsonrpc(), that.getJsonrpc()) &&
-               Objects.equals(getId(), that.getId());
+        return Objects.equals(getJsonrpc(), that.getJsonrpc())
+               && Objects.equals(getId(), that.getId());
     }
 
     /**

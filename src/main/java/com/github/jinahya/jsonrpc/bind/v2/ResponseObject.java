@@ -316,7 +316,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             return false;
         }
         final ResponseObject<?, ?, ?> that = (ResponseObject<?, ?, ?>) obj;
-        return Objects.equals(getResult(), that.getResult()) && Objects.equals(getError(), that.getError());
+        return Objects.equals(getResult(), that.getResult())
+               && Objects.equals(getError(), that.getError());
     }
 
     /**
