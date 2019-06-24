@@ -23,7 +23,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Constructor;
 
 /**
  * A class for representing <a href="https://www.jsonrpc.org/specification#response_object">Response Object</a>s.
@@ -132,44 +131,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * Creates a new instance of specified type with specified data with it.
-         *
-         * @param objectClass object class to create.
-         * @param data        value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <T>         object type paramter
-         * @param <DataType>  data type parameter.
-         * @return new instance of specified object type.
-         */
-        protected static <T extends ErrorObject<DataType>, DataType> T of(final Class<? extends T> objectClass,
-                                                                          final DataType data) {
-            try {
-                final Constructor<? extends T> constructor = objectClass.getDeclaredConstructor();
-                if (!constructor.isAccessible()) {
-                    constructor.setAccessible(true);
-                }
-                final T instance = constructor.newInstance();
-                instance.setData(data);
-                return instance;
-            } catch (final ReflectiveOperationException roe) {
-                throw new RuntimeException(roe);
-            }
-        }
-
-        /**
-         * Creates a new instance with specified data.
-         *
-         * @param data       the value for {@value #PROPERTY_NAME_DATA}.
-         * @param <DataType> data type parameter.
-         * @return a new instance.
-         */
-        @SuppressWarnings({"unchecked"})
-        public static <DataType> ErrorObject<DataType> of(final DataType data) {
-            return of((Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class, data);
-        }
-
-        // -------------------------------------------------------------------------------------------------------------
-
-        /**
          * Creates a new instance.
          */
         public ErrorObject() {
@@ -179,9 +140,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * Returns a string representation ofError the object.
+         * Returns a string representation of the object.
          *
-         * @return a string representation ofError the object.
+         * @return a string representation of the object.
          */
         @Override
         public String toString() {
@@ -195,16 +156,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------- code
 
         /**
-         * Returns the current value ofError {@value #PROPERTY_NAME_CODE} property.
+         * Returns the current value of {@value #PROPERTY_NAME_CODE} property.
          *
-         * @return the current value ofError {@value #PROPERTY_NAME_CODE} property.
+         * @return the current value of {@value #PROPERTY_NAME_CODE} property.
          */
         public long getCode() {
             return code;
         }
 
         /**
-         * Replaces the current value ofError {@value #PROPERTY_NAME_CODE} property with given.
+         * Replaces the current value of {@value #PROPERTY_NAME_CODE} property with given.
          *
          * @param code new value for {@value #PROPERTY_NAME_CODE} property.
          */
@@ -215,16 +176,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // ----------------------------------------------------------------------------------------------------- message
 
         /**
-         * Returns the current value ofError {@value #PROPERTY_NAME_MESSAGE} property.
+         * Returns the current value of {@value #PROPERTY_NAME_MESSAGE} property.
          *
-         * @return the current value ofError {@value #PROPERTY_NAME_MESSAGE} property.
+         * @return the current value of {@value #PROPERTY_NAME_MESSAGE} property.
          */
         public String getMessage() {
             return message;
         }
 
         /**
-         * Replaces the current value ofError {@value #PROPERTY_NAME_MESSAGE} property.
+         * Replaces the current value of {@value #PROPERTY_NAME_MESSAGE} property.
          *
          * @param message new value for {@value #PROPERTY_NAME_MESSAGE} property.
          */
@@ -235,16 +196,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------- data
 
         /**
-         * Returns the current value ofError {@value #PROPERTY_NAME_DATA} property.
+         * Returns the current value of {@value #PROPERTY_NAME_DATA} property.
          *
-         * @return the current value ofError {@value #PROPERTY_NAME_DATA} property.
+         * @return the current value of {@value #PROPERTY_NAME_DATA} property.
          */
         public DataType getData() {
             return data;
         }
 
         /**
-         * Replaces the current value ofError {@value #PROPERTY_NAME_DATA} property.
+         * Replaces the current value of {@value #PROPERTY_NAME_DATA} property.
          *
          * @param data new value for {@value #PROPERTY_NAME_DATA} property.
          */
@@ -273,87 +234,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T of(
-            final Class<T> objectClass, final U result, final V error, final W id) {
-        final T instance = JsonrpcObject.of(objectClass, id);
-        instance.setResultExclusively(result);
-        instance.setErrorExclusively(error);
-        return instance;
-    }
-
-    @SuppressWarnings({"unchecked"})
-    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> of(
-            final U result, final V error, final W id) {
-        return of(ResponseObject.class, result, error, id);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * creates a new instance of specified object type with given result and id.
-     *
-     * @param objectClass object class to create.
-     * @param result      the value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param id          the value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>         object type parameter.
-     * @param <U>         result type parameter.
-     * @param <W>         id type parameter.
-     * @return a new instance of specified object type.
-     */
-    protected static <T extends ResponseObject<U, ErrorObject<?>, W>, U, W> T ofResult(
-            final Class<T> objectClass, final U result, final W id) {
-        return of(objectClass, result, null, id);
-    }
-
-    /**
-     * Creates a new instance with given result and id.
-     *
-     * @param result the value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param id     the value for {@value #PROPERTY_NAME_ID} property.
-     * @param <U>    result type parameter
-     * @param <W>    id type parameter
-     * @return a new response object.
-     */
-    @SuppressWarnings({"unchecked"})
-    public static <U, W> ResponseObject<U, ?, W> ofResult(final U result, final W id) {
-        return ofResult(ResponseObject.class, result, id);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Creates a new instance of specified type whose {@value #PROPERTY_NAME_ERROR} property and {@value
-     * #PROPERTY_NAME_ID} property set with given.
-     *
-     * @param objectClass the class of object to create.
-     * @param error       a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id          a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>         object type parameter
-     * @param <V>         error type parameter
-     * @param <W>         id type parameter
-     * @return a new instance.
-     */
-    protected static <T extends ResponseObject<Object, V, W>, V extends ErrorObject<?>, W> T ofError(
-            final Class<? extends T> objectClass, final V error, final W id) {
-        return of(objectClass, null, error, id);
-    }
-
-    /**
-     * Creates a new instance whose {@value #PROPERTY_NAME_ERROR} property and {@value #PROPERTY_NAME_ID} property set
-     * with given.
-     *
-     * @param error a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <V>   error type parameter
-     * @param <W>   id type parameter
-     * @return a new instance.
-     */
-    @SuppressWarnings({"unchecked"})
-    public static <V extends ErrorObject<?>, W> ResponseObject<?, V, W> ofError(final V error, final W id) {
-        return ofError(ResponseObject.class, error, id);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Creates a new instance.
@@ -365,9 +245,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a string representation ofError the object.
+     * Returns a string representation of the object.
      *
-     * @return a string representation ofError the object.
+     * @return a string representation of the object.
      */
     @Override
     public String toString() {
@@ -394,16 +274,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // ---------------------------------------------------------------------------------------------------------- result
 
     /**
-     * Returns the current value ofError {@value #PROPERTY_NAME_RESULT} property.
+     * Returns the current value of {@value #PROPERTY_NAME_RESULT} property.
      *
-     * @return the current value ofError {@value #PROPERTY_NAME_RESULT} property.
+     * @return the current value of {@value #PROPERTY_NAME_RESULT} property.
      */
     public ResultType getResult() {
         return result;
     }
 
     /**
-     * Replaces the current value ofError {@value #PROPERTY_NAME_RESULT} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with given.
      *
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
      * @see #setResultExclusively(Object)
@@ -430,16 +310,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // ----------------------------------------------------------------------------------------------------------- error
 
     /**
-     * Returns the current value ofError {@value #PROPERTY_NAME_ERROR} property.
+     * Returns the current value of {@value #PROPERTY_NAME_ERROR} property.
      *
-     * @return the current value ofError {@value #PROPERTY_NAME_ERROR} property.
+     * @return the current value of {@value #PROPERTY_NAME_ERROR} property.
      */
     public ErrorType getError() {
         return error;
     }
 
     /**
-     * Replaces the current value ofError {@value #PROPERTY_NAME_ERROR} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with given.
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
      * @see #setErrorExclusively(ErrorObject)

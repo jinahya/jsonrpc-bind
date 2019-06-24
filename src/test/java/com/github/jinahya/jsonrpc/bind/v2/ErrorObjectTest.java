@@ -25,7 +25,7 @@ import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for testing subclasses ofError {@link ErrorObject}.
+ * An abstract class for testing subclasses of {@link ErrorObject}.
  *
  * @param <ErrorType> error type parameter
  * @param <DataType>  data type parameter
@@ -35,10 +35,10 @@ public abstract class ErrorObjectTest<ErrorType extends ErrorObject<DataType>, D
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new instance with specified class ofError error object.
+     * Creates a new instance with specified class of error object.
      *
-     * @param errorClass the class ofError error object for {@link #errorClass}.
-     * @param dataClass  the class ofError data property ofError error object.
+     * @param errorClass the class of error object for {@link #errorClass}.
+     * @param dataClass  the class of data property of error object.
      */
     public ErrorObjectTest(final Class<? extends ErrorType> errorClass, final Class<? extends DataType> dataClass) {
         super();

@@ -23,7 +23,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.lang.reflect.Constructor;
 
 /**
  * An abstract class for request objects and response objects.
@@ -45,41 +44,25 @@ public abstract class JsonrpcObject<IdType> {
     public static final String PROPERTY_NAME_ID = "id";
 
     /**
-     * The fixed value for {@value #PROPERTY_NAME_JSONRPC} attribute. The value is {@value #PROPERTY_VALUE_JSONRPC}.
+     * The fixed value for {@value #PROPERTY_NAME_JSONRPC} property. The value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new instance whose {@value #PROPERTY_NAME_ID} parameter set with given.
-     *
-     * @param objectClass the class of object to create.
-     * @param id          a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>         object type parameter
-     * @param <IdType>    id type parameter
-     * @return a new instance.
+     * Creates a new instance.
      */
-    static <T extends JsonrpcObject<IdType>, IdType> T of(final Class<? extends T> objectClass, final IdType id) {
-        try {
-            final Constructor<? extends T> constructor = objectClass.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            final T instance = constructor.newInstance();
-            instance.setId(id);
-            return instance;
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+    public JsonrpcObject() {
+        super();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a string representation ofError the object.
+     * Returns a string representation of the object.
      *
-     * @return a string representation ofError the object.
+     * @return a string representation of the object.
      */
     @Override
     public String toString() {
@@ -90,16 +73,16 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Returns the current value ofError {@value #PROPERTY_NAME_JSONRPC} property.
+     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property.
      *
-     * @return the current value ofError {@value #PROPERTY_NAME_JSONRPC} property.
+     * @return the current value of {@value #PROPERTY_NAME_JSONRPC} property.
      */
     public String getJsonrpc() {
         return jsonrpc;
     }
 
     /**
-     * Replaces the current value ofError {@value #PROPERTY_VALUE_JSONRPC} property with given.
+     * Replaces the current value of {@value #PROPERTY_VALUE_JSONRPC} property with given.
      *
      * @param jsonrpc new value for {@value #PROPERTY_VALUE_JSONRPC} property.
      */
@@ -110,16 +93,16 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns the current value ofError {@value #PROPERTY_NAME_ID} property.
+     * Returns the current value of {@value #PROPERTY_NAME_ID} property.
      *
-     * @return the current value ofError {@value #PROPERTY_NAME_ID} property.
+     * @return the current value of {@value #PROPERTY_NAME_ID} property.
      */
     public IdType getId() {
         return id;
     }
 
     /**
-     * Replaces the current value ofError {@value #PROPERTY_NAME_ID} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given.
      *
      * @param id new value for {@value #PROPERTY_NAME_ID} property.
      */

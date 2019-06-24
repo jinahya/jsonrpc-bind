@@ -63,7 +63,7 @@ class AccessorHandles {
     @SuppressWarnings({"unchecked"})
     static <T> T get(final Field field, final Object object) {
         final MethodHandle getter = getterHandles().computeIfAbsent(field, k -> {
-            log.debug("no handle for the getter ofError {} yet", field);
+            log.debug("no handle for the getter of {} yet", field);
             if (!k.isAccessible()) {
                 k.setAccessible(true);
             }
@@ -103,7 +103,7 @@ class AccessorHandles {
     // -----------------------------------------------------------------------------------------------------------------
     static void set(final Field field, final Object object, final Object value) {
         final MethodHandle setter = setterHandles().computeIfAbsent(field, k -> {
-            log.debug("no handler for the setter ofError {} yet", field);
+            log.debug("no handler for the setter of {} yet", field);
             if (!k.isAccessible()) {
                 k.setAccessible(true);
             }

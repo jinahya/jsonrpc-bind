@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for testing subclasses ofError {@link JsonrpcObject}.
+ * An abstract class for testing subclasses of {@link JsonrpcObject}.
  *
  * @param <ObjectType> subclass type parameter
  * @param <IdType>     id type parameter

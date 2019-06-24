@@ -66,12 +66,12 @@ public final class JsonbTests {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Opens a resource ofError specified name and returns an instance ofError specified type read from it.
+     * Opens a resource of specified name and returns an instance of specified type read from it.
      *
-     * @param resourceName the name ofError the resource to open.
-     * @param valueClass   the type ofError the value to read.
+     * @param resourceName the name of the resource to open.
+     * @param valueClass   the type of the value to read.
      * @param <T>          value type parameter.
-     * @return an instance ofError parsed value ofError specified type.
+     * @return an instance of parsed value of specified type.
      * @throws IOException if an I/O error occurs.
      */
     public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass)

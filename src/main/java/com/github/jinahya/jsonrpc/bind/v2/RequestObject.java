@@ -48,53 +48,18 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new instance of specified class whose {@value #PROPERTY_NAME_PARAMS} property and {@value
-     * #PROPERTY_NAME_ID} property set with given.
-     *
-     * @param objectClass  the type of object to create.
-     * @param params       a value for {@value #PROPERTY_NAME_PARAMS} property.
-     * @param id           a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>          object type parameter
-     * @param <ParamsType> params type parameter
-     * @param <IdType>     id type parameter
-     * @return a new instance.
-     */
-    protected static <T extends RequestObject<ParamsType, IdType>, ParamsType, IdType> T of(
-            final Class<? extends T> objectClass, final ParamsType params, final IdType id) {
-        final T instance = of(objectClass, id);
-        instance.setParams(params);
-        return instance;
-    }
-
-    /**
-     * Creates a new instance whose {@value #PROPERTY_NAME_PARAMS} property and {@value #PROPERTY_NAME_ID} property set
-     * with given.
-     *
-     * @param params       a value for {@value #PROPERTY_NAME_PARAMS} property.
-     * @param id           a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <ParamsType> params type parameter
-     * @param <IdType>     id type parameter
-     * @return a new instance.
-     */
-    @SuppressWarnings({"unchecked"})
-    public static <ParamsType, IdType> RequestObject<ParamsType, IdType> of(final ParamsType params, final IdType id) {
-        return of((Class<RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class, params, id);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
      * Creates a new instance.
      */
     public RequestObject() {
         super();
     }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a string representation ofError the object.
+     * Returns a string representation of the object.
      *
-     * @return a string representation ofError the object.
+     * @return a string representation of the object.
      */
     @Override
     public String toString() {
@@ -107,16 +72,16 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // ---------------------------------------------------------------------------------------------------------- method
 
     /**
-     * Returns the current value ofError {@value #PROPERTY_NAME_METHOD} property.
+     * Returns the current value of {@value #PROPERTY_NAME_METHOD} property.
      *
-     * @return the current value ofError {@value #PROPERTY_NAME_METHOD} property.
+     * @return the current value of {@value #PROPERTY_NAME_METHOD} property.
      */
     public String getMethod() {
         return method;
     }
 
     /**
-     * Replace the current value ofError {@value #PROPERTY_NAME_METHOD} property with given.
+     * Replace the current value of {@value #PROPERTY_NAME_METHOD} property with given.
      *
      * @param method new value for {@value #PROPERTY_NAME_METHOD} property.
      */
@@ -127,16 +92,16 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // ---------------------------------------------------------------------------------------------------------- params
 
     /**
-     * Returns the current value ofError {@value #PROPERTY_NAME_PARAMS} property.
+     * Returns the current value of {@value #PROPERTY_NAME_PARAMS} property.
      *
-     * @return the current value ofError {@value #PROPERTY_NAME_PARAMS} property.
+     * @return the current value of {@value #PROPERTY_NAME_PARAMS} property.
      */
     public ParamsType getParams() {
         return params;
     }
 
     /**
-     * Replaces the current value ofError {@value #PROPERTY_NAME_PARAMS} property with given.
+     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with given.
      *
      * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */

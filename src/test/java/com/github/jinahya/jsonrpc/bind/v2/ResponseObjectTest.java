@@ -20,24 +20,15 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.squareup.moshi.JsonAdapter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import static com.github.jinahya.jsonrpc.bind.GsonTests.GSON;
-import static com.github.jinahya.jsonrpc.bind.JacksonTests.OBJECT_MAPPER;
-import static com.github.jinahya.jsonrpc.bind.JsonbTests.JSONB;
-import static com.github.jinahya.jsonrpc.bind.MoshiTests.MOSHI;
-import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.of;
-import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ofError;
-import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ofResult;
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for testing subclasses ofError {@link ResponseObject}.
+ * An abstract class for testing subclasses of {@link ResponseObject}.
  *
  * @param <ObjectType> response object type parameter
  * @param <ResultType> result type parameter
@@ -75,63 +66,6 @@ public abstract class ResponseObjectTest<
             consumer.accept(v);
             v.setResultExclusively(v.getResult());
             v.setErrorExclusively(v.getError());
-            {
-                final ObjectType of = of(objectClass, v.getResult(), v.getError(), v.getId());
-                log.debug("of: {}", of);
-                log.debug("of.jsonb: {}", JSONB.toJson(of));
-                try {
-                    log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final JsonProcessingException jpe) {
-                    throw new RuntimeException(jpe);
-                }
-                log.debug("of.gson: {}", GSON.toJson(of));
-                log.debug("of.moshi: {}", MOSHI.adapter(objectClass).toJson(of));
-            }
-            {
-                final ResponseObject<ResultType, ErrorType, IdType> of
-                        = of(objectClass, v.getResult(), v.getError(), v.getId());
-                log.debug("of: {}", of);
-                log.debug("of.jsonb: {}", JSONB.toJson(of));
-                try {
-                    log.debug("of.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final JsonProcessingException jpe) {
-                    throw new RuntimeException(jpe);
-                }
-                log.debug("of.gson: {}", GSON.toJson(of));
-                @SuppressWarnings({"unchecked"})
-                final JsonAdapter<ResponseObject<ResultType, ErrorType, IdType>> adapter =
-                        MOSHI.adapter((Class<ResponseObject<ResultType, ErrorType, IdType>>) objectClass);
-                log.debug("of.moshi: {}", adapter.toJson(of));
-            }
-            {
-                final ResponseObject<ResultType, ?, IdType> of = ofResult(v.getResult(), v.getId());
-                log.debug("ofResult: {}", of);
-                log.debug("ofResult jsonb: {}", JSONB.toJson(of));
-                try {
-                    log.debug("ofResult jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final JsonProcessingException jpe) {
-                    throw new RuntimeException(jpe);
-                }
-                log.debug("ofResult gson: {}", GSON.toJson(of));
-                @SuppressWarnings({"unchecked"}) final JsonAdapter<ResponseObject<ResultType, ?, IdType>> adapter =
-                        MOSHI.adapter((Class<ResponseObject<ResultType, ?, IdType>>) objectClass);
-                log.debug("ofResult moshi: {}", adapter.toJson(of));
-            }
-            {
-                final ResponseObject<?, ResponseObject.ErrorObject<?>, IdType> of = ofError(v.getError(), v.getId());
-                log.debug("ofError: {}", of);
-                log.debug("ofError.jsonb: {}", JSONB.toJson(of));
-                try {
-                    log.debug("ofError.jackson: {}", OBJECT_MAPPER.writeValueAsString(of));
-                } catch (final JsonProcessingException jpe) {
-                    throw new RuntimeException(jpe);
-                }
-                log.debug("ofError.gson: {}", GSON.toJson(of));
-                @SuppressWarnings({"unchecked"})
-                final JsonAdapter<ResponseObject<?, ResponseObject.ErrorObject<?>, IdType>> adapter =
-                        MOSHI.adapter((Class<ResponseObject<?, ResponseObject.ErrorObject<?>, IdType>>) objectClass);
-                log.debug("ofError.moshi: {}", adapter.toJson(of));
-            }
         });
     }
 
