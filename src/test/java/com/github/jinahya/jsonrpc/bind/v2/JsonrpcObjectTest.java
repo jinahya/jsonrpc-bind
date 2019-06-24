@@ -26,6 +26,7 @@ import com.github.jinahya.jsonrpc.bind.JsonbTests;
 import com.github.jinahya.jsonrpc.bind.MoshiTests;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -62,6 +63,25 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
         acceptValueFromResource(name, v -> {
             consumer.accept(v, supplier.get());
         });
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance of {@link #objectClass}.
+     *
+     * @return a new instance of {@link #objectClass}.
+     */
+    protected ObjectType objectInstance() {
+        try {
+            final Constructor<ObjectType> constructor = objectClass.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            return constructor.newInstance();
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------

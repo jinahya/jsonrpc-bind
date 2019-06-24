@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * An abstract class for testing subclasses of {@link RequestObject}.
@@ -47,10 +49,23 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
     // -----------------------------------------------------------------------------------------------------------------
     @SuppressWarnings({"unchecked"})
     @Override
-    protected void acceptValueFromResource(String name, Consumer<? super ObjectType> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
-            consumer.accept(v);
+            {
+                consumer.accept(v);
+            }
+            {
+                final ObjectType obj = objectInstance();
+                obj.setMethod(v.getMethod());
+                obj.setParams(v.getParams());
+                obj.setId(v.getId());
+                assertTrue(v.equals(obj));
+                assertTrue(obj.equals(v));
+                assertEquals(v, obj);
+                assertEquals(obj, v);
+                assertEquals(v.hashCode(), obj.hashCode());
+            }
         });
     }
 
