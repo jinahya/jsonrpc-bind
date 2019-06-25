@@ -20,6 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+import java.util.Objects;
+
 /**
  * An abstract class for binding identifiable objects.
  *
@@ -33,6 +35,57 @@ public abstract class Identifiable<IdType> {
      * A property name for {@code $.id}.
      */
     public static final String PROPERTY_NAME_ID = "id";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     */
+    public Identifiable() {
+        super();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "id=" + id
+               + "}";
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Identifiable)) {
+            return false;
+        }
+        final Identifiable<?> that = (Identifiable<?>) obj;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     public IdType getId() {

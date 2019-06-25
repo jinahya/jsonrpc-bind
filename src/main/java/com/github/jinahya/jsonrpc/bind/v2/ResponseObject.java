@@ -51,7 +51,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A class for binding {@value #PROPERTY_NAME_ERROR} property of response objects.
+     * A class for binding {@code error} property of response objects.
      *
      * @param <DataType> data type parameter
      * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0 Specification)</a>
@@ -98,8 +98,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         public static final long CODE_PARSE_ERROR = -32700L;
 
         /**
-         * The code value for <i>invalid calculatorRequest</i> meaning the JSON sent is not a valid calculatorRequest
-         * object. The value is {@value #CODE_INVALID_REQUEST}.
+         * The code value for <i>invalid request</i> meaning the JSON sent is not a valid request object. The value is
+         * {@value #CODE_INVALID_REQUEST}.
          */
         public static final long CODE_INVALID_REQUEST = -32600L;
 
@@ -284,9 +284,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a string representation of the object.
+     * {@inheritDoc}
      *
-     * @return a string representation of the object.
+     * @return {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -333,15 +333,13 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Checks either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} are set exclusively. The
-     * {@code isEitherResultOrErrorSetExclusively()} method of {@code ResponseObject} class returns the value of
-     * following expression.
-     * <blockquote><pre>{@code
-     * isResultSemanticallyNull() ^ isErrorSemanticallyNull()
-     * }</pre></blockquote>
+     * Checks either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property is set
+     * exclusively. The {@code isEitherResultOrErrorSetExclusively()} method of {@code ResponseObject} class returns the
+     * value of following expression.
+     * <blockquote><pre>{@code isResultSemanticallyNull() ^ isErrorSemanticallyNull()}</pre></blockquote>
      *
      * @return {@code true} if either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property
-     * set exclusively; {@code false} otherwise.
+     * is set exclusively; {@code false} otherwise.
      * @see #isResultSemanticallyNull()
      * @see #isErrorSemanticallyNull()
      */

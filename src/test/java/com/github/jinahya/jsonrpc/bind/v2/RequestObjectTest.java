@@ -27,15 +27,13 @@ import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * An abstract class for testing subclasses of {@link RequestObject}.
  *
- * @param <ObjectType> calculatorRequest object type parameter
- * @param <ParamsType> calculatorRequest object params type parameter
+ * @param <ObjectType> request object type parameter
+ * @param <ParamsType> params type parameter
  */
 @Slf4j
 public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsType, IdType>, ParamsType, IdType>

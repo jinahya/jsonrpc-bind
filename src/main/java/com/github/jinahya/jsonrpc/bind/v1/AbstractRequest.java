@@ -22,6 +22,7 @@ package com.github.jinahya.jsonrpc.bind.v1;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * An abstract class for requests and notification.
@@ -37,6 +38,61 @@ public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<Id
      * A property name for {@code $.params}.
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     */
+    public AbstractRequest() {
+        super();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "AbstractRequest{" +
+               "method='" + method + '\'' +
+               ", params=" + params +
+               '}';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof AbstractRequest)) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final AbstractRequest<?, ?> that = (AbstractRequest<?, ?>) obj;
+        return Objects.equals(getMethod(), that.getMethod()) && Objects.equals(getParams(), that.getParams());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getMethod(), getParams());
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     public String getMethod() {

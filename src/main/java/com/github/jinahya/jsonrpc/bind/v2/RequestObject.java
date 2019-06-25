@@ -57,9 +57,9 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a string representation of the object.
+     * {@inheritDoc}
      *
-     * @return a string representation of the object.
+     * @return {@inheritDoc}
      */
     @Override
     public String toString() {

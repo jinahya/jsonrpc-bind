@@ -38,9 +38,7 @@ public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
      */
     @Override
     public void setId(final Void id) {
-        if (true) {
-            return;
-        }
+        // empty; does nothing.
     }
 
     @AssertTrue

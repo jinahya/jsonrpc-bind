@@ -73,8 +73,6 @@ public abstract class JsonrpcObject<IdType> {
                + "}";
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     /**
      * Indicates whether some other object is "equal to" this one.
      *
