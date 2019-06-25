@@ -23,6 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Constructor;
 import java.util.Objects;
 
 /**
@@ -134,6 +135,55 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * #MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
          */
         public static final long MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000L;
+
+        // -------------------------------------------------------------------------------------------------------------
+
+        /**
+         * Creates a new instance of specified object type whose {@value #PROPERTY_NAME_CODE} property, {@value
+         * #PROPERTY_NAME_MESSAGE} property, and {@value #PROPERTY_NAME_DATA} property set with specified values.
+         *
+         * @param objectClass  the class of the object to create.
+         * @param code         the value for {@value #PROPERTY_NAME_CODE} property.
+         * @param message      the value for {@value #PROPERTY_NAME_MESSAGE} property.
+         * @param data         the value for {@value #PROPERTY_NAME_DATA} property.
+         * @param <ObjectType> object type parameter
+         * @param <DataType>   data type parameter
+         * @return a new instance of specified object type.
+         */
+        public static <ObjectType extends ErrorObject<DataType>, DataType> ObjectType of(
+                final Class<? extends ObjectType> objectClass, final long code, final String message,
+                final DataType data) {
+            try {
+                final Constructor<? extends ObjectType> constructor = objectClass.getConstructor();
+                if (!constructor.isAccessible()) {
+                    constructor.setAccessible(true);
+                }
+                final ObjectType instance = constructor.newInstance();
+                instance.setCode(code);
+                instance.setMessage(message);
+                instance.setData(data);
+                return instance;
+            } catch (final ReflectiveOperationException roe) {
+                throw new RuntimeException("failed to create an instance of " + objectClass, roe);
+            }
+        }
+
+        /**
+         * Creates a new instance whose {@value #PROPERTY_NAME_CODE} property, {@value #PROPERTY_NAME_MESSAGE} property,
+         * and {@value #PROPERTY_NAME_DATA} property set with specified values.
+         *
+         * @param code       the value for {@value #PROPERTY_NAME_CODE} property.
+         * @param message    the value for {@value #PROPERTY_NAME_MESSAGE} property.
+         * @param data       the value for {@value #PROPERTY_NAME_DATA} property.
+         * @param <DataType> data type parameter
+         * @return a new instance.
+         */
+        public static <DataType> ErrorObject<DataType> of(final long code, final String message, final DataType data) {
+            @SuppressWarnings({"unchecked"})
+            final Class<ErrorObject<DataType>> objectClass
+                    = (Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class;
+            return of(objectClass, code, message, data);
+        }
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -257,13 +307,13 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         /**
          * An attribute for {@value #PROPERTY_NAME_CODE} property.
          */
-        private long code;
+        private long code = CODE_INTERNAL_ERROR;
 
         /**
          * An attribute for {@value #PROPERTY_NAME_MESSAGE} property.
          */
         @NotNull
-        private String message;
+        private String message = "";
 
         /**
          * An attribute for {@value #PROPERTY_NAME_DATA} property.
@@ -335,8 +385,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
     /**
      * Checks either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property is set
-     * exclusively. The {@code isEitherResultOrErrorExclusivelyNull()} method of {@code ResponseObject} class returns the
-     * value of following expression.
+     * exclusively. The {@code isEitherResultOrErrorExclusivelyNull()} method of {@code ResponseObject} class returns
+     * the value of following expression.
      * <blockquote><pre>{@code isResultSemanticallyNull() ^ isErrorSemanticallyNull()}</pre></blockquote>
      *
      * @return {@code true} if either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property

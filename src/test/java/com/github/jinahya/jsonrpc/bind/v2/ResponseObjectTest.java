@@ -104,6 +104,15 @@ public abstract class ResponseObjectTest<
                     assertEquals(error.hashCode(), obj.hashCode());
                 }
             }
+            {
+                final ErrorType error = v.getError();
+                if (error != null) {
+                    final ResponseObject.ErrorObject<Object> obj = ResponseObject.ErrorObject.of(
+                            error.getCode(), error.getMessage(), error.getData());
+                    assertEquals(error, obj);
+                    assertEquals(error.hashCode(), obj.hashCode());
+                }
+            }
         });
     }
 
