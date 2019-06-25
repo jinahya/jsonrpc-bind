@@ -35,6 +35,11 @@ public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<Id
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * A property name for {@code $.method}.
+     */
+    public static final String PROPERTY_NAME_METHOD = "method";
+
+    /**
      * A property name for {@code $.params}.
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
@@ -57,10 +62,10 @@ public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<Id
      */
     @Override
     public String toString() {
-        return "AbstractRequest{" +
-               "method='" + method + '\'' +
-               ", params=" + params +
-               '}';
+        return super.toString() + "{"
+               + "method=" + method
+               + ",params=" + params
+               + "}";
     }
 
     /**
@@ -95,19 +100,41 @@ public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<Id
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the current value of {@value #PROPERTY_NAME_METHOD} property.
+     *
+     * @return the current value of {@value #PROPERTY_NAME_METHOD} property.
+     */
     public String getMethod() {
         return method;
     }
 
+    /**
+     * Replaces the current value of {@value #PROPERTY_NAME_METHOD} property with specified value.
+     *
+     * @param method new value for {@value #PROPERTY_NAME_METHOD} property.
+     */
     public void setMethod(final String method) {
         this.method = method;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the current value of {@value #PROPERTY_NAME_PARAMS} property.
+     *
+     * @return the current value of {@value #PROPERTY_NAME_PARAMS} property.
+     */
     public List<ParamType> getParams() {
         return params;
     }
 
+    /**
+     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with sepcified value.
+     *
+     * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
+     */
     public void setParams(final List<ParamType> params) {
         this.params = params;
     }

@@ -26,29 +26,35 @@ import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public abstract class NotificationTest<NotificationType extends Notification<ParamType>, ParamType>
+public class NotificationTest<NotificationType extends Notification<ParamType>, ParamType>
         extends AbstractRequestTest<NotificationType, ParamType, Void> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     public NotificationTest(final Class<? extends NotificationType> objectClass,
                             final Class<? extends ParamType> paramClass) {
         super(objectClass, paramClass, Void.class);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
     protected void acceptValueFromResource(final String name, final Consumer<? super NotificationType> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
-            consumer.accept(v);
-            v.setId(null);
-            try {
-                final Constructor<Void> constructor = Void.class.getDeclaredConstructor();
-                if (!constructor.isAccessible()) {
-                    constructor.setAccessible(true);
+            {
+                consumer.accept(v);
+            }
+            {
+                v.setId(null);
+                try {
+                    final Constructor<Void> constructor = Void.class.getDeclaredConstructor();
+                    if (!constructor.isAccessible()) {
+                        constructor.setAccessible(true);
+                    }
+                    final Void id = constructor.newInstance();
+                    assertNotNull(id);
+                } catch (final Exception e) {
+                    e.printStackTrace();
                 }
-                final Void id = constructor.newInstance();
-                assertNotNull(id);
-            } catch (final ReflectiveOperationException roe) {
-                roe.printStackTrace();
             }
         });
     }

@@ -20,16 +20,21 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+import java.io.IOException;
+import java.util.function.Consumer;
+
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class ResponseTest<
-        ResponseType extends Response<ResultType, ErrorType, IdType>,
+        ObjectType extends Response<ResultType, ErrorType, IdType>,
         ResultType,
         ErrorType,
         IdType>
-        extends IdentifiableTest<ResponseType, IdType> {
+        extends IdentifiableTest<ObjectType, IdType> {
 
-    public ResponseTest(final Class<? extends ResponseType> responseClass,
+    // -----------------------------------------------------------------------------------------------------------------
+    public ResponseTest(final Class<? extends ObjectType> responseClass,
                         final Class<? extends ResultType> resultClass, final Class<? extends ErrorType> errorClass,
                         final Class<? extends IdType> idClass) {
         super(responseClass, idClass);
@@ -37,6 +42,26 @@ public abstract class ResponseTest<
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
+            {
+                consumer.accept(v);
+            }
+            {
+                final ObjectType obj = objectInstance();
+                obj.setResult(v.getResult());
+                obj.setError(v.getError());
+                obj.setId(v.getId());
+                assertEquals(obj, v);
+                assertEquals(obj.hashCode(), v.hashCode());
+            }
+        });
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     protected final Class<? extends ResultType> resultClass;
 
     protected final Class<? extends ErrorType> errorClass;

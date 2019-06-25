@@ -26,19 +26,22 @@ import com.github.jinahya.jsonrpc.bind.JsonbTests;
 import com.github.jinahya.jsonrpc.bind.MoshiTests;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
 
 import static java.util.Objects.requireNonNull;
 
-abstract class IdentifiableTest<_ObjectType extends Identifiable<IdType>, IdType> {
+abstract class IdentifiableTest<ObjectType extends Identifiable<IdType>, IdType> {
 
-    IdentifiableTest(final Class<? extends _ObjectType> objectClass, final Class<? extends IdType> idClass) {
+    // -----------------------------------------------------------------------------------------------------------------
+    IdentifiableTest(final Class<? extends ObjectType> objectClass, final Class<? extends IdType> idClass) {
         super();
         this.objectClass = requireNonNull(objectClass, "objectClass is null");
         this.idClass = requireNonNull(idClass, "idClass is null");
     }
 
-    protected void acceptValueFromResource(final String name, final Consumer<? super _ObjectType> consumer)
+    // -----------------------------------------------------------------------------------------------------------------
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         consumer.accept(JsonbTests.fromResource(name, objectClass));
         consumer.accept(JacksonTests.readValueFromResource(name, objectClass));
@@ -46,7 +49,21 @@ abstract class IdentifiableTest<_ObjectType extends Identifiable<IdType>, IdType
         consumer.accept(MoshiTests.fromResource(name, objectClass));
     }
 
-    protected final Class<? extends _ObjectType> objectClass;
+    // -----------------------------------------------------------------------------------------------------------------
+    protected ObjectType objectInstance() {
+        try {
+            final Constructor<? extends ObjectType> constructor = objectClass.getConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            return constructor.newInstance();
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    protected final Class<? extends ObjectType> objectClass;
 
     protected final Class<? extends IdType> idClass;
 }

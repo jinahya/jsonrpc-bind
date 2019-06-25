@@ -26,22 +26,22 @@ import java.util.function.Consumer;
 /**
  * An abstract class for testing subclasses of {@link Request}.
  *
- * @param <RequestType> request type parameter
- * @param <ParamType>   params element type parameter
- * @param <IdType>      id type parameter
+ * @param <ObjectType> request type parameter
+ * @param <ParamType>  params element type parameter
+ * @param <IdType>     id type parameter
  */
-public abstract class RequestTest<RequestType extends Request<ParamType, IdType>, ParamType, IdType>
-        extends AbstractRequestTest<RequestType, ParamType, IdType> {
+public abstract class RequestTest<ObjectType extends Request<ParamType, IdType>, ParamType, IdType>
+        extends AbstractRequestTest<ObjectType, ParamType, IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public RequestTest(final Class<? extends RequestType> requestClass, final Class<? extends ParamType> paramClass,
+    public RequestTest(final Class<? extends ObjectType> requestClass, final Class<? extends ParamType> paramClass,
                        final Class<? extends IdType> idClass) {
         super(requestClass, paramClass, idClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super RequestType> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             {

@@ -20,16 +20,41 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
+import java.io.IOException;
+import java.util.function.Consumer;
+
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-abstract class AbstractRequestTest<T extends AbstractRequest<ParamType, IdType>, ParamType, IdType>
-        extends IdentifiableTest<T, IdType> {
+abstract class AbstractRequestTest<ObjectType extends AbstractRequest<ParamType, IdType>, ParamType, IdType>
+        extends IdentifiableTest<ObjectType, IdType> {
 
-    AbstractRequestTest(final Class<? extends T> objectClass, final Class<? extends ParamType> paramClass,
+    // -----------------------------------------------------------------------------------------------------------------
+    AbstractRequestTest(final Class<? extends ObjectType> objectClass, final Class<? extends ParamType> paramClass,
                         final Class<? extends IdType> idClass) {
         super(objectClass, idClass);
         this.paramClass = requireNonNull(paramClass, "paramClass is null");
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
+            throws IOException {
+        super.acceptValueFromResource(name, v -> {
+            {
+                consumer.accept(v);
+            }
+            {
+                final ObjectType obj = objectInstance();
+                obj.setMethod(v.getMethod());
+                obj.setParams(v.getParams());
+                obj.setId(v.getId());
+                assertEquals(obj, v);
+                assertEquals(obj.hashCode(), v.hashCode());
+            }
+        });
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     protected final Class<? extends ParamType> paramClass;
 }

@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
  */
 public class Request<ParamType, IdType> extends AbstractRequest<ParamType, IdType> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------- id
 
     /**
      * {@inheritDoc}
@@ -44,6 +44,12 @@ public class Request<ParamType, IdType> extends AbstractRequest<ParamType, IdTyp
         return super.getId();
     }
 
+    /**
+     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Request} class annotated with {@link
+     * AssertFalse}.
+     *
+     * @return {@inheritDoc}
+     */
     @AssertFalse
     @Override
     protected boolean isIdSemanticallyNull() {

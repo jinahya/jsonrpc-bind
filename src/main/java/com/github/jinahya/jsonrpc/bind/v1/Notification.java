@@ -41,6 +41,12 @@ public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
         // empty; does nothing.
     }
 
+    /**
+     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Notification} class annotated with {@link
+     * AssertTrue}.
+     *
+     * @return {@inheritDoc}
+     */
     @AssertTrue
     @Override
     protected boolean isIdSemanticallyNull() {

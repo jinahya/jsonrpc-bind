@@ -46,7 +46,8 @@ public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Response} class annotated with {@link
+     * AssertFalse}.
      *
      * @return {@inheritDoc}
      */

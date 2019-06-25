@@ -56,6 +56,7 @@ public abstract class Identifiable<IdType> {
     public String toString() {
         return super.toString() + "{"
                + "id=" + id
+               + ",idSemanticallyNull=" + isIdSemanticallyNull()
                + "}";
     }
 
@@ -88,10 +89,21 @@ public abstract class Identifiable<IdType> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the current value of {@value #PROPERTY_NAME_ID} property.
+     *
+     * @return the current value of {@value #PROPERTY_NAME_ID} property.
+     */
     public IdType getId() {
         return id;
     }
 
+    /**
+     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with specified value.
+     *
+     * @param id new value for {@value PROPERTY_NAME_ID} property.
+     */
     public void setId(final IdType id) {
         this.id = id;
     }
@@ -106,10 +118,22 @@ public abstract class Identifiable<IdType> {
         return getId() == null;
     }
 
+    /**
+     * Copies the current value of {@value #PROPERTY_NAME_ID} property to specified object.
+     *
+     * @param object the object to which this object's current value of {@value #PROPERTY_NAME_ID} property is copied.
+     * @param <T>    object type parameter.
+     */
     public <T extends Identifiable<? super IdType>> void copyIdTo(final T object) {
         object.setId(getId());
     }
 
+    /**
+     * Copies specified object's current value of {@value #PROPERTY_NAME_ID} property to this object.
+     *
+     * @param object the object from whose current value of {@value #PROPERTY_NAME_ID} property is copied.
+     * @param <T>    object type parameter.
+     */
     public <T extends Identifiable<? extends IdType>> void copyIdFrom(final T object) {
         object.copyIdTo(this);
     }

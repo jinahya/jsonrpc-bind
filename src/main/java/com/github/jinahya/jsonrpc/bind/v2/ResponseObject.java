@@ -292,7 +292,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     public String toString() {
         return super.toString() + "{"
                + "result=" + result
+               + ",resultSemanticallyNull=" + isResultSemanticallyNull()
                + ",error=" + error
+               + ",errorSemanticallyNull=" + isErrorSemanticallyNull()
                + "}";
     }
 
@@ -316,8 +318,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             return false;
         }
         final ResponseObject<?, ?, ?> that = (ResponseObject<?, ?, ?>) obj;
-        return Objects.equals(getResult(), that.getResult())
-               && Objects.equals(getError(), that.getError());
+        return Objects.equals(getResult(), that.getResult()) && Objects.equals(getError(), that.getError());
     }
 
     /**
@@ -334,7 +335,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
     /**
      * Checks either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property is set
-     * exclusively. The {@code isEitherResultOrErrorSetExclusively()} method of {@code ResponseObject} class returns the
+     * exclusively. The {@code isEitherResultOrErrorExclusivelyNull()} method of {@code ResponseObject} class returns the
      * value of following expression.
      * <blockquote><pre>{@code isResultSemanticallyNull() ^ isErrorSemanticallyNull()}</pre></blockquote>
      *
@@ -344,7 +345,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @see #isErrorSemanticallyNull()
      */
     @AssertTrue
-    protected boolean isEitherResultOrErrorSetExclusively() {
+    protected boolean isEitherResultOrErrorExclusivelyNull() {
         return isResultSemanticallyNull() ^ isErrorSemanticallyNull();
     }
 
