@@ -30,6 +30,7 @@ import java.util.Objects;
  * An abstract class for request objects and response objects.
  *
  * @param <IdType> id type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public abstract class JsonrpcObject<IdType> {
 
@@ -51,6 +52,16 @@ public abstract class JsonrpcObject<IdType> {
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new insance of specified type whose properties are set with given values.
+     *
+     * @param clazz the class of object to create
+     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>   object type parameter
+     * @param <U>   id type parameter.
+     * @return a new instance.
+     */
     static <T extends JsonrpcObject<U>, U> T of(final Class<? extends T> clazz, final U id) {
         try {
             final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
@@ -104,8 +115,7 @@ public abstract class JsonrpcObject<IdType> {
             return false;
         }
         final JsonrpcObject<?> that = (JsonrpcObject<?>) obj;
-        return Objects.equals(getJsonrpc(), that.getJsonrpc())
-               && Objects.equals(getId(), that.getId());
+        return Objects.equals(getJsonrpc(), that.getJsonrpc()) && Objects.equals(getId(), that.getId());
     }
 
     /**
@@ -121,7 +131,8 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property.
+     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property. The default value of the property is
+     * {@value #PROPERTY_VALUE_JSONRPC}.
      *
      * @return the current value of {@value #PROPERTY_NAME_JSONRPC} property.
      */

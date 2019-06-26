@@ -29,6 +29,7 @@ import java.util.Objects;
  *
  * @param <ParamsType> params type parameter
  * @param <IdType>     id type parameter.
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0 Specification)</a>
  */
 public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {

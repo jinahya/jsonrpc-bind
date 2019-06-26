@@ -55,16 +55,14 @@ class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Ob
                 "notification_01_request.json",
                 v -> {
                     assertEquals("update", v.getMethod());
-                    final List<Integer> params = v.getParams();
-                    assertIterableEquals(asList(1, 2, 3, 4, 5), params);
+                    assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParams());
                 }
         );
         acceptValueFromResource(
                 "notification_01_request.json",
                 v -> {
                     assertEquals("update", v.getMethod());
-                    final List<Integer> params = v.getParams();
-                    assertIterableEquals(asList(1, 2, 3, 4, 5), params);
+                    assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParams());
                 }
         );
     }

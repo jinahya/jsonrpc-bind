@@ -42,6 +42,13 @@ import static java.util.Objects.requireNonNull;
 abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     *
+     * @param objectClass a class of target object to test.
+     * @param idClass     a class of {@value JsonrpcObject#PROPERTY_NAME_ID} property of {@code objectClass}.
+     */
     JsonrpcObjectTest(final Class<ObjectType> objectClass, final Class<IdType> idClass) {
         super();
         this.objectClass = requireNonNull(objectClass, "objectClass is null");
@@ -104,7 +111,14 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The target object class to test.
+     */
     protected final Class<ObjectType> objectClass;
 
+    /**
+     * The class of {@value JsonrpcObject#PROPERTY_NAME_ID} property of {@link #objectClass}.
+     */
     protected final Class<IdType> idClass;
 }

@@ -32,6 +32,7 @@ import java.util.Objects;
  * @param <ResultType> result type parameter
  * @param <ErrorType>  error type parameter
  * @param <IdType>     id type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0 Specification)</a>
  */
 public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorObject<?>, IdType>

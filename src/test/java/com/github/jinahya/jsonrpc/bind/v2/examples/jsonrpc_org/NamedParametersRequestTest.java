@@ -51,13 +51,16 @@ class NamedParametersRequestTest
     }
 
     @Override
-    protected <U> void acceptValueFromResource(final String name, final BiConsumer<? super NamedParametersRequest, ? super U> consumer, final Supplier<? extends U> supplier)
+    protected <U> void acceptValueFromResource(final String name,
+                                               final BiConsumer<? super NamedParametersRequest, ? super U> consumer,
+                                               final Supplier<? extends U> supplier)
             throws IOException {
         super.acceptValueFromResource(
                 name,
                 (v, u) -> {
                     consumer.accept(v, u);
-                }, supplier
+                },
+                supplier
         );
     }
 
