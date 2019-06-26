@@ -74,9 +74,7 @@ class AccessorHandles {
             }
         });
         try {
-//            return (T) getter.invoke(field.getDeclaringClass().cast(object));
             return (T) getter.invoke(object);
-//            return (T) getter.invokeExact(object);
         } catch (final Throwable t) {
             throw new RuntimeException(t);
         }
