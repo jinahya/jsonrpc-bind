@@ -142,22 +142,22 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * Creates a new instance of specified object type whose {@value #PROPERTY_NAME_CODE} property, {@value
          * #PROPERTY_NAME_MESSAGE} property, and {@value #PROPERTY_NAME_DATA} property set with specified values.
          *
-         * @param clazz        the class of the object to create.
-         * @param code         the value for {@value #PROPERTY_NAME_CODE} property.
-         * @param message      the value for {@value #PROPERTY_NAME_MESSAGE} property.
-         * @param data         the value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <ObjectType> object type parameter
-         * @param <DataType>   data type parameter
+         * @param clazz   the class of the object to create.
+         * @param code    the value for {@value #PROPERTY_NAME_CODE} property.
+         * @param message the value for {@value #PROPERTY_NAME_MESSAGE} property.
+         * @param data    the value for {@value #PROPERTY_NAME_DATA} property.
+         * @param <T>     object type parameter
+         * @param <U>     data type parameter
          * @return a new instance of specified object type.
          */
-        public static <ObjectType extends ErrorObject<DataType>, DataType> ObjectType of(
-                final Class<? extends ObjectType> clazz, final long code, final String message, final DataType data) {
+        public static <T extends ErrorObject<U>, U> T of(final Class<? extends T> clazz, final long code,
+                                                         final String message, final U data) {
             try {
-                final Constructor<? extends ObjectType> constructor = clazz.getConstructor();
+                final Constructor<? extends T> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {
                     constructor.setAccessible(true);
                 }
-                final ObjectType instance = constructor.newInstance();
+                final T instance = constructor.newInstance();
                 instance.setCode(code);
                 instance.setMessage(message);
                 instance.setData(data);
@@ -171,19 +171,17 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * Creates a new instance whose {@value #PROPERTY_NAME_CODE} property, {@value #PROPERTY_NAME_MESSAGE} property,
          * and {@value #PROPERTY_NAME_DATA} property set with specified values.
          *
-         * @param code       the value for {@value #PROPERTY_NAME_CODE} property.
-         * @param message    the value for {@value #PROPERTY_NAME_MESSAGE} property.
-         * @param data       the value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <DataType> data type parameter
+         * @param code    the value for {@value #PROPERTY_NAME_CODE} property.
+         * @param message the value for {@value #PROPERTY_NAME_MESSAGE} property.
+         * @param data    the value for {@value #PROPERTY_NAME_DATA} property.
+         * @param <T>     data type parameter
          * @return a new instance.
          */
-        public static <DataType> ErrorObject<DataType> of(final long code, final String message, final DataType data) {
+        public static <T> ErrorObject<T> of(final long code, final String message, final T data) {
             @SuppressWarnings({"unchecked"})
-            final Class<ErrorObject<DataType>> clazz = (Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class;
+            final Class<ErrorObject<T>> clazz = (Class<ErrorObject<T>>) (Class<?>) ErrorObject.class;
             return of(clazz, code, message, data);
         }
-
-        // -------------------------------------------------------------------------------------------------------------
 
         /**
          * Creates a new instance.
@@ -318,6 +316,31 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          */
         @Valid
         private DataType data;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T of(
+            final Class<? extends T> clazz, final U result, final V error, final W id) {
+        try {
+            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
+            if (!constructor.isSynthetic()) {
+                constructor.setAccessible(true);
+            }
+            final T instance = constructor.newInstance();
+            instance.setResult(result);
+            instance.setError(error);
+            instance.setId(id);
+            return instance;
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
+    }
+
+    public static <T, U extends ErrorObject<?>, V> ResponseObject<T, U, V> of(final T result, final U error,
+                                                                              final V id) {
+        @SuppressWarnings({"unchecked"})
+        final Class<ResponseObject<T, U, V>> clazz = (Class<ResponseObject<T, U, V>>) (Class<?>) ResponseObject.class;
+        return of(clazz, result, error, id);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

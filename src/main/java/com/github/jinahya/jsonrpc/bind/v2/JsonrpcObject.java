@@ -51,7 +51,7 @@ public abstract class JsonrpcObject<IdType> {
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
     // -----------------------------------------------------------------------------------------------------------------
-    static <T extends JsonrpcObject<IdType>, IdType> T of(final Class<? extends T> clazz, final IdType id) {
+    static <T extends JsonrpcObject<U>, U> T of(final Class<? extends T> clazz, final U id) {
         try {
             final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
             if (!constructor.isAccessible()) {
