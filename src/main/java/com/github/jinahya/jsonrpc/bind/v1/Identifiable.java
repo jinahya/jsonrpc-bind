@@ -131,7 +131,7 @@ public abstract class Identifiable<IdType> {
     /**
      * Copies specified object's current value of {@value #PROPERTY_NAME_ID} property to this object.
      *
-     * @param object the object from whose current value of {@value #PROPERTY_NAME_ID} property is copied.
+     * @param object the object whose current value of {@value #PROPERTY_NAME_ID} property is copied to this object.
      * @see #copyIdTo(Identifiable)
      */
     public void copyIdFrom(final Identifiable<? extends IdType> object) {
