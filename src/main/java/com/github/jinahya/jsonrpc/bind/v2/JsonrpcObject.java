@@ -23,6 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.lang.reflect.Constructor;
 import java.util.Objects;
 
 /**
@@ -48,6 +49,21 @@ public abstract class JsonrpcObject<IdType> {
      * The fixed value for {@value #PROPERTY_NAME_JSONRPC} property. The value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
+
+    // -----------------------------------------------------------------------------------------------------------------
+    static <T extends JsonrpcObject<IdType>, IdType> T of(final Class<? extends T> clazz, final IdType id) {
+        try {
+            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            final T instance = constructor.newInstance();
+            instance.setId(id);
+            return instance;
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

@@ -49,6 +49,14 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Reads a value of specified type from the resource of specified name and accepts to specified consumer.
+     *
+     * @param name     the resource name
+     * @param consumer the consumer to be accepted with read value.
+     * @throws IOException if an I/O error occurs.
+     */
     protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         consumer.accept(JsonbTests.fromResource(name, objectClass));
@@ -57,8 +65,19 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
         consumer.accept(MoshiTests.fromResource(name, objectClass));
     }
 
-    protected <U> void acceptValueFromResource(final String name, final Supplier<? extends U> supplier,
-                                               final BiConsumer<? super ObjectType, ? super U> consumer)
+    /**
+     * Reads a value of specified type from the resource named as given and accepts to specfiied consumer along with an
+     * argument supplied by specified supplier.
+     *
+     * @param name     the name of the resource to read.
+     * @param consumer the consumer.
+     * @param supplier the supplier for the second argument.
+     * @param <U>      second argument type parameter.
+     * @throws IOException if an I/O error occurs.
+     */
+    protected <U> void acceptValueFromResource(final String name,
+                                               final BiConsumer<? super ObjectType, ? super U> consumer,
+                                               final Supplier<? extends U> supplier)
             throws IOException {
         acceptValueFromResource(name, v -> {
             consumer.accept(v, supplier.get());

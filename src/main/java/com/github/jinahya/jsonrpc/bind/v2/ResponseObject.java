@@ -142,7 +142,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * Creates a new instance of specified object type whose {@value #PROPERTY_NAME_CODE} property, {@value
          * #PROPERTY_NAME_MESSAGE} property, and {@value #PROPERTY_NAME_DATA} property set with specified values.
          *
-         * @param objectClass  the class of the object to create.
+         * @param clazz        the class of the object to create.
          * @param code         the value for {@value #PROPERTY_NAME_CODE} property.
          * @param message      the value for {@value #PROPERTY_NAME_MESSAGE} property.
          * @param data         the value for {@value #PROPERTY_NAME_DATA} property.
@@ -151,10 +151,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @return a new instance of specified object type.
          */
         public static <ObjectType extends ErrorObject<DataType>, DataType> ObjectType of(
-                final Class<? extends ObjectType> objectClass, final long code, final String message,
-                final DataType data) {
+                final Class<? extends ObjectType> clazz, final long code, final String message, final DataType data) {
             try {
-                final Constructor<? extends ObjectType> constructor = objectClass.getConstructor();
+                final Constructor<? extends ObjectType> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {
                     constructor.setAccessible(true);
                 }
@@ -164,7 +163,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                 instance.setData(data);
                 return instance;
             } catch (final ReflectiveOperationException roe) {
-                throw new RuntimeException("failed to create an instance of " + objectClass, roe);
+                throw new RuntimeException("failed to create an instance of " + clazz, roe);
             }
         }
 
@@ -180,9 +179,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          */
         public static <DataType> ErrorObject<DataType> of(final long code, final String message, final DataType data) {
             @SuppressWarnings({"unchecked"})
-            final Class<ErrorObject<DataType>> objectClass
-                    = (Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class;
-            return of(objectClass, code, message, data);
+            final Class<ErrorObject<DataType>> clazz = (Class<ErrorObject<DataType>>) (Class<?>) ErrorObject.class;
+            return of(clazz, code, message, data);
         }
 
         // -------------------------------------------------------------------------------------------------------------

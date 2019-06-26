@@ -48,6 +48,48 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Creates a new instance of specified type whose {@value #PROPERTY_NAME_METHOD}, {@value #PROPERTY_NAME_PARAMS}
+     * property and {@value #PROPERTY_NAME_ID} property set with given values.
+     *
+     * @param clazz        the class of the object to create
+     * @param method       a value for {@value #PROPERTY_NAME_METHOD} property.
+     * @param params       a value for {@value PROPERTY_NAME_PARAMS} property.
+     * @param id           a value for {@value PROPERTY_NAME_ID} property.
+     * @param <T>          object type parameter
+     * @param <ParamsType> params type parameter
+     * @param <IdType>     id type parameter
+     * @return a new instance of specified object class.
+     */
+    static <T extends RequestObject<ParamsType, IdType>, ParamsType, IdType> T of(
+            final Class<? extends T> clazz, final String method, final ParamsType params, final IdType id) {
+        final T instance = of(clazz, id);
+        instance.setMethod(method);
+        instance.setParams(params);
+        return instance;
+    }
+
+    /**
+     * Creates a new instance whose {@value #PROPERTY_NAME_PARAMS} property and {@value #PROPERTY_NAME_ID} property set
+     * with given values.
+     *
+     * @param method       a value for {@value #PROPERTY_NAME_METHOD} property.
+     * @param params       a value for {@value #PROPERTY_NAME_PARAMS} property.
+     * @param id           a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <ParamsType> params type parameter
+     * @param <IdType>     id type parameter
+     * @return a new instance of specified object class.
+     */
+    static <ParamsType, IdType> RequestObject<ParamsType, IdType> of(final String method, final ParamsType params,
+                                                                     final IdType id) {
+        @SuppressWarnings({"unchecked"})
+        final Class<RequestObject<ParamsType, IdType>> clazz
+                = (Class<RequestObject<ParamsType, IdType>>) (Class<?>) RequestObject.class;
+        return of(clazz, method, params, id);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * Creates a new instance.
      */
     public RequestObject() {
