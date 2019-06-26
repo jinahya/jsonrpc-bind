@@ -122,9 +122,9 @@ public abstract class Identifiable<IdType> {
      * Copies the current value of {@value #PROPERTY_NAME_ID} property to specified object.
      *
      * @param object the object to which this object's current value of {@value #PROPERTY_NAME_ID} property is copied.
-     * @param <T>    object type parameter.
+     * @see #copyIdFrom(Identifiable)
      */
-    public <T extends Identifiable<? super IdType>> void copyIdTo(final T object) {
+    public void copyIdTo(final Identifiable<? super IdType> object) {
         object.setId(getId());
     }
 
@@ -132,9 +132,9 @@ public abstract class Identifiable<IdType> {
      * Copies specified object's current value of {@value #PROPERTY_NAME_ID} property to this object.
      *
      * @param object the object from whose current value of {@value #PROPERTY_NAME_ID} property is copied.
-     * @param <T>    object type parameter.
+     * @see #copyIdTo(Identifiable)
      */
-    public <T extends Identifiable<? extends IdType>> void copyIdFrom(final T object) {
+    public void copyIdFrom(final Identifiable<? extends IdType> object) {
         object.copyIdTo(this);
     }
 

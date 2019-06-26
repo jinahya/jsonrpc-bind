@@ -58,25 +58,54 @@ public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType
     }
 
     // ---------------------------------------------------------------------------------------------------------- result
+
+    /**
+     * Returns the current value of {@value #PROPERTY_NAME_RESULT} property.
+     *
+     * @return the current value fo {@value #PROPERTY_NAME_RESULT} property.
+     */
     public ResultType getResult() {
         return result;
     }
 
+    /**
+     * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with specified value.
+     *
+     * @param result new value for {@value #PROPERTY_NAME_ERROR} property.
+     */
     public void setResult(final ResultType result) {
         this.result = result;
     }
 
     // ----------------------------------------------------------------------------------------------------------- error
+
+    /**
+     * Returns the current value of {@value #PROPERTY_NAME_ERROR} property.
+     *
+     * @return the current value of {@value #PROPERTY_NAME_ERROR} property.
+     */
     public ErrorType getError() {
         return error;
     }
 
+    /**
+     * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with specified value.
+     *
+     * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
+     */
     public void setError(final ErrorType error) {
         this.error = error;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Attribute for {@link #PROPERTY_NAME_RESULT} property.
+     */
     private ResultType result;
 
+    /**
+     * Attribute for {@link #PROPERTY_NAME_ERROR} property.
+     */
     private ErrorType error;
 }

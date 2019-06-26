@@ -164,12 +164,9 @@ public abstract class JsonrpcObject<IdType> {
      *
      * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied from this object's {@value
      *               #PROPERTY_NAME_ID} property.
-     * @param <T>    object type parameter.
-     * @see #getId()
-     * @see #setId(Object)
      * @see #copyIdFrom(JsonrpcObject)
      */
-    public <T extends JsonrpcObject<? super IdType>> void copyIdTo(final T object) {
+    public void copyIdTo(final JsonrpcObject<? super IdType> object) {
         object.setId(getId());
     }
 
@@ -179,10 +176,9 @@ public abstract class JsonrpcObject<IdType> {
      *
      * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied to this object's {@value
      *               #PROPERTY_NAME_ID} property.
-     * @param <T>    object type parameter.
      * @see #copyIdTo(JsonrpcObject)
      */
-    public <T extends JsonrpcObject<? extends IdType>> void copyIdFrom(final T object) {
+    public void copyIdFrom(final JsonrpcObject<? extends IdType> object) {
         object.copyIdTo(this);
     }
 
