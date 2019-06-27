@@ -83,13 +83,13 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * The minimum value for codes reserved for pre-defined errors. The value is {@value
          * #MIN_CODE_PREDEFINED_ERROR}.
          */
-        public static final long MIN_CODE_PREDEFINED_ERROR = -32768L;
+        public static final int MIN_CODE_PREDEFINED_ERROR = -32768;
 
         /**
          * The maximum value for codes reserved for pre-defined errors. The value is {@value
          * #MAX_CODE_PREDEFINED_ERROR}.
          */
-        public static final long MAX_CODE_PREDEFINED_ERROR = -32000L;
+        public static final int MAX_CODE_PREDEFINED_ERROR = -32000;
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -97,31 +97,31 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * The code value for <i>parse error</i> meaning an invalid json received by the server or an error occurred on
          * the server while parsing the JSON text. The value is {@value #CODE_PARSE_ERROR}.
          */
-        public static final long CODE_PARSE_ERROR = -32700L;
+        public static final int CODE_PARSE_ERROR = -32700;
 
         /**
          * The code value for <i>invalid request</i> meaning the JSON sent is not a valid request object. The value is
          * {@value #CODE_INVALID_REQUEST}.
          */
-        public static final long CODE_INVALID_REQUEST = -32600L;
+        public static final int CODE_INVALID_REQUEST = -32600;
 
         /**
          * The code value for <i>method not found</i> meaning the method does not exist nor available. The value is
          * {@value #CODE_METHOD_NOT_FOUND}.
          */
-        public static final long CODE_METHOD_NOT_FOUND = -32601L;
+        public static final int CODE_METHOD_NOT_FOUND = -32601;
 
         /**
          * The code value for <i>invalid params</i> meaning invalid parameter(s). The value is {@value
          * #CODE_INVALID_PARAMS}.
          */
-        public static final long CODE_INVALID_PARAMS = -32602L;
+        public static final int CODE_INVALID_PARAMS = -32602;
 
         /**
          * The code value for <i>internal error</i> meaning an internal JSON-RPC error. The value is {@value
          * #CODE_INTERNAL_ERROR}.
          */
-        public static final long CODE_INTERNAL_ERROR = -32603L;
+        public static final int CODE_INTERNAL_ERROR = -32603;
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -129,13 +129,13 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
          * #MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
          */
-        public static final long MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32099L;
+        public static final int MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32099;
 
         /**
          * The maximum value for codes reserved for implementation-defined server errors. The value is {@value
          * #MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
          */
-        public static final long MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000L;
+        public static final int MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000;
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -151,7 +151,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param <U>     data type parameter
          * @return a new instance of specified object type.
          */
-        public static <T extends ErrorObject<U>, U> T of(final Class<? extends T> clazz, final long code,
+        public static <T extends ErrorObject<U>, U> T of(final Class<? extends T> clazz, final int code,
                                                          final String message, final U data) {
             try {
                 final Constructor<? extends T> constructor = clazz.getConstructor();
@@ -177,7 +177,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param <T>     data type parameter
          * @return a new instance.
          */
-        public static <T> ErrorObject<T> of(final long code, final String message, final T data) {
+        public static <T> ErrorObject<T> of(final int code, final String message, final T data) {
             @SuppressWarnings({"unchecked"})
             final Class<ErrorObject<T>> clazz = (Class<ErrorObject<T>>) (Class<?>) ErrorObject.class;
             return of(clazz, code, message, data);
@@ -243,7 +243,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          *
          * @return the current value of {@value #PROPERTY_NAME_CODE} property.
          */
-        public long getCode() {
+        public int getCode() {
             return code;
         }
 
@@ -252,7 +252,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          *
          * @param code new value for {@value #PROPERTY_NAME_CODE} property.
          */
-        public void setCode(final long code) {
+        public void setCode(final int code) {
             this.code = code;
         }
 
@@ -301,7 +301,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         /**
          * An attribute for {@value #PROPERTY_NAME_CODE} property.
          */
-        private long code = CODE_INTERNAL_ERROR;
+        private int code = CODE_INTERNAL_ERROR;
 
         /**
          * An attribute for {@value #PROPERTY_NAME_MESSAGE} property.
