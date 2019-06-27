@@ -23,8 +23,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.lang.reflect.Constructor;
 import java.util.Objects;
+
+import static com.github.jinahya.jsonrpc.bind.v2.Reflections.newInstance;
 
 /**
  * An abstract class for request objects and response objects.
@@ -65,17 +66,9 @@ public abstract class JsonrpcObject<IdType> {
      * @return a new instance.
      */
     static <T extends JsonrpcObject<U>, U> T of(final Class<? extends T> clazz, final U id) {
-        try {
-            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            final T instance = constructor.newInstance();
-            instance.setId(id);
-            return instance;
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+        final T instance = newInstance(clazz);
+        instance.setId(id);
+        return instance;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

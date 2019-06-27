@@ -25,11 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
+import static com.github.jinahya.jsonrpc.bind.v2.Reflections.newInstance;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -158,15 +158,7 @@ public abstract class ResponseObjectTest<
      * @see #errorClass
      */
     protected ErrorType errorInstance() {
-        try {
-            final Constructor<ErrorType> constructor = errorClass.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            return constructor.newInstance();
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+        return newInstance(errorClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

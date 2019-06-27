@@ -24,7 +24,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Constructor;
+import java.util.List;
 import java.util.Objects;
+
+import static com.github.jinahya.jsonrpc.bind.v2.Reflections.newInstance;
+import static java.util.Arrays.stream;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
 
 /**
  * A class for binding response objects.
@@ -59,6 +65,168 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0 Specification)</a>
      */
     public static class ErrorObject<DataType> {
+
+        /**
+         * A class for holding an intance of {@link RequestObject} and an instance of {@link Throwable}.
+         */
+        public static class BoundData {
+
+            // ---------------------------------------------------------------------------------------------------------
+
+            /**
+             * A class for binding {@link Throwable}.
+             *
+             * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+             */
+            public static class BoundThrowable {
+
+                // -----------------------------------------------------------------------------------------------------
+
+                /**
+                 * The property name for {@code $.error.data.thrown.message}.
+                 */
+                public static final String PROPERTY_NAME_MESSAGE = "message";
+
+                /**
+                 * The property name for {@code $.error.data.thrown.suppressed[*]}
+                 */
+                public static final String PROPERTY_NAME_SUPPRESSED = "suppressed";
+
+                /**
+                 * The property name for {@code $.error.data.thrown.cause}.
+                 */
+                public static final String PROPERTY_NAME_CAUSE = "cause";
+
+                // -----------------------------------------------------------------------------------------------------
+                public static <T extends BoundThrowable> T of(final Class<? extends T> clazz,
+                                                              final Throwable throwable) {
+                    if (clazz == null) {
+                        throw new NullPointerException("clazz is null");
+                    }
+                    if (throwable == null) {
+                        throw new NullPointerException("throwable is null");
+                    }
+                    final T instance = newInstance(clazz);
+                    instance.setMessage(throwable.getMessage());
+                    instance.setSuppressed(
+                            stream(throwable.getSuppressed()).map(BoundThrowable::of).collect(toList()));
+                    ofNullable(throwable.getCause()).map(BoundThrowable::of).ifPresent(instance::setCause);
+                    return instance;
+                }
+
+                /**
+                 * Creates a new instance of specified throwable.
+                 *
+                 * @param throwable the throwable.
+                 * @return a new instance.
+                 */
+                public static BoundThrowable of(final Throwable throwable) {
+                    return of(BoundThrowable.class, throwable);
+                }
+
+                // --------------------------------------------------------------------------------------------- message
+                public String getMessage() {
+                    return message;
+                }
+
+                public void setMessage(final String message) {
+                    this.message = message;
+                }
+
+                // ------------------------------------------------------------------------------------------ suppressed
+                public List<BoundThrowable> getSuppressed() {
+                    return suppressed;
+                }
+
+                public void setSuppressed(final List<BoundThrowable> suppressed) {
+                    this.suppressed = suppressed;
+                }
+
+                // ----------------------------------------------------------------------------------------------- cause
+
+                /**
+                 * Returns the current value of {@value #PROPERTY_NAME_CAUSE} property.
+                 *
+                 * @return the current value of {@value #PROPERTY_NAME_CAUSE} property.
+                 */
+                public BoundThrowable getCause() {
+                    return cause;
+                }
+
+                /**
+                 * Replaces the current value of {@value #PROPERTY_NAME_CAUSE} property with specified value.
+                 *
+                 * @param cause new value for {@value #PROPERTY_NAME_CAUSE} property.
+                 */
+                public void setCause(final BoundThrowable cause) {
+                    this.cause = cause;
+                }
+
+                // -----------------------------------------------------------------------------------------------------
+                private String message;
+
+                private List<BoundThrowable> suppressed;
+
+                private BoundThrowable cause;
+            }
+
+            // ---------------------------------------------------------------------------------------------------------
+
+            /**
+             * The property name for {@code $.error.data.request}.
+             */
+            public static final String PROPERTY_NAME_REQUEST = "request";
+
+            /**
+             * The property name for {@code $.error.data.thrown}.
+             */
+            public static final String PROPERTY_NAME_THROWN = "thrown";
+
+            // ---------------------------------------------------------------------------------------------------------
+            public static <T extends BoundData> T of(final Class<? extends T> clazz, final JsonrpcObject<?> request,
+                                                     final BoundThrowable thrown) {
+                final T instance = newInstance(clazz);
+                instance.setRequest(request);
+                instance.setThrown(thrown);
+                return instance;
+            }
+
+            public static BoundData of(final JsonrpcObject<?> request, final BoundThrowable thrown) {
+                return of(BoundData.class, request, thrown);
+            }
+
+            // ---------------------------------------------------------------------------------------------------------
+
+            /**
+             * Creates a new instance.
+             */
+            public BoundData() {
+                super();
+            }
+
+            // ------------------------------------------------------------------------------------------------- request
+            public JsonrpcObject<?> getRequest() {
+                return request;
+            }
+
+            public void setRequest(final JsonrpcObject<?> request) {
+                this.request = request;
+            }
+
+            // -------------------------------------------------------------------------------------------------- thrown
+            public BoundThrowable getThrown() {
+                return thrown;
+            }
+
+            public void setThrown(final BoundThrowable thrown) {
+                this.thrown = thrown;
+            }
+
+            // ---------------------------------------------------------------------------------------------------------
+            private JsonrpcObject<?> request;
+
+            private BoundThrowable thrown;
+        }
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -333,19 +501,11 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      */
     public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T of(
             final Class<? extends T> clazz, final U result, final V error, final W id) {
-        try {
-            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            final T instance = constructor.newInstance();
-            instance.setResult(result);
-            instance.setError(error);
-            instance.setId(id);
-            return instance;
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+        final T instance = newInstance(clazz);
+        instance.setResult(result);
+        instance.setError(error);
+        instance.setId(id);
+        return instance;
     }
 
     /**
