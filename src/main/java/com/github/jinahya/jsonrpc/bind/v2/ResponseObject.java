@@ -169,12 +169,11 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
 
         /**
-         * Creates a new instance whose {@value #PROPERTY_NAME_CODE} property, {@value #PROPERTY_NAME_MESSAGE} property,
-         * and {@value #PROPERTY_NAME_DATA} property set with specified values.
+         * Creates a new instance whose properties are set with specified values.
          *
-         * @param code    the value for {@value #PROPERTY_NAME_CODE} property.
-         * @param message the value for {@value #PROPERTY_NAME_MESSAGE} property.
-         * @param data    the value for {@value #PROPERTY_NAME_DATA} property.
+         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
+         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
+         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
          * @param <T>     data type parameter
          * @return a new instance.
          */
@@ -206,8 +205,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                    + ",data=" + data
                    + "}";
         }
-
-        // -------------------------------------------------------------------------------------------------------------
 
         /**
          * Indicates whether some other object is "equal to" this one.
@@ -322,7 +319,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new instance of specified class whose properties are set with given values.
+     * Creates a new instance of specified class whose properties are set with specified values.
      *
      * @param clazz  the class of the object to create
      * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
@@ -338,7 +335,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             final Class<? extends T> clazz, final U result, final V error, final W id) {
         try {
             final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
-            if (!constructor.isSynthetic()) {
+            if (!constructor.isAccessible()) {
                 constructor.setAccessible(true);
             }
             final T instance = constructor.newInstance();
@@ -351,20 +348,42 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         }
     }
 
-    @Deprecated
+    /**
+     * Creates a new instance of specified class whose properties are set with specified values.
+     *
+     * @param clazz  the class of the object to create
+     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param id     a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>    object type parameter
+     * @param <U>    result type parameter
+     * @param <V>    error type parameter
+     * @param <W>    id type parameter
+     * @return a new instance of specified class.
+     */
     public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T ofResult(
             final Class<? extends T> clazz, final U result, final W id) {
         return of(clazz, result, null, id);
     }
 
-    @Deprecated
+    /**
+     * Creates a new instance of specified class whose properties are set with specified values.
+     *
+     * @param clazz the class of the object to create
+     * @param error a value for {@value #PROPERTY_NAME_ERROR} property.
+     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>   object type parameter
+     * @param <U>   result type parameter
+     * @param <V>   error type parameter
+     * @param <W>   id type parameter
+     * @return a new instance of specified class.
+     */
     public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T ofError(
             final Class<? extends T> clazz, final V error, final W id) {
         return of(clazz, null, error, id);
     }
 
     /**
-     * Creates a new instance whose properties are set with given values.
+     * Creates a new instance whose properties are set with specified values.
      *
      * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
      * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
@@ -381,12 +400,30 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         return of(clazz, result, error, id);
     }
 
-    @Deprecated
+    /**
+     * Creates a new instance whose properties are set with specified values.
+     *
+     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param id     a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <U>    result type parameter
+     * @param <V>    error type parameter
+     * @param <W>    id type parameter
+     * @return a new instance of specified class.
+     */
     public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> ofResult(final U result, final W id) {
         return of(result, null, id);
     }
 
-    @Deprecated
+    /**
+     * Creates a new instance whose properties are set with specified values.
+     *
+     * @param error a value for {@value #PROPERTY_NAME_ERROR} property.
+     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <U>   result type parameter
+     * @param <V>   error type parameter
+     * @param <W>   id type parameter
+     * @return a new instance of specified class.
+     */
     public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> ofError(final V error, final W id) {
         return of(null, error, id);
     }
@@ -416,8 +453,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                + ",errorSemanticallyNull=" + isErrorSemanticallyNull()
                + "}";
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * {@inheritDoc}
@@ -505,8 +540,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     /**
-     * Checks whether the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i> {@code null}
-     * or not.
+     * Indicates whether the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i> {@code
+     * null}.
      * <p>
      * The {@code isResultSemanticallyNull()} method of {@code ResponseObject} class returns the value of following
      * expression.
@@ -556,8 +591,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     /**
-     * Checks whether the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code null} or
-     * not.
+     * Indicates whether the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code
+     * null}.
      * <p>
      * The {@code isErrorSemanticallyNull()} method of {@code ResponseObject} class returns the value of following
      * expression.

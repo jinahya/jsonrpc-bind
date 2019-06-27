@@ -26,18 +26,18 @@ import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class NotificationTest<NotificationType extends Notification<ParamType>, ParamType>
-        extends AbstractRequestTest<NotificationType, ParamType, Void> {
+public class NotificationTest<ObjectType extends Notification<ParamType>, ParamType>
+        extends AbstractRequestTest<ObjectType, ParamType, Void> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public NotificationTest(final Class<? extends NotificationType> objectClass,
+    public NotificationTest(final Class<? extends ObjectType> objectClass,
                             final Class<? extends ParamType> paramClass) {
         super(objectClass, paramClass, Void.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super NotificationType> consumer)
+    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
             throws IOException {
         super.acceptValueFromResource(name, v -> {
             {

@@ -42,14 +42,16 @@ public abstract class JsonrpcObject<IdType> {
     public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
     /**
-     * The property name for {@code $.id}.
-     */
-    public static final String PROPERTY_NAME_ID = "id";
-
-    /**
      * The fixed value for {@value #PROPERTY_NAME_JSONRPC} property. The value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The property name for {@code $.id}.
+     */
+    public static final String PROPERTY_NAME_ID = "id";
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -128,7 +130,7 @@ public abstract class JsonrpcObject<IdType> {
         return Objects.hash(getJsonrpc(), getId());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------- jsonrpc
 
     /**
      * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property. The default value of the property is
@@ -149,7 +151,7 @@ public abstract class JsonrpcObject<IdType> {
         this.jsonrpc = jsonrpc;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------- id
 
     /**
      * Returns the current value of {@value #PROPERTY_NAME_ID} property.
