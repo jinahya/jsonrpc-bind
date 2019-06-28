@@ -1,10 +1,5 @@
 package com.github.jinahya.jsonrpc.bind.v2.miscellaneous;
 
-import com.fasterxml.jackson.core.util.DefaultIndenter;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,19 +18,6 @@ import static java.util.stream.IntStream.range;
 class MappedThrowableTest {
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static class ExtendedMappedThrowable extends MappedThrowable {
-
-        static ExtendedMappedThrowable of(final Throwable thrown, final String type) {
-            final ExtendedMappedThrowable instance = of(ExtendedMappedThrowable.class, thrown);
-            instance.setType(type);
-            return instance;
-        }
-
-        @Setter
-        @Getter
-        private String type;
-    }
-
     static Throwable randomThrowable() {
         final Throwable throwable = new Throwable("throwable", new Throwable("cause"));
         final List<Throwable> suppressed = range(0, 3)
@@ -65,19 +47,7 @@ class MappedThrowableTest {
         final MappedThrowable instance = MappedThrowable.of(throwable);
         log.debug("instance: {}", instance);
         log.debug("instance.suppressed: {}", instance.getSuppressed());
-        final String string = OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
-        log.debug("string: \n{}", string);
-    }
-
-    @MethodSource({"sourceThrowables"})
-    @ParameterizedTest
-    void testOfWithExtendedClass(final Throwable throwable) throws IOException {
-        final MappedThrowable instance = MappedThrowable.of(ExtendedMappedThrowable.class, throwable);
-        log.debug("instance: {}", instance);
-        final DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
-        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
-        final ObjectWriter writer = OBJECT_MAPPER.writer(prettyPrinter);
-        final String string = writer.writeValueAsString(instance);
-        log.debug("string: \n{}", string);
+        log.debug("string: {}", OBJECT_MAPPER.writeValueAsString(instance));
+        log.debug("pretty: {}", OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(instance));
     }
 }
