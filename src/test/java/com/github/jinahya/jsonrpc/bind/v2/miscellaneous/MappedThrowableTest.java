@@ -1,6 +1,5 @@
-package com.github.jinahya.jsonrpc.bind.v2;
+package com.github.jinahya.jsonrpc.bind.v2.miscellaneous;
 
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject.BoundData.BoundThrowable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +14,10 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
 
 @Slf4j
-class ResponseObjectBoundDataBoundThrowableTest {
+class MappedThrowableTest {
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static class Extended extends ResponseObject.ErrorObject.BoundData.BoundThrowable {
+    private static class Extended extends MappedThrowable {
 
         @Setter
         @Getter
@@ -29,11 +28,11 @@ class ResponseObjectBoundDataBoundThrowableTest {
     @Test
     void testOf() throws IOException {
         {
-            final BoundThrowable instance = BoundThrowable.of(new Throwable("message"));
+            final MappedThrowable instance = MappedThrowable.of(new Throwable("message"));
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
         {
-            final BoundThrowable instance = BoundThrowable.of(new Throwable("message", new Throwable("cause")));
+            final MappedThrowable instance = MappedThrowable.of(new Throwable("message", new Throwable("cause")));
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
         {
@@ -50,7 +49,7 @@ class ResponseObjectBoundDataBoundThrowableTest {
             } catch (final ReflectiveOperationException roe) {
                 throw new RuntimeException(roe);
             }
-            final BoundThrowable instance = BoundThrowable.of(throwable);
+            final MappedThrowable instance = MappedThrowable.of(throwable);
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
     }
@@ -58,11 +57,11 @@ class ResponseObjectBoundDataBoundThrowableTest {
     @Test
     void testOfWithExtendedClass() throws IOException {
         {
-            final BoundThrowable instance = BoundThrowable.of(Extended.class, new Throwable("message"));
+            final MappedThrowable instance = MappedThrowable.of(Extended.class, new Throwable("message"));
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
         {
-            final BoundThrowable instance = BoundThrowable.of(
+            final MappedThrowable instance = MappedThrowable.of(
                     Extended.class, new Throwable("message", new Throwable("cause")));
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
@@ -80,7 +79,7 @@ class ResponseObjectBoundDataBoundThrowableTest {
             } catch (final ReflectiveOperationException roe) {
                 throw new RuntimeException(roe);
             }
-            final BoundThrowable instance = BoundThrowable.of(Extended.class, throwable);
+            final MappedThrowable instance = MappedThrowable.of(Extended.class, throwable);
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
     }

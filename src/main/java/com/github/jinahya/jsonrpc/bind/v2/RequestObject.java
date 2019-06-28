@@ -61,8 +61,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param <V>    id type parameter
      * @return a new instance of specified object class.
      */
-    static <T extends RequestObject<U, V>, U, V> T of(final Class<? extends T> clazz, final String method,
-                                                      final U params, final V id) {
+    static <T extends RequestObject<? super U, ? super V>, U, V> T of(
+            final Class<? extends T> clazz, final String method, final U params, final V id) {
         final T instance = of(clazz, id);
         instance.setMethod(method);
         instance.setParams(params);
@@ -80,9 +80,10 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param <U>    id type parameter
      * @return a new instance of specified object class.
      */
-    static <T, U> RequestObject<T, U> of(final String method, final T params, final U id) {
+    static <T, U> RequestObject<? super T, ? super U> of(final String method, final T params, final U id) {
         @SuppressWarnings({"unchecked"})
-        final Class<RequestObject<T, U>> clazz = (Class<RequestObject<T, U>>) (Class<?>) RequestObject.class;
+        final Class<RequestObject<? super T, ? super U>> clazz
+                = (Class<RequestObject<? super T, ? super U>>) (Class<?>) RequestObject.class;
         return of(clazz, method, params, id);
     }
 

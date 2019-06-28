@@ -72,7 +72,8 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
                 assertEquals(v.hashCode(), obj.hashCode());
             }
             {
-                final RequestObject<ParamsType, IdType> obj = RequestObject.of(v.getMethod(), v.getParams(), v.getId());
+                final RequestObject<? super ParamsType, ? super IdType> obj
+                        = RequestObject.of(v.getMethod(), v.getParams(), v.getId());
                 assertEquals(v, obj);
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());

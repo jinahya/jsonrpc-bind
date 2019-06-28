@@ -29,7 +29,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
-import static com.github.jinahya.jsonrpc.bind.v2.Reflections.newInstance;
+import static com.github.jinahya.jsonrpc.bind.v2.Reflections.newInstanceOf;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -158,7 +158,7 @@ public abstract class ResponseObjectTest<
      * @see #errorClass
      */
     protected ErrorType errorInstance() {
-        return newInstance(errorClass);
+        return newInstanceOf(errorClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
