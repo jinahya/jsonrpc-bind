@@ -41,15 +41,15 @@ public class MappedThrowable {
      * Creates a new instance of specified class whose perperties are set with specified values.
      *
      * @param clazz     the class of newly created object.
-     * @param throwable a throwable ot map.
+     * @param thrown a throwable ot map.
      * @param <T>       object type parameter
      * @return a new object of specified class
      */
-    public static <T extends MappedThrowable> T of(final Class<? extends T> clazz, final Throwable throwable) {
+    public static <T extends MappedThrowable> T of(final Class<? extends T> clazz, final Throwable thrown) {
         if (clazz == null) {
             throw new NullPointerException("clazz is null");
         }
-        if (throwable == null) {
+        if (thrown == null) {
             throw new NullPointerException("throwable is null");
         }
         try {
@@ -58,9 +58,9 @@ public class MappedThrowable {
                 constructor.setAccessible(true);
             }
             final T instance = constructor.newInstance();
-            instance.setMessage(throwable.getMessage());
-            instance.setSuppressed(stream(throwable.getSuppressed()).map(MappedThrowable::of).collect(toList()));
-            ofNullable(throwable.getCause()).map(MappedThrowable::of).ifPresent(instance::setCause);
+            instance.setMessage(thrown.getMessage());
+            instance.setSuppressed(stream(thrown.getSuppressed()).map(MappedThrowable::of).collect(toList()));
+            ofNullable(thrown.getCause()).map(MappedThrowable::of).ifPresent(instance::setCause);
             return instance;
         } catch (final ReflectiveOperationException roe) {
             throw new RuntimeException(roe);
