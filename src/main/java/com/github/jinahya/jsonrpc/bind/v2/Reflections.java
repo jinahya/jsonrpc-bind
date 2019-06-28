@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 /**
  * A class defines constants and utilities related to Reflection.
  */
-class Reflections {
+final class Reflections {
 
     // -----------------------------------------------------------------------------------------------------------------
 

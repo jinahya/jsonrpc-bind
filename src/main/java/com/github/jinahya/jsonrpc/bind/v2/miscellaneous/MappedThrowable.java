@@ -18,17 +18,20 @@ public class MappedThrowable {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.error.data.thrown.message}.
+     * The property name for {@code $.error.data.thrown.message} mapped from the result of {@link
+     * Throwable#getMessage()} method.
      */
     public static final String PROPERTY_NAME_MESSAGE = "message";
 
     /**
-     * The property name for {@code $.error.data.thrown.suppressed[*]}
+     * The property name for {@code $.error.data.thrown.suppressed[*]} mapped from the result of {@link
+     * Throwable#getSuppressed()} method.
      */
     public static final String PROPERTY_NAME_SUPPRESSED = "suppressed";
 
     /**
-     * The property name for {@code $.error.data.thrown.cause}.
+     * The property name for {@code $.error.data.thrown.cause} mapped from the result of {@link Throwable#getCause()}
+     * method.
      */
     public static final String PROPERTY_NAME_CAUSE = "cause";
 
@@ -95,6 +98,12 @@ public class MappedThrowable {
                + "}";
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -104,30 +113,57 @@ public class MappedThrowable {
             return false;
         }
         final MappedThrowable that = (MappedThrowable) obj;
-        return Objects.equals(getMessage(), that.getMessage()) &&
-               Objects.equals(getSuppressed(), that.getSuppressed()) &&
-               Objects.equals(getCause(), that.getCause());
+        return Objects.equals(getMessage(), that.getMessage())
+               && Objects.equals(getSuppressed(), that.getSuppressed())
+               && Objects.equals(getCause(), that.getCause());
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * @return a hash code value for this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getMessage(), getSuppressed(), getCause());
     }
 
     // --------------------------------------------------------------------------------------------------------- message
+
+    /**
+     * Returns the current value of {@value #PROPERTY_NAME_MESSAGE} property.
+     *
+     * @return the current value of {@value #PROPERTY_NAME_MESSAGE} property.
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Replaces the current value of {@value #PROPERTY_NAME_MESSAGE} property with specified value.
+     *
+     * @param message new value for {@value #PROPERTY_NAME_MESSAGE} property.
+     */
     public void setMessage(final String message) {
         this.message = message;
     }
 
     // ------------------------------------------------------------------------------------------------------ suppressed
+
+    /**
+     * Returns the current value of {@value #PROPERTY_NAME_SUPPRESSED} property.
+     *
+     * @return the current value of {@value #PROPERTY_NAME_SUPPRESSED} property.
+     */
     public List<MappedThrowable> getSuppressed() {
         return suppressed;
     }
 
+    /**
+     * Replaces the current value of {@value #PROPERTY_NAME_SUPPRESSED} property with specified value.
+     *
+     * @param suppressed new value for {@value #PROPERTY_NAME_SUPPRESSED} property.
+     */
     public void setSuppressed(final List<MappedThrowable> suppressed) {
         this.suppressed = suppressed;
     }

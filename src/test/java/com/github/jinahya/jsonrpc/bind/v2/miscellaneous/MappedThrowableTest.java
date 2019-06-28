@@ -17,7 +17,7 @@ import static java.util.stream.IntStream.range;
 class MappedThrowableTest {
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static class Extended extends MappedThrowable {
+    private static class ExtendedMappedThrowable extends MappedThrowable {
 
         @Setter
         @Getter
@@ -57,12 +57,13 @@ class MappedThrowableTest {
     @Test
     void testOfWithExtendedClass() throws IOException {
         {
-            final MappedThrowable instance = MappedThrowable.of(Extended.class, new Throwable("message"));
+            final MappedThrowable instance
+                    = MappedThrowable.of(ExtendedMappedThrowable.class, new Throwable("message"));
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
         {
             final MappedThrowable instance = MappedThrowable.of(
-                    Extended.class, new Throwable("message", new Throwable("cause")));
+                    ExtendedMappedThrowable.class, new Throwable("message", new Throwable("cause")));
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
         {
@@ -79,7 +80,7 @@ class MappedThrowableTest {
             } catch (final ReflectiveOperationException roe) {
                 throw new RuntimeException(roe);
             }
-            final MappedThrowable instance = MappedThrowable.of(Extended.class, throwable);
+            final MappedThrowable instance = MappedThrowable.of(ExtendedMappedThrowable.class, throwable);
             log.debug("jackson: {}", OBJECT_MAPPER.writeValueAsString(instance));
         }
     }
