@@ -131,21 +131,6 @@ public abstract class JsonrpcObject<IdType> {
         return Objects.hash(getJsonrpc(), getId());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
-
-    /**
-     * Indicates the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code number}, or {@code
-     * null}.
-     *
-     * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
-     * number}, or {@code null}; {@code false} otherwise.
-     */
-    @AssertTrue
-    protected boolean isIdEitherStringNumberOfNull() {
-        final IdType id = getId();
-        return id == null || id instanceof String || id instanceof Number;
-    }
-
     // --------------------------------------------------------------------------------------------------------- jsonrpc
 
     /**
@@ -205,6 +190,19 @@ public abstract class JsonrpcObject<IdType> {
      */
     public void copyIdFrom(final JsonrpcObject<? extends IdType> object) {
         object.copyIdTo(this);
+    }
+
+    /**
+     * Indicates the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code number}, or {@code
+     * null}.
+     *
+     * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
+     * number}, or {@code null}; {@code false} otherwise.
+     */
+    @AssertTrue
+    protected boolean isIdEitherStringNumberOfNull() {
+        final IdType id = getId();
+        return id == null || id instanceof String || id instanceof Number;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

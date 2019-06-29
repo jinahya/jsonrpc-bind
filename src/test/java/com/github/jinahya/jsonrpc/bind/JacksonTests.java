@@ -21,6 +21,7 @@ package com.github.jinahya.jsonrpc.bind;
  */
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -77,6 +78,7 @@ public final class JacksonTests {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static <T> T readValueFromResource(final String resourceName, final Class<? extends T> valueClass,
                                               final Class<?> resourceLoader)
             throws IOException {
@@ -93,6 +95,25 @@ public final class JacksonTests {
     public static <T> T readValueFromResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
         return readValueFromResource(resourceName, valueClass, valueClass);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static <T> T readValueFromResource(final String resourceName, final TypeReference<T> typeReference,
+                                              final Class<?> resourceLoader)
+            throws IOException {
+        try (InputStream resourceStream = resourceLoader.getResourceAsStream(resourceName)) {
+            assertNotNull(resourceStream, "null resource stream for " + resourceName);
+            final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, typeReference));
+            final String string = OBJECT_MAPPER.writeValueAsString(value);
+            log.debug("jackson: {}", value);
+            log.debug("jackson: {}", string);
+            return value;
+        }
+    }
+
+    public static <T> T readValueFromResource(final String resourceName, final TypeReference<T> typeReference)
+            throws IOException {
+        return readValueFromResource(resourceName, typeReference, JacksonTests.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

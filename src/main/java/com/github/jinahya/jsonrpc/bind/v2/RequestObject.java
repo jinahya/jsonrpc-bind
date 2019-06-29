@@ -21,6 +21,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
@@ -179,6 +180,26 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      */
     public void setParams(final ParamsType params) {
         this.params = params;
+    }
+
+    /**
+     * Indicates the value of {@value #PROPERTY_NAME_PARAMS} property is a structured value.
+     *
+     * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is a structured value; {@code false} otherwise.
+     */
+    @AssertTrue
+    protected boolean isParamsStructured() {
+        final ParamsType params = getParams();
+        if (params == null) {
+            return true;
+        }
+        if (params.getClass().isPrimitive()) {
+            return false;
+        }
+        if (params.getClass().isAnnotation()) {
+            return false;
+        }
+        return true;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

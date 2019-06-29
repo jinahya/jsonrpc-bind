@@ -485,7 +485,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         return Objects.hash(super.hashCode(), getResult(), getError());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
      * Checks either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property is set
