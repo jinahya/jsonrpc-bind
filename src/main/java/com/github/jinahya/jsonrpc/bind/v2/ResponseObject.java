@@ -26,8 +26,6 @@ import javax.validation.constraints.NotNull;
 import java.lang.reflect.Constructor;
 import java.util.Objects;
 
-import static com.github.jinahya.jsonrpc.bind.v2.Reflections.newInstanceOf;
-
 /**
  * A class for binding response objects.
  *
@@ -323,7 +321,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     /**
      * Creates a new instance of specified class whose properties are set with specified values.
      *
-     * @param clazz  the class of the object to create
+     * @param clazz  the class of the object to create.
      * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
      * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
      * @param id     a value for {@value #PROPERTY_NAME_ID} property.
@@ -335,11 +333,19 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      */
     public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T of(
             final Class<? extends T> clazz, final U result, final V error, final W id) {
-        final T instance = newInstanceOf(clazz);
-        instance.setResult(result);
-        instance.setError(error);
-        instance.setId(id);
-        return instance;
+        try {
+            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            final T instance = constructor.newInstance();
+            instance.setResult(result);
+            instance.setError(error);
+            instance.setId(id);
+            return instance;
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
     }
 
     /**

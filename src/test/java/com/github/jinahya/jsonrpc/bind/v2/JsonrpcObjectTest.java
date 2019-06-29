@@ -26,11 +26,11 @@ import com.github.jinahya.jsonrpc.bind.JsonbTests;
 import com.github.jinahya.jsonrpc.bind.MoshiTests;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static com.github.jinahya.jsonrpc.bind.v2.Reflections.newInstanceOf;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -99,7 +99,15 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
      * @return a new instance of {@link #objectClass}.
      */
     protected ObjectType objectInstance() {
-        return newInstanceOf(objectClass);
+        try {
+            final Constructor<? extends ObjectType> constructor = objectClass.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            return constructor.newInstance();
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------

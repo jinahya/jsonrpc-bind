@@ -1,10 +1,29 @@
 package com.github.jinahya.jsonrpc.bind.v2.miscellaneous;
 
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
+/*-
+ * #%L
+ * jsonrpc-bind
+ * %%
+ * Copyright (C) 2019 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Arrays.stream;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
@@ -38,56 +57,21 @@ public class MappedThrowable {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new instance of specified class whose perperties are set with specified values.
-     *
-     * @param clazz  the class of newly created object.
-     * @param thrown a throwable ot map.
-     * @param <T>    object type parameter
-     * @return a new object of specified class
-     */
-//    public static <T extends MappedThrowable> T of(final Class<? extends T> clazz, final Throwable thrown) {
-//        if (clazz == null) {
-//            throw new NullPointerException("clazz is null");
-//        }
-//        if (thrown == null) {
-//            throw new NullPointerException("throwable is null");
-//        }
-//        try {
-//            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
-//            if (!constructor.isAccessible()) {
-//                constructor.setAccessible(true);
-//            }
-//            final T instance = constructor.newInstance();
-//            instance.setMessage(thrown.getMessage());
-//            final Throwable[] suppressed = thrown.getSuppressed();
-//            final List<MappedThrowable> s = Arrays.stream(suppressed).map(v -> of(clazz, v)).collect(toList());
-////            instance.setSuppressed(stream(thrown.getSuppressed()).map(MappedThrowable::of).collect(toList()));
-//            assert s.size() == suppressed.length;
-//            instance.setSuppressed(s);
-//            ofNullable(thrown.getCause()).map(MappedThrowable::of).ifPresent(instance::setCause);
-//            return instance;
-//        } catch (final ReflectiveOperationException roe) {
-//            throw new RuntimeException(roe);
-//        }
-//    }
-
-    /**
      * Creates a new instance of specified throwable.
      *
-     * @param thrown the throwable.
+     * @param throwable the throwable.
      * @return a new instance.
      */
-    public static MappedThrowable of(final Throwable thrown) {
+    public static MappedThrowable of(final Throwable throwable) {
         final MappedThrowable instance = new MappedThrowable();
-        instance.setMessage(thrown.getMessage());
-        final Throwable[] suppressed = thrown.getSuppressed();
-        final List<MappedThrowable> s = Arrays.stream(suppressed).map(MappedThrowable::of).collect(toList());
-//            instance.setSuppressed(stream(thrown.getSuppressed()).map(MappedThrowable::of).collect(toList()));
-        assert s.size() == suppressed.length;
-        instance.setSuppressed(s);
-        ofNullable(thrown.getCause()).map(MappedThrowable::of).ifPresent(instance::setCause);
+        instance.type = throwable.getClass().getName();
+        instance.message = throwable.getMessage();
+        final Throwable[] suppressed = throwable.getSuppressed();
+        if (suppressed.length > 0) {
+            instance.suppressed = stream(suppressed).map(MappedThrowable::of).collect(toList());
+        }
+        ofNullable(throwable.getCause()).map(MappedThrowable::of).ifPresent(instance::setCause);
         return instance;
-        //return of(MappedThrowable.class, thrown);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -101,6 +85,11 @@ public class MappedThrowable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString() + "{"
@@ -201,6 +190,8 @@ public class MappedThrowable {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    private String type;
+
     private String message;
 
     private List<MappedThrowable> suppressed;

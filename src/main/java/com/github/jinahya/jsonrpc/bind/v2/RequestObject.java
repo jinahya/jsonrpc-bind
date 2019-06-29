@@ -80,11 +80,9 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param <U>    id type parameter
      * @return a new instance of specified object class.
      */
+    @SuppressWarnings({"unchecked"})
     static <T, U> RequestObject<? super T, ? super U> of(final String method, final T params, final U id) {
-        @SuppressWarnings({"unchecked"})
-        final Class<RequestObject<? super T, ? super U>> clazz
-                = (Class<RequestObject<? super T, ? super U>>) (Class<?>) RequestObject.class;
-        return of(clazz, method, params, id);
+        return of(RequestObject.class, method, params, id);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
