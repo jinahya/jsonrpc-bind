@@ -42,7 +42,7 @@ class NonExistentMethodResponseTest
     @Test
     void non_existent_method_01_response() throws IOException {
         acceptValueFromResource(
-                "non_existent_method_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_response.json",
                 v -> {
                     final ErrorObject<Object> error = v.getError();
                     assertEquals(-32601, error.getCode());

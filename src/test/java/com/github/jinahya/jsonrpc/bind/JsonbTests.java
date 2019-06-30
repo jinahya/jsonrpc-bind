@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -33,7 +32,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.github.jinahya.jsonrpc.bind.BeanValidationTests.requireValid;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
 @Slf4j
 public final class JsonbTests {
@@ -76,16 +75,16 @@ public final class JsonbTests {
      */
     public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
-        try (InputStream stream = valueClass.getResourceAsStream(resourceName)) {
-            assertNotNull(stream, "null resource stream for " + resourceName);
-            return applyJsonb(v -> {
-                final T value = v.fromJson(stream, valueClass);
-                final String string = v.toJson(value);
-                log.debug("jsonb: {}", value);
-                log.debug("jsonb: {}", string);
-                return requireValid(value);
-            });
-        }
+        return applyResourceStream(
+                resourceName,
+                s -> applyJsonb(v -> {
+                    final T value = v.fromJson(s, valueClass);
+                    final String string = v.toJson(value);
+                    log.debug("jsonb: {}", value);
+                    log.debug("jsonb: {}", string);
+                    return requireValid(value);
+                })
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------

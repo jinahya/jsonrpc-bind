@@ -37,7 +37,7 @@ class EchoResponseTest extends ResponseTest<EchoResponse, String, Object, Intege
     @Test
     void echo_01_response() throws IOException {
         acceptValueFromResource(
-                "echo_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/echo_01_response.json",
                 v -> {
                     assertEquals("Hello JSON-RPC", v.getResult());
                     assertNull(v.getError());

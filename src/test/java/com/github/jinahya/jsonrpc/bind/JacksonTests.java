@@ -22,12 +22,12 @@ package com.github.jinahya.jsonrpc.bind;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -35,7 +35,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.github.jinahya.jsonrpc.bind.BeanValidationTests.requireValid;
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
 @Slf4j
 public final class JacksonTests {
@@ -70,50 +70,72 @@ public final class JacksonTests {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static JsonNode readTreeFromResource(final String resourceName, final Class<?> clientClass)
-            throws IOException {
-        try (InputStream resourceStream = clientClass.getResourceAsStream(resourceName)) {
-            assertNotNull(resourceStream, "null resource stream for " + resourceName);
-            return OBJECT_MAPPER.readTree(resourceStream);
-        }
+    public static JsonNode readTreeFromResource(final String resourceName) throws IOException {
+        return applyResourceStream(
+                resourceName,
+                s -> applyObjectMapper(m -> {
+                    try {
+                        return m.readTree(s);
+                    } catch (final IOException ioe) {
+                        throw new RuntimeException(ioe);
+                    }
+                })
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T readValueFromResource(final String resourceName, final Class<? extends T> valueClass,
-                                              final Class<?> resourceLoader)
-            throws IOException {
-        try (InputStream resourceStream = resourceLoader.getResourceAsStream(resourceName)) {
-            assertNotNull(resourceStream, "null resource stream for " + resourceName);
-            final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, valueClass));
-            final String string = OBJECT_MAPPER.writeValueAsString(value);
-            log.debug("jackson: {}", value);
-            log.debug("jackson: {}", string);
-            return value;
-        }
-    }
-
     public static <T> T readValueFromResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
-        return readValueFromResource(resourceName, valueClass, valueClass);
+        return applyResourceStream(
+                resourceName,
+                s -> applyObjectMapper(m -> {
+                    try {
+                        final T value = requireValid(m.readValue(s, valueClass));
+                        final String string = m.writeValueAsString(value);
+                        log.debug("jackson: {}", value);
+                        log.debug("jackson: {}", string);
+                        return value;
+                    } catch (final IOException ioe) {
+                        throw new RuntimeException(ioe);
+                    }
+                })
+        );
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T readValueFromResource(final String resourceName, final TypeReference<T> typeReference,
-                                              final Class<?> resourceLoader)
+    public static <T> T readValueFromResource(final String resourceName, final JavaType javaType)
             throws IOException {
-        try (InputStream resourceStream = resourceLoader.getResourceAsStream(resourceName)) {
-            assertNotNull(resourceStream, "null resource stream for " + resourceName);
-            final T value = requireValid(OBJECT_MAPPER.readValue(resourceStream, typeReference));
-            final String string = OBJECT_MAPPER.writeValueAsString(value);
-            log.debug("jackson: {}", value);
-            log.debug("jackson: {}", string);
-            return value;
-        }
+        return applyResourceStream(
+                resourceName,
+                s -> applyObjectMapper(m -> {
+                    try {
+                        final T value = requireValid(OBJECT_MAPPER.readValue(s, javaType));
+                        final String string = OBJECT_MAPPER.writeValueAsString(value);
+                        log.debug("jackson: {}", value);
+                        log.debug("jackson: {}", string);
+                        return value;
+                    } catch (final IOException ioe) {
+                        throw new RuntimeException(ioe);
+                    }
+                })
+        );
     }
 
     public static <T> T readValueFromResource(final String resourceName, final TypeReference<T> typeReference)
             throws IOException {
-        return readValueFromResource(resourceName, typeReference, JacksonTests.class);
+        return applyResourceStream(
+                resourceName,
+                s -> applyObjectMapper(m -> {
+                    try {
+                        final T value = requireValid(m.readValue(s, typeReference));
+                        final String string = m.writeValueAsString(value);
+                        log.debug("jackson: {}", value);
+                        log.debug("jackson: {}", string);
+                        return value;
+                    } catch (final IOException ioe) {
+                        throw new RuntimeException(ioe);
+                    }
+                })
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -67,7 +67,7 @@ class NamedParametersRequestTest
     @Test
     void named_parameters_01_request() throws IOException {
         acceptValueFromResource(
-                "named_parameters_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_01_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
                     assertEquals(23, v.getParams().getSubtrahend());
@@ -80,7 +80,7 @@ class NamedParametersRequestTest
     @Test
     void named_parameters_02_request() throws IOException {
         acceptValueFromResource(
-                "named_parameters_02_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_02_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
                     assertEquals(23, v.getParams().getSubtrahend());

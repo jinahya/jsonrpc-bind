@@ -24,7 +24,6 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.function.BiConsumer;
@@ -34,7 +33,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.github.jinahya.jsonrpc.bind.BeanValidationTests.requireValid;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
 @Slf4j
 public final class GsonTests {
@@ -67,17 +66,17 @@ public final class GsonTests {
     // -----------------------------------------------------------------------------------------------------------------
     public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
-        try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
-            assertNotNull(resourceStream, "null resource stream for " + resourceName);
-            return applyGson(v -> {
-                final T value = requireValid(v.fromJson(
-                        new InputStreamReader(resourceStream, StandardCharsets.UTF_8), valueClass));
-                final String string = v.toJson(value);
-                log.debug("gson: {}", value);
-                log.debug("gson: {}", string);
-                return value;
-            });
-        }
+        return applyResourceStream(
+                resourceName,
+                s -> applyGson(v -> {
+                    final T value = requireValid(v.fromJson(
+                            new InputStreamReader(s, StandardCharsets.UTF_8), valueClass));
+                    final String string = v.toJson(value);
+                    log.debug("gson: {}", value);
+                    log.debug("gson: {}", string);
+                    return value;
+                })
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------

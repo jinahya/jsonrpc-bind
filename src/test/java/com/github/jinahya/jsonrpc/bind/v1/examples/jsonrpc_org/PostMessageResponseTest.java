@@ -49,7 +49,7 @@ class PostMessageResponseTest extends ResponseTest<PostMessageResponse, Integer,
     @Test
     void postMessage_01_response() throws IOException {
         acceptValueFromResource(
-                "postMessage_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/postMessage_01_response.json",
                 v -> {
                     assertEquals(1, (int) v.getResult());
                     assertNull(v.getError());
@@ -61,7 +61,7 @@ class PostMessageResponseTest extends ResponseTest<PostMessageResponse, Integer,
     @Test
     void postMessage_02_response() throws IOException {
         acceptValueFromResource(
-                "postMessage_02_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/postMessage_02_response.json",
                 v -> {
                     assertEquals(1, (int) v.getResult());
                     assertNull(v.getError());

@@ -45,7 +45,7 @@ class EchoRequestTest extends RequestTest<EchoRequest, String, Integer> {
     @Test
     void echo_01_request() throws IOException {
         acceptValueFromResource(
-                "echo_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/echo_01_request.json",
                 v -> {
                     assertEquals("echo", v.getMethod());
                     assertIterableEquals(singletonList("Hello JSON-RPC"), v.getParams());

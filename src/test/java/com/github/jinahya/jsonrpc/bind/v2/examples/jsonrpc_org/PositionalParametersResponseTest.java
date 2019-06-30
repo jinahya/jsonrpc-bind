@@ -42,7 +42,7 @@ class PositionalParametersResponseTest
     @Test
     void positional_parameters_01_response() throws IOException {
         acceptValueFromResource(
-                "positional_parameters_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_01_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
                     assertEquals(1, (int) v.getId());
@@ -53,7 +53,7 @@ class PositionalParametersResponseTest
     @Test
     void positional_parameters_02_response() throws IOException {
         acceptValueFromResource(
-                "positional_parameters_02_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_02_response.json",
                 v -> {
                     assertEquals(-19, (int) v.getResult());
                     assertEquals(2, (int) v.getId());

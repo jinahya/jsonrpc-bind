@@ -38,7 +38,7 @@ class PostMessageRequestTest extends RequestTest<PostMessageRequest, String, Lon
     @Test
     void postMessage_01_request() throws IOException {
         acceptValueFromResource(
-                "postMessage_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/postMessage_01_request.json",
                 v -> {
                     assertEquals("postMessage", v.getMethod());
                     assertIterableEquals(singletonList("Hello all!"), v.getParams());
@@ -50,7 +50,7 @@ class PostMessageRequestTest extends RequestTest<PostMessageRequest, String, Lon
     @Test
     void postMessage_02_request() throws IOException {
         acceptValueFromResource(
-                "postMessage_02_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/postMessage_02_request.json",
                 v -> {
                     assertEquals("postMessage", v.getMethod());
                     assertIterableEquals(singletonList("I have a question:"), v.getParams());

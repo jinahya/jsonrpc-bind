@@ -49,7 +49,7 @@ class HandleMessageNotificationTest extends NotificationTest<HandleMessageNotifi
     @Test
     void handleMessage_01_notification() throws IOException {
         acceptValueFromResource(
-                "handleMessage_01_notification.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/handleMessage_01_notification.json",
                 v -> {
                     assertEquals("handleMessage", v.getMethod());
                     assertIterableEquals(asList("user1", "we were just talking"), v.getParams());
@@ -60,7 +60,7 @@ class HandleMessageNotificationTest extends NotificationTest<HandleMessageNotifi
     @Test
     void handleMessage_02_notification() throws IOException {
         acceptValueFromResource(
-                "handleMessage_02_notification.json",
+                "/com/github/jinahya/jsonrpc/bind/v1/examples/jsonrpc_org/handleMessage_02_notification.json",
                 v -> {
                     assertEquals("handleMessage", v.getMethod());
                     assertIterableEquals(asList("user3", "sorry, gotta go now, ttyl"), v.getParams());

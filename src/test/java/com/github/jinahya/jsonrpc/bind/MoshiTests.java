@@ -28,14 +28,13 @@ import lombok.extern.slf4j.Slf4j;
 import okio.Okio;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
 @Slf4j
 public final class MoshiTests {
@@ -83,15 +82,21 @@ public final class MoshiTests {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static <T> T fromResource(final String resourceName, final Class<T> valueClass) throws IOException {
-        try (InputStream resourceStream = valueClass.getResourceAsStream(resourceName)) {
-            assertNotNull(resourceStream, "null resource stream for " + resourceName);
-            final JsonAdapter<T> adapter = MOSHI.adapter(valueClass);
-            final T value = adapter.fromJson(Okio.buffer(Okio.source(resourceStream)));
-            final String string = adapter.toJson(value);
-            log.debug("moshi: {}", value);
-            log.debug("moshi: {}", string);
-            return value;
-        }
+        return applyResourceStream(
+                resourceName,
+                s -> {
+                    try {
+                        final JsonAdapter<T> adapter = MOSHI.adapter(valueClass);
+                        final T value = adapter.fromJson(Okio.buffer(Okio.source(s)));
+                        final String string = adapter.toJson(value);
+                        log.debug("moshi: {}", value);
+                        log.debug("moshi: {}", string);
+                        return value;
+                    } catch (final IOException ioe) {
+                        throw new RuntimeException(ioe);
+                    }
+                }
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------

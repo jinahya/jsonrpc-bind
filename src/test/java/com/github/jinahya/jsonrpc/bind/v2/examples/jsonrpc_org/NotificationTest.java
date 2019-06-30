@@ -52,14 +52,14 @@ class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Ob
     @Test
     void notification_01_request() throws IOException {
         acceptValueFromResource(
-                "notification_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/notification_01_request.json",
                 v -> {
                     assertEquals("update", v.getMethod());
                     assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParams());
                 }
         );
         acceptValueFromResource(
-                "notification_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/notification_01_request.json",
                 v -> {
                     assertEquals("update", v.getMethod());
                     assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParams());
@@ -70,7 +70,7 @@ class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Ob
     @Test
     void notification_02_request() throws IOException {
         acceptValueFromResource(
-                "notification_02_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/notification_02_request.json",
                 v -> {
                     assertEquals("foobar", v.getMethod());
                     assertNull(v.getParams());

@@ -36,7 +36,7 @@ class NonExistentMethodRequestTest extends RequestObjectTest<NonExistentMethodRe
     @Test
     void non_existent_method_01_request() throws IOException {
         acceptValueFromResource(
-                "non_existent_method_01_request.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_request.json",
                 v -> {
                 }
         );

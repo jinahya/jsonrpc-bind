@@ -54,7 +54,7 @@ class NamedParametersResponseTest
     @Test
     void named_parameters_01_response() throws IOException {
         acceptValueFromResource(
-                "named_parameters_01_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_01_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
                     assertEquals(3, (int) v.getId());
@@ -65,7 +65,7 @@ class NamedParametersResponseTest
     @Test
     void named_parameters_02_response() throws IOException {
         acceptValueFromResource(
-                "named_parameters_02_response.json",
+                "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_02_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
                     assertEquals(4, (int) v.getId());
