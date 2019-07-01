@@ -40,6 +40,26 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
         extends JsonrpcObjectTest<ObjectType, IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
+    public static class NoParams<IdType> extends RequestObject<Void, IdType> {
+
+        @Override
+        public void setParams(final Void params) {
+            //super.setParams(params);
+            return;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static class NoId<ParamsType> extends RequestObject<ParamsType, Void> {
+
+        @Override
+        public void setId(final Void id) {
+            //super.setId(id);
+            return;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     public RequestObjectTest(final Class<ObjectType> requestClass, final Class<ParamsType> paramsClass,
                              final Class<IdType> idClass) {
         super(requestClass, idClass);

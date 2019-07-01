@@ -17,7 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BatchInvalidJsonTest {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final class VoidResponse extends ResponseObject<Void, ErrorObject<Void>, Void> {
+//    public static final class VoidResponse extends ResponseObject<Void, ErrorObject<Void>, Void> {
+//
+//    }
+
+    public static final class VoidError extends ErrorObject<Void> {
+
+    }
+
+    public static final class VoidResponse extends ResponseObject<Void, VoidError, Void> {
 
     }
 
@@ -43,7 +51,7 @@ class BatchInvalidJsonTest {
 
     @Test
     void batch_invalid_json_01_response__jsonb() throws IOException {
-        final ResponseObject<Void, ErrorObject<Void>, Void> responseObject = applyResourceStream(
+        final ResponseObject<Void, VoidError, Void> responseObject = applyResourceStream(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/batch_invalid_json_01_response.json",
                 s -> JSONB.fromJson(s, VoidResponse.class));
         log.debug("responseObject: {}", responseObject);

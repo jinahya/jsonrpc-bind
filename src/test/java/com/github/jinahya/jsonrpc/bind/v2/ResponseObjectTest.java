@@ -50,6 +50,11 @@ public abstract class ResponseObjectTest<
         extends JsonrpcObjectTest<ObjectType, IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
+    public static class NoData extends ErrorObject<Void> {
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Creates a new instance for specified response object class and its type parameter classes.

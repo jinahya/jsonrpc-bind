@@ -22,6 +22,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest.NoData;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -31,12 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class NonExistentMethodResponseTest
-        extends ResponseObjectTest<NonExistentMethodResponse, Object, ErrorObject<Object>, String> {
+        extends ResponseObjectTest<NonExistentMethodResponse, Object, NoData, String> {
 
     @SuppressWarnings({"unchecked"})
     NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class, Object.class,
-              (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class, String.class);
+        super(NonExistentMethodResponse.class, Object.class, NoData.class, String.class);
     }
 
     @Test
@@ -44,7 +44,7 @@ class NonExistentMethodResponseTest
         acceptValueFromResource(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_response.json",
                 v -> {
-                    final ErrorObject<Object> error = v.getError();
+                    final ErrorObject<Void> error = v.getError();
                     assertEquals(-32601, error.getCode());
                     assertEquals("Method not found", error.getMessage());
                 }
