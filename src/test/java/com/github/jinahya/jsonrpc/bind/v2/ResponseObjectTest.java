@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -140,8 +141,8 @@ public abstract class ResponseObjectTest<
             {
                 final ErrorType error = v.getError();
                 if (error != null) {
-                    final ResponseObject.ErrorObject<Object> obj = ResponseObject.ErrorObject.of(
-                            error.getCode(), error.getMessage(), error.getData());
+                    final ErrorObject<Object> obj
+                            = ErrorObject.of(error.getCode(), error.getMessage(), error.getData());
                     assertEquals(error, obj);
                     assertEquals(error.hashCode(), obj.hashCode());
                 }

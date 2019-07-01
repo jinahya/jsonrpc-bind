@@ -62,7 +62,7 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param <V>    id type parameter
      * @return a new instance of specified object class.
      */
-    static <T extends RequestObject<? super U, ? super V>, U, V> T of(
+    public static <T extends RequestObject<? super U, ? super V>, U, V> T of(
             final Class<? extends T> clazz, final String method, final U params, final V id) {
         final T instance = of(clazz, id);
         instance.setMethod(method);
@@ -77,12 +77,12 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param method a value for {@value #PROPERTY_NAME_METHOD} property.
      * @param params a value for {@value #PROPERTY_NAME_PARAMS} property.
      * @param id     a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>    params type parameter
-     * @param <U>    id type parameter
+     * @param <U>    params type parameter
+     * @param <V>    id type parameter
      * @return a new instance of specified object class.
      */
     @SuppressWarnings({"unchecked"})
-    static <T, U> RequestObject<? super T, ? super U> of(final String method, final T params, final U id) {
+    public static <U, V> RequestObject<? super U, ? super V> of(final String method, final U params, final V id) {
         return of(RequestObject.class, method, params, id);
     }
 
@@ -128,8 +128,7 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
             return false;
         }
         final RequestObject<?, ?> that = (RequestObject<?, ?>) obj;
-        return Objects.equals(getMethod(), that.getMethod())
-               && Objects.equals(getParams(), that.getParams());
+        return Objects.equals(getMethod(), that.getMethod()) && Objects.equals(getParams(), that.getParams());
     }
 
     /**

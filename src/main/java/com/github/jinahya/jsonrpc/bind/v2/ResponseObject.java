@@ -41,18 +41,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.result}.
-     */
-    public static final String PROPERTY_NAME_RESULT = "result";
-
-    /**
-     * The property name for {@code $.error}.
-     */
-    public static final String PROPERTY_NAME_ERROR = "error";
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
      * A class for binding {@code error} property of response objects.
      *
      * @param <DataType> data type parameter
@@ -151,8 +139,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param <U>     data type parameter
          * @return a new instance of specified object type.
          */
-        public static <T extends ErrorObject<U>, U> T of(final Class<? extends T> clazz, final int code,
-                                                         final String message, final U data) {
+        public static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final int code,
+                                                                 final String message, final U data) {
             try {
                 final Constructor<? extends T> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {
@@ -174,12 +162,12 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
          * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
          * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <T>     data type parameter
+         * @param <U>     data type parameter
          * @return a new instance.
          */
-        public static <T> ErrorObject<T> of(final int code, final String message, final T data) {
+        public static <U> ErrorObject<U> of(final int code, final String message, final U data) {
             @SuppressWarnings({"unchecked"})
-            final Class<ErrorObject<T>> clazz = (Class<ErrorObject<T>>) (Class<?>) ErrorObject.class;
+            final Class<ErrorObject<U>> clazz = (Class<ErrorObject<U>>) (Class<?>) ErrorObject.class;
             return of(clazz, code, message, data);
         }
 
@@ -319,6 +307,18 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * The property name for {@code $.result}.
+     */
+    public static final String PROPERTY_NAME_RESULT = "result";
+
+    /**
+     * The property name for {@code $.error}.
+     */
+    public static final String PROPERTY_NAME_ERROR = "error";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * Creates a new instance of specified class whose properties are set with specified values.
      *
      * @param clazz  the class of the object to create.
@@ -331,7 +331,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @param <W>    id type parameter
      * @return a new instance of specified class.
      */
-    public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T of(
+    public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
             final Class<? extends T> clazz, final U result, final V error, final W id) {
         try {
             final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
@@ -360,7 +360,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @param <W>    id type parameter
      * @return a new instance of specified class.
      */
-    public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T ofResult(
+    @Deprecated
+    public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T ofResult(
             final Class<? extends T> clazz, final U result, final W id) {
         return of(clazz, result, null, id);
     }
@@ -377,7 +378,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @param <W>   id type parameter
      * @return a new instance of specified class.
      */
-    public static <T extends ResponseObject<U, V, W>, U, V extends ErrorObject<?>, W> T ofError(
+    @Deprecated
+    public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T ofError(
             final Class<? extends T> clazz, final V error, final W id) {
         return of(clazz, null, error, id);
     }
