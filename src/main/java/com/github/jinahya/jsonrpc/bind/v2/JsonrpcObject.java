@@ -99,7 +99,7 @@ public abstract class JsonrpcObject<IdType> {
     public String toString() {
         return super.toString() + "{"
                + "jsonrpc=" + jsonrpc
-               + ",id=" + id
+               + ",v=" + id
                + "}";
     }
 

@@ -36,7 +36,7 @@ public final class JsonrpcTests {
                                             final Function<? super InputStream, ? extends R> function)
             throws IOException {
         try (InputStream resourceStream = JsonrpcTests.class.getResourceAsStream(name)) {
-            assertNotNull(resourceStream, "null resource stream for " + name);
+            assertNotNull(resourceStream, "null resource stream for '" + name + "'");
             return function.apply(resourceStream);
         }
     }

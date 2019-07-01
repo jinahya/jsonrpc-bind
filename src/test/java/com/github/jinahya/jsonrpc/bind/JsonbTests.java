@@ -40,6 +40,10 @@ public final class JsonbTests {
     // -----------------------------------------------------------------------------------------------------------------
     public static final Jsonb JSONB = JsonbBuilder.create();
 
+    static {
+        log.debug("JSON: {}", JSONB);
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyJsonb(final Function<? super Jsonb, ? extends R> function) {
         return function.apply(JSONB);
