@@ -25,22 +25,23 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * An abstract class for requests and notification.
+ * An abstract class for requests and notifications.
  *
  * @param <ParamType> params element type parameter
  * @param <IdType>    id type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A property name for {@code $.method}.
+     * A property name for {@code $.method}. The value is {@value #PROPERTY_NAME_METHOD}.
      */
     public static final String PROPERTY_NAME_METHOD = "method";
 
     /**
-     * A property name for {@code $.params}.
+     * A property name for {@code $.params}. The value is {@value #PROPERTY_NAME_PARAMS}.
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
 

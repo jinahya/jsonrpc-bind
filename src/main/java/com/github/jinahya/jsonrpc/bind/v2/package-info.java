@@ -1,6 +1,8 @@
 /**
  * Defines classes for binding objects defined in <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0
  * Specification</a>.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 package com.github.jinahya.jsonrpc.bind.v2;
 /*-

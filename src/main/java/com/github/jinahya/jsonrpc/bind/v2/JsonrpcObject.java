@@ -30,7 +30,7 @@ import java.util.Objects;
 /**
  * An abstract class for request objects and response objects.
  *
- * @param <IdType> id type parameter
+ * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public abstract class JsonrpcObject<IdType> {
@@ -106,7 +106,7 @@ public abstract class JsonrpcObject<IdType> {
     /**
      * Indicates whether some other object is "equal to" this one.
      *
-     * @param obj the reference object with which to compare
+     * @param obj the reference object with which to compare.
      * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
      */
     @Override
@@ -135,7 +135,7 @@ public abstract class JsonrpcObject<IdType> {
 
     /**
      * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property. The default value of the property is
-     * {@value #PROPERTY_VALUE_JSONRPC}.
+     * {@value #PROPERTY_VALUE_JSONRPC}({@link #PROPERTY_VALUE_JSONRPC}).
      *
      * @return the current value of {@value #PROPERTY_NAME_JSONRPC} property.
      */
@@ -185,7 +185,7 @@ public abstract class JsonrpcObject<IdType> {
     /**
      * Copies specified object's current value of {@value #PROPERTY_NAME_ID} property to this object.
      *
-     * @param object the object whose current value of {@value #PROPERTY_NAME_ID} property is copied to this object
+     * @param object the object whose current value of {@value #PROPERTY_NAME_ID} property is copied to this object.
      * @see #copyIdTo(JsonrpcObject)
      */
     public void copyIdFrom(final JsonrpcObject<? extends IdType> object) {
@@ -193,14 +193,13 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
-     * Indicates the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code number}, or {@code
-     * null}.
+     * Indicates whether the current value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
+     * number}, or {@code null}.
      *
      * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
      * number}, or {@code null}; {@code false} otherwise.
      */
-    @AssertTrue
-    protected boolean isIdEitherStringNumberOfNull() {
+    protected @AssertTrue boolean isIdEitherStringNumberOfNull() {
         final IdType id = getId();
         return id == null || id instanceof String || id instanceof Number;
     }

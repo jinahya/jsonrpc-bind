@@ -23,16 +23,17 @@ package com.github.jinahya.jsonrpc.bind.v1;
 import java.util.Objects;
 
 /**
- * An abstract class for binding identifiable objects.
+ * An abstract class for binding object with {@value #PROPERTY_NAME_ID} property.
  *
- * @param <IdType> id type parameter.
+ * @param <IdType> id type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public abstract class Identifiable<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A property name for {@code $.id}.
+     * A property name for {@code $.id}. The value is {@value #PROPERTY_NAME_ID}.
      */
     public static final String PROPERTY_NAME_ID = "id";
 
@@ -88,7 +89,7 @@ public abstract class Identifiable<IdType> {
         return Objects.hash(getId());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------- id
 
     /**
      * Returns the current value of {@value #PROPERTY_NAME_ID} property.
@@ -109,17 +110,7 @@ public abstract class Identifiable<IdType> {
     }
 
     /**
-     * Indicates whether the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code null}.
-     *
-     * @return {@code true} if the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code
-     * null}; {@code false} otherwise.
-     */
-    protected boolean isIdSemanticallyNull() {
-        return getId() == null;
-    }
-
-    /**
-     * Copies the current value of {@value #PROPERTY_NAME_ID} property to specified object.
+     * Copies this object's current value of {@value #PROPERTY_NAME_ID} property to specified object.
      *
      * @param object the object to which this object's current value of {@value #PROPERTY_NAME_ID} property is copied.
      * @see #copyIdFrom(Identifiable)
@@ -136,6 +127,20 @@ public abstract class Identifiable<IdType> {
      */
     public void copyIdFrom(final Identifiable<? extends IdType> object) {
         object.copyIdTo(this);
+    }
+
+    /**
+     * Indicates whether the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code null}.
+     * <p>
+     * The {@code isIdSemanticallyNull()} method of {@code Identifiable} class returns the value of following
+     * expression.
+     * <blockquote><pre>{@code getId() == null}</pre></blockquote>
+     *
+     * @return {@code true} if the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code
+     * null}; {@code false} otherwise.
+     */
+    protected boolean isIdSemanticallyNull() {
+        return getId() == null;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

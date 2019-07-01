@@ -20,42 +20,49 @@ package com.github.jinahya.jsonrpc.bind.v1;
  * #L%
  */
 
-import javax.validation.constraints.AssertFalse;
-
 /**
  * A class for binding responses.
  *
- * @param <ResultType> result type parameter
- * @param <ErrorType>  error type parameter
- * @param <IdType>     id type parameter
+ * @param <ResultType> {@value #PROPERTY_NAME_RESULT} type parameter
+ * @param <ErrorType>  {@value #PROPERTY_NAME_ERROR} type parameter
+ * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v1.Identifiable#PROPERTY_NAME_ID} type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A property name for {@code $.result}.
+     * A property name for {@code $.result}. The value is {@value #PROPERTY_NAME_RESULT}.
      */
     public static final String PROPERTY_NAME_RESULT = "result";
 
     /**
-     * A property name for {@code $.error}.
+     * A property name for {@code $.error}. The value is {@value #PROPERTY_NAME_ERROR}.
      */
     public static final String PROPERTY_NAME_ERROR = "error";
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Response} class annotated with {@link
-     * AssertFalse}.
-     *
-     * @return {@inheritDoc}
+     * Creates a new instance.
      */
-    @AssertFalse
-    @Override
-    protected boolean isIdSemanticallyNull() {
-        return super.isIdSemanticallyNull();
+    public Response() {
+        super();
     }
+//
+//    // -------------------------------------------------------------------------------------------------------------- id
+//
+//    /**
+//     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Response} class annotated with {@link
+//     * AssertFalse}.
+//     *
+//     * @return {@inheritDoc}
+//     */
+//    @Override
+//    protected @AssertFalse boolean isIdSemanticallyNull() {
+//        return super.isIdSemanticallyNull();
+//    }
 
     // ---------------------------------------------------------------------------------------------------------- result
 
@@ -100,12 +107,12 @@ public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Attribute for {@link #PROPERTY_NAME_RESULT} property.
+     * An attribute for {@link #PROPERTY_NAME_RESULT} property.
      */
     private ResultType result;
 
     /**
-     * Attribute for {@link #PROPERTY_NAME_ERROR} property.
+     * An attribute for {@link #PROPERTY_NAME_ERROR} property.
      */
     private ErrorType error;
 }

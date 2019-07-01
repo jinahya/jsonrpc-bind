@@ -23,13 +23,22 @@ package com.github.jinahya.jsonrpc.bind.v1;
 import javax.validation.constraints.AssertTrue;
 
 /**
- * A class for binding notifications whose each {@value #PROPERTY_NAME_ID} property is {@code null}.
+ * A class for binding notifications which each {@value #PROPERTY_NAME_ID} property should be <i>semantically</i> {@code
+ * null}.
  *
- * @param <ParamType> param type parameter
+ * @param <ParamType> {@value com.github.jinahya.jsonrpc.bind.v1.AbstractRequest#PROPERTY_NAME_PARAMS} type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     */
+    public Notification() {
+        super();
+    }
 
     /**
      * {@inheritDoc} The {@link #setId(Void)} method of {@code Notification} class does nothing.
@@ -47,9 +56,8 @@ public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
      *
      * @return {@inheritDoc}
      */
-    @AssertTrue
     @Override
-    protected boolean isIdSemanticallyNull() {
+    protected @AssertTrue boolean isIdSemanticallyNull() {
         return super.isIdSemanticallyNull();
     }
 }

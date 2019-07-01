@@ -93,31 +93,9 @@ public abstract class ResponseObjectTest<
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
-            if (!v.isResultSemanticallyNull()) {
-                final ObjectType obj = ResponseObject.ofResult(objectClass, v.getResult(), v.getId());
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
-            if (!v.isErrorSemanticallyNull()) {
-                final ObjectType obj = ResponseObject.ofError(objectClass, v.getError(), v.getId());
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
             {
                 final ResponseObject<ResultType, ErrorType, IdType> obj
                         = ResponseObject.of(v.getResult(), v.getError(), v.getId());
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
-            if (!v.isResultSemanticallyNull()) {
-                final ResponseObject<ResultType, ErrorType, IdType> obj
-                        = ResponseObject.ofResult(v.getResult(), v.getId());
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
-            if (!v.isErrorSemanticallyNull()) {
-                final ResponseObject<ResultType, ErrorType, IdType> obj
-                        = ResponseObject.ofError(v.getError(), v.getId());
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }

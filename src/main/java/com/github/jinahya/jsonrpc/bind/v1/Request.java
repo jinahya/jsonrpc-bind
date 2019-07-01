@@ -26,8 +26,10 @@ import javax.validation.constraints.NotNull;
 /**
  * A class for binding requests.
  *
- * @param <ParamType> params element type parameter
- * @param <IdType>    id type parameter
+ * @param <ParamType> {@value com.github.jinahya.jsonrpc.bind.v1.AbstractRequest#PROPERTY_NAME_PARAMS} element type
+ *                    parameter
+ * @param <IdType>    {@value com.github.jinahya.jsonrpc.bind.v1.Identifiable#PROPERTY_NAME_ID} type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public class Request<ParamType, IdType> extends AbstractRequest<ParamType, IdType> {
 
@@ -35,12 +37,13 @@ public class Request<ParamType, IdType> extends AbstractRequest<ParamType, IdTyp
 
     /**
      * {@inheritDoc}
+     * <p>
+     * The {@code getId()} method of {@code Request} class is annotated with {@link NotNull}.
      *
      * @return {@inheritDoc}
      */
-    @NotNull
     @Override
-    public IdType getId() {
+    public @NotNull IdType getId() {
         return super.getId();
     }
 
@@ -50,9 +53,8 @@ public class Request<ParamType, IdType> extends AbstractRequest<ParamType, IdTyp
      *
      * @return {@inheritDoc}
      */
-    @AssertFalse
     @Override
-    protected boolean isIdSemanticallyNull() {
+    protected @AssertFalse boolean isIdSemanticallyNull() {
         return super.isIdSemanticallyNull();
     }
 }

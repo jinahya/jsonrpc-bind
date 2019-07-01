@@ -29,9 +29,9 @@ import java.util.Objects;
 /**
  * A class for binding response objects.
  *
- * @param <ResultType> result type parameter
- * @param <ErrorType>  error type parameter
- * @param <IdType>     id type parameter
+ * @param <ResultType> {@value PROPERTY_NAME_RESULT} type parameter
+ * @param <ErrorType>  {@value PROPERTY_NAME_ERROR} type parameter
+ * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0 Specification)</a>
  */
@@ -41,9 +41,10 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A class for binding {@code error} property of response objects.
+     * A class for binding {@value com.github.jinahya.jsonrpc.bind.v2.ResponseObject#PROPERTY_NAME_ERROR} property of
+     * response objects.
      *
-     * @param <DataType> data type parameter
+     * @param <DataType> {@value PROPERTY_NAME_DATA} type parameter
      * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0 Specification)</a>
      */
     public static class ErrorObject<DataType> {
@@ -51,17 +52,17 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The property name for {@code $.error.code}.
+         * The property name for {@code $.error.code}. The value is {@value #PROPERTY_NAME_CODE}.
          */
         public static final String PROPERTY_NAME_CODE = "code";
 
         /**
-         * The property name for {@code $.error.message}.
+         * The property name for {@code $.error.message}. The value is {@value #PROPERTY_NAME_MESSAGE}.
          */
         public static final String PROPERTY_NAME_MESSAGE = "message";
 
         /**
-         * The property name for {@code $.error.data}.
+         * The property name for {@code $.error.data}. The value is {@value #PROPERTY_NAME_DATA}.
          */
         public static final String PROPERTY_NAME_DATA = "data";
 
@@ -128,15 +129,14 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * Creates a new instance of specified object type whose {@value #PROPERTY_NAME_CODE} property, {@value
-         * #PROPERTY_NAME_MESSAGE} property, and {@value #PROPERTY_NAME_DATA} property set with specified values.
+         * Creates a new instance of specified class whose properties are set with specified values.
          *
          * @param clazz   the class of the object to create.
-         * @param code    the value for {@value #PROPERTY_NAME_CODE} property.
-         * @param message the value for {@value #PROPERTY_NAME_MESSAGE} property.
-         * @param data    the value for {@value #PROPERTY_NAME_DATA} property.
+         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
+         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
+         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
          * @param <T>     object type parameter
-         * @param <U>     data type parameter
+         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
          * @return a new instance of specified object type.
          */
         public static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final int code,
@@ -162,7 +162,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
          * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
          * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <U>     data type parameter
+         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
          * @return a new instance.
          */
         public static <U> ErrorObject<U> of(final int code, final String message, final U data) {
@@ -324,11 +324,11 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @param clazz  the class of the object to create.
      * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
      * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id     a value for {@value #PROPERTY_NAME_ID} property.
+     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
      * @param <T>    object type parameter
-     * @param <U>    result type parameter
-     * @param <V>    error type parameter
-     * @param <W>    id type parameter
+     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
+     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
+     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
      * @return a new instance of specified class.
      */
     public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
@@ -349,50 +349,14 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     }
 
     /**
-     * Creates a new instance of specified class whose properties are set with specified values.
-     *
-     * @param clazz  the class of the object to create
-     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param id     a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>    object type parameter
-     * @param <U>    result type parameter
-     * @param <V>    error type parameter
-     * @param <W>    id type parameter
-     * @return a new instance of specified class.
-     */
-    @Deprecated
-    public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T ofResult(
-            final Class<? extends T> clazz, final U result, final W id) {
-        return of(clazz, result, null, id);
-    }
-
-    /**
-     * Creates a new instance of specified class whose properties are set with specified values.
-     *
-     * @param clazz the class of the object to create
-     * @param error a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>   object type parameter
-     * @param <U>   result type parameter
-     * @param <V>   error type parameter
-     * @param <W>   id type parameter
-     * @return a new instance of specified class.
-     */
-    @Deprecated
-    public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T ofError(
-            final Class<? extends T> clazz, final V error, final W id) {
-        return of(clazz, null, error, id);
-    }
-
-    /**
      * Creates a new instance whose properties are set with specified values.
      *
      * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
      * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id     a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <U>    result type parameter
-     * @param <V>    error type parameter
-     * @param <W>    id type parameter
+     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
+     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
+     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
      * @return a new instance of specified class.
      */
     public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> of(final U result, final V error,
@@ -400,34 +364,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         @SuppressWarnings({"unchecked"})
         final Class<ResponseObject<U, V, W>> clazz = (Class<ResponseObject<U, V, W>>) (Class<?>) ResponseObject.class;
         return of(clazz, result, error, id);
-    }
-
-    /**
-     * Creates a new instance whose properties are set with specified values.
-     *
-     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param id     a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <U>    result type parameter
-     * @param <V>    error type parameter
-     * @param <W>    id type parameter
-     * @return a new instance of specified class.
-     */
-    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> ofResult(final U result, final W id) {
-        return of(result, null, id);
-    }
-
-    /**
-     * Creates a new instance whose properties are set with specified values.
-     *
-     * @param error a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <U>   result type parameter
-     * @param <V>   error type parameter
-     * @param <W>   id type parameter
-     * @return a new instance of specified class.
-     */
-    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> ofError(final V error, final W id) {
-        return of(null, error, id);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -490,7 +426,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Checks either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property is set
+     * Indicates either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property is set
      * exclusively. The {@code isEitherResultOrErrorExclusivelyNull()} method of {@code ResponseObject} class returns
      * the value of following expression.
      * <blockquote><pre>{@code isResultSemanticallyNull() ^ isErrorSemanticallyNull()}</pre></blockquote>
@@ -500,8 +436,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @see #isResultSemanticallyNull()
      * @see #isErrorSemanticallyNull()
      */
-    @AssertTrue
-    protected boolean isEitherResultOrErrorExclusivelyNull() {
+    protected @AssertTrue boolean isEitherResultOrErrorExclusivelyNull() {
         return isResultSemanticallyNull() ^ isErrorSemanticallyNull();
     }
 
@@ -528,15 +463,15 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
     /**
      * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with specified value <i>exclusively</i>.
-     * This method invokes {@link #setResult(Object)} with specified value and, if {@link #getResult()} method returns a
-     * non-{@code null} value, invokes {@link #setError(ErrorObject)} method with {@code null}.
+     * This method invokes {@link #setResult(Object)} with specified value and, if {@link #isResultSemanticallyNull()}
+     * method returns {@code false}, invokes {@link #setError(ErrorObject)} method with {@code null}.
      *
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
      * @see #setResult(Object)
      */
     public void setResultExclusively(final ResultType result) {
         setResult(result);
-        if (getResult() != null) {
+        if (!isResultSemanticallyNull()) {
             setError(null);
         }
     }
@@ -579,15 +514,16 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
     /**
      * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with specified value <i>exclusively</i>.
-     * This method invokes {@link #setError(ErrorObject)} with specified argument and, if {@link #getError()} method
-     * returns a non-{@code null} value, invokes {@link #setResult(Object)} method with {@code null}.
+     * This method invokes {@link #setError(ErrorObject)} with specified argument and, if {@link
+     * #isErrorSemanticallyNull()} method returns {@code false}, invokes {@link #setResult(Object)} method with {@code
+     * null}.
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
      * @see #setError(ErrorObject)
      */
     public void setErrorExclusively(final ErrorType error) {
         setError(error);
-        if (getError() != null) {
+        if (!isErrorSemanticallyNull()) {
             setResult(null);
         }
     }
