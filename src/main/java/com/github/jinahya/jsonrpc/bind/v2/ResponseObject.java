@@ -139,8 +139,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
          * @return a new instance of specified object type.
          */
-        public static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final int code,
-                                                                 final String message, final U data) {
+        public static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz,
+                                                                 final int code, final String message, final U data) {
             try {
                 final Constructor<? extends T> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {
@@ -156,20 +156,24 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             }
         }
 
-        /**
-         * Creates a new instance whose properties are set with specified values.
-         *
-         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
-         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
-         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
-         * @return a new instance.
-         */
-        public static <U> ErrorObject<U> of(final int code, final String message, final U data) {
-            @SuppressWarnings({"unchecked"})
-            final Class<ErrorObject<U>> clazz = (Class<ErrorObject<U>>) (Class<?>) ErrorObject.class;
-            return of(clazz, code, message, data);
-        }
+//        /**
+//         * Creates a new instance whose properties are set with specified values.
+//         *
+//         * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
+//         *                property.
+//         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
+//         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
+//         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
+//         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
+//         * @return a new instance.
+//         */
+//        public static <U> ErrorObject<U> of(final String jsonrpc, final int code, final String message, final U data) {
+//            @SuppressWarnings({"unchecked"})
+//            final Class<ErrorObject<U>> clazz = (Class<ErrorObject<U>>) (Class<?>) ErrorObject.class;
+//            return of(clazz, jsonrpc, code, message, data);
+//        }
+
+        // -----------------------------------------------------------------------------------------------------------------
 
         /**
          * Creates a new instance.
@@ -321,50 +325,44 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     /**
      * Creates a new instance of specified class whose properties are set with specified values.
      *
-     * @param clazz  the class of the object to create.
-     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-     * @param <T>    object type parameter
-     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
-     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
-     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
+     * @param clazz   the class of the object to create.
+     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
+     *                property.
+     * @param result  a value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param error   a value for {@value #PROPERTY_NAME_ERROR} property.
+     * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+     * @param <T>     object type parameter
+     * @param <U>     {@value #PROPERTY_NAME_RESULT} type parameter
+     * @param <V>     {@value #PROPERTY_NAME_ERROR} type parameter
+     * @param <W>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
      * @return a new instance of specified class.
      */
     public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
-            final Class<? extends T> clazz, final U result, final V error, final W id) {
-        try {
-            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            final T instance = constructor.newInstance();
-            instance.setResult(result);
-            instance.setError(error);
-            instance.setId(id);
-            return instance;
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+            final Class<? extends T> clazz, final String jsonrpc, final U result, final V error, final W id) {
+        final T instance = of(clazz, jsonrpc, id);
+        instance.setResult(result);
+        instance.setError(error);
+        instance.setId(id);
+        return instance;
     }
 
-    /**
-     * Creates a new instance whose properties are set with specified values.
-     *
-     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
-     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
-     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
-     * @return a new instance of specified class.
-     */
-    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> of(final U result, final V error,
-                                                                              final W id) {
-        @SuppressWarnings({"unchecked"})
-        final Class<ResponseObject<U, V, W>> clazz = (Class<ResponseObject<U, V, W>>) (Class<?>) ResponseObject.class;
-        return of(clazz, result, error, id);
-    }
+//    /**
+//     * Creates a new instance whose properties are set with specified values.
+//     *
+//     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
+//     * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
+//     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+//     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
+//     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
+//     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
+//     * @return a new instance of specified class.
+//     */
+//    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> of(
+//            final String jsonrpc, final U result, final V error, final W id) {
+//        @SuppressWarnings({"unchecked"})
+//        final Class<ResponseObject<U, V, W>> clazz = (Class<ResponseObject<U, V, W>>) (Class<?>) ResponseObject.class;
+//        return of(clazz, jsonrpc, result, error, id);
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

@@ -52,37 +52,42 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     /**
      * Creates a new instance of specified type whose properties are set with specified values.
      *
-     * @param clazz  the class of the object to create
-     * @param method a value for {@value #PROPERTY_NAME_METHOD} property.
-     * @param params a value for {@value #PROPERTY_NAME_PARAMS} property.
-     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-     * @param <T>    object type parameter
-     * @param <U>    params type parameter
-     * @param <V>    id type parameter
+     * @param clazz   the class of the object to create
+     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
+     *                property.
+     * @param method  a value for {@value #PROPERTY_NAME_METHOD} property.
+     * @param params  a value for {@value #PROPERTY_NAME_PARAMS} property.
+     * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+     * @param <T>     object type parameter
+     * @param <U>     params type parameter
+     * @param <V>     id type parameter
      * @return a new instance of specified object class.
      */
     public static <T extends RequestObject<? super U, ? super V>, U, V> T of(
-            final Class<? extends T> clazz, final String method, final U params, final V id) {
-        final T instance = of(clazz, id);
+            final Class<? extends T> clazz, final String jsonrpc, final String method, final U params, final V id) {
+        final T instance = of(clazz, jsonrpc, id);
         instance.setMethod(method);
         instance.setParams(params);
         return instance;
     }
 
-    /**
-     * Creates a new instance whose properties are set with specified values.
-     *
-     * @param method a value for {@value #PROPERTY_NAME_METHOD} property.
-     * @param params a value for {@value #PROPERTY_NAME_PARAMS} property.
-     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-     * @param <U>    params type parameter
-     * @param <V>    id type parameter
-     * @return a new instance.
-     */
-    @SuppressWarnings({"unchecked"})
-    public static <U, V> RequestObject<? super U, ? super V> of(final String method, final U params, final V id) {
-        return of(RequestObject.class, method, params, id);
-    }
+//    /**
+//     * Creates a new instance whose properties are set with specified values.
+//     *
+//     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
+//     *                property.
+//     * @param method  a value for {@value #PROPERTY_NAME_METHOD} property.
+//     * @param params  a value for {@value #PROPERTY_NAME_PARAMS} property.
+//     * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+//     * @param <U>     params type parameter
+//     * @param <V>     id type parameter
+//     * @return a new instance.
+//     */
+//    @SuppressWarnings({"unchecked"})
+//    public static <U, V> RequestObject<? super U, ? super V> of(final String jsonrpc, final String method,
+//                                                                final U params, final V id) {
+//        return of(RequestObject.class, jsonrpc, method, params, id);
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

@@ -88,17 +88,17 @@ public abstract class ResponseObjectTest<
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
-            {
-                final ObjectType obj = ResponseObject.of(objectClass, v.getResult(), v.getError(), v.getId());
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
-            {
-                final ResponseObject<ResultType, ErrorType, IdType> obj
-                        = ResponseObject.of(v.getResult(), v.getError(), v.getId());
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
+//            {
+//                final ObjectType obj = ResponseObject.of(objectClass, v.getResult(), v.getError(), v.getId());
+//                assertEquals(obj, v);
+//                assertEquals(v.hashCode(), obj.hashCode());
+//            }
+//            {
+//                final ResponseObject<ResultType, ErrorType, IdType> obj
+//                        = ResponseObject.of(v.getJsonrpc(), v.getResult(), v.getError(), v.getId());
+//                assertEquals(obj, v);
+//                assertEquals(v.hashCode(), obj.hashCode());
+//            }
             {
                 final ErrorType error = v.getError();
                 if (error != null) {
@@ -116,15 +116,15 @@ public abstract class ResponseObjectTest<
                     assertEquals(error.hashCode(), obj.hashCode());
                 }
             }
-            {
-                final ErrorType error = v.getError();
-                if (error != null) {
-                    final ErrorObject<Object> obj
-                            = ErrorObject.of(error.getCode(), error.getMessage(), error.getData());
-                    assertEquals(error, obj);
-                    assertEquals(error.hashCode(), obj.hashCode());
-                }
-            }
+//            {
+//                final ErrorType error = v.getError();
+//                if (error != null) {
+//                    final ErrorObject<Object> obj
+//                            = ErrorObject.of(error.getCode(), error.getMessage(), error.getData());
+//                    assertEquals(error, obj);
+//                    assertEquals(error.hashCode(), obj.hashCode());
+//                }
+//            }
         });
     }
 
