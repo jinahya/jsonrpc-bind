@@ -57,12 +57,12 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new instance of specified type whose properties are set with given values.
+     * Creates a new instance of specified type whose properties are set with specified values.
      *
      * @param clazz the class of object to create.
      * @param id    a value for {@value #PROPERTY_NAME_ID} property.
      * @param <T>   object type parameter
-     * @param <U>   id type parameter.
+     * @param <U>   id type parameter
      * @return a new instance.
      */
     static <T extends JsonrpcObject<? super U>, U> T of(final Class<? extends T> clazz, final U id) {

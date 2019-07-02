@@ -20,6 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  * #L%
  */
 
+import com.github.jinahya.jsonrpc.bind.v2.ErrorObjectTest;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -27,19 +28,18 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import static com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class NamedParametersResponseTest
-        extends ResponseObjectTest<NamedParametersResponse, Integer, ErrorObject<Object>, Integer> {
+        extends ResponseObjectTest<NamedParametersResponse, Integer, ErrorObjectTest.NoData, Integer> {
 
-    @SuppressWarnings({"unchecked"})
+    // -----------------------------------------------------------------------------------------------------------------
     NamedParametersResponseTest() {
-        super(NamedParametersResponse.class, Integer.class, (Class<ErrorObject<Object>>) (Class<?>) ErrorObject.class,
-              Integer.class);
+        super(NamedParametersResponse.class, Integer.class, ErrorObjectTest.NoData.class, Integer.class);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
     protected void acceptValueFromResource(final String name, final Consumer<? super NamedParametersResponse> consumer)
             throws IOException {
@@ -51,6 +51,7 @@ class NamedParametersResponseTest
         });
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Test
     void named_parameters_01_response() throws IOException {
         acceptValueFromResource(

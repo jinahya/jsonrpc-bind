@@ -20,9 +20,9 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  * #L%
  */
 
+import com.github.jinahya.jsonrpc.bind.v2.ErrorObjectTest;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest.NoData;
 
-public class NonExistentMethodResponse extends ResponseObject<Object, NoData, String> {
+public class NonExistentMethodResponse extends ResponseObject<Void, ErrorObjectTest.NoData, String> {
 
 }

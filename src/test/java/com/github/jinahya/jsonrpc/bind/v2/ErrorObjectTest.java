@@ -33,6 +33,11 @@ import static java.util.Objects.requireNonNull;
 public abstract class ErrorObjectTest<ErrorType extends ErrorObject<DataType>, DataType> {
 
     // -----------------------------------------------------------------------------------------------------------------
+    public static class NoData extends ErrorObject<Void> {
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Creates a new instance with specified class of error object.
