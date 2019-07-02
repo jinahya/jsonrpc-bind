@@ -3,6 +3,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +33,8 @@ class BatchInvalidJsonTest {
     // -----------------------------------------------------------------------------------------------------------------
     @Test
     void batch_invalid_json_01_response__jackson() throws IOException {
-        final TypeReference<ResponseObject<Void, ErrorObject<Void>, Void>> typeReference
-                = new TypeReference<ResponseObject<Void, ErrorObject<Void>, Void>>() {
+        final TypeReference<ResponseObject<Void, ResponseObjectTest.NoData, Void>> typeReference
+                = new TypeReference<ResponseObject<Void, ResponseObjectTest.NoData, Void>>() {
         };
         final ResponseObject<Void, ErrorObject<Void>, Void> responseObject = applyResourceStream(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/batch_invalid_json_01_response.json",
