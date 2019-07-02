@@ -33,7 +33,8 @@ import java.util.Objects;
  * @param <ErrorType>  {@value PROPERTY_NAME_ERROR} type parameter
  * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0 Specification)</a>
+ * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0
+ *         Specification)</a>
  */
 public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorObject<?>, IdType>
         extends JsonrpcObject<IdType> {
@@ -45,7 +46,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * response objects.
      *
      * @param <DataType> {@value PROPERTY_NAME_DATA} type parameter
-     * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0 Specification)</a>
+     * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0
+     *         Specification)</a>
      */
     public static class ErrorObject<DataType> {
 
@@ -140,7 +142,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @return a new instance of specified object type.
          */
         public static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz,
-                                                                 final int code, final String message, final U data) {
+                                                                 final Integer code, final String message,
+                                                                 final U data) {
             try {
                 final Constructor<? extends T> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {
@@ -235,7 +238,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          *
          * @return the current value of {@value #PROPERTY_NAME_CODE} property.
          */
-        public int getCode() {
+        public Integer getCode() {
             return code;
         }
 
@@ -244,7 +247,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          *
          * @param code new value for {@value #PROPERTY_NAME_CODE} property.
          */
-        public void setCode(final int code) {
+        public void setCode(final Integer code) {
             this.code = code;
         }
 
@@ -293,7 +296,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         /**
          * An attribute for {@value #PROPERTY_NAME_CODE} property.
          */
-        private int code = CODE_INTERNAL_ERROR;
+        @NotNull
+        private Integer code;
 
         /**
          * An attribute for {@value #PROPERTY_NAME_MESSAGE} property.
@@ -311,12 +315,12 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.result}.
+     * The property name for {@code $.result}. The value is {@value #PROPERTY_NAME_RESULT}.
      */
     public static final String PROPERTY_NAME_RESULT = "result";
 
     /**
-     * The property name for {@code $.error}.
+     * The property name for {@code $.error}. The value is {@value #PROPERTY_NAME_ERROR}.
      */
     public static final String PROPERTY_NAME_ERROR = "error";
 
@@ -430,7 +434,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * <blockquote><pre>{@code isResultSemanticallyNull() ^ isErrorSemanticallyNull()}</pre></blockquote>
      *
      * @return {@code true} if either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property
-     * is set exclusively; {@code false} otherwise.
+     *         is set exclusively; {@code false} otherwise.
      * @see #isResultSemanticallyNull()
      * @see #isErrorSemanticallyNull()
      */
@@ -483,7 +487,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * <blockquote><pre>{@code getResult() == null}</pre></blockquote>
      *
      * @return {@code true} if the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i>
-     * {@code null}; {@code false} otherwise.
+     *         {@code null}; {@code false} otherwise.
      */
     protected boolean isResultSemanticallyNull() {
         return getResult() == null;
@@ -535,7 +539,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * <blockquote><pre>{@code getError() == null}</pre></blockquote>
      *
      * @return {@code true} if the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code
-     * null}; {@code false} otherwise.
+     *         null}; {@code false} otherwise.
      */
     protected boolean isErrorSemanticallyNull() {
         return getError() == null;
