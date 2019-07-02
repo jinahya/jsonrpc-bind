@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class NonExistentMethodResponseTest extends ResponseObjectTest<NonExistentMethodResponse, Void, NoData, String> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    @SuppressWarnings({"unchecked"})
     NonExistentMethodResponseTest() {
         super(NonExistentMethodResponse.class, Void.class, NoData.class, String.class);
     }

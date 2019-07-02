@@ -45,7 +45,6 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
         @Override
         public void setParams(final Void params) {
             //super.setParams(params);
-            return;
         }
     }
 
@@ -55,7 +54,6 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
         @Override
         public void setId(final Void id) {
             //super.setId(id);
-            return;
         }
     }
 

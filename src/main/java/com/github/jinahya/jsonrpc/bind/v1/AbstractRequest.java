@@ -132,7 +132,7 @@ public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<Id
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with sepcified value.
+     * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with specified value.
      *
      * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */

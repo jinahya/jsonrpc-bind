@@ -73,7 +73,7 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
     }
 
     /**
-     * Reads a value of specified type from the resource named as given and accepts to specfiied consumer along with an
+     * Reads a value of specified type from the resource named as given and accepts to specified consumer along with an
      * argument supplied by specified supplier.
      *
      * @param name     the name of the resource to read.
