@@ -31,7 +31,8 @@ import java.util.Objects;
  * @param <ParamsType> {@value #PROPERTY_NAME_PARAMS} type parameter
  * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0 Specification)</a>
+ * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0
+ *         Specification)</a>
  */
 public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
 

@@ -200,7 +200,7 @@ public abstract class JsonrpcObject<IdType> {
      * number}, or {@code null}.
      *
      * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
-     * number}, or {@code null}; {@code false} otherwise.
+     *         number}, or {@code null}; {@code false} otherwise.
      */
     protected @AssertTrue boolean isIdEitherStringNumberOfNull() {
         final IdType id = getId();
