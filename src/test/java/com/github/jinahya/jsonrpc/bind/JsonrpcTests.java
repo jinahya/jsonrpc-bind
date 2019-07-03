@@ -28,13 +28,32 @@ import java.util.function.Function;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
+/**
+ * Constants and utilities for tests.
+ */
 @Slf4j
 public final class JsonrpcTests {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Applies a stream of specified resource to specified function and returns the result.
+     *
+     * @param name     the resource name to open.
+     * @param function the function to be applied with the resource stream.
+     * @param <R>      result type parameter.
+     * @return the result of the function
+     * @throws IOException if an I/O error occurs.
+     */
     public static <R> R applyResourceStream(final String name,
                                             final Function<? super InputStream, ? extends R> function)
             throws IOException {
+        if (name == null) {
+            throw new NullPointerException("name is null");
+        }
+        if (function == null) {
+            throw new NullPointerException("function is null");
+        }
         try (InputStream resourceStream = JsonrpcTests.class.getResourceAsStream(name)) {
             assertNotNull(resourceStream, "null resource stream for '" + name + "'");
             return function.apply(resourceStream);
@@ -42,6 +61,10 @@ public final class JsonrpcTests {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     */
     private JsonrpcTests() {
         super();
     }

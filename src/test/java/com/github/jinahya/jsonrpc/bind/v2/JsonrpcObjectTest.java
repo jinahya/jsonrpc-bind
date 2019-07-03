@@ -44,12 +44,36 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Creates a new instance of specified class.
+     *
+     * @param clazz the class from the new object is created.
+     * @param <T>   object type parameter.
+     * @return a new instance of specified class.
+     */
+    static <T> T newInstance(final Class<? extends T> clazz) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz is null");
+        }
+        try {
+            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
+            if (!constructor.isAccessible()) {
+                constructor.setAccessible(true);
+            }
+            return constructor.newInstance();
+        } catch (final ReflectiveOperationException roe) {
+            throw new RuntimeException(roe);
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * Creates a new instance.
      *
      * @param objectClass a class of target object to test.
      * @param idClass     a class of {@value JsonrpcObject#PROPERTY_NAME_ID} property of {@code objectClass}.
      */
-    JsonrpcObjectTest(final Class<ObjectType> objectClass, final Class<IdType> idClass) {
+    JsonrpcObjectTest(final Class<? extends ObjectType> objectClass, final Class<? extends IdType> idClass) {
         super();
         this.objectClass = requireNonNull(objectClass, "objectClass is null");
         this.idClass = requireNonNull(idClass, "idClass is null");
@@ -68,7 +92,7 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
             throws IOException {
         consumer.accept(JsonbTests.fromResource(name, objectClass));
         consumer.accept(JacksonTests.readValueFromResource(name, objectClass));
-        consumer.accept(GsonTests.fromResource(name, objectClass));
+        consumer.accept(GsonTests.valueFromResource(name, objectClass));
         consumer.accept(MoshiTests.fromResource(name, objectClass));
     }
 
@@ -99,15 +123,7 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
      * @return a new instance of {@link #objectClass}.
      */
     protected ObjectType objectInstance() {
-        try {
-            final Constructor<? extends ObjectType> constructor = objectClass.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            return constructor.newInstance();
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+        return newInstance(objectClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -115,10 +131,10 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
     /**
      * The target object class to test.
      */
-    protected final Class<ObjectType> objectClass;
+    protected final Class<? extends ObjectType> objectClass;
 
     /**
      * The class of {@value JsonrpcObject#PROPERTY_NAME_ID} property of {@link #objectClass}.
      */
-    protected final Class<IdType> idClass;
+    protected final Class<? extends IdType> idClass;
 }

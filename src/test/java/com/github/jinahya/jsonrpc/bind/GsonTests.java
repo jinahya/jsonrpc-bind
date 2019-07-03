@@ -35,10 +35,17 @@ import java.util.function.Supplier;
 import static com.github.jinahya.jsonrpc.bind.BeanValidationTests.requireValid;
 import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
+/**
+ * Constants and utilities for Gson.
+ */
 @Slf4j
 public final class GsonTests {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * A shared instance for testing.
+     */
     public static final Gson GSON = new Gson(); // thread-safe!
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -46,8 +53,8 @@ public final class GsonTests {
         return function.apply(GSON);
     }
 
-    public static <U, R> R applyGson(final Supplier<? extends U> supplier,
-                                     final BiFunction<? super Gson, ? super U, ? extends R> function) {
+    public static <U, R> R applyGson(final BiFunction<? super Gson, ? super U, ? extends R> function,
+                                     final Supplier<? extends U> supplier) {
         return applyGson(v -> function.apply(v, supplier.get()));
     }
 
@@ -58,13 +65,13 @@ public final class GsonTests {
         });
     }
 
-    public static <U> void acceptGson(final Supplier<? extends U> supplier,
-                                      final BiConsumer<? super Gson, ? super U> consumer) {
+    public static <U> void acceptGson(final BiConsumer<? super Gson, ? super U> consumer,
+                                      final Supplier<? extends U> supplier) {
         acceptGson(v -> consumer.accept(v, supplier.get()));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <T> T fromResource(final String resourceName, final Class<? extends T> valueClass)
+    public static <T> T valueFromResource(final String resourceName, final Class<? extends T> valueClass)
             throws IOException {
         return applyResourceStream(
                 resourceName,

@@ -33,6 +33,10 @@ import static java.util.Objects.requireNonNull;
 public abstract class ErrorObjectTest<ErrorType extends ErrorObject<DataType>, DataType> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * A class for error objects without specific type of {@value #PROPERTY_NAME_DATA} property.
+     */
     public static class NoData extends ErrorObject<Void> {
 
     }

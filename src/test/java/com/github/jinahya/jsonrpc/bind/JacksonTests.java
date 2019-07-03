@@ -37,10 +37,17 @@ import java.util.function.Supplier;
 import static com.github.jinahya.jsonrpc.bind.BeanValidationTests.requireValid;
 import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
+/**
+ * Constants and utilities for Jackson.
+ */
 @Slf4j
 public final class JacksonTests {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * A shared instance of object mapper.
+     */
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(); // fully thread-safe!
 
     static {
@@ -139,6 +146,10 @@ public final class JacksonTests {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     */
     private JacksonTests() {
         super();
     }

@@ -137,6 +137,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          */
         static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final Integer code,
                                                           final String message, final U data) {
+            if (clazz == null) {
+                throw new NullPointerException("clazz is null");
+            }
             try {
                 final Constructor<? extends T> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {

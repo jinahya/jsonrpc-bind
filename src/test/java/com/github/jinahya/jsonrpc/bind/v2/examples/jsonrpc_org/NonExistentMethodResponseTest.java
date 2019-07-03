@@ -31,11 +31,11 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NonExistentMethodResponseTest extends ResponseObjectTest<NonExistentMethodResponse, Void, NoData, String> {
+class NonExistentMethodResponseTest extends ResponseObjectTest<NonExistentMethodResponse, Void, NoData, Void, String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class, Void.class, NoData.class, String.class);
+        super(NonExistentMethodResponse.class, Void.class, NoData.class, Void.class, String.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ class NonExistentMethodResponseTest extends ResponseObjectTest<NonExistentMethod
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_response.json",
                 v -> {
                     final ErrorObject<Void> error = v.getError();
-                    assertEquals(-32601, error.getCode());
+                    assertEquals(ErrorObject.CODE_METHOD_NOT_FOUND, error.getCode());
                     assertEquals("Method not found", error.getMessage());
                 }
         );

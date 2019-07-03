@@ -58,8 +58,9 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public RequestObjectTest(final Class<ObjectType> requestClass, final Class<ParamsType> paramsClass,
-                             final Class<IdType> idClass) {
+    public RequestObjectTest(final Class<? extends ObjectType> requestClass,
+                             final Class<? extends ParamsType> paramsClass,
+                             final Class<? extends IdType> idClass) {
         super(requestClass, idClass);
         this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
     }
@@ -83,12 +84,13 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
-//            {
-//                final ObjectType obj = RequestObject.of(objectClass, v.getMethod(), v.getParams(), v.getId());
-//                assertEquals(v, obj);
-//                assertEquals(obj, v);
-//                assertEquals(v.hashCode(), obj.hashCode());
-//            }
+            {
+                final ObjectType obj = RequestObject.of(
+                        objectClass, v.getJsonrpc(), v.getMethod(), v.getParams(), v.getId());
+                assertEquals(v, obj);
+                assertEquals(obj, v);
+                assertEquals(v.hashCode(), obj.hashCode());
+            }
 //            {
 //                final RequestObject<? super ParamsType, ? super IdType> obj
 //                        = RequestObject.of(v.getJsonrpc(), v.getMethod(), v.getParams(), v.getId());
@@ -100,5 +102,5 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected final Class<ParamsType> paramsClass;
+    protected final Class<? extends ParamsType> paramsClass;
 }

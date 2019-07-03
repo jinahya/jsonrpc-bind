@@ -32,11 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class NamedParametersResponseTest
-        extends ResponseObjectTest<NamedParametersResponse, Integer, ErrorObjectTest.NoData, Integer> {
+        extends ResponseObjectTest<NamedParametersResponse, Integer, ErrorObjectTest.NoData, Void, Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     NamedParametersResponseTest() {
-        super(NamedParametersResponse.class, Integer.class, ErrorObjectTest.NoData.class, Integer.class);
+        super(NamedParametersResponse.class, Integer.class, ErrorObjectTest.NoData.class, Void.class, Integer.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

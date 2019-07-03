@@ -34,6 +34,9 @@ import java.util.function.Supplier;
 import static com.github.jinahya.jsonrpc.bind.BeanValidationTests.requireValid;
 import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
+/**
+ * Constants and utilities for JSON-B.
+ */
 @Slf4j
 public final class JsonbTests {
 

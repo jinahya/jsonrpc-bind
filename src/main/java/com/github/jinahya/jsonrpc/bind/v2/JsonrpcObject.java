@@ -68,6 +68,9 @@ public abstract class JsonrpcObject<IdType> {
      */
     static <T extends JsonrpcObject<? super U>, U> T of(final Class<? extends T> clazz, final String jsonrpc,
                                                         final U id) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz is null");
+        }
         try {
             final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
             if (!constructor.isAccessible()) {

@@ -52,6 +52,7 @@ public class NotificationTest<ObjectType extends Notification<ParamType>, ParamT
                     }
                     final Void id = constructor.newInstance();
                     assertNotNull(id);
+                    v.setId(id);
                 } catch (final Exception e) {
                     e.printStackTrace();
                 }

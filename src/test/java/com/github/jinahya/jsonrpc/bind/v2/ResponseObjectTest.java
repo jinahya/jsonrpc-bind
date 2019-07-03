@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
@@ -45,7 +44,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @Slf4j
 public abstract class ResponseObjectTest<
         ObjectType extends ResponseObject<ResultType, ErrorType, IdType>, ResultType,
-        ErrorType extends ResponseObject.ErrorObject<?>, IdType>
+        ErrorType extends ResponseObject.ErrorObject<DataType>,
+        DataType,
+        IdType>
         extends JsonrpcObjectTest<ObjectType, IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -56,13 +57,17 @@ public abstract class ResponseObjectTest<
      * @param responseClass the response object class to test.
      * @param resultClass   a class for {@code ResultType} type parameter.
      * @param errorClass    a class for {@code ErrorType} type parameter.
+     * @param dataClass     a class for {@code DataType} type parameter.
      * @param idClass       a class for {@code IdType} type parameter.
      */
-    public ResponseObjectTest(final Class<ObjectType> responseClass, final Class<ResultType> resultClass,
-                              final Class<ErrorType> errorClass, final Class<IdType> idClass) {
+    public ResponseObjectTest(final Class<? extends ObjectType> responseClass,
+                              final Class<? extends ResultType> resultClass,
+                              final Class<? extends ErrorType> errorClass, final Class<? extends DataType> dataClass,
+                              final Class<? extends IdType> idClass) {
         super(responseClass, idClass);
         this.resultClass = requireNonNull(resultClass, "resultClass is null");
         this.errorClass = requireNonNull(errorClass, "errorClass is null");
+        this.dataClass = requireNonNull(dataClass, "dataClass is null");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -87,43 +92,34 @@ public abstract class ResponseObjectTest<
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
-//            {
-//                final ObjectType obj = ResponseObject.of(objectClass, v.getResult(), v.getError(), v.getId());
-//                assertEquals(obj, v);
-//                assertEquals(v.hashCode(), obj.hashCode());
-//            }
-//            {
-//                final ResponseObject<ResultType, ErrorType, IdType> obj
-//                        = ResponseObject.of(v.getJsonrpc(), v.getResult(), v.getError(), v.getId());
-//                assertEquals(obj, v);
-//                assertEquals(v.hashCode(), obj.hashCode());
-//            }
             {
-                final ErrorType error = v.getError();
-                if (error != null) {
-                    assertEquals(error, error);
-                    assertNotEquals(new Object(), error);
-                    final ErrorType obj = errorInstance();
-                    obj.setCode(error.getCode());
-                    obj.setMessage(error.getMessage());
-                    try {
-                        dataSetterHandler().invoke(obj, error.getData());
-                    } catch (final Throwable t) {
-                        throw new RuntimeException(t);
-                    }
-                    assertEquals(error, obj);
-                    assertEquals(error.hashCode(), obj.hashCode());
-                }
+                final ObjectType obj = ResponseObject.of(
+                        objectClass, v.getJsonrpc(), v.getResult(), v.getError(), v.getId());
+                assertEquals(obj, v);
+                assertEquals(v.hashCode(), obj.hashCode());
             }
-//            {
-//                final ErrorType error = v.getError();
-//                if (error != null) {
-//                    final ErrorObject<Object> obj
-//                            = ErrorObject.of(error.getCode(), error.getMessage(), error.getData());
-//                    assertEquals(error, obj);
-//                    assertEquals(error.hashCode(), obj.hashCode());
-//                }
-//            }
+            if (!v.isErrorSemanticallyNull()) {
+                final ErrorType error = v.getError();
+                assertEquals(error, error);
+                assertNotEquals(new Object(), error);
+                final ErrorType obj = errorInstance();
+                obj.setCode(error.getCode());
+                obj.setMessage(error.getMessage());
+                try {
+                    dataSetterHandler().invoke(obj, error.getData());
+                } catch (final Throwable t) {
+                    throw new RuntimeException(t);
+                }
+                assertEquals(error, obj);
+                assertEquals(error.hashCode(), obj.hashCode());
+            }
+            if (!v.isErrorSemanticallyNull()) {
+                final ErrorType error = v.getError();
+                final ErrorType obj = ResponseObject.ErrorObject.of(
+                        errorClass, error.getCode(), error.getMessage(), error.getData());
+                assertEquals(error, obj);
+                assertEquals(error.hashCode(), obj.hashCode());
+            }
         });
     }
 
@@ -136,15 +132,7 @@ public abstract class ResponseObjectTest<
      * @see #errorClass
      */
     protected ErrorType errorInstance() {
-        try {
-            final Constructor<? extends ErrorType> constructor = errorClass.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            return constructor.newInstance();
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+        return newInstance(errorClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -179,9 +167,11 @@ public abstract class ResponseObjectTest<
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected final Class<ResultType> resultClass;
+    protected final Class<? extends ResultType> resultClass;
 
-    protected final Class<ErrorType> errorClass;
+    protected final Class<? extends ErrorType> errorClass;
+
+    protected final Class<? extends DataType> dataClass;
 
     @Deprecated
     private transient Method dataSetter;
