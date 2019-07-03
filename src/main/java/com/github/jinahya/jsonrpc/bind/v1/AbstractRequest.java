@@ -36,12 +36,12 @@ public abstract class AbstractRequest<ParamType, IdType> extends Identifiable<Id
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A property name for {@code $.method}. The value is {@value #PROPERTY_NAME_METHOD}.
+     * A property name for {@code $.method}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_METHOD = "method";
 
     /**
-     * A property name for {@code $.params}. The value is {@value #PROPERTY_NAME_PARAMS}.
+     * A property name for {@code $.params}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
 

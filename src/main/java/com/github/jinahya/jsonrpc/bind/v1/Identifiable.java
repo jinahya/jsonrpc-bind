@@ -33,7 +33,7 @@ public abstract class Identifiable<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A property name for {@code $.id}. The value is {@value #PROPERTY_NAME_ID}.
+     * A property name for {@code $.id}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_ID = "id";
 
@@ -137,7 +137,7 @@ public abstract class Identifiable<IdType> {
      * <blockquote><pre>{@code getId() == null}</pre></blockquote>
      *
      * @return {@code true} if the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code
-     *         null}; {@code false} otherwise.
+     * null}; {@code false} otherwise.
      */
     protected boolean isIdSemanticallyNull() {
         return getId() == null;

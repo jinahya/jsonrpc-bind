@@ -32,19 +32,19 @@ import java.util.Objects;
  * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0
- *         Specification)</a>
+ * Specification)</a>
  */
 public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.method}. The value is {@value #PROPERTY_NAME_METHOD}.
+     * The property name for {@code $.method}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_METHOD = "method";
 
     /**
-     * The property name for {@code $.params}. The value is {@value #PROPERTY_NAME_PARAMS}.
+     * The property name for {@code $.params}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_PARAMS = "params";
 
@@ -53,8 +53,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     /**
      * Creates a new instance of specified type whose properties are set with specified values.
      *
-     * @param clazz   the class of the object to create
-     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
+     * @param clazz   the class of the object to create.
+     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
      *                property.
      * @param method  a value for {@value #PROPERTY_NAME_METHOD} property.
      * @param params  a value for {@value #PROPERTY_NAME_PARAMS} property.
@@ -62,7 +62,7 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param <T>     object type parameter
      * @param <U>     params type parameter
      * @param <V>     id type parameter
-     * @return a new instance of specified object class.
+     * @return a new instance of specified class.
      */
     public static <T extends RequestObject<? super U, ? super V>, U, V> T of(
             final Class<? extends T> clazz, final String jsonrpc, final String method, final U params, final V id) {
@@ -191,6 +191,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * Indicates the value of {@value #PROPERTY_NAME_PARAMS} property is a structured value.
      *
      * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is a structured value; {@code false} otherwise.
+     * @see <a href="https://www.jsonrpc.org/specification#parameter_structures">Parameter Structures (JSON-RPC 2.0
+     * Specification)</a>
      */
     @AssertTrue
     protected boolean isParamsStructured() {

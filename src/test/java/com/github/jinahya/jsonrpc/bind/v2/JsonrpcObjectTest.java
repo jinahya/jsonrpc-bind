@@ -79,7 +79,7 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
      * @param name     the name of the resource to read.
      * @param consumer the consumer.
      * @param supplier the supplier for the second argument.
-     * @param <U>      second argument type parameter.
+     * @param <U>      second argument type parameter
      * @throws IOException if an I/O error occurs.
      */
     protected <U> void acceptValueFromResource(final String name,

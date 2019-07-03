@@ -34,7 +34,7 @@ import java.util.Objects;
  * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0
- *         Specification)</a>
+ * Specification)</a>
  */
 public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorObject<?>, IdType>
         extends JsonrpcObject<IdType> {
@@ -47,38 +47,36 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      *
      * @param <DataType> {@value PROPERTY_NAME_DATA} type parameter
      * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0
-     *         Specification)</a>
+     * Specification)</a>
      */
     public static class ErrorObject<DataType> {
 
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The property name for {@code $.error.code}. The value is {@value #PROPERTY_NAME_CODE}.
+         * The property name for {@code $.error.code}. The value is {@value}.
          */
         public static final String PROPERTY_NAME_CODE = "code";
 
         /**
-         * The property name for {@code $.error.message}. The value is {@value #PROPERTY_NAME_MESSAGE}.
+         * The property name for {@code $.error.message}. The value is {@value}.
          */
         public static final String PROPERTY_NAME_MESSAGE = "message";
 
         /**
-         * The property name for {@code $.error.data}. The value is {@value #PROPERTY_NAME_DATA}.
+         * The property name for {@code $.error.data}. The value is {@value}.
          */
         public static final String PROPERTY_NAME_DATA = "data";
 
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The minimum value for codes reserved for pre-defined errors. The value is {@value
-         * #MIN_CODE_PREDEFINED_ERROR}.
+         * The minimum value for codes reserved for pre-defined errors. The value is {@value}.
          */
         public static final int MIN_CODE_PREDEFINED_ERROR = -32768;
 
         /**
-         * The maximum value for codes reserved for pre-defined errors. The value is {@value
-         * #MAX_CODE_PREDEFINED_ERROR}.
+         * The maximum value for codes reserved for pre-defined errors. The value is {@value}.
          */
         public static final int MAX_CODE_PREDEFINED_ERROR = -32000;
 
@@ -86,45 +84,41 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
         /**
          * The code value for <i>parse error</i> meaning an invalid json received by the server or an error occurred on
-         * the server while parsing the JSON text. The value is {@value #CODE_PARSE_ERROR}.
+         * the server while parsing the JSON text. The value is {@value}.
          */
         public static final int CODE_PARSE_ERROR = -32700;
 
         /**
          * The code value for <i>invalid request</i> meaning the JSON sent is not a valid request object. The value is
-         * {@value #CODE_INVALID_REQUEST}.
+         * {@value}.
          */
         public static final int CODE_INVALID_REQUEST = -32600;
 
         /**
          * The code value for <i>method not found</i> meaning the method does not exist nor available. The value is
-         * {@value #CODE_METHOD_NOT_FOUND}.
+         * {@value}.
          */
         public static final int CODE_METHOD_NOT_FOUND = -32601;
 
         /**
-         * The code value for <i>invalid params</i> meaning invalid parameter(s). The value is {@value
-         * #CODE_INVALID_PARAMS}.
+         * The code value for <i>invalid params</i> meaning invalid parameter(s). The value is {@value}.
          */
         public static final int CODE_INVALID_PARAMS = -32602;
 
         /**
-         * The code value for <i>internal error</i> meaning an internal JSON-RPC error. The value is {@value
-         * #CODE_INTERNAL_ERROR}.
+         * The code value for <i>internal error</i> meaning an internal JSON-RPC error. The value is {@value}.
          */
         public static final int CODE_INTERNAL_ERROR = -32603;
 
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
+         * The minimum value for codes reserved for implementation-defined server errors. The value is {@value}.
          */
         public static final int MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32099;
 
         /**
-         * The maximum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
+         * The maximum value for codes reserved for implementation-defined server errors. The value is {@value}.
          */
         public static final int MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000;
 
@@ -162,7 +156,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 //        /**
 //         * Creates a new instance whose properties are set with specified values.
 //         *
-//         * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
+//         * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
 //         *                property.
 //         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
 //         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
@@ -176,7 +170,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 //            return of(clazz, jsonrpc, code, message, data);
 //        }
 
-        // -----------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
 
         /**
          * Creates a new instance.
@@ -216,9 +210,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                 return false;
             }
             final ErrorObject<?> that = (ErrorObject<?>) obj;
-            return getCode() == that.getCode()
-                   && Objects.equals(getMessage(), that.getMessage())
-                   && Objects.equals(getData(), that.getData());
+            return Objects.equals(getCode(), that.getCode()) &&
+                   Objects.equals(getMessage(), that.getMessage()) &&
+                   Objects.equals(getData(), that.getData());
         }
 
         /**
@@ -315,12 +309,12 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.result}. The value is {@value #PROPERTY_NAME_RESULT}.
+     * The property name for {@code $.result}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_RESULT = "result";
 
     /**
-     * The property name for {@code $.error}. The value is {@value #PROPERTY_NAME_ERROR}.
+     * The property name for {@code $.error}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_ERROR = "error";
 
@@ -330,7 +324,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * Creates a new instance of specified class whose properties are set with specified values.
      *
      * @param clazz   the class of the object to create.
-     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
+     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
      *                property.
      * @param result  a value for {@value #PROPERTY_NAME_RESULT} property.
      * @param error   a value for {@value #PROPERTY_NAME_ERROR} property.
@@ -434,7 +428,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * <blockquote><pre>{@code isResultSemanticallyNull() ^ isErrorSemanticallyNull()}</pre></blockquote>
      *
      * @return {@code true} if either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property
-     *         is set exclusively; {@code false} otherwise.
+     * is set exclusively; {@code false} otherwise.
      * @see #isResultSemanticallyNull()
      * @see #isErrorSemanticallyNull()
      */
@@ -487,7 +481,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * <blockquote><pre>{@code getResult() == null}</pre></blockquote>
      *
      * @return {@code true} if the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i>
-     *         {@code null}; {@code false} otherwise.
+     * {@code null}; {@code false} otherwise.
      */
     protected boolean isResultSemanticallyNull() {
         return getResult() == null;
@@ -539,7 +533,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * <blockquote><pre>{@code getError() == null}</pre></blockquote>
      *
      * @return {@code true} if the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code
-     *         null}; {@code false} otherwise.
+     * null}; {@code false} otherwise.
      */
     protected boolean isErrorSemanticallyNull() {
         return getError() == null;

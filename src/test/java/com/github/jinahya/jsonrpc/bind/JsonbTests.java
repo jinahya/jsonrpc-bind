@@ -73,7 +73,7 @@ public final class JsonbTests {
      *
      * @param resourceName the name of the resource to open.
      * @param valueClass   the type of the value to read.
-     * @param <T>          value type parameter.
+     * @param <T>          value type parameter
      * @return an instance of parsed value of specified type.
      * @throws IOException if an I/O error occurs.
      */

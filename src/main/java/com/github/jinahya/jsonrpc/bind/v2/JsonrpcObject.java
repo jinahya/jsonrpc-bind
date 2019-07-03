@@ -38,12 +38,12 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.jsonrpc}.
+     * The property name for {@code $.jsonrpc}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
     /**
-     * The fixed value for {@value #PROPERTY_NAME_JSONRPC} property. The value is {@value #PROPERTY_VALUE_JSONRPC}.
+     * The fixed value for {@value #PROPERTY_NAME_JSONRPC} property. The value is {@value}.
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
@@ -60,7 +60,7 @@ public abstract class JsonrpcObject<IdType> {
      * Creates a new instance of specified type whose properties are set with specified values.
      *
      * @param clazz   the class of object to create.
-     * @param jsonrpc a value for {@value PROPERTY_NAME_JSONRPC} property
+     * @param jsonrpc a value for {@value #PROPERTY_NAME_JSONRPC} property
      * @param id      a value for {@value #PROPERTY_NAME_ID} property.
      * @param <T>     object type parameter
      * @param <U>     id type parameter
@@ -200,7 +200,7 @@ public abstract class JsonrpcObject<IdType> {
      * number}, or {@code null}.
      *
      * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
-     *         number}, or {@code null}; {@code false} otherwise.
+     * number}, or {@code null}; {@code false} otherwise.
      */
     protected @AssertTrue boolean isIdEitherStringNumberOfNull() {
         final IdType id = getId();
