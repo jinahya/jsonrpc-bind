@@ -64,7 +64,7 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param <V>     id type parameter
      * @return a new instance of specified class.
      */
-    public static <T extends RequestObject<? super U, ? super V>, U, V> T of(
+    static <T extends RequestObject<? super U, ? super V>, U, V> T of(
             final Class<? extends T> clazz, final String jsonrpc, final String method, final U params, final V id) {
         final T instance = of(clazz, jsonrpc, id);
         instance.setMethod(method);

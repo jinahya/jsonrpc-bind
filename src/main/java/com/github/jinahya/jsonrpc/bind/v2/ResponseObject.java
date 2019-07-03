@@ -135,9 +135,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
          * @return a new instance of specified object type.
          */
-        public static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz,
-                                                                 final Integer code, final String message,
-                                                                 final U data) {
+        static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final Integer code,
+                                                          final String message, final U data) {
             try {
                 final Constructor<? extends T> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {
@@ -335,7 +334,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * @param <W>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
      * @return a new instance of specified class.
      */
-    public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
+    static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
             final Class<? extends T> clazz, final String jsonrpc, final U result, final V error, final W id) {
         final T instance = of(clazz, jsonrpc, id);
         instance.setResult(result);
