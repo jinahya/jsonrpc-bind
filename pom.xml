@@ -45,11 +45,10 @@
     <maven.compiler.testSource>1.8</maven.compiler.testSource>
     <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
     <version.maven-surefire>3.0.0-M3</version.maven-surefire>
-    <version.com.fasterxml.jackson.core>2.9.9</version.com.fasterxml.jackson.core>
+    <version.com.fasterxml.jackson.core>2.9.9.1</version.com.fasterxml.jackson.core>
     <version.com.squareup.moshi>1.8.0</version.com.squareup.moshi>
     <version.org.apache.johnzon>1.1.12</version.org.apache.johnzon>
     <version.org.junit.jupiter>5.5.0</version.org.junit.jupiter>
-    <version.org.mockito>2.20.0</version.org.mockito>
   </properties>
 
   <dependencyManagement>
@@ -130,12 +129,6 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <version>${version.org.junit.jupiter}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>${version.org.mockito}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
