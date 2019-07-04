@@ -34,6 +34,9 @@ import java.util.function.Supplier;
 import static com.github.jinahya.jsonrpc.bind.BeanValidationTests.requireValid;
 import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
+/**
+ * Constants and utilities for JSON-B.
+ */
 @Slf4j
 public final class JsonbTests {
 
@@ -73,7 +76,7 @@ public final class JsonbTests {
      *
      * @param resourceName the name of the resource to open.
      * @param valueClass   the type of the value to read.
-     * @param <T>          value type parameter.
+     * @param <T>          value type parameter
      * @return an instance of parsed value of specified type.
      * @throws IOException if an I/O error occurs.
      */

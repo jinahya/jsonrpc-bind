@@ -38,12 +38,12 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.jsonrpc}.
+     * The property name for {@code $.jsonrpc}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
     /**
-     * The fixed value for {@value #PROPERTY_NAME_JSONRPC} property. The value is {@value #PROPERTY_VALUE_JSONRPC}.
+     * The fixed value for {@value #PROPERTY_NAME_JSONRPC} property. The value is {@value}.
      */
     public static final String PROPERTY_VALUE_JSONRPC = "2.0";
 
@@ -57,21 +57,27 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new instance of specified type whose properties are set with given values.
+     * Creates a new instance of specified type whose properties are set with specified values.
      *
-     * @param clazz the class of object to create.
-     * @param id    a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>   object type parameter
-     * @param <U>   id type parameter.
+     * @param clazz   the class of object to create.
+     * @param jsonrpc a value for {@value #PROPERTY_NAME_JSONRPC} property
+     * @param id      a value for {@value #PROPERTY_NAME_ID} property.
+     * @param <T>     object type parameter
+     * @param <U>     id type parameter
      * @return a new instance.
      */
-    static <T extends JsonrpcObject<? super U>, U> T of(final Class<? extends T> clazz, final U id) {
+    static <T extends JsonrpcObject<? super U>, U> T of(final Class<? extends T> clazz, final String jsonrpc,
+                                                        final U id) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz is null");
+        }
         try {
             final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
             if (!constructor.isAccessible()) {
                 constructor.setAccessible(true);
             }
             final T instance = constructor.newInstance();
+            instance.setJsonrpc(jsonrpc);
             instance.setId(id);
             return instance;
         } catch (final ReflectiveOperationException roe) {

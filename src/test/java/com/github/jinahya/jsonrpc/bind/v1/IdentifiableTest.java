@@ -45,7 +45,7 @@ abstract class IdentifiableTest<ObjectType extends Identifiable<IdType>, IdType>
             throws IOException {
         consumer.accept(JsonbTests.fromResource(name, objectClass));
         consumer.accept(JacksonTests.readValueFromResource(name, objectClass));
-        consumer.accept(GsonTests.fromResource(name, objectClass));
+        consumer.accept(GsonTests.valueFromResource(name, objectClass));
         consumer.accept(MoshiTests.fromResource(name, objectClass));
     }
 

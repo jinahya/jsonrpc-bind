@@ -28,47 +28,47 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonStructure;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 
+/**
+ * Constants and utilities for JSON-P.
+ */
 @Slf4j
 public final class JsonpTests {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static <R> R applyJsonReaderOfResource(final Class<?> caller, final String name,
+    public static <R> R applyJsonReaderOfResource(final String name,
                                                   final Function<? super JsonReader, ? extends R> function)
             throws IOException {
-        try (InputStream resourceStream = caller.getResourceAsStream(name)) {
-            assertNotNull(resourceStream, "null resource stream for " + name);
-            try (JsonReader jsonReader = Json.createReader(resourceStream)) {
-                return function.apply(jsonReader);
+        return applyResourceStream(name, s -> {
+            try (JsonReader reader = Json.createReader(s)) {
+                return function.apply(reader);
             }
-        }
+        });
     }
 
     public static <U, R> R applyJsonReaderOfResource(
-            final Class<?> caller, final String name, final Supplier<? extends U> supplier,
+            final String name, final Supplier<? extends U> supplier,
             final BiFunction<? super JsonReader, ? super U, ? extends R> function)
             throws IOException {
-        return applyJsonReaderOfResource(caller, name, v -> function.apply(v, supplier.get()));
+        return applyJsonReaderOfResource(name, v -> function.apply(v, supplier.get()));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static JsonStructure readJsonStructureFromResource(final Class<?> caller, final String name)
-            throws IOException {
-        return applyJsonReaderOfResource(caller, name, JsonReader::read);
+    public static JsonStructure readJsonStructureFromResource(final String name) throws IOException {
+        return applyJsonReaderOfResource(name, JsonReader::read);
     }
 
-    public static JsonObject readJsonObjectFromResource(final Class<?> caller, final String name) throws IOException {
-        return applyJsonReaderOfResource(caller, name, JsonReader::readObject);
+    public static JsonObject readJsonObjectFromResource(final String name) throws IOException {
+        return applyJsonReaderOfResource(name, JsonReader::readObject);
     }
 
-    public static JsonArray readJsonArrayFromResource(final Class<?> caller, final String name) throws IOException {
-        return applyJsonReaderOfResource(caller, name, JsonReader::readArray);
+    public static JsonArray readJsonArrayFromResource(final String name) throws IOException {
+        return applyJsonReaderOfResource(name, JsonReader::readArray);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -41,7 +41,7 @@ public final class MoshiTests {
 
     // -----------------------------------------------------------------------------------------------------------------
     // https://github.com/square/moshi/issues/866
-    static class VoidAdapter extends JsonAdapter<Void> {
+    private static class VoidAdapter extends JsonAdapter<Void> {
 
         @Override
         public Void fromJson(final JsonReader reader) throws IOException {
@@ -63,8 +63,8 @@ public final class MoshiTests {
         return function.apply(MOSHI);
     }
 
-    public static <U, R> R applyMoshi(final Supplier<? extends U> supplier,
-                                      final BiFunction<? super Moshi, ? super U, ? extends R> function) {
+    public static <U, R> R applyMoshi(final BiFunction<? super Moshi, ? super U, ? extends R> function,
+                                      final Supplier<? extends U> supplier) {
         return applyMoshi(v -> function.apply(v, supplier.get()));
     }
 
@@ -75,8 +75,8 @@ public final class MoshiTests {
         });
     }
 
-    public static <U> void acceptMoshi(final Supplier<? extends U> supplier,
-                                       final BiConsumer<? super Moshi, ? super U> consumer) {
+    public static <U> void acceptMoshi(final BiConsumer<? super Moshi, ? super U> consumer,
+                                       final Supplier<? extends U> supplier) {
         acceptMoshi(v -> consumer.accept(v, supplier.get()));
     }
 

@@ -35,6 +35,15 @@ public abstract class ErrorObjectTest<ErrorType extends ErrorObject<DataType>, D
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * A class for error objects without specific type of {@value #PROPERTY_NAME_DATA} property.
+     */
+    public static class NoData extends ErrorObject<Void> {
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
      * Creates a new instance with specified class of error object.
      *
      * @param errorClass the class of error object for {@link #errorClass}.

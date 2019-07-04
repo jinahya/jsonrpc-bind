@@ -33,7 +33,8 @@ import java.util.Objects;
  * @param <ErrorType>  {@value PROPERTY_NAME_ERROR} type parameter
  * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0 Specification)</a>
+ * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0
+ * Specification)</a>
  */
 public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorObject<?>, IdType>
         extends JsonrpcObject<IdType> {
@@ -45,38 +46,37 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * response objects.
      *
      * @param <DataType> {@value PROPERTY_NAME_DATA} type parameter
-     * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0 Specification)</a>
+     * @see <a href="https://www.jsonrpc.org/specification#error_object">Error Object (JSON-RPC 2.0
+     * Specification)</a>
      */
     public static class ErrorObject<DataType> {
 
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The property name for {@code $.error.code}. The value is {@value #PROPERTY_NAME_CODE}.
+         * The property name for {@code $.error.code}. The value is {@value}.
          */
         public static final String PROPERTY_NAME_CODE = "code";
 
         /**
-         * The property name for {@code $.error.message}. The value is {@value #PROPERTY_NAME_MESSAGE}.
+         * The property name for {@code $.error.message}. The value is {@value}.
          */
         public static final String PROPERTY_NAME_MESSAGE = "message";
 
         /**
-         * The property name for {@code $.error.data}. The value is {@value #PROPERTY_NAME_DATA}.
+         * The property name for {@code $.error.data}. The value is {@value}.
          */
         public static final String PROPERTY_NAME_DATA = "data";
 
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The minimum value for codes reserved for pre-defined errors. The value is {@value
-         * #MIN_CODE_PREDEFINED_ERROR}.
+         * The minimum value for codes reserved for pre-defined errors. The value is {@value}.
          */
         public static final int MIN_CODE_PREDEFINED_ERROR = -32768;
 
         /**
-         * The maximum value for codes reserved for pre-defined errors. The value is {@value
-         * #MAX_CODE_PREDEFINED_ERROR}.
+         * The maximum value for codes reserved for pre-defined errors. The value is {@value}.
          */
         public static final int MAX_CODE_PREDEFINED_ERROR = -32000;
 
@@ -84,45 +84,41 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
         /**
          * The code value for <i>parse error</i> meaning an invalid json received by the server or an error occurred on
-         * the server while parsing the JSON text. The value is {@value #CODE_PARSE_ERROR}.
+         * the server while parsing the JSON text. The value is {@value}.
          */
         public static final int CODE_PARSE_ERROR = -32700;
 
         /**
          * The code value for <i>invalid request</i> meaning the JSON sent is not a valid request object. The value is
-         * {@value #CODE_INVALID_REQUEST}.
+         * {@value}.
          */
         public static final int CODE_INVALID_REQUEST = -32600;
 
         /**
          * The code value for <i>method not found</i> meaning the method does not exist nor available. The value is
-         * {@value #CODE_METHOD_NOT_FOUND}.
+         * {@value}.
          */
         public static final int CODE_METHOD_NOT_FOUND = -32601;
 
         /**
-         * The code value for <i>invalid params</i> meaning invalid parameter(s). The value is {@value
-         * #CODE_INVALID_PARAMS}.
+         * The code value for <i>invalid params</i> meaning invalid parameter(s). The value is {@value}.
          */
         public static final int CODE_INVALID_PARAMS = -32602;
 
         /**
-         * The code value for <i>internal error</i> meaning an internal JSON-RPC error. The value is {@value
-         * #CODE_INTERNAL_ERROR}.
+         * The code value for <i>internal error</i> meaning an internal JSON-RPC error. The value is {@value}.
          */
         public static final int CODE_INTERNAL_ERROR = -32603;
 
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The minimum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
+         * The minimum value for codes reserved for implementation-defined server errors. The value is {@value}.
          */
         public static final int MIN_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32099;
 
         /**
-         * The maximum value for codes reserved for implementation-defined server errors. The value is {@value
-         * #MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR}.
+         * The maximum value for codes reserved for implementation-defined server errors. The value is {@value}.
          */
         public static final int MAX_CODE_IMPLEMENTATION_DEFINED_SERVER_ERROR = -32000;
 
@@ -139,8 +135,11 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
          * @return a new instance of specified object type.
          */
-        public static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final int code,
-                                                                 final String message, final U data) {
+        static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final Integer code,
+                                                          final String message, final U data) {
+            if (clazz == null) {
+                throw new NullPointerException("clazz is null");
+            }
             try {
                 final Constructor<? extends T> constructor = clazz.getConstructor();
                 if (!constructor.isAccessible()) {
@@ -156,20 +155,24 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
             }
         }
 
-        /**
-         * Creates a new instance whose properties are set with specified values.
-         *
-         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
-         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
-         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
-         * @return a new instance.
-         */
-        public static <U> ErrorObject<U> of(final int code, final String message, final U data) {
-            @SuppressWarnings({"unchecked"})
-            final Class<ErrorObject<U>> clazz = (Class<ErrorObject<U>>) (Class<?>) ErrorObject.class;
-            return of(clazz, code, message, data);
-        }
+//        /**
+//         * Creates a new instance whose properties are set with specified values.
+//         *
+//         * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
+//         *                property.
+//         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
+//         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
+//         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
+//         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
+//         * @return a new instance.
+//         */
+//        public static <U> ErrorObject<U> of(final String jsonrpc, final int code, final String message, final U data) {
+//            @SuppressWarnings({"unchecked"})
+//            final Class<ErrorObject<U>> clazz = (Class<ErrorObject<U>>) (Class<?>) ErrorObject.class;
+//            return of(clazz, jsonrpc, code, message, data);
+//        }
+
+        // -------------------------------------------------------------------------------------------------------------
 
         /**
          * Creates a new instance.
@@ -209,9 +212,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                 return false;
             }
             final ErrorObject<?> that = (ErrorObject<?>) obj;
-            return getCode() == that.getCode()
-                   && Objects.equals(getMessage(), that.getMessage())
-                   && Objects.equals(getData(), that.getData());
+            return Objects.equals(getCode(), that.getCode()) &&
+                   Objects.equals(getMessage(), that.getMessage()) &&
+                   Objects.equals(getData(), that.getData());
         }
 
         /**
@@ -231,7 +234,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          *
          * @return the current value of {@value #PROPERTY_NAME_CODE} property.
          */
-        public int getCode() {
+        public Integer getCode() {
             return code;
         }
 
@@ -240,7 +243,7 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          *
          * @param code new value for {@value #PROPERTY_NAME_CODE} property.
          */
-        public void setCode(final int code) {
+        public void setCode(final Integer code) {
             this.code = code;
         }
 
@@ -289,7 +292,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         /**
          * An attribute for {@value #PROPERTY_NAME_CODE} property.
          */
-        private int code = CODE_INTERNAL_ERROR;
+        @NotNull
+        private Integer code;
 
         /**
          * An attribute for {@value #PROPERTY_NAME_MESSAGE} property.
@@ -307,12 +311,12 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.result}.
+     * The property name for {@code $.result}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_RESULT = "result";
 
     /**
-     * The property name for {@code $.error}.
+     * The property name for {@code $.error}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_ERROR = "error";
 
@@ -321,50 +325,44 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     /**
      * Creates a new instance of specified class whose properties are set with specified values.
      *
-     * @param clazz  the class of the object to create.
-     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-     * @param <T>    object type parameter
-     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
-     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
-     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
+     * @param clazz   the class of the object to create.
+     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
+     *                property.
+     * @param result  a value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param error   a value for {@value #PROPERTY_NAME_ERROR} property.
+     * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+     * @param <T>     object type parameter
+     * @param <U>     {@value #PROPERTY_NAME_RESULT} type parameter
+     * @param <V>     {@value #PROPERTY_NAME_ERROR} type parameter
+     * @param <W>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
      * @return a new instance of specified class.
      */
-    public static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
-            final Class<? extends T> clazz, final U result, final V error, final W id) {
-        try {
-            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            final T instance = constructor.newInstance();
-            instance.setResult(result);
-            instance.setError(error);
-            instance.setId(id);
-            return instance;
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
+    static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
+            final Class<? extends T> clazz, final String jsonrpc, final U result, final V error, final W id) {
+        final T instance = of(clazz, jsonrpc, id);
+        instance.setResult(result);
+        instance.setError(error);
+        instance.setId(id);
+        return instance;
     }
 
-    /**
-     * Creates a new instance whose properties are set with specified values.
-     *
-     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
-     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
-     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
-     * @return a new instance of specified class.
-     */
-    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> of(final U result, final V error,
-                                                                              final W id) {
-        @SuppressWarnings({"unchecked"})
-        final Class<ResponseObject<U, V, W>> clazz = (Class<ResponseObject<U, V, W>>) (Class<?>) ResponseObject.class;
-        return of(clazz, result, error, id);
-    }
+//    /**
+//     * Creates a new instance whose properties are set with specified values.
+//     *
+//     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
+//     * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
+//     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+//     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
+//     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
+//     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
+//     * @return a new instance of specified class.
+//     */
+//    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> of(
+//            final String jsonrpc, final U result, final V error, final W id) {
+//        @SuppressWarnings({"unchecked"})
+//        final Class<ResponseObject<U, V, W>> clazz = (Class<ResponseObject<U, V, W>>) (Class<?>) ResponseObject.class;
+//        return of(clazz, jsonrpc, result, error, id);
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

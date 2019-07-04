@@ -20,9 +20,9 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  * #L%
  */
 
+import com.github.jinahya.jsonrpc.bind.v2.ErrorObjectTest.NoData;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest.NoData;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -31,21 +31,21 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NonExistentMethodResponseTest
-        extends ResponseObjectTest<NonExistentMethodResponse, Object, NoData, String> {
+class NonExistentMethodResponseTest extends ResponseObjectTest<NonExistentMethodResponse, Void, NoData, Void, String> {
 
-    @SuppressWarnings({"unchecked"})
+    // -----------------------------------------------------------------------------------------------------------------
     NonExistentMethodResponseTest() {
-        super(NonExistentMethodResponse.class, Object.class, NoData.class, String.class);
+        super(NonExistentMethodResponse.class, Void.class, NoData.class, Void.class, String.class);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Test
     void non_existent_method_01_response() throws IOException {
         acceptValueFromResource(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_response.json",
                 v -> {
                     final ErrorObject<Void> error = v.getError();
-                    assertEquals(-32601, error.getCode());
+                    assertEquals(ErrorObject.CODE_METHOD_NOT_FOUND, error.getCode());
                     assertEquals("Method not found", error.getMessage());
                 }
         );

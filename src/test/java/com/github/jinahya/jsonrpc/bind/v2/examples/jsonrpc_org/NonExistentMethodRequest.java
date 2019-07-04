@@ -20,8 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.RequestObject;
+import com.github.jinahya.jsonrpc.bind.v2.RequestObjectTest;
 
-public class NonExistentMethodRequest extends RequestObject<Object, String> {
+public class NonExistentMethodRequest extends RequestObjectTest.NoParams<String> {
 
 }

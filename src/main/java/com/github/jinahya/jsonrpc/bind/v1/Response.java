@@ -33,12 +33,12 @@ public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A property name for {@code $.result}. The value is {@value #PROPERTY_NAME_RESULT}.
+     * A property name for {@code $.result}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_RESULT = "result";
 
     /**
-     * A property name for {@code $.error}. The value is {@value #PROPERTY_NAME_ERROR}.
+     * A property name for {@code $.error}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_ERROR = "error";
 

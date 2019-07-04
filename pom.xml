@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>jsonrpc-bind</artifactId>
-  <version>0.5.1</version>
+  <version>0.5.2</version>
   <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>
@@ -32,7 +32,7 @@
     <connection>scm:git:git@github.com:jinahya/${project.artifactId}.git</connection>
     <developerConnection>scm:git:git@github.com:jinahya/${project.artifactId}.git</developerConnection>
     <url>https://github.com/jinahya/${project.artifactId}</url>
-    <tag>0.5.1</tag>
+    <tag>0.5.2</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issues</system>
@@ -45,11 +45,10 @@
     <maven.compiler.testSource>1.8</maven.compiler.testSource>
     <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
     <version.maven-surefire>3.0.0-M3</version.maven-surefire>
-    <version.com.fasterxml.jackson.core>2.9.9</version.com.fasterxml.jackson.core>
+    <version.com.fasterxml.jackson.core>2.9.9.1</version.com.fasterxml.jackson.core>
     <version.com.squareup.moshi>1.8.0</version.com.squareup.moshi>
     <version.org.apache.johnzon>1.1.12</version.org.apache.johnzon>
     <version.org.junit.jupiter>5.5.0</version.org.junit.jupiter>
-    <version.org.mockito>2.20.0</version.org.mockito>
   </properties>
 
   <dependencyManagement>
@@ -133,12 +132,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>${version.org.mockito}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.8</version>
@@ -154,6 +147,9 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${version.maven-javadoc-plugin}</version>
           <configuration>
+            <additionalJOptions>
+              <additionalJOption>-Xdoclint:all</additionalJOption>
+            </additionalJOptions>
             <links>
               <link>https://javaee.github.io/javaee-spec/javadocs/</link>
             </links>

@@ -45,7 +45,6 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
         @Override
         public void setParams(final Void params) {
             //super.setParams(params);
-            return;
         }
     }
 
@@ -55,13 +54,13 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
         @Override
         public void setId(final Void id) {
             //super.setId(id);
-            return;
         }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    public RequestObjectTest(final Class<ObjectType> requestClass, final Class<ParamsType> paramsClass,
-                             final Class<IdType> idClass) {
+    public RequestObjectTest(final Class<? extends ObjectType> requestClass,
+                             final Class<? extends ParamsType> paramsClass,
+                             final Class<? extends IdType> idClass) {
         super(requestClass, idClass);
         this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
     }
@@ -86,21 +85,22 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
                 assertEquals(v.hashCode(), obj.hashCode());
             }
             {
-                final ObjectType obj = RequestObject.of(objectClass, v.getMethod(), v.getParams(), v.getId());
+                final ObjectType obj = RequestObject.of(
+                        objectClass, v.getJsonrpc(), v.getMethod(), v.getParams(), v.getId());
                 assertEquals(v, obj);
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
-            {
-                final RequestObject<? super ParamsType, ? super IdType> obj
-                        = RequestObject.of(v.getMethod(), v.getParams(), v.getId());
-                assertEquals(v, obj);
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
+//            {
+//                final RequestObject<? super ParamsType, ? super IdType> obj
+//                        = RequestObject.of(v.getJsonrpc(), v.getMethod(), v.getParams(), v.getId());
+//                assertEquals(v, obj);
+//                assertEquals(obj, v);
+//                assertEquals(v.hashCode(), obj.hashCode());
+//            }
         });
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected final Class<ParamsType> paramsClass;
+    protected final Class<? extends ParamsType> paramsClass;
 }

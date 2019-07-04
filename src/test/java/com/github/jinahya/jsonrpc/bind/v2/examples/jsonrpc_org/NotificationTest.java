@@ -34,13 +34,15 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @Slf4j
-class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Object> {
+class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Void> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     @SuppressWarnings({"unchecked"})
     NotificationTest() {
-        super(Notification.class, (Class<List<Integer>>) (Class<?>) List.class, Object.class);
+        super(Notification.class, (Class<List<Integer>>) (Class<?>) List.class, Void.class);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
     protected void acceptValueFromResource(final String name, final Consumer<? super Notification> consumer)
             throws IOException {
@@ -49,6 +51,7 @@ class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Ob
         });
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Test
     void notification_01_request() throws IOException {
         acceptValueFromResource(

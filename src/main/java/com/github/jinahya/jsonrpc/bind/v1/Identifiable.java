@@ -33,7 +33,7 @@ public abstract class Identifiable<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A property name for {@code $.id}. The value is {@value #PROPERTY_NAME_ID}.
+     * A property name for {@code $.id}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_ID = "id";
 
