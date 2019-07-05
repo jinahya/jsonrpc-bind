@@ -26,6 +26,8 @@ import javax.validation.constraints.NotNull;
 import java.lang.reflect.Constructor;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A class for binding response objects.
  *
@@ -54,17 +56,17 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The property name for {@code $.error.code}. The value is {@value}.
+         * The property name for {@code $.error.code} of response objects. The value is {@value}.
          */
         public static final String PROPERTY_NAME_CODE = "code";
 
         /**
-         * The property name for {@code $.error.message}. The value is {@value}.
+         * The property name for {@code $.error.message} of response objects. The value is {@value}.
          */
         public static final String PROPERTY_NAME_MESSAGE = "message";
 
         /**
-         * The property name for {@code $.error.data}. The value is {@value}.
+         * The property name for {@code $.error.data} of response objects. The value is {@value}.
          */
         public static final String PROPERTY_NAME_DATA = "data";
 
@@ -137,11 +139,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
          */
         static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final Integer code,
                                                           final String message, final U data) {
-            if (clazz == null) {
-                throw new NullPointerException("clazz is null");
-            }
             try {
-                final Constructor<? extends T> constructor = clazz.getConstructor();
+                final Constructor<? extends T> constructor = requireNonNull(clazz, "clazz is null").getConstructor();
                 if (!constructor.isAccessible()) {
                     constructor.setAccessible(true);
                 }
@@ -154,23 +153,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                 throw new RuntimeException("failed to create an instance of " + clazz, roe);
             }
         }
-
-//        /**
-//         * Creates a new instance whose properties are set with specified values.
-//         *
-//         * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
-//         *                property.
-//         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
-//         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
-//         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
-//         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
-//         * @return a new instance.
-//         */
-//        public static <U> ErrorObject<U> of(final String jsonrpc, final int code, final String message, final U data) {
-//            @SuppressWarnings({"unchecked"})
-//            final Class<ErrorObject<U>> clazz = (Class<ErrorObject<U>>) (Class<?>) ErrorObject.class;
-//            return of(clazz, jsonrpc, code, message, data);
-//        }
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -230,7 +212,8 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         // -------------------------------------------------------------------------------------------------------- code
 
         /**
-         * Returns the current value of {@value #PROPERTY_NAME_CODE} property.
+         * Returns the current value of {@value #PROPERTY_NAME_CODE} property. Note that the value of the {@value
+         * #PROPERTY_NAME_CODE} property must be {@link NotNull} in a Bean-Validation context.
          *
          * @return the current value of {@value #PROPERTY_NAME_CODE} property.
          */
@@ -345,24 +328,6 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
         instance.setId(id);
         return instance;
     }
-
-//    /**
-//     * Creates a new instance whose properties are set with specified values.
-//     *
-//     * @param result a value for {@value #PROPERTY_NAME_RESULT} property.
-//     * @param error  a value for {@value #PROPERTY_NAME_ERROR} property.
-//     * @param id     a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-//     * @param <U>    {@value #PROPERTY_NAME_RESULT} type parameter
-//     * @param <V>    {@value #PROPERTY_NAME_ERROR} type parameter
-//     * @param <W>    {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
-//     * @return a new instance of specified class.
-//     */
-//    public static <U, V extends ErrorObject<?>, W> ResponseObject<U, V, W> of(
-//            final String jsonrpc, final U result, final V error, final W id) {
-//        @SuppressWarnings({"unchecked"})
-//        final Class<ResponseObject<U, V, W>> clazz = (Class<ResponseObject<U, V, W>>) (Class<?>) ResponseObject.class;
-//        return of(clazz, jsonrpc, result, error, id);
-//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

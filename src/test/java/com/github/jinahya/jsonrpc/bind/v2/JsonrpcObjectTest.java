@@ -51,11 +51,9 @@ abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdTyp
      * @return a new instance of specified class.
      */
     static <T> T newInstance(final Class<? extends T> clazz) {
-        if (clazz == null) {
-            throw new NullPointerException("clazz is null");
-        }
         try {
-            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
+            final Constructor<? extends T> constructor
+                    = requireNonNull(clazz, "clazz is null").getDeclaredConstructor();
             if (!constructor.isAccessible()) {
                 constructor.setAccessible(true);
             }

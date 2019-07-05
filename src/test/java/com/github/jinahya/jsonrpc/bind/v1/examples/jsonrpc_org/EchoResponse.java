@@ -22,6 +22,6 @@ package com.github.jinahya.jsonrpc.bind.v1.examples.jsonrpc_org;
 
 import com.github.jinahya.jsonrpc.bind.v1.Response;
 
-public class EchoResponse extends Response<String, Object, Integer> {
+public class EchoResponse extends Response<String, Void, Integer> {
 
 }

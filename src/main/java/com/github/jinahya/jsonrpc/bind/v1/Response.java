@@ -50,19 +50,6 @@ public class Response<ResultType, ErrorType, IdType> extends Identifiable<IdType
     public Response() {
         super();
     }
-//
-//    // -------------------------------------------------------------------------------------------------------------- id
-//
-//    /**
-//     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Response} class annotated with {@link
-//     * AssertFalse}.
-//     *
-//     * @return {@inheritDoc}
-//     */
-//    @Override
-//    protected @AssertFalse boolean isIdSemanticallyNull() {
-//        return super.isIdSemanticallyNull();
-//    }
 
     // ---------------------------------------------------------------------------------------------------------- result
 

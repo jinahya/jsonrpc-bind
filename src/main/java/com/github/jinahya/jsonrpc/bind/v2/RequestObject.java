@@ -72,24 +72,6 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
         return instance;
     }
 
-//    /**
-//     * Creates a new instance whose properties are set with specified values.
-//     *
-//     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_VALUE_JSONRPC}
-//     *                property.
-//     * @param method  a value for {@value #PROPERTY_NAME_METHOD} property.
-//     * @param params  a value for {@value #PROPERTY_NAME_PARAMS} property.
-//     * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-//     * @param <U>     params type parameter
-//     * @param <V>     id type parameter
-//     * @return a new instance.
-//     */
-//    @SuppressWarnings({"unchecked"})
-//    public static <U, V> RequestObject<? super U, ? super V> of(final String jsonrpc, final String method,
-//                                                                final U params, final V id) {
-//        return of(RequestObject.class, jsonrpc, method, params, id);
-//    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -188,9 +170,11 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
     }
 
     /**
-     * Indicates the value of {@value #PROPERTY_NAME_PARAMS} property is a structured value.
+     * Indicates whether the current value of {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a
+     * structured value.
      *
-     * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is a structured value; {@code false} otherwise.
+     * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSoN, a structured value; {@code
+     * false} otherwise.
      * @see <a href="https://www.jsonrpc.org/specification#parameter_structures">Parameter Structures (JSON-RPC 2.0
      * Specification)</a>
      */

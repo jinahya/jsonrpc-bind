@@ -20,12 +20,13 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.lang.reflect.Constructor;
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * An abstract class for request objects and response objects.
@@ -50,7 +51,7 @@ public abstract class JsonrpcObject<IdType> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The property name for {@code $.id}.
+     * The property name for {@code $.id}. The value is {@value}.
      */
     public static final String PROPERTY_NAME_ID = "id";
 
@@ -59,20 +60,18 @@ public abstract class JsonrpcObject<IdType> {
     /**
      * Creates a new instance of specified type whose properties are set with specified values.
      *
-     * @param clazz   the class of object to create.
-     * @param jsonrpc a value for {@value #PROPERTY_NAME_JSONRPC} property
+     * @param clazz   the class from which the new object is created.
+     * @param jsonrpc a value for {@value #PROPERTY_NAME_JSONRPC} property.
      * @param id      a value for {@value #PROPERTY_NAME_ID} property.
      * @param <T>     object type parameter
-     * @param <U>     id type parameter
+     * @param <U>     {@value PROPERTY_NAME_ID} type parameter
      * @return a new instance.
      */
     static <T extends JsonrpcObject<? super U>, U> T of(final Class<? extends T> clazz, final String jsonrpc,
                                                         final U id) {
-        if (clazz == null) {
-            throw new NullPointerException("clazz is null");
-        }
         try {
-            final Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
+            final Constructor<? extends T> constructor
+                    = requireNonNull(clazz, "clazz is null").getDeclaredConstructor();
             if (!constructor.isAccessible()) {
                 constructor.setAccessible(true);
             }
@@ -105,7 +104,8 @@ public abstract class JsonrpcObject<IdType> {
     public String toString() {
         return super.toString() + "{"
                + "jsonrpc=" + jsonrpc
-               + ",v=" + id
+               + ",id=" + id
+               + ",idSemanticallyEitherStringNumberOfNull=" + isIdSemanticallyEitherStringNumberOfNull()
                + "}";
     }
 
@@ -179,9 +179,28 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     /**
+     * Indicates whether the current value of {@value #PROPERTY_NAME_ID} property is, <i>semantically</i>, either {@code
+     * string}, {@code number}, or {@code null}.
+     * <p>
+     * The {@code isIdSemanticallyEitherStringNumberOfNull()} method of {@code JsonrpcObject} class returns the value of
+     * following expression.
+     * <blockquote><pre>{@code
+     * getId() == null || getId() instanceof java.lang.String || getId() instanceof java.lang.Number
+     * }</pre></blockquote>
+     *
+     * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is, <i>semantically</i>, either {@code
+     * string}, {@code number}, or {@code null}; {@code false} otherwise.
+     */
+    protected @AssertTrue boolean isIdSemanticallyEitherStringNumberOfNull() {
+        final IdType id = getId();
+        return id == null || id instanceof String || id instanceof Number;
+    }
+
+    /**
      * Copies this object's current value of {@value #PROPERTY_NAME_ID} property to specified object.
      *
-     * @param object the object whose {@value #PROPERTY_NAME_ID} property is copied from this object.
+     * @param object the object to which the current value of {@value #PROPERTY_NAME_ID} property of this object is
+     *               copied.
      * @see #copyIdFrom(JsonrpcObject)
      */
     public void copyIdTo(final JsonrpcObject<? super IdType> object) {
@@ -198,18 +217,6 @@ public abstract class JsonrpcObject<IdType> {
         object.copyIdTo(this);
     }
 
-    /**
-     * Indicates whether the current value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
-     * number}, or {@code null}.
-     *
-     * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is either {@code string}, {@code
-     * number}, or {@code null}; {@code false} otherwise.
-     */
-    protected @AssertTrue boolean isIdEitherStringNumberOfNull() {
-        final IdType id = getId();
-        return id == null || id instanceof String || id instanceof Number;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
@@ -220,8 +227,7 @@ public abstract class JsonrpcObject<IdType> {
     private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 
     /**
-     * An attribute for {@value #PROPERTY_NAME_ID} property.
+     * An attribute for {@value #PROPERTY_NAME_ID} property. Default value is {@code null}.
      */
-    @Valid
     private IdType id;
 }
