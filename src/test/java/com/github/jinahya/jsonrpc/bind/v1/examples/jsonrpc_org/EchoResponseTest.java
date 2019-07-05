@@ -28,10 +28,10 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class EchoResponseTest extends ResponseTest<EchoResponse, String, Object, Integer> {
+class EchoResponseTest extends ResponseTest<EchoResponse, String, Void, Integer> {
 
     EchoResponseTest() {
-        super(EchoResponse.class, String.class, Object.class, Integer.class);
+        super(EchoResponse.class, String.class, Void.class, Integer.class);
     }
 
     @Test

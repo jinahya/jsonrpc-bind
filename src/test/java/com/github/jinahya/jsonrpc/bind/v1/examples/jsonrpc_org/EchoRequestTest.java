@@ -33,9 +33,12 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 @Slf4j
 class EchoRequestTest extends RequestTest<EchoRequest, String, Integer> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     EchoRequestTest() {
         super(EchoRequest.class, String.class, Integer.class);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Tests with {@code echo_01_request.json} resource.

@@ -42,7 +42,7 @@ request.setMethod("add");
 request.setParams(new AdditionParams());
 request.getParams().setAugend(BigDecimal.ONE);
 request.getParams().setAddend(BigDecimal.ONE);
-request.getId("1");
+request.setId("1");
 ```
 
 ### `ResponseObject<ResultType, ErrorType extends ErrorObject<?>, IdType>`
@@ -54,7 +54,7 @@ The type parameter for `$.result`.
 The type parameter for `$.error`.
 
 ```java
-public class AdditionResponse
+class AdditionResponse
         extends ResponseObject<BigDecimal, CalculationError, String> {
 } 
 ```
