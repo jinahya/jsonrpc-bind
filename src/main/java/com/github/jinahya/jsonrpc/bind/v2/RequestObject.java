@@ -184,12 +184,15 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
         if (params == null) {
             return true;
         }
-        if (params.getClass().isPrimitive()) {
-            return false;
-        }
-        if (params.getClass().isAnnotation()) {
-            return false;
-        }
+//        if (params.getClass().isPrimitive()) {
+//            return false;
+//        }
+//        if (Number.class.isAssignableFrom(params.getClass())) {
+//            return false;
+//        }
+//        if (params.getClass().isAnnotation()) {
+//            return false;
+//        }
         return true;
     }
 
