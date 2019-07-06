@@ -51,13 +51,12 @@ public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
     }
 
     /**
-     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Notification} class annotated with {@link
-     * AssertTrue}.
+     * {@inheritDoc} The {@code isIdNull()} method of {@code Notification} class annotated with {@link AssertTrue}.
      *
      * @return {@inheritDoc}
      */
     @Override
-    protected @AssertTrue boolean isIdSemanticallyNull() {
-        return super.isIdSemanticallyNull();
+    protected @AssertTrue boolean isIdNull() {
+        return super.isIdNull();
     }
 }

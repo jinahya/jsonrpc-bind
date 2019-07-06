@@ -48,13 +48,12 @@ public class Request<ParamType, IdType> extends AbstractRequest<ParamType, IdTyp
     }
 
     /**
-     * {@inheritDoc} The {@code isIdSemanticallyNull()} method of {@code Request} class annotated with {@link
-     * AssertFalse}.
+     * {@inheritDoc} The {@code isIdNull()} method of {@code Request} class annotated with {@link AssertFalse}.
      *
      * @return {@inheritDoc}
      */
     @Override
-    protected @AssertFalse boolean isIdSemanticallyNull() {
-        return super.isIdSemanticallyNull();
+    protected @AssertFalse boolean isIdNull() {
+        return super.isIdNull();
     }
 }

@@ -105,7 +105,7 @@ public abstract class JsonrpcObject<IdType> {
         return super.toString() + "{"
                + "jsonrpc=" + jsonrpc
                + ",id=" + id
-               + ",idSemanticallyEitherStringNumberOfNull=" + isIdSemanticallyEitherStringNumberOfNull()
+               + ",idEitherStringNumberOfNull=" + isIdEitherStringNumberOfNull()
                + "}";
     }
 
@@ -182,8 +182,8 @@ public abstract class JsonrpcObject<IdType> {
      * Indicates whether the current value of {@value #PROPERTY_NAME_ID} property is, <i>semantically</i>, either {@code
      * string}, {@code number}, or {@code null}.
      * <p>
-     * The {@code isIdSemanticallyEitherStringNumberOfNull()} method of {@code JsonrpcObject} class returns the value of
-     * following expression.
+     * The {@code isIdEitherStringNumberOfNull()} method of {@code JsonrpcObject} class returns the value of following
+     * expression.
      * <blockquote><pre>{@code
      * getId() == null || getId() instanceof java.lang.String || getId() instanceof java.lang.Number
      * }</pre></blockquote>
@@ -191,7 +191,7 @@ public abstract class JsonrpcObject<IdType> {
      * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is, <i>semantically</i>, either {@code
      * string}, {@code number}, or {@code null}; {@code false} otherwise.
      */
-    protected @AssertTrue boolean isIdSemanticallyEitherStringNumberOfNull() {
+    protected @AssertTrue boolean isIdEitherStringNumberOfNull() {
         final IdType id = getId();
         return id == null || id instanceof String || id instanceof Number;
     }
