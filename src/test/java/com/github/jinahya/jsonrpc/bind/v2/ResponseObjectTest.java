@@ -98,7 +98,7 @@ public abstract class ResponseObjectTest<
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
-            if (!v.isErrorSemanticallyNull()) {
+            if (!v.isErrorNull()) {
                 final ErrorType error = v.getError();
                 assertEquals(error, error);
                 assertNotEquals(new Object(), error);
@@ -113,7 +113,7 @@ public abstract class ResponseObjectTest<
                 assertEquals(error, obj);
                 assertEquals(error.hashCode(), obj.hashCode());
             }
-            if (!v.isErrorSemanticallyNull()) {
+            if (!v.isErrorNull()) {
                 final ErrorType error = v.getError();
                 final ErrorType obj = ResponseObject.ErrorObject.of(
                         errorClass, error.getCode(), error.getMessage(), error.getData());

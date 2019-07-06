@@ -57,7 +57,7 @@ public abstract class Identifiable<IdType> {
     public String toString() {
         return super.toString() + "{"
                + "id=" + id
-               + ",idSemanticallyNull=" + isIdSemanticallyNull()
+               + ",idNull=" + isIdNull()
                + "}";
     }
 
@@ -110,6 +110,19 @@ public abstract class Identifiable<IdType> {
     }
 
     /**
+     * Indicates whether the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code null}.
+     * <p>
+     * The {@code isIdNull()} method of {@code Identifiable} class returns the value of following expression.
+     * <blockquote><pre>{@code getId() == null}</pre></blockquote>
+     *
+     * @return {@code true} if the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code
+     * null}; {@code false} otherwise.
+     */
+    protected boolean isIdNull() {
+        return getId() == null;
+    }
+
+    /**
      * Copies this object's current value of {@value #PROPERTY_NAME_ID} property to specified object.
      *
      * @param object the object to which this object's current value of {@value #PROPERTY_NAME_ID} property is copied.
@@ -127,20 +140,6 @@ public abstract class Identifiable<IdType> {
      */
     public void copyIdFrom(final Identifiable<? extends IdType> object) {
         object.copyIdTo(this);
-    }
-
-    /**
-     * Indicates whether the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code null}.
-     * <p>
-     * The {@code isIdSemanticallyNull()} method of {@code Identifiable} class returns the value of following
-     * expression.
-     * <blockquote><pre>{@code getId() == null}</pre></blockquote>
-     *
-     * @return {@code true} if the current value of {@value PROPERTY_NAME_ID} property is <i>semantically</i> {@code
-     * null}; {@code false} otherwise.
-     */
-    protected boolean isIdSemanticallyNull() {
-        return getId() == null;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
