@@ -40,6 +40,8 @@ public class Notification<ParamType> extends AbstractRequest<ParamType, Void> {
         super();
     }
 
+    // -------------------------------------------------------------------------------------------------------------- id
+
     /**
      * {@inheritDoc} The {@link #setId(Void)} method of {@code Notification} class does nothing.
      *

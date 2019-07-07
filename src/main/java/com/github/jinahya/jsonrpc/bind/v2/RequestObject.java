@@ -60,8 +60,8 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      * @param params  a value for {@value #PROPERTY_NAME_PARAMS} property.
      * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
      * @param <T>     object type parameter
-     * @param <U>     params type parameter
-     * @param <V>     id type parameter
+     * @param <U>     {@value #PROPERTY_NAME_PARAMS} type parameter
+     * @param <V>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
      * @return a new instance of specified class.
      */
     static <T extends RequestObject<? super U, ? super V>, U, V> T of(
