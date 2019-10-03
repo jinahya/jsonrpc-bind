@@ -23,10 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Constructor;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A class for binding response objects.
@@ -126,33 +123,33 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
         // -------------------------------------------------------------------------------------------------------------
 
-        /**
-         * Creates a new instance of specified class whose properties are set with specified values.
-         *
-         * @param clazz   the class of the object to create.
-         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
-         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
-         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
-         * @param <T>     object type parameter
-         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
-         * @return a new instance of specified object type.
-         */
-        static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final Integer code,
-                                                          final String message, final U data) {
-            try {
-                final Constructor<? extends T> constructor = requireNonNull(clazz, "clazz is null").getConstructor();
-                if (!constructor.isAccessible()) {
-                    constructor.setAccessible(true);
-                }
-                final T instance = constructor.newInstance();
-                instance.setCode(code);
-                instance.setMessage(message);
-                instance.setData(data);
-                return instance;
-            } catch (final ReflectiveOperationException roe) {
-                throw new RuntimeException("failed to create an instance of " + clazz, roe);
-            }
-        }
+//        /**
+//         * Creates a new instance of specified class whose properties are set with specified values.
+//         *
+//         * @param clazz   the class of the object to create.
+//         * @param code    a value for {@value #PROPERTY_NAME_CODE} property.
+//         * @param message a value for {@value #PROPERTY_NAME_MESSAGE} property.
+//         * @param data    a value for {@value #PROPERTY_NAME_DATA} property.
+//         * @param <T>     object type parameter
+//         * @param <U>     {@value #PROPERTY_NAME_DATA} type parameter
+//         * @return a new instance of specified object type.
+//         */
+//        static <T extends ErrorObject<? super U>, U> T of(final Class<? extends T> clazz, final Integer code,
+//                                                          final String message, final U data) {
+//            try {
+//                final Constructor<? extends T> constructor = requireNonNull(clazz, "clazz is null").getConstructor();
+//                if (!constructor.isAccessible()) {
+//                    constructor.setAccessible(true);
+//                }
+//                final T instance = constructor.newInstance();
+//                instance.setCode(code);
+//                instance.setMessage(message);
+//                instance.setData(data);
+//                return instance;
+//            } catch (final ReflectiveOperationException roe) {
+//                throw new RuntimeException("failed to create an instance of " + clazz, roe);
+//            }
+//        }
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -194,9 +191,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
                 return false;
             }
             final ErrorObject<?> that = (ErrorObject<?>) obj;
-            return Objects.equals(getCode(), that.getCode()) &&
-                   Objects.equals(getMessage(), that.getMessage()) &&
-                   Objects.equals(getData(), that.getData());
+            return Objects.equals(code, that.getCode()) &&
+                   Objects.equals(message, that.getMessage()) &&
+                   Objects.equals(data, that.getData());
         }
 
         /**
@@ -305,29 +302,29 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Creates a new instance of specified class whose properties are set with specified values.
-     *
-     * @param clazz   the class of the object to create.
-     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
-     *                property.
-     * @param result  a value for {@value #PROPERTY_NAME_RESULT} property.
-     * @param error   a value for {@value #PROPERTY_NAME_ERROR} property.
-     * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
-     * @param <T>     object type parameter
-     * @param <U>     {@value #PROPERTY_NAME_RESULT} type parameter
-     * @param <V>     {@value #PROPERTY_NAME_ERROR} type parameter
-     * @param <W>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
-     * @return a new instance of specified class.
-     */
-    static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
-            final Class<? extends T> clazz, final String jsonrpc, final U result, final V error, final W id) {
-        final T instance = of(clazz, jsonrpc, id);
-        instance.setResult(result);
-        instance.setError(error);
-        instance.setId(id);
-        return instance;
-    }
+//    /**
+//     * Creates a new instance of specified class whose properties are set with specified values.
+//     *
+//     * @param clazz   the class of the object to create.
+//     * @param jsonrpc a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_JSONRPC}
+//     *                property.
+//     * @param result  a value for {@value #PROPERTY_NAME_RESULT} property.
+//     * @param error   a value for {@value #PROPERTY_NAME_ERROR} property.
+//     * @param id      a value for {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} property.
+//     * @param <T>     object type parameter
+//     * @param <U>     {@value #PROPERTY_NAME_RESULT} type parameter
+//     * @param <V>     {@value #PROPERTY_NAME_ERROR} type parameter
+//     * @param <W>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
+//     * @return a new instance of specified class.
+//     */
+//    static <T extends ResponseObject<? super U, ? super V, ? super W>, U, V extends ErrorObject<?>, W> T of(
+//            final Class<? extends T> clazz, final String jsonrpc, final U result, final V error, final W id) {
+//        final T instance = of(clazz, jsonrpc, id);
+//        instance.setResult(result);
+//        instance.setError(error);
+//        instance.setId(id);
+//        return instance;
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

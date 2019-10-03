@@ -23,10 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.lang.reflect.Constructor;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * An abstract class for request objects and response objects.
@@ -56,33 +53,33 @@ public abstract class JsonrpcObject<IdType> {
     public static final String PROPERTY_NAME_ID = "id";
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Creates a new instance of specified type whose properties are set with specified values.
-     *
-     * @param clazz   the class from which the new object is created.
-     * @param jsonrpc a value for {@value #PROPERTY_NAME_JSONRPC} property.
-     * @param id      a value for {@value #PROPERTY_NAME_ID} property.
-     * @param <T>     object type parameter
-     * @param <U>     {@value PROPERTY_NAME_ID} type parameter
-     * @return a new instance.
-     */
-    static <T extends JsonrpcObject<? super U>, U> T of(final Class<? extends T> clazz, final String jsonrpc,
-                                                        final U id) {
-        try {
-            final Constructor<? extends T> constructor
-                    = requireNonNull(clazz, "clazz is null").getDeclaredConstructor();
-            if (!constructor.isAccessible()) {
-                constructor.setAccessible(true);
-            }
-            final T instance = constructor.newInstance();
-            instance.setJsonrpc(jsonrpc);
-            instance.setId(id);
-            return instance;
-        } catch (final ReflectiveOperationException roe) {
-            throw new RuntimeException(roe);
-        }
-    }
+//
+//    /**
+//     * Creates a new instance of specified type whose properties are set with specified values.
+//     *
+//     * @param clazz   the class from which the new object is created.
+//     * @param jsonrpc a value for {@value #PROPERTY_NAME_JSONRPC} property.
+//     * @param id      a value for {@value #PROPERTY_NAME_ID} property.
+//     * @param <T>     object type parameter
+//     * @param <U>     {@value PROPERTY_NAME_ID} type parameter
+//     * @return a new instance.
+//     */
+//    static <T extends JsonrpcObject<? super U>, U> T of(final Class<? extends T> clazz, final String jsonrpc,
+//                                                        final U id) {
+//        try {
+//            final Constructor<? extends T> constructor
+//                    = requireNonNull(clazz, "clazz is null").getDeclaredConstructor();
+//            if (!constructor.isAccessible()) {
+//                constructor.setAccessible(true);
+//            }
+//            final T instance = constructor.newInstance();
+//            instance.setJsonrpc(jsonrpc);
+//            instance.setId(id);
+//            return instance;
+//        } catch (final ReflectiveOperationException roe) {
+//            throw new RuntimeException(roe);
+//        }
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

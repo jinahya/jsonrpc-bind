@@ -92,12 +92,6 @@ public abstract class ResponseObjectTest<
                 assertEquals(obj, v);
                 assertEquals(v.hashCode(), obj.hashCode());
             }
-            {
-                final ObjectType obj = ResponseObject.of(
-                        objectClass, v.getJsonrpc(), v.getResult(), v.getError(), v.getId());
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
             if (!v.isErrorNull()) {
                 final ErrorType error = v.getError();
                 assertEquals(error, error);
@@ -110,13 +104,6 @@ public abstract class ResponseObjectTest<
                 } catch (final Throwable t) {
                     throw new RuntimeException(t);
                 }
-                assertEquals(error, obj);
-                assertEquals(error.hashCode(), obj.hashCode());
-            }
-            if (!v.isErrorNull()) {
-                final ErrorType error = v.getError();
-                final ErrorType obj = ResponseObject.ErrorObject.of(
-                        errorClass, error.getCode(), error.getMessage(), error.getData());
                 assertEquals(error, obj);
                 assertEquals(error.hashCode(), obj.hashCode());
             }

@@ -56,7 +56,7 @@ class BatchInvalidJsonTest {
         final TypeReference<ResponseObject<Void, ErrorObjectTest.NoData, Void>> typeReference
                 = new TypeReference<ResponseObject<Void, ErrorObjectTest.NoData, Void>>() {
         };
-        final ResponseObject<Void, ErrorObject<Void>, Void> responseObject = applyResourceStream(
+        final ResponseObject<Void, ErrorObjectTest.NoData, Void> responseObject = applyResourceStream(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/batch_invalid_json_01_response.json",
                 s -> applyObjectMapper(m -> {
                     try {

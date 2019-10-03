@@ -46,7 +46,7 @@
     <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
     <version.maven-javadoc-plugin>3.1.1</version.maven-javadoc-plugin>
     <version.maven-surefire>3.0.0-M3</version.maven-surefire>
-    <version.com.fasterxml.jackson.core>2.9.9.3</version.com.fasterxml.jackson.core>
+    <version.com.fasterxml.jackson.core>2.10.0</version.com.fasterxml.jackson.core>
     <version.com.squareup.moshi>1.8.0</version.com.squareup.moshi>
     <version.org.apache.johnzon>1.1.12</version.org.apache.johnzon>
     <version.org.junit.jupiter>5.5.1</version.org.junit.jupiter>
