@@ -34,7 +34,7 @@ import java.util.Objects;
  * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
+public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -72,36 +72,36 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
                + "}";
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof RequestObject)) {
-            return false;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        final RequestObject<?, ?> that = (RequestObject<?, ?>) obj;
-        return Objects.equals(getMethod(), that.getMethod()) && Objects.equals(getParams(), that.getParams());
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getMethod(), getParams());
-    }
+//    /**
+//     * {@inheritDoc}
+//     *
+//     * @param obj {@inheritDoc}
+//     * @return {@inheritDoc}
+//     */
+//    @Override
+//    public boolean equals(final Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (!(obj instanceof RequestObject)) {
+//            return false;
+//        }
+//        if (!super.equals(obj)) {
+//            return false;
+//        }
+//        final RequestObject<?, ?> that = (RequestObject<?, ?>) obj;
+//        return Objects.equals(getMethod(), that.getMethod()) && Objects.equals(getParams(), that.getParams());
+//    }
+//
+//    /**
+//     * {@inheritDoc}
+//     *
+//     * @return {@inheritDoc}
+//     */
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(super.hashCode(), getMethod(), getParams());
+//    }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 

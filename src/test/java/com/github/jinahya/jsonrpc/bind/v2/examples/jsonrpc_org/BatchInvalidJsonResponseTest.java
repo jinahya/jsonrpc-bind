@@ -21,8 +21,6 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  */
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.github.jinahya.jsonrpc.bind.v2.ErrorObjectTest;
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -35,28 +33,14 @@ import static com.github.jinahya.jsonrpc.bind.JsonrpcTests.applyResourceStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class BatchInvalidJsonTest {
-
-    // -----------------------------------------------------------------------------------------------------------------
-//    public static final class VoidResponse extends ResponseObject<Void, ErrorObject<Void>, Void> {
-//
-//    }
-
-    public static final class VoidError extends ErrorObject<Void> {
-
-    }
-
-    public static final class VoidResponse extends ResponseObject<Void, VoidError, Void> {
-
-    }
+class BatchInvalidJsonResponseTest {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Test
     void batch_invalid_json_01_response__jackson() throws IOException {
-        final TypeReference<ResponseObject<Void, ErrorObjectTest.NoData, Void>> typeReference
-                = new TypeReference<ResponseObject<Void, ErrorObjectTest.NoData, Void>>() {
+        final TypeReference<BatchInvalidJsonResponse> typeReference = new TypeReference<BatchInvalidJsonResponse>() {
         };
-        final ResponseObject<Void, ErrorObjectTest.NoData, Void> responseObject = applyResourceStream(
+        final BatchInvalidJsonResponse responseObject = applyResourceStream(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/batch_invalid_json_01_response.json",
                 s -> applyObjectMapper(m -> {
                     try {
@@ -72,9 +56,9 @@ class BatchInvalidJsonTest {
 
     @Test
     void batch_invalid_json_01_response__jsonb() throws IOException {
-        final ResponseObject<Void, VoidError, Void> responseObject = applyResourceStream(
+        final BatchInvalidJsonResponse responseObject = applyResourceStream(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/batch_invalid_json_01_response.json",
-                s -> JSONB.fromJson(s, VoidResponse.class));
+                s -> JSONB.fromJson(s, BatchInvalidJsonResponse.class));
         log.debug("responseObject: {}", responseObject);
         assertEquals(ErrorObject.CODE_PARSE_ERROR, responseObject.getError().getCode());
         assertEquals("Parse error", responseObject.getError().getMessage());
