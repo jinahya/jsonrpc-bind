@@ -25,8 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.function.Consumer;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,21 +32,11 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @Slf4j
-class NotificationTest extends RequestObjectTest<Notification, List<Integer>, Void> {
+class NotificationTest extends RequestObjectTest<Notification> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    @SuppressWarnings({"unchecked"})
     NotificationTest() {
-        super(Notification.class, (Class<List<Integer>>) (Class<?>) List.class, Void.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super Notification> consumer)
-            throws IOException {
-        super.acceptValueFromResource(name, v -> {
-            consumer.accept(v);
-        });
+        super(Notification.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

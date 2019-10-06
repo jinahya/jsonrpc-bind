@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NamedParametersRequest extends RequestObject<NamedParametersRequest.Params, Integer> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Data
     public static class Params {
 

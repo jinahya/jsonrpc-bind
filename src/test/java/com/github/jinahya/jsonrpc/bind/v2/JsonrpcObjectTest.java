@@ -37,9 +37,8 @@ import static java.util.Objects.requireNonNull;
  * An abstract class for testing subclasses of {@link JsonrpcObject}.
  *
  * @param <ObjectType> subclass type parameter
- * @param <IdType>     id type parameter
  */
-public abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdType> {
+public abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<?>> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -69,12 +68,10 @@ public abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>
      * Creates a new instance.
      *
      * @param objectClass a class of target object to test.
-     * @param idClass     a class of {@value JsonrpcObject#PROPERTY_NAME_ID} property of {@code objectClass}.
      */
-    JsonrpcObjectTest(final Class<? extends ObjectType> objectClass, final Class<? extends IdType> idClass) {
+    JsonrpcObjectTest(final Class<? extends ObjectType> objectClass) {
         super();
         this.objectClass = requireNonNull(objectClass, "objectClass is null");
-        this.idClass = requireNonNull(idClass, "idClass is null");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -130,9 +127,4 @@ public abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>
      * The target object class to test.
      */
     protected final Class<? extends ObjectType> objectClass;
-
-    /**
-     * The class of {@value JsonrpcObject#PROPERTY_NAME_ID} property of {@link #objectClass}.
-     */
-    protected final Class<? extends IdType> idClass;
 }

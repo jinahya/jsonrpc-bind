@@ -25,21 +25,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 @Slf4j
-class PositionalParametersRequestTest extends RequestObjectTest<PositionalParametersRequest, List<Integer>, Integer> {
+class PositionalParametersRequestTest extends RequestObjectTest<PositionalParametersRequest> {
 
-    @SuppressWarnings({"unchecked"})
+    // -----------------------------------------------------------------------------------------------------------------
     PositionalParametersRequestTest() {
-        // https://stackoverflow.com/q/2390662/330457
-        super(PositionalParametersRequest.class, (Class<List<Integer>>) (Class<?>) List.class, Integer.class);
+        super(PositionalParametersRequest.class);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Test
     void positional_parameters_01_request() throws IOException {
         acceptValueFromResource(

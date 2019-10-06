@@ -25,45 +25,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
-class NamedParametersRequestTest
-        extends RequestObjectTest<NamedParametersRequest, NamedParametersRequest.Params, Integer> {
+class NamedParametersRequestTest extends RequestObjectTest<NamedParametersRequest> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     NamedParametersRequestTest() {
-        super(NamedParametersRequest.class, NamedParametersRequest.Params.class, Integer.class);
+        super(NamedParametersRequest.class);
     }
 
-    @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super NamedParametersRequest> consumer)
-            throws IOException {
-        super.acceptValueFromResource(
-                name,
-                v -> {
-                    consumer.accept(v);
-                }
-        );
-    }
-
-    @Override
-    protected <U> void acceptValueFromResource(final String name,
-                                               final BiConsumer<? super NamedParametersRequest, ? super U> consumer,
-                                               final Supplier<? extends U> supplier)
-            throws IOException {
-        super.acceptValueFromResource(
-                name,
-                (v, u) -> {
-                    consumer.accept(v, u);
-                },
-                supplier
-        );
-    }
-
+    // -----------------------------------------------------------------------------------------------------------------
     @Test
     void named_parameters_01_request() throws IOException {
         acceptValueFromResource(

@@ -22,22 +22,13 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-import java.util.function.Consumer;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 /**
  * An abstract class for testing subclasses of {@link RequestObject}.
  *
  * @param <ObjectType> request object type parameter
- * @param <ParamsType> params type parameter
  */
 @Slf4j
-public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsType, IdType>, ParamsType, IdType>
-        extends JsonrpcObjectTest<ObjectType, IdType> {
+public abstract class RequestObjectTest<ObjectType extends RequestObject<?, ?>> extends JsonrpcObjectTest<ObjectType> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static class NoParams<IdType> extends RequestObject<Void, IdType> {
@@ -48,52 +39,17 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<ParamsT
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static class NoId<ParamsType> extends RequestObject<ParamsType, Void> {
+//    // -----------------------------------------------------------------------------------------------------------------
+//    protected static class NoId<ParamsType> extends RequestObject<ParamsType, Void> {
+//
+//        @Override
+//        public void setId(final Void id) {
+//            //super.setId(id);
+//        }
+//    }
 
-        @Override
-        public void setId(final Void id) {
-            //super.setId(id);
-        }
+    // -----------------------------------------------------------------------------------------------------------------
+    public RequestObjectTest(final Class<? extends ObjectType> requestClass) {
+        super(requestClass);
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    public RequestObjectTest(final Class<? extends ObjectType> requestClass,
-                             final Class<? extends ParamsType> paramsClass,
-                             final Class<? extends IdType> idClass) {
-        super(requestClass, idClass);
-        this.paramsClass = requireNonNull(paramsClass, "paramsClass is null");
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super ObjectType> consumer)
-            throws IOException {
-        super.acceptValueFromResource(name, v -> {
-            {
-                consumer.accept(v);
-            }
-            {
-                assertEquals(v, v);
-                assertNotEquals(new Object(), v);
-                final ObjectType obj = objectInstance();
-                obj.setMethod(v.getMethod());
-                obj.setParams(v.getParams());
-                obj.setId(v.getId());
-                assertEquals(v, obj);
-                assertEquals(obj, v);
-                assertEquals(v.hashCode(), obj.hashCode());
-            }
-//            {
-//                final RequestObject<? super ParamsType, ? super IdType> obj
-//                        = RequestObject.of(v.getJsonrpc(), v.getMethod(), v.getParams(), v.getId());
-//                assertEquals(v, obj);
-//                assertEquals(obj, v);
-//                assertEquals(v.hashCode(), obj.hashCode());
-//            }
-        });
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    protected final Class<? extends ParamsType> paramsClass;
 }
