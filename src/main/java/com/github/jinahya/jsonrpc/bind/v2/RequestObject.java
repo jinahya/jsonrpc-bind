@@ -107,19 +107,14 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
 
     /**
      * Indicates whether the current value of {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a
-     * structured value.
+     * structured value. The {@code isParamsStructured} method of {@code RequestObject} class returns {@code true}.
      *
      * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a structured value; {@code
      * false} otherwise.
      * @see <a href="https://www.jsonrpc.org/specification#parameter_structures">Parameter Structures (JSON-RPC 2.0
      * Specification)</a>
      */
-    @AssertTrue
-    protected boolean isParamsStructured() {
-        final ParamsType params = getParams();
-        if (params == null) {
-            return true;
-        }
+    protected @AssertTrue boolean isParamsStructured() {
         return true;
     }
 

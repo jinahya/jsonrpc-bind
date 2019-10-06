@@ -76,7 +76,7 @@ public abstract class JsonrpcObject<IdType> {
      * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is, <i>semantically</i>, either {@code
      * string}, {@code number}, or {@code null}; {@code false} otherwise.
      */
-    protected @AssertTrue boolean isIdEitherStringNumberOfNull() {
+    protected @AssertTrue boolean isIdEitherStringNumberOrNull() {
         final IdType id = getId();
         return id == null || id instanceof String || id instanceof Number;
     }

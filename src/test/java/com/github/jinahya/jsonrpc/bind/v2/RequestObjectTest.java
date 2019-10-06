@@ -39,15 +39,6 @@ public abstract class RequestObjectTest<ObjectType extends RequestObject<?, ?>> 
         }
     }
 
-//    // -----------------------------------------------------------------------------------------------------------------
-//    protected static class NoId<ParamsType> extends RequestObject<ParamsType, Void> {
-//
-//        @Override
-//        public void setId(final Void id) {
-//            //super.setId(id);
-//        }
-//    }
-
     // -----------------------------------------------------------------------------------------------------------------
     public RequestObjectTest(final Class<? extends ObjectType> requestClass) {
         super(requestClass);
