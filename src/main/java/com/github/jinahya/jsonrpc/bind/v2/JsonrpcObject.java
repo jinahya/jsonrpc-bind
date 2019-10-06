@@ -21,7 +21,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
@@ -171,11 +171,11 @@ public abstract class JsonrpcObject<IdType> {
      * An attribute for {@value #PROPERTY_NAME_JSONRPC} property. Default value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
     @Pattern(regexp = PROPERTY_VALUE_JSONRPC)
-    @NotBlank
+    @NotNull
     private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 
     /**
      * An attribute for {@value #PROPERTY_NAME_ID} property. Default value is {@code null}.
      */
-    private IdType id;
+    private IdType id; // may be null with notifications
 }

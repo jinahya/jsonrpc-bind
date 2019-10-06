@@ -34,6 +34,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Constants and utilities for Bean-Validation.
  */
@@ -51,15 +53,24 @@ public final class BeanValidationTests {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static <R> R applyValidator(final Function<? super Validator, ? extends R> function) {
-        return function.apply(VALIDATION_FACTORY.getValidator());
+        return requireNonNull(function, "function is null").apply(VALIDATION_FACTORY.getValidator());
     }
 
     public static <U, R> R applyValidator(final BiFunction<? super Validator, ? super U, ? extends R> function,
                                           final Supplier<? extends U> supplier) {
+        if (function == null) {
+            throw new NullPointerException("function is null");
+        }
+        if (supplier == null) {
+            throw new NullPointerException("supplier is null");
+        }
         return applyValidator(v -> function.apply(v, supplier.get()));
     }
 
     public static void acceptValidator(final Consumer<? super Validator> consumer) {
+        if (consumer == null) {
+            throw new NullPointerException("consumer is null");
+        }
         applyValidator(v -> {
             consumer.accept(v);
             return null;
@@ -68,23 +79,26 @@ public final class BeanValidationTests {
 
     public static <U> void acceptValidator(final BiConsumer<? super Validator, ? super U> consumer,
                                            final Supplier<? extends U> supplier) {
+        if (consumer == null) {
+            throw new NullPointerException("consumer is null");
+        }
+        if (supplier == null) {
+            throw new NullPointerException("supplier is null");
+        }
         acceptValidator(v -> consumer.accept(v, supplier.get()));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     public static <T> Set<ConstraintViolation<T>> validate(final T object) {
-        if (object == null) {
-            throw new NullPointerException("object is null");
-        }
-        return applyValidator(v -> v.validate(object));
+        return applyValidator(v -> v.validate(requireNonNull(object, "object is null")));
     }
 
     public static boolean isValid(final Object object) {
-        return validate(object).isEmpty();
+        return validate(requireNonNull(object, "object is null")).isEmpty();
     }
 
     public static <T> T requireValid(final T object) {
-        final Set<ConstraintViolation<T>> violations = validate(object);
+        final Set<ConstraintViolation<T>> violations = validate(requireNonNull(object, "object is null"));
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(violations);
         }
