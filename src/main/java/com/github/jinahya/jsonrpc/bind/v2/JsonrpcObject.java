@@ -21,7 +21,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
@@ -62,6 +62,7 @@ public abstract class JsonrpcObject<IdType> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Indicates whether the current value of {@value #PROPERTY_NAME_ID} property is, <i>semantically</i>, either {@code
      * string}, {@code number}, or {@code null}.
@@ -164,34 +165,13 @@ public abstract class JsonrpcObject<IdType> {
         this.id = id;
     }
 
-    /**
-     * Copies this object's current value of {@value #PROPERTY_NAME_ID} property to specified object.
-     *
-     * @param object the object to which the current value of {@value #PROPERTY_NAME_ID} property of this object is
-     *               copied.
-     * @see #copyIdFrom(JsonrpcObject)
-     */
-    public void copyIdTo(final JsonrpcObject<? super IdType> object) {
-        object.setId(getId());
-    }
-
-    /**
-     * Copies specified object's current value of {@value #PROPERTY_NAME_ID} property to this object.
-     *
-     * @param object the object whose current value of {@value #PROPERTY_NAME_ID} property is copied to this object.
-     * @see #copyIdTo(JsonrpcObject)
-     */
-    public void copyIdFrom(final JsonrpcObject<? extends IdType> object) {
-        object.copyIdTo(this);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * An attribute for {@value #PROPERTY_NAME_JSONRPC} property. Default value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
     @Pattern(regexp = PROPERTY_VALUE_JSONRPC)
-    @NotNull
+    @NotBlank
     private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 
     /**

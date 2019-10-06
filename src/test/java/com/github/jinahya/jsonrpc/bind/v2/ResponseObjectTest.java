@@ -79,10 +79,6 @@ public abstract class ResponseObjectTest<
                 consumer.accept(v);
             }
             {
-                v.setResultExclusively(v.getResult());
-                v.setErrorExclusively(v.getError());
-            }
-            {
                 assertEquals(v, v);
                 assertNotEquals(new Object(), v);
                 final ObjectType obj = objectInstance();

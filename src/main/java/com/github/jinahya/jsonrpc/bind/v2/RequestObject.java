@@ -103,6 +103,26 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
         return Objects.hash(super.hashCode(), getMethod(), getParams());
     }
 
+    // ------------------------------------------------------------------------------------------------- Bean-Validation
+
+    /**
+     * Indicates whether the current value of {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a
+     * structured value.
+     *
+     * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a structured value; {@code
+     * false} otherwise.
+     * @see <a href="https://www.jsonrpc.org/specification#parameter_structures">Parameter Structures (JSON-RPC 2.0
+     * Specification)</a>
+     */
+    @AssertTrue
+    protected boolean isParamsStructured() {
+        final ParamsType params = getParams();
+        if (params == null) {
+            return true;
+        }
+        return true;
+    }
+
     // ---------------------------------------------------------------------------------------------------------- method
 
     /**
@@ -143,33 +163,6 @@ public class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
      */
     public void setParams(final ParamsType params) {
         this.params = params;
-    }
-
-    /**
-     * Indicates whether the current value of {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a
-     * structured value.
-     *
-     * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSoN, a structured value; {@code
-     * false} otherwise.
-     * @see <a href="https://www.jsonrpc.org/specification#parameter_structures">Parameter Structures (JSON-RPC 2.0
-     * Specification)</a>
-     */
-    @AssertTrue
-    protected boolean isParamsStructured() {
-        final ParamsType params = getParams();
-        if (params == null) {
-            return true;
-        }
-//        if (params.getClass().isPrimitive()) {
-//            return false;
-//        }
-//        if (Number.class.isAssignableFrom(params.getClass())) {
-//            return false;
-//        }
-//        if (params.getClass().isAnnotation()) {
-//            return false;
-//        }
-        return true;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

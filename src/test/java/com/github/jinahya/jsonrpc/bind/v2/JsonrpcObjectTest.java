@@ -39,7 +39,7 @@ import static java.util.Objects.requireNonNull;
  * @param <ObjectType> subclass type parameter
  * @param <IdType>     id type parameter
  */
-abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdType> {
+public abstract class JsonrpcObjectTest<ObjectType extends JsonrpcObject<IdType>, IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
 

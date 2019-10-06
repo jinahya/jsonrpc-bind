@@ -330,6 +330,34 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
+     * Indicates whether the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i> {@code
+     * null}.
+     * <p>
+     * The {@code isResultNull()} method of {@code ResponseObject} class returns the value of following expression.
+     * <blockquote><pre>{@code getResult() == null}</pre></blockquote>
+     *
+     * @return {@code true} if the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i>
+     * {@code null}; {@code false} otherwise.
+     */
+    protected boolean isResultNull() {
+        return getResult() == null;
+    }
+
+    /**
+     * Indicates whether the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code
+     * null}.
+     * <p>
+     * The {@code isErrorNull()} method of {@code ResponseObject} class returns the value of following expression.
+     * <blockquote><pre>{@code getError() == null}</pre></blockquote>
+     *
+     * @return {@code true} if the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code
+     * null}; {@code false} otherwise.
+     */
+    protected boolean isErrorNull() {
+        return getError() == null;
+    }
+
+    /**
      * Indicates either {@value #PROPERTY_NAME_RESULT} property or {@value #PROPERTY_NAME_ERROR} property is set
      * exclusively. The {@code isResultErrorExclusive()} method of {@code ResponseObject} class returns the value of
      * following expression.
@@ -359,39 +387,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with specified value.
      *
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
-     * @see #setResultExclusively(Object)
      */
     public void setResult(final ResultType result) {
         this.result = result;
-    }
-
-    /**
-     * Replaces the current value of {@value #PROPERTY_NAME_RESULT} property with specified value <i>exclusively</i>.
-     * This method invokes {@link #setResult(Object)} with specified value and, if {@link #isResultNull()} method
-     * returns {@code false}, invokes {@link #setError(ErrorObject)} method with {@code null}.
-     *
-     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
-     * @see #setResult(Object)
-     */
-    public void setResultExclusively(final ResultType result) {
-        setResult(result);
-        if (!isResultNull()) {
-            setError(null);
-        }
-    }
-
-    /**
-     * Indicates whether the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i> {@code
-     * null}.
-     * <p>
-     * The {@code isResultNull()} method of {@code ResponseObject} class returns the value of following expression.
-     * <blockquote><pre>{@code getResult() == null}</pre></blockquote>
-     *
-     * @return {@code true} if the current value of {@value #PROPERTY_NAME_RESULT} property is <i>semantically</i>
-     * {@code null}; {@code false} otherwise.
-     */
-    protected boolean isResultNull() {
-        return getResult() == null;
     }
 
     // ----------------------------------------------------------------------------------------------------------- error
@@ -409,39 +407,9 @@ public class ResponseObject<ResultType, ErrorType extends ResponseObject.ErrorOb
      * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with specified value.
      *
      * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
-     * @see #setErrorExclusively(ErrorObject)
      */
     public void setError(final ErrorType error) {
         this.error = error;
-    }
-
-    /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ERROR} property with specified value <i>exclusively</i>.
-     * This method invokes {@link #setError(ErrorObject)} with specified argument and, if {@link #isErrorNull()} method
-     * returns {@code false}, invokes {@link #setResult(Object)} method with {@code null}.
-     *
-     * @param error new value for {@value #PROPERTY_NAME_ERROR} property.
-     * @see #setError(ErrorObject)
-     */
-    public void setErrorExclusively(final ErrorType error) {
-        setError(error);
-        if (!isErrorNull()) {
-            setResult(null);
-        }
-    }
-
-    /**
-     * Indicates whether the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code
-     * null}.
-     * <p>
-     * The {@code isErrorNull()} method of {@code ResponseObject} class returns the value of following expression.
-     * <blockquote><pre>{@code getError() == null}</pre></blockquote>
-     *
-     * @return {@code true} if the current value of {@value #PROPERTY_NAME_ERROR} property is <i>semantically</i> {@code
-     * null}; {@code false} otherwise.
-     */
-    protected boolean isErrorNull() {
-        return getError() == null;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

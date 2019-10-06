@@ -26,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,18 +36,6 @@ class NamedParametersResponseTest
     // -----------------------------------------------------------------------------------------------------------------
     NamedParametersResponseTest() {
         super(NamedParametersResponse.class, Integer.class, ErrorObjectTest.NoData.class, Void.class, Integer.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Override
-    protected void acceptValueFromResource(final String name, final Consumer<? super NamedParametersResponse> consumer)
-            throws IOException {
-        super.acceptValueFromResource(name, v -> {
-            consumer.accept(v);
-            final NamedParametersRequest request = new NamedParametersRequest();
-            request.copyIdFrom(v);
-            assertEquals(v.getId(), request.getId());
-        });
     }
 
     // -----------------------------------------------------------------------------------------------------------------
