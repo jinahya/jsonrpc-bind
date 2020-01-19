@@ -23,7 +23,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Objects;
 
 /**
  * An abstract class for request objects and response objects.
