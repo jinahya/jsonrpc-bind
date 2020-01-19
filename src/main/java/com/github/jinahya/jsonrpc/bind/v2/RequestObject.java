@@ -71,37 +71,6 @@ public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<Id
                + "}";
     }
 
-//    /**
-//     * {@inheritDoc}
-//     *
-//     * @param obj {@inheritDoc}
-//     * @return {@inheritDoc}
-//     */
-//    @Override
-//    public boolean equals(final Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (!(obj instanceof RequestObject)) {
-//            return false;
-//        }
-//        if (!super.equals(obj)) {
-//            return false;
-//        }
-//        final RequestObject<?, ?> that = (RequestObject<?, ?>) obj;
-//        return Objects.equals(getMethod(), that.getMethod()) && Objects.equals(getParams(), that.getParams());
-//    }
-//
-//    /**
-//     * {@inheritDoc}
-//     *
-//     * @return {@inheritDoc}
-//     */
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(super.hashCode(), getMethod(), getParams());
-//    }
-
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**

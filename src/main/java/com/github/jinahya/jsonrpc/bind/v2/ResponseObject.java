@@ -145,36 +145,6 @@ public abstract class ResponseObject<ResultType, ErrorType extends ResponseObjec
                    + "}";
         }
 
-//        /**
-//         * Indicates whether some other object is "equal to" this one.
-//         *
-//         * @param obj the reference object with which to compare
-//         * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
-//         */
-//        @Override
-//        public boolean equals(final Object obj) {
-//            if (this == obj) {
-//                return true;
-//            }
-//            if (!(obj instanceof ErrorObject)) {
-//                return false;
-//            }
-//            final ErrorObject<?> that = (ErrorObject<?>) obj;
-//            return Objects.equals(code, that.getCode()) &&
-//                   Objects.equals(message, that.getMessage()) &&
-//                   Objects.equals(data, that.getData());
-//        }
-//
-//        /**
-//         * Returns a hash code value for the object.
-//         *
-//         * @return a hash code value for this object.
-//         */
-//        @Override
-//        public int hashCode() {
-//            return Objects.hash(getCode(), getMessage(), getData());
-//        }
-
         // -------------------------------------------------------------------------------------------------------- code
 
         /**
@@ -292,37 +262,6 @@ public abstract class ResponseObject<ResultType, ErrorType extends ResponseObjec
                + ",error=" + error
                + "}";
     }
-
-//    /**
-//     * {@inheritDoc}
-//     *
-//     * @param obj {@inheritDoc}
-//     * @return {@inheritDoc}
-//     */
-//    @Override
-//    public boolean equals(final Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (!(obj instanceof ResponseObject)) {
-//            return false;
-//        }
-//        if (!super.equals(obj)) {
-//            return false;
-//        }
-//        final ResponseObject<?, ?, ?> that = (ResponseObject<?, ?, ?>) obj;
-//        return Objects.equals(getResult(), that.getResult()) && Objects.equals(getError(), that.getError());
-//    }
-//
-//    /**
-//     * {@inheritDoc}
-//     *
-//     * @return {@inheritDoc}
-//     */
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(super.hashCode(), getResult(), getError());
-//    }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 

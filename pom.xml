@@ -41,9 +41,9 @@
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
-    <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
+    <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
     <version.maven-javadoc-plugin>3.1.1</version.maven-javadoc-plugin>
     <version.maven-surefire>3.0.0-M3</version.maven-surefire>
     <version.com.fasterxml.jackson.core>2.10.0</version.com.fasterxml.jackson.core>
@@ -429,17 +429,6 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
-    </profile>
-    <profile>
-      <id>umlgraph</id>
-      <properties>
-        <additionalparam>
-          -all -hide java.*
-          -collapsible -horizontal
-          -inferdep -inferdepinpackage -inferrel
-          -outputencoding UTF-8
-        </additionalparam>
-      </properties>
     </profile>
   </profiles>
 </project>

@@ -95,34 +95,6 @@ public abstract class JsonrpcObject<IdType> {
                + "}";
     }
 
-//    /**
-//     * Indicates whether some other object is "equal to" this one.
-//     *
-//     * @param obj the reference object with which to compare.
-//     * @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
-//     */
-//    @Override
-//    public boolean equals(final Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (!(obj instanceof JsonrpcObject)) {
-//            return false;
-//        }
-//        final JsonrpcObject<?> that = (JsonrpcObject<?>) obj;
-//        return Objects.equals(getJsonrpc(), that.getJsonrpc()) && Objects.equals(getId(), that.getId());
-//    }
-//
-//    /**
-//     * Returns a hash code value for the object.
-//     *
-//     * @return a hash code value for this object.
-//     */
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(getJsonrpc(), getId());
-//    }
-
     // --------------------------------------------------------------------------------------------------------- jsonrpc
 
     /**
