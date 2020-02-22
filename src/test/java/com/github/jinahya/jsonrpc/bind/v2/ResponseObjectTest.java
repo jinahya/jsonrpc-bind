@@ -52,7 +52,7 @@ public abstract class ResponseObjectTest<ObjectType extends ResponseObject<?, ?,
     protected Method dataSetter() {
         if (dataSetter == null) {
             try {
-                dataSetter = ResponseObject.ErrorObject.class.getMethod("setData", Object.class);
+                dataSetter = ResponseErrorObject.class.getMethod("setData", Object.class);
                 if (!dataSetter.isAccessible()) {
                     dataSetter.setAccessible(true);
                 }
@@ -66,7 +66,7 @@ public abstract class ResponseObjectTest<ObjectType extends ResponseObject<?, ?,
     protected MethodHandle dataSetterHandler() {
         if (dataSetterHandler == null) {
             try {
-                final Field field = ResponseObject.ErrorObject.class.getDeclaredField("data");
+                final Field field = ResponseErrorObject.class.getDeclaredField("data");
                 if (!field.isEnumConstant()) {
                     field.setAccessible(true);
                 }

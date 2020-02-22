@@ -43,7 +43,7 @@ class NamedParametersResponseTest extends ResponseObjectTest<NamedParametersResp
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_01_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
-                    assertEquals(3, (int) v.getId());
+                    assertEquals(3, (int) v.getIdType());
                 }
         );
     }
@@ -54,7 +54,7 @@ class NamedParametersResponseTest extends ResponseObjectTest<NamedParametersResp
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_02_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
-                    assertEquals(4, (int) v.getId());
+                    assertEquals(4, (int) v.getIdType());
                 }
         );
     }

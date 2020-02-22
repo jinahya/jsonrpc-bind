@@ -45,8 +45,8 @@ class PositionalParametersRequestTest extends RequestObjectTest<PositionalParame
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_01_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
-                    assertIterableEquals(asList(42, 23), v.getParams());
-                    assertEquals(1, (int) v.getId());
+                    assertIterableEquals(asList(42, 23), v.getParamsType());
+                    assertEquals(1, (int) v.getIdType());
                 });
     }
 
@@ -56,8 +56,8 @@ class PositionalParametersRequestTest extends RequestObjectTest<PositionalParame
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_02_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
-                    assertIterableEquals(asList(23, 42), v.getParams());
-                    assertEquals(2, (int) v.getId());
+                    assertIterableEquals(asList(23, 42), v.getParamsType());
+                    assertEquals(2, (int) v.getIdType());
                 }
         );
     }

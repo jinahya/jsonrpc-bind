@@ -20,12 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
 
 /**
  * An abstract class for request objects and response objects.
@@ -33,8 +28,6 @@ import javax.validation.constraints.NotNull;
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@Setter
-@Getter
 public abstract class JsonrpcObject<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -61,8 +54,9 @@ public abstract class JsonrpcObject<IdType> {
     /**
      * Creates a new instance.
      */
-    public JsonrpcObject() {
+    protected JsonrpcObject() {
         super();
+        jsonrpc = PROPERTY_VALUE_JSONRPC;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -80,10 +74,7 @@ public abstract class JsonrpcObject<IdType> {
      * @return {@code true} if the value of {@value #PROPERTY_NAME_ID} property is, <i>semantically</i>, either {@code
      * string}, {@code number}, or {@code null}; {@code false} otherwise.
      */
-    protected @AssertTrue boolean isIdEitherStringNumberOrNull() {
-        final IdType id = getId();
-        return id == null || id instanceof String || id instanceof Number;
-    }
+    protected abstract @AssertTrue boolean isIdEitherStringNumberOrNull();
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -96,7 +87,7 @@ public abstract class JsonrpcObject<IdType> {
     public String toString() {
         return super.toString() + "{"
                + "jsonrpc=" + jsonrpc
-               + ",id=" + id
+               + ",id=" + idType
                + "}";
     }
 
@@ -112,15 +103,6 @@ public abstract class JsonrpcObject<IdType> {
         return jsonrpc;
     }
 
-    /**
-     * Replaces the current value of {@value #PROPERTY_NAME_JSONRPC} property with specified value.
-     *
-     * @param jsonrpc new value for {@value #PROPERTY_NAME_JSONRPC} property.
-     */
-    public void setJsonrpc(final String jsonrpc) {
-        this.jsonrpc = jsonrpc;
-    }
-
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
@@ -128,30 +110,36 @@ public abstract class JsonrpcObject<IdType> {
      *
      * @return the current value of {@value #PROPERTY_NAME_ID} property.
      */
-    public IdType getId() {
-        return id;
+    protected IdType getIdType() {
+        return idType;
     }
+
+    public abstract String getIdAsString();
+
+    public abstract Long getIdAsLong();
 
     /**
      * Replaces the current value of {@value #PROPERTY_NAME_ID} property with specified value.
      *
-     * @param id new value for {@value #PROPERTY_NAME_ID} property.
+     * @param idType new value for {@value #PROPERTY_NAME_ID} property.
      */
-    public void setId(final IdType id) {
-        this.id = id;
+    protected void setIdType(final IdType idType) {
+        this.idType = idType;
     }
+
+    public abstract void setId(String id);
+
+    public abstract void setId(Long id);
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * An attribute for {@value #PROPERTY_NAME_JSONRPC} property. Default value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
-    @NotNull
-    @Setter(AccessLevel.NONE)
-    private String jsonrpc = PROPERTY_VALUE_JSONRPC;
+    private final String jsonrpc;
 
     /**
      * An attribute for {@value #PROPERTY_NAME_ID} property. Default value is {@code null}.
      */
-    private IdType id; // may be null with notifications
+    private IdType idType; // may be null with notifications
 }

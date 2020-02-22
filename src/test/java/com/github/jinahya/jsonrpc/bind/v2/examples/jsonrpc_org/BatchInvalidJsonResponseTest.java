@@ -21,7 +21,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  */
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseErrorObject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +50,7 @@ class BatchInvalidJsonResponseTest {
                     }
                 })
         );
-        assertEquals(ErrorObject.CODE_PARSE_ERROR, responseObject.getError().getCode());
+        assertEquals(ResponseErrorObject.CODE_PARSE_ERROR, responseObject.getError().getCode());
         assertEquals("Parse error", responseObject.getError().getMessage());
     }
 
@@ -60,7 +60,7 @@ class BatchInvalidJsonResponseTest {
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/batch_invalid_json_01_response.json",
                 s -> JSONB.fromJson(s, BatchInvalidJsonResponse.class));
         log.debug("responseObject: {}", responseObject);
-        assertEquals(ErrorObject.CODE_PARSE_ERROR, responseObject.getError().getCode());
+        assertEquals(ResponseErrorObject.CODE_PARSE_ERROR, responseObject.getError().getCode());
         assertEquals("Parse error", responseObject.getError().getMessage());
     }
 }

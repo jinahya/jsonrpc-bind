@@ -31,10 +31,10 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class RequestObjectTest<ObjectType extends RequestObject<?, ?>> extends JsonrpcObjectTest<ObjectType> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static class NoParams<IdType> extends RequestObject<Void, IdType> {
+    public static class NoParams<IdType> extends RequestObject<IdType, Void> {
 
         @Override
-        public void setParams(final Void params) {
+        public void setParamsType(final Void paramsType) {
             //super.setParams(params);
         }
     }

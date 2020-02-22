@@ -20,23 +20,21 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
-
 import static java.util.Objects.requireNonNull;
 
 /**
- * An abstract class for testing subclasses of {@link ErrorObject}.
+ * An abstract class for testing subclasses of {@link ResponseErrorObject}.
  *
  * @param <ErrorType> error type parameter
  */
-public abstract class ErrorObjectTest<ErrorType extends ErrorObject<?>> {
+public abstract class ErrorObjectTest<ErrorType extends ResponseErrorObject<?>> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * A class for error objects without specific type of {@value #PROPERTY_NAME_DATA} property.
      */
-    public static class NoData extends ErrorObject<Void> {
+    public static class NoData extends ResponseErrorObject<Void> {
 
     }
 

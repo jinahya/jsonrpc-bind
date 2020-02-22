@@ -46,14 +46,14 @@ class NotificationTest extends RequestObjectTest<Notification> {
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/notification_01_request.json",
                 v -> {
                     assertEquals("update", v.getMethod());
-                    assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParams());
+                    assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParamsType());
                 }
         );
         acceptValueFromResource(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/notification_01_request.json",
                 v -> {
                     assertEquals("update", v.getMethod());
-                    assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParams());
+                    assertIterableEquals(asList(1, 2, 3, 4, 5), v.getParamsType());
                 }
         );
     }
@@ -64,7 +64,7 @@ class NotificationTest extends RequestObjectTest<Notification> {
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/notification_02_request.json",
                 v -> {
                     assertEquals("foobar", v.getMethod());
-                    assertNull(v.getParams());
+                    assertNull(v.getParamsType());
                 }
         );
     }

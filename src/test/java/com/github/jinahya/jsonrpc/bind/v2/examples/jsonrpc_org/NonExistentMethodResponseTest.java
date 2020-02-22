@@ -20,7 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2.examples.jsonrpc_org;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.ResponseObject.ErrorObject;
+import com.github.jinahya.jsonrpc.bind.v2.ResponseErrorObject;
 import com.github.jinahya.jsonrpc.bind.v2.ResponseObjectTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -43,8 +43,8 @@ class NonExistentMethodResponseTest extends ResponseObjectTest<NonExistentMethod
         acceptValueFromResource(
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/non_existent_method_01_response.json",
                 v -> {
-                    final ErrorObject<Void> error = v.getError();
-                    assertEquals(ErrorObject.CODE_METHOD_NOT_FOUND, error.getCode());
+                    final ResponseErrorObject<Void> error = v.getError();
+                    assertEquals(ResponseErrorObject.CODE_METHOD_NOT_FOUND, error.getCode());
                     assertEquals("Method not found", error.getMessage());
                 }
         );

@@ -43,7 +43,7 @@ class PositionalParametersResponseTest extends ResponseObjectTest<PositionalPara
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_01_response.json",
                 v -> {
                     assertEquals(19, (int) v.getResult());
-                    assertEquals(1, (int) v.getId());
+                    assertEquals(1, (int) v.getIdType());
                 }
         );
     }
@@ -54,7 +54,7 @@ class PositionalParametersResponseTest extends ResponseObjectTest<PositionalPara
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/positional_parameters_02_response.json",
                 v -> {
                     assertEquals(-19, (int) v.getResult());
-                    assertEquals(2, (int) v.getId());
+                    assertEquals(2, (int) v.getIdType());
                 }
         );
     }

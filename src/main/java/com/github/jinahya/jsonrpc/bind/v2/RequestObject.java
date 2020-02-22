@@ -28,12 +28,12 @@ import javax.validation.constraints.NotBlank;
  * A class for binding request objects.
  *
  * @param <ParamsType> {@value #PROPERTY_NAME_PARAMS} type parameter
- * @param <IdType>     {@value com.github.jinahya.jsonrpc.bind.v2.JsonrpcObject#PROPERTY_NAME_ID} type parameter
+ * @param <IdType>     {@value JsonrpcObject#PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0
  * Specification)</a>
  */
-public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<IdType> {
+public abstract class RequestObject<IdType, ParamsType> extends JsonrpcObject<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -52,7 +52,7 @@ public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<Id
     /**
      * Creates a new instance.
      */
-    public RequestObject() {
+    protected RequestObject() {
         super();
     }
 
@@ -67,7 +67,7 @@ public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<Id
     public String toString() {
         return super.toString() + "{"
                + "method=" + method
-               + ",params=" + params
+               + ",params=" + paramsType
                + "}";
     }
 
@@ -75,16 +75,14 @@ public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<Id
 
     /**
      * Indicates whether the current value of {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a
-     * structured value. The {@code isParamsStructured} method of {@code RequestObject} class returns {@code true}.
+     * structured value.
      *
      * @return {@code true} if {@value #PROPERTY_NAME_PARAMS} property is, in a view of JSON, a structured value; {@code
      * false} otherwise.
      * @see <a href="https://www.jsonrpc.org/specification#parameter_structures">Parameter Structures (JSON-RPC 2.0
      * Specification)</a>
      */
-    protected @AssertTrue boolean isParamsStructured() {
-        return true;
-    }
+    protected abstract @AssertTrue boolean isParamsStructured();
 
     // ---------------------------------------------------------------------------------------------------------- method
 
@@ -115,18 +113,22 @@ public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<Id
      *
      * @return the current value of {@value #PROPERTY_NAME_PARAMS} property.
      */
-    public ParamsType getParams() {
-        return params;
+    protected ParamsType getParamsType() {
+        return paramsType;
     }
+
+    public abstract <T> T getParamsAs(final Class<T> paramsClass);
 
     /**
      * Replaces the current value of {@value #PROPERTY_NAME_PARAMS} property with specified value.
      *
-     * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
+     * @param paramsType new value for {@value #PROPERTY_NAME_PARAMS} property.
      */
-    public void setParams(final ParamsType params) {
-        this.params = params;
+    protected void setParamsType(final ParamsType paramsType) {
+        this.paramsType = paramsType;
     }
+
+    public abstract <T> void setParams(T params);
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -140,5 +142,5 @@ public abstract class RequestObject<ParamsType, IdType> extends JsonrpcObject<Id
      * An attribute for {@value #PROPERTY_NAME_PARAMS} property.
      */
     @Valid
-    private ParamsType params;
+    private ParamsType paramsType;
 }

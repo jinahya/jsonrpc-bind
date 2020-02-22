@@ -43,9 +43,9 @@ class NamedParametersRequestTest extends RequestObjectTest<NamedParametersReques
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_01_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
-                    assertEquals(23, v.getParams().getSubtrahend());
-                    assertEquals(42, v.getParams().getMinuend());
-                    assertEquals(3, (int) v.getId());
+                    assertEquals(23, v.getParamsType().getSubtrahend());
+                    assertEquals(42, v.getParamsType().getMinuend());
+                    assertEquals(3, (int) v.getIdType());
                 }
         );
     }
@@ -56,9 +56,9 @@ class NamedParametersRequestTest extends RequestObjectTest<NamedParametersReques
                 "/com/github/jinahya/jsonrpc/bind/v2/examples/jsonrpc_org/named_parameters_02_request.json",
                 v -> {
                     assertEquals("subtract", v.getMethod());
-                    assertEquals(23, v.getParams().getSubtrahend());
-                    assertEquals(42, v.getParams().getMinuend());
-                    assertEquals(4, (int) v.getId());
+                    assertEquals(23, v.getParamsType().getSubtrahend());
+                    assertEquals(42, v.getParamsType().getMinuend());
+                    assertEquals(4, (int) v.getIdType());
                 }
         );
     }
