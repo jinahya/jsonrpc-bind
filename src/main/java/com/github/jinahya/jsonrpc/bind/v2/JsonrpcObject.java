@@ -20,9 +20,12 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 /**
  * An abstract class for request objects and response objects.
@@ -30,6 +33,8 @@ import javax.validation.constraints.Pattern;
  * @param <IdType> {@value #PROPERTY_NAME_ID} type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@Setter
+@Getter
 public abstract class JsonrpcObject<IdType> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -141,8 +146,8 @@ public abstract class JsonrpcObject<IdType> {
     /**
      * An attribute for {@value #PROPERTY_NAME_JSONRPC} property. Default value is {@value #PROPERTY_VALUE_JSONRPC}.
      */
-    @Pattern(regexp = PROPERTY_VALUE_JSONRPC)
     @NotNull
+    @Setter(AccessLevel.NONE)
     private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 
     /**
