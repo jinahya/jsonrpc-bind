@@ -1,6 +1,6 @@
 package com.github.jinahya.jsonrpc.bind.v2a;
 
-public interface JsonrpcResponseObject extends JsonrpcObject {
+public interface IJsonrpcResponseMessage extends IJsonrpcMessage {
 
     /**
      * The property name for {@code $.result}. The value is {@value}.
@@ -30,46 +30,30 @@ public interface JsonrpcResponseObject extends JsonrpcObject {
     // ---------------------------------------------------------------------------------------------------------- result
     boolean hasResult();
 
-    boolean getResultAsBoolean();
-
-    void setResultAsBoolean(boolean resultAsBoolean);
-
-    int getResultAsInt();
-
-    void setResultAsInt();
-
-    long getResultAsLong();
-
-    void setResultAsLong();
-
-    double getResultAsDouble();
-
-    void setResultAsDouble();
-
-    <T> T getResultAsNamed(Class<T> clazz);
-
-    void setResultAsNamed(Object resultAsNamed);
+//    boolean getResultAsBoolean();
+//
+//    void setResultAsBoolean(boolean resultAsBoolean);
+//
+//    int getResultAsInt();
+//
+//    void setResultAsInt();
+//
+//    long getResultAsLong();
+//
+//    void setResultAsLong();
+//
+//    double getResultAsDouble();
+//
+//    void setResultAsDouble();
+//
+//    <T> T getResultAsObject(Class<T> clazz);
+//
+//    void setResultAsObject(Object result);
 
     // ----------------------------------------------------------------------------------------------------------- error
     boolean hasError();
 
-    boolean getErrorAsBoolean();
+    <T extends IJsonrpcResponseErrorObject> T getError(Class<T> clazz);
 
-    void setErrorAsBoolean(boolean errorAsBoolean);
-
-    int getErrorAsInt();
-
-    void setErrorAsInt();
-
-    long getErrorAsLong();
-
-    void setErrorAsLong();
-
-    double getErrorAsDouble();
-
-    void setErrorAsDouble();
-
-    <T> T getErrorAsNamed(Class<T> clazz);
-
-    void setErrorAsNamed(Object errorAsNamed);
+    void setError(IJsonrpcResponseErrorObject value);
 }
