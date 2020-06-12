@@ -1,6 +1,6 @@
 package com.github.jinahya.jsonrpc.bind.v2b;
 
-public interface IJsonrpcResponseErrorObject extends IJsonrpcObject {
+public interface JsonrpcResponseMessageError extends JsonrpcObject {
 
     String PROPERTY_NAME_CODE = "code";
 

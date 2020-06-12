@@ -1,6 +1,8 @@
 package com.github.jinahya.jsonrpc.bind.v2b;
 
-public interface IJsonrpcResponseMessage extends IJsonrpcMessage {
+import java.util.List;
+
+public abstract class JsonrpcResponseMessage extends JsonrpcMessage {
 
     /**
      * The property name for {@code $.result}. The value is {@value}.
@@ -28,7 +30,7 @@ public interface IJsonrpcResponseMessage extends IJsonrpcMessage {
 //    public static final String PROPERTY_NAME_DATA = "data";
 
     // ---------------------------------------------------------------------------------------------------------- result
-    boolean hasResult();
+    public abstract boolean hasResult();
 
 //    boolean getResultAsBoolean();
 //
@@ -50,10 +52,20 @@ public interface IJsonrpcResponseMessage extends IJsonrpcMessage {
 //
 //    void setResultAsObject(Object result);
 
+    public <T> T[] getResultAsArray(final Class<T> elementClass) {
+    }
+
+    public <T> void setResultAsArray(final T[] result) {
+    }
+
+    public <T> L
+    ist<T> getResultAsList(final Class<T> elementClass) {
+    }
+
     // ----------------------------------------------------------------------------------------------------------- error
-    boolean hasError();
+    public abstract boolean hasError();
 
-    <T extends IJsonrpcResponseErrorObject> T getError(Class<T> clazz);
+    public abstract <T extends JsonrpcResponseMessageError> T getErrorAs(Class<T> clazz);
 
-    void setError(IJsonrpcResponseErrorObject value);
+    public abstract void setErrorAs(JsonrpcResponseMessageError value);
 }
