@@ -1,61 +1,54 @@
 package com.github.jinahya.jsonrpc.bind.v2b;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.math.BigInteger;
 
 import static java.util.Optional.ofNullable;
 
-public class JsonrpcMessage implements JsonrpcObject {
+public interface JsonrpcMessage extends JsonrpcObject {
 
-    public static final String PROPERTY_NAME_JSONRPC = "jsonrpc";
+    String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
-    public static final String PROPERTY_NAME_ID = "id";
+    String PROPERTY_NAME_ID = "id";
 
-    public static final String PROPERTY_VALUE_JSONRPC = "2.0";
+    String PROPERTY_VALUE_JSONRPC = "2.0";
 
-    public String getJsonrpc() {
-        return jsonrpc;
-    }
-
-    public void setJsonrpc(final String jsonrpc) {
-        this.jsonrpc = jsonrpc;
-    }
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(final BigInteger id) {
-        this.id = ofNullable(id)
-                .map(BigInteger::toByteArray)
-                .map(BigInteger::new)
-                .orElse(null);
-    }
-
-    public int getIdAsInt() {
-        return ofNullable(getId())
-                .map(BigInteger::intValueExact)
-                .orElseThrow(() -> new IllegalStateException("id is currently not set"));
-    }
-
-    public void setIdAsInt(final int id) {
-        setId(BigInteger.valueOf(id));
-    }
-
-    public long getIdAsLong() {
-        return ofNullable(getId())
-                .map(BigInteger::longValueExact)
-                .orElseThrow(() -> new IllegalStateException("id is currently not set"));
-    }
-
-    public void setIdAsLong(final long id) {
-        setId(BigInteger.valueOf(id));
-    }
-
+    // --------------------------------------------------------------------------------------------------------- jsonrpc
     @Pattern(regexp = "2\\.0")
     @NotNull
-    private String jsonrpc = PROPERTY_VALUE_JSONRPC;
+    String getJsonrpc();
 
-    private BigInteger id;
+    void setJsonrpc(String jsonrpc);
+
+    // -------------------------------------------------------------------------------------------------------------- id
+    boolean hasId();
+
+    @AssertTrue
+    boolean isIdContextuallyValid();
+
+    String getIdAsString();
+
+    void setIdAsString(String id);
+
+    BigInteger getIdAsNumber();
+
+    void setIdAsNumber(final BigInteger id);
+
+    default Long getIdAsLong() {
+        return ofNullable(getIdAsNumber()).map(BigInteger::longValueExact).orElse(null);
+    }
+
+    default void setIdAsLong(final Long id) {
+        setIdAsNumber(ofNullable(id).map(BigInteger::valueOf).orElse(null));
+    }
+
+    default Integer getIdAsInteger() {
+        return ofNullable(getIdAsLong()).map(Math::toIntExact).orElse(null);
+    }
+
+    default void setIdAsInteger(final Integer id) {
+        setIdAsLong(ofNullable(id).map(Integer::longValue).orElse(null));
+    }
 }

@@ -1,7 +1,12 @@
 package com.github.jinahya.jsonrpc.bind.v2b;
 
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.List;
+
 public interface JsonrpcResponseMessageError extends JsonrpcObject {
 
+    // -----------------------------------------------------------------------------------------------------------------
     String PROPERTY_NAME_CODE = "code";
 
     String PROPERTY_NAME_MESSAGE = "message";
@@ -19,11 +24,32 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
 
     void setCode(int code);
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------------- message
+    @NotNull
     String getMessage();
 
     void setMessage(String message);
 
     // ------------------------------------------------------------------------------------------------------------ data
-    // TODO: 2020/06/12 define some!!!
+    boolean hasData();
+
+    Boolean getDataAsBoolean();
+
+    void setDataAsBoolean(Boolean data);
+
+    String getDataAsString();
+
+    void setDataAsString(String data);
+
+    BigDecimal getDataAsNumber();
+
+    void setDataAsNumber(BigDecimal data);
+
+    <T> List<T> getDataAsList(Class<?> elementClass);
+
+    void setDataAsList(List<?> data);
+
+    <T> T getDataAsObject(Class<T> objectClass);
+
+    void setDataAsObject(Object data);
 }

@@ -1,8 +1,10 @@
 package com.github.jinahya.jsonrpc.bind.v2b;
 
+import javax.validation.constraints.AssertFalse;
+import java.math.BigDecimal;
 import java.util.List;
 
-public abstract class JsonrpcResponseMessage extends JsonrpcMessage {
+public interface JsonrpcResponseMessage extends JsonrpcMessage {
 
     /**
      * The property name for {@code $.result}. The value is {@value}.
@@ -14,58 +16,47 @@ public abstract class JsonrpcResponseMessage extends JsonrpcMessage {
      */
     String PROPERTY_NAME_ERROR = "error";
 
-//    /**
-//     * The property name for {@code $.error.code} of response objects. The value is {@value}.
-//     */
-//    public static final String PROPERTY_NAME_CODE = "code";
-//
-//    /**
-//     * The property name for {@code $.error.message} of response objects. The value is {@value}.
-//     */
-//    public static final String PROPERTY_NAME_MESSAGE = "message";
-//
-//    /**
-//     * The property name for {@code $.error.data} of response objects. The value is {@value}.
-//     */
-//    public static final String PROPERTY_NAME_DATA = "data";
+    // -----------------------------------------------------------------------------------------------------------------
+    @AssertFalse
+    default boolean isHasResultAndHasError() {
+        return hasResult() && hasError();
+    }
 
     // ---------------------------------------------------------------------------------------------------------- result
-    public abstract boolean hasResult();
+    boolean hasResult();
 
-//    boolean getResultAsBoolean();
-//
-//    void setResultAsBoolean(boolean resultAsBoolean);
-//
-//    int getResultAsInt();
-//
-//    void setResultAsInt();
-//
-//    long getResultAsLong();
-//
-//    void setResultAsLong();
-//
-//    double getResultAsDouble();
-//
-//    void setResultAsDouble();
-//
-//    <T> T getResultAsObject(Class<T> clazz);
-//
-//    void setResultAsObject(Object result);
-
-    public <T> T[] getResultAsArray(final Class<T> elementClass) {
+    default boolean isResultContextuallyValid() {
+        return true;
     }
 
-    public <T> void setResultAsArray(final T[] result) {
-    }
+    Boolean getResultAsBoolean();
 
-    public <T> L
-    ist<T> getResultAsList(final Class<T> elementClass) {
-    }
+    void setResultAsBoolean(Boolean result);
+
+    String getResultAsString();
+    
+    void setResultAsString(String result);
+
+    BigDecimal getResultAsNumber();
+
+    void setResultAsNumber(BigDecimal result);
+
+    <T> List<T> getResultAsList(Class<T> elementClass);
+
+    void setResultAsList(List<?> result);
+
+    <T> T getResultAsObject(Class<T> objectClass);
+
+    void setResultAsObject(Object result);
 
     // ----------------------------------------------------------------------------------------------------------- error
-    public abstract boolean hasError();
+    boolean hasError();
 
-    public abstract <T extends JsonrpcResponseMessageError> T getErrorAs(Class<T> clazz);
+    default boolean isErrorContextuallyValid() {
+        return true;
+    }
 
-    public abstract void setErrorAs(JsonrpcResponseMessageError value);
+    <T extends JsonrpcResponseMessageError> T getErrorAs(Class<T> clazz);
+
+    void setErrorAs(JsonrpcResponseMessageError error);
 }
