@@ -1,10 +1,7 @@
 package com.github.jinahya.jsonrpc.bind.v2b;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 public interface JsonrpcResponseMessageError extends JsonrpcObject {
 
@@ -39,43 +36,18 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
         return true;
     }
 
-    default Boolean getDataAsBoolean() {
-        return getDataAsBoolean(false);
-    }
-
-    Boolean getDataAsBoolean(boolean lenient);
-
-    void setDataAsBoolean(Boolean data);
-
-    default String getDataAsString() {
-        return getDataAsString(false);
-    }
-
-    String getDataAsString(boolean lenient);
-
-    void setDataAsString(String data);
-
-    default BigDecimal getDataAsNumber() {
-        return getDataAsNumber(false);
-    }
-
-    BigDecimal getDataAsNumber(boolean lenient);
-
-    void setDataAsNumber(BigDecimal data);
-
-    default <T> List<T> getDataAsArray(Class<T> elementClass) {
-        return getDataAsArray(requireNonNull(elementClass, "elementClass is null"), false);
-    }
-
-    <T> List<T> getDataAsArray(Class<T> elementClass, boolean lenient);
+    /**
+     * Reads the current value of {@value #PROPERTY_NAME_DATA} property as a list of specified element type.
+     *
+     * @param elementClass the element type.
+     * @param <T>          element type parameter
+     * @return a list of {@code elementClass}.
+     */
+    <T> List<T> getDataAsArray(Class<T> elementClass);
 
     void setDataAsArray(List<?> data);
 
-    default <T> T getDataAsObject(Class<T> objectClass) {
-        return getDataAsObject(requireNonNull(objectClass, "objectClass is null"), false);
-    }
-
-    <T> T getDataAsObject(Class<T> objectClass, boolean linent);
+    <T> T getDataAsObject(Class<T> objectClass);
 
     void setDataAsObject(Object data);
 }

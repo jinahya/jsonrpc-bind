@@ -3,6 +3,7 @@ package com.github.jinahya.jsonrpc.bind.v2b;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import static java.util.Optional.ofNullable;
@@ -28,40 +29,32 @@ public interface JsonrpcMessage extends JsonrpcObject {
     @AssertTrue
     boolean isIdContextuallyValid();
 
-    default String getIdAsString() {
-        return getIdAsString(false);
-    }
-
-    String getIdAsString(boolean lenient);
+    String getIdAsString();
 
     void setIdAsString(String id);
 
-    default BigInteger getIdAsNumber() {
-        return getIdAsNumber(false);
+    BigDecimal getIdAsNumber();
+
+    void setIdAsNumber(final BigDecimal id);
+
+    default BigInteger getIdAsBigInteger() {
+        return ofNullable(getIdAsNumber()).map(BigDecimal::toBigIntegerExact).orElse(null);
     }
 
-    BigInteger getIdAsNumber(boolean lenient);
-
-    void setIdAsNumber(final BigInteger id);
+    default void setIdAsBigInteger(final BigInteger id) {
+        setIdAsNumber(ofNullable(id).map(BigDecimal::new).orElse(null));
+    }
 
     default Long getIdAsLong() {
-        return getIdAsLong(false);
-    }
-
-    default Long getIdAsLong(final boolean lenient) {
-        return ofNullable(getIdAsNumber(lenient)).map(BigInteger::longValueExact).orElse(null);
+        return ofNullable(getIdAsBigInteger()).map(BigInteger::longValueExact).orElse(null);
     }
 
     default void setIdAsLong(final Long id) {
-        setIdAsNumber(ofNullable(id).map(BigInteger::valueOf).orElse(null));
+        setIdAsBigInteger(ofNullable(id).map(BigInteger::valueOf).orElse(null));
     }
 
     default Integer getIdAsInteger() {
-        return getIdAsInteger(false);
-    }
-
-    default Integer getIdAsInteger(final boolean lenient) {
-        return ofNullable(getIdAsLong(lenient)).map(Math::toIntExact).orElse(null);
+        return ofNullable(getIdAsLong()).map(Math::toIntExact).orElse(null);
     }
 
     default void setIdAsInteger(final Integer id) {
