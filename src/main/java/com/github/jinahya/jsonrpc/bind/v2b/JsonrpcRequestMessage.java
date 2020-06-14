@@ -47,7 +47,6 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
     }
 
     <T> T getParamsAsObject(Class<T> objectClass, boolean lenient);
-//    <T> T getParamsAsObject(Class<T> objectClass);
 
     void setParamsAsObject(Object params);
 }
