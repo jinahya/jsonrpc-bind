@@ -3,7 +3,7 @@ package com.github.jinahya.jsonrpc.bind.v2b;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public abstract class AbstractJsonrpcMessage implements JsonrpcMessage {
+public abstract class AbstractJsonrpcMessage extends AbstractJsonrpcObject implements JsonrpcMessage {
 
     @Override
     public String toString() {

@@ -3,6 +3,8 @@ package com.github.jinahya.jsonrpc.bind.v2b;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 public interface JsonrpcRequestMessage extends JsonrpcMessage {
 
     /**
@@ -30,11 +32,22 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
      */
     void setMethod(String method);
 
-    <T> List<T> getParamsAsList(Class<T> elementClass);
+    boolean hasParams();
 
-    void setParamsAsList(List<?> params);
+    default <T> List<T> getParamsAsArray(final Class<T> elementClass) {
+        return getParamsAsArray(requireNonNull(elementClass, "elementClass is null"), false);
+    }
 
-    <T> T getParamsAsObject(Class<T> objectClass);
+    <T> List<T> getParamsAsArray(Class<T> elementClass, boolean lenient);
+
+    void setParamsAsArray(List<?> params);
+
+    default <T> T getParamsAsObject(final Class<T> objectClass) {
+        return getParamsAsObject(requireNonNull(objectClass, "objectClass is null"), false);
+    }
+
+    <T> T getParamsAsObject(Class<T> objectClass, boolean lenient);
+//    <T> T getParamsAsObject(Class<T> objectClass);
 
     void setParamsAsObject(Object params);
 }

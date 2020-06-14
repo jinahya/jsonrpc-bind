@@ -2,7 +2,9 @@ package com.github.jinahya.jsonrpc.bind.v2b;
 
 import javax.validation.constraints.NotNull;
 
-public abstract class AbstractJsonrpcResponseMessageError implements JsonrpcResponseMessageError {
+public abstract class AbstractJsonrpcResponseMessageError
+        extends AbstractJsonrpcObject
+        implements JsonrpcResponseMessageError {
 
     @Override
     public String toString() {
@@ -12,7 +14,6 @@ public abstract class AbstractJsonrpcResponseMessageError implements JsonrpcResp
                + "}";
     }
 
-    // ------------------------------------------------------------------------------------------------------------ code
     @Override
     public int getCode() {
         return code;
@@ -23,7 +24,6 @@ public abstract class AbstractJsonrpcResponseMessageError implements JsonrpcResp
         this.code = code;
     }
 
-    // --------------------------------------------------------------------------------------------------------- message
     @Override
     public @NotNull String getMessage() {
         return message;
@@ -34,7 +34,6 @@ public abstract class AbstractJsonrpcResponseMessageError implements JsonrpcResp
         this.message = message;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     private int code;
 
     private String message = "";

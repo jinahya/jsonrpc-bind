@@ -4,6 +4,8 @@ import javax.validation.constraints.AssertFalse;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 public interface JsonrpcResponseMessage extends JsonrpcMessage {
 
     /**
@@ -18,7 +20,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
 
     // -----------------------------------------------------------------------------------------------------------------
     @AssertFalse
-    default boolean isHasResultAndHasError() {
+    default boolean isBothResultAndErrorSet() {
         return hasResult() && hasError();
     }
 
@@ -29,23 +31,43 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
         return true;
     }
 
-    Boolean getResultAsBoolean();
+    default Boolean getResultAsBoolean() {
+        return getResultAsBoolean(false);
+    }
+
+    Boolean getResultAsBoolean(boolean lenient);
 
     void setResultAsBoolean(Boolean result);
 
-    String getResultAsString();
-    
+    default String getResultAsString() {
+        return getResultAsString(false);
+    }
+
+    String getResultAsString(boolean lenient);
+
     void setResultAsString(String result);
 
-    BigDecimal getResultAsNumber();
+    default BigDecimal getResultAsNumber() {
+        return getResultAsNumber(false);
+    }
+
+    BigDecimal getResultAsNumber(boolean lenient);
 
     void setResultAsNumber(BigDecimal result);
 
-    <T> List<T> getResultAsList(Class<T> elementClass);
+    default <T> List<T> getResultAsList(Class<T> elementClass) {
+        return getResultAsList(requireNonNull(elementClass, "elementClass is null"), false);
+    }
+
+    <T> List<T> getResultAsList(Class<T> elementClass, boolean lenient);
 
     void setResultAsList(List<?> result);
 
-    <T> T getResultAsObject(Class<T> objectClass);
+    default <T> T getResultAsObject(Class<T> objectClass) {
+        return getResultAsObject(requireNonNull(objectClass, "objectClass is null"), false);
+    }
+
+    <T> T getResultAsObject(Class<T> objectClass, boolean lenient);
 
     void setResultAsObject(Object result);
 

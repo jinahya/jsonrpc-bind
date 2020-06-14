@@ -4,6 +4,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 public interface JsonrpcResponseMessageError extends JsonrpcObject {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -33,23 +35,47 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     // ------------------------------------------------------------------------------------------------------------ data
     boolean hasData();
 
-    Boolean getDataAsBoolean();
+    default boolean isDataContextuallyValid() {
+        return true;
+    }
+
+    default Boolean getDataAsBoolean() {
+        return getDataAsBoolean(false);
+    }
+
+    Boolean getDataAsBoolean(boolean lenient);
 
     void setDataAsBoolean(Boolean data);
 
-    String getDataAsString();
+    default String getDataAsString() {
+        return getDataAsString(false);
+    }
+
+    String getDataAsString(boolean lenient);
 
     void setDataAsString(String data);
 
-    BigDecimal getDataAsNumber();
+    default BigDecimal getDataAsNumber() {
+        return getDataAsNumber(false);
+    }
+
+    BigDecimal getDataAsNumber(boolean lenient);
 
     void setDataAsNumber(BigDecimal data);
 
-    <T> List<T> getDataAsList(Class<?> elementClass);
+    default <T> List<T> getDataAsArray(Class<T> elementClass) {
+        return getDataAsArray(requireNonNull(elementClass, "elementClass is null"), false);
+    }
 
-    void setDataAsList(List<?> data);
+    <T> List<T> getDataAsArray(Class<T> elementClass, boolean lenient);
 
-    <T> T getDataAsObject(Class<T> objectClass);
+    void setDataAsArray(List<?> data);
+
+    default <T> T getDataAsObject(Class<T> objectClass) {
+        return getDataAsObject(requireNonNull(objectClass, "objectClass is null"), false);
+    }
+
+    <T> T getDataAsObject(Class<T> objectClass, boolean linent);
 
     void setDataAsObject(Object data);
 }
