@@ -1,5 +1,9 @@
+/**
+ * Defines interface and classes for JSON-RPC 2.0.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 package com.github.jinahya.jsonrpc.bind.v2;
-
 /*-
  * #%L
  * jsonrpc-bind
@@ -19,12 +23,3 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * limitations under the License.
  * #L%
  */
-
-public abstract class AbstractJsonrpcResponseMessage extends AbstractJsonrpcMessage implements JsonrpcResponseMessage {
-
-    @Override
-    public String toString() {
-        return super.toString() + "{"
-               + "}";
-    }
-}

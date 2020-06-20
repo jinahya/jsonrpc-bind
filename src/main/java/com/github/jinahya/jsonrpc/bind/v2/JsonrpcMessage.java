@@ -1,5 +1,25 @@
 package com.github.jinahya.jsonrpc.bind.v2;
 
+/*-
+ * #%L
+ * jsonrpc-bind
+ * %%
+ * Copyright (C) 2019 - 2020 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -7,26 +27,49 @@ import java.math.BigInteger;
 
 import static java.util.Optional.ofNullable;
 
+/**
+ * An interface for JSONRPC messages.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+@SuppressWarnings({"java:S1214"})
 public interface JsonrpcMessage extends JsonrpcObject {
 
     /**
      * The property name for JSONRPC version. The value is {@value}.
+     * <blockquote>
+     * A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
+     * </blockquote>
+     *
+     * @see #PROPERTY_PATTERN_REGEXP_JSONRPC
+     * @see #PROPERTY_VALUE_JSONRPC
      */
     String PROPERTY_NAME_JSONRPC = "jsonrpc";
 
+    /**
+     * The regexp for {@link #PROPERTY_NAME_JSONRPC} property. The value is {@value}.
+     */
     String PROPERTY_PATTERN_REGEXP_JSONRPC = "2\\.0";
 
+    /**
+     * The default (and fixed) value for {@link #PROPERTY_NAME_JSONRPC} property. The value is {@code 2.0}.
+     */
     String PROPERTY_VALUE_JSONRPC = PROPERTY_PATTERN_REGEXP_JSONRPC.replaceAll("\\\\.", ".");
 
     /**
      * The property name for identifying messages. The value is {@value}.
+     * <blockquote>
+     * An identifier established by the Client that MUST contain a String, Number, or NULL value if included. If it is
+     * not included it is assumed to be a notification. The value SHOULD normally not be Null and Numbers SHOULD NOT
+     * contain fractional parts
+     * </blockquote>
      */
     String PROPERTY_NAME_ID = "id";
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_JSONRPC} property.
+     * Returns current value of {@value #PROPERTY_NAME_JSONRPC} property.
      *
-     * @return the current value of {@value #PROPERTY_NAME_JSONRPC} property.
+     * @return current value of {@value #PROPERTY_NAME_JSONRPC} property.
      */
     @Pattern(regexp = PROPERTY_PATTERN_REGEXP_JSONRPC)
     @NotNull
@@ -47,6 +90,15 @@ public interface JsonrpcMessage extends JsonrpcObject {
     boolean hasId();
 
     /**
+     * Indicates whether this message is a notification.
+     *
+     * @return {@code true} if this message is a notification; {@code false} otherwise.
+     */
+    default boolean isNotification() {
+        return !hasId();
+    }
+
+    /**
      * Indicates whether the {@value #PROPERTY_NAME_ID} property is contextually valid.
      *
      * @return {@code true} if valid; @{@code false} otherwise.
@@ -55,64 +107,72 @@ public interface JsonrpcMessage extends JsonrpcObject {
     boolean isIdContextuallyValid();
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_ID} property as a string.
+     * Returns current value of {@value #PROPERTY_NAME_ID} property as a string.
      *
-     * @return the current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property.
      */
     String getIdAsString();
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given value.
+     * Replaces current value of {@value #PROPERTY_NAME_ID} property with given value.
      *
      * @param id new value for {@value #PROPERTY_NAME_ID} property.
      */
     void setIdAsString(String id);
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_ID} property as a big integer value.
+     * Returns current value of {@value #PROPERTY_NAME_ID} property as a number.
      *
-     * @return the current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property.
      */
     BigInteger getIdAsNumber();
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given value.
+     * Replaces current value of {@value #PROPERTY_NAME_ID} property with given value.
      *
      * @param id new value for {@value #PROPERTY_NAME_ID} property.
      */
     void setIdAsNumber(final BigInteger id);
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_ID} property as a long value.
+     * Returns current value of {@value #PROPERTY_NAME_ID} property as a {@code Long} value.
      *
-     * @return the current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property.
+     * @see #getIdAsNumber()
+     * @see BigInteger#longValueExact()
      */
     default Long getIdAsLong() {
         return ofNullable(getIdAsNumber()).map(BigInteger::longValueExact).orElse(null);
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given value.
+     * Replaces current value of {@value #PROPERTY_NAME_ID} property with given value.
      *
      * @param id new value for {@value #PROPERTY_NAME_ID} property.
+     * @see BigInteger#valueOf(long)
+     * @see #setIdAsNumber(BigInteger)
      */
     default void setIdAsLong(final Long id) {
         setIdAsNumber(ofNullable(id).map(BigInteger::valueOf).orElse(null));
     }
 
     /**
-     * Returns the current value of {@value #PROPERTY_NAME_ID} property as a long value.
+     * Returns current value of {@value #PROPERTY_NAME_ID} property as a {@code Integer} value.
      *
-     * @return the current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property.
+     * @see #getIdAsLong()
+     * @see Math#toIntExact(long)
      */
     default Integer getIdAsInteger() {
         return ofNullable(getIdAsLong()).map(Math::toIntExact).orElse(null);
     }
 
     /**
-     * Replaces the current value of {@value #PROPERTY_NAME_ID} property with given value.
+     * Replaces current value of {@value #PROPERTY_NAME_ID} property with given value.
      *
      * @param id new value for {@value #PROPERTY_NAME_ID} property.
+     * @see Integer#longValue()
+     * @see #setIdAsLong(Long)
      */
     default void setIdAsInteger(final Integer id) {
         setIdAsLong(ofNullable(id).map(Integer::longValue).orElse(null));
