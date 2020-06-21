@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
-class JsonrpcMessageTest {
+class JsonrpcMessageConstantsTest {
 
     /**
      * Asserts the value of {@link JsonrpcMessage#PROPERTY_VALUE_JSONRPC} equals to {@code 2.0}.
