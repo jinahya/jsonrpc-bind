@@ -14,3 +14,4 @@ See implementation modules.
 
 * [jsonrpc-bind-jackson](https://github.com/jinahya/jsonrpc-bind-jackson)
 * [jsonrpc-bind-gson](https://github.com/jinahya/jsonrpc-bind-gson)
+* [jsonrpc-bind-jsonb](https://github.com/jinahya/jsonrpc-bind-jsonb)
