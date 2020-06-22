@@ -33,12 +33,12 @@ import java.util.List;
 public interface JsonrpcRequestMessage extends JsonrpcMessage {
 
     /**
-     * The property name for {@code $.method} path. The value is {@value}.
+     * The property name for {@code $.method} part. The value is {@value}.
      */
     String PROPERTY_NAME_METHOD = "method";
 
     /**
-     * The property name for {@code $.params} path. The value is {@value}.
+     * The property name for {@code $.params} part. The value is {@value}.
      */
     String PROPERTY_NAME_PARAMS = "params";
 

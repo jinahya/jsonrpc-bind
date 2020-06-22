@@ -36,7 +36,7 @@ import static java.util.Optional.ofNullable;
 public interface JsonrpcMessage extends JsonrpcObject {
 
     /**
-     * The property name for JSONRPC version. The value is {@value}.
+     * The property name for JSON-RPC version. The value is {@value}.
      * <blockquote>
      * A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
      * </blockquote>

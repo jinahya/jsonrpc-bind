@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * <blockquote>
      * This member is REQUIRED on error.
      * <p>This member MUST NOT exist if there was no error triggered during invocation.
-     * <p>The value for this member MUST be an Object as defined in section <a href="https://www.jsonrpc.org/specification#error_object">5.1</a>.
+     * <p>The value for this member MUST be an Object as defined in section 5.1.
      * </blockquote>
      *
      * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Object (JSON-RPC 2.0)</a>
