@@ -37,7 +37,7 @@ import static java.util.Optional.ofNullable;
 public interface JsonrpcMessage extends JsonrpcObject {
 
     /**
-     * The property name for JSONRPC version. The value is {@value}.
+     * The name of the property maps to {@code $.jsonrpc} part. The value is {@value}.
      * <blockquote>
      * A String specifying the version of the JSON-RPC protocol. MUST be exactly "2.0".
      * </blockquote>
@@ -58,7 +58,7 @@ public interface JsonrpcMessage extends JsonrpcObject {
     String PROPERTY_VALUE_JSONRPC = PROPERTY_PATTERN_REGEXP_JSONRPC.replaceAll("\\\\.", ".");
 
     /**
-     * The property name for identifying messages. The value is {@value}.
+     * The name of the property maps to {@code $.id} part. The value is {@value}.
      * <blockquote>
      * An identifier established by the Client that MUST contain a String, Number, or NULL value if included. If it is
      * not included it is assumed to be a notification. The value SHOULD normally not be Null and Numbers SHOULD NOT
@@ -98,8 +98,7 @@ public interface JsonrpcMessage extends JsonrpcObject {
      * Client's lack of interest in the corresponding Response object, and as such no Response object needs to be
      * returned to the client. The Server MUST NOT reply to a Notification, including those that are within a batch
      * request.
-     * <p>
-     * Notifications are not confirmable by definition, since they do not have a Response object to be returned. As
+     * <br>Notifications are not confirmable by definition, since they do not have a Response object to be returned. As
      * such, the Client would not be aware of any errors (like e.g. "Invalid params","Internal error").
      * </blockquote>
      *

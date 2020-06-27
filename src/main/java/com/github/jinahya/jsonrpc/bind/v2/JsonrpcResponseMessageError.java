@@ -37,8 +37,7 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * The name of the property for error code. The value is {@value}.
      * <blockquote>
      * A Number that indicates the error type that occurred.
-     * <br>
-     * This MUST be an integer.
+     * <br>This MUST be an integer.
      * </blockquote>
      */
     String PROPERTY_NAME_CODE = "code";
@@ -119,8 +118,7 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * The name of the property for error message. The value is {@value}.
      * <blockquote>
      * A String providing a short description of the error.
-     * <br>
-     * The message SHOULD be limited to a concise single sentence.
+     * <br>The message SHOULD be limited to a concise single sentence.
      * </blockquote>
      */
     String PROPERTY_NAME_MESSAGE = "message";
@@ -129,10 +127,8 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * The name of the error data. The value is {@value}.
      * <blockquote>
      * A Primitive or Structured value that contains additional information about the error.
-     * <br>
-     * This may be omitted.
-     * <br>
-     * The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
+     * <br>This may be omitted.
+     * <br>The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
      * </blockquote>
      */
     String PROPERTY_NAME_DATA = "data";

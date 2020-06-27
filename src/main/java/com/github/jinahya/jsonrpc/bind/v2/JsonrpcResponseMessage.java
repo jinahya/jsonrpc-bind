@@ -65,9 +65,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * property are exclusively set; {@code false} otherwise.
      * @implSpec The default implementation returns an XOR-ed value of {@link #hasResult()} and {@link #hasError()}.
      */
-    @AssertTrue
     @Transient
-    default boolean isResultAndErrorExclusive() {
+    default @AssertTrue boolean isResultAndErrorExclusive() {
         return hasResult() ^ hasError();
     }
 
@@ -91,9 +90,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @implNote The default implementation returns {@code true}.
      * @see #PROPERTY_NAME_RESULT
      */
-    @AssertTrue
     @Transient
-    default boolean isResultContextuallyValid() {
+    default @AssertTrue boolean isResultContextuallyValid() {
         return true;
     }
 
@@ -153,9 +151,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @implNote Default implementation returns {@code true}.
      * @see #PROPERTY_NAME_ERROR
      */
-    @AssertTrue
     @Transient
-    default boolean isErrorContextuallyValid() {
+    default @AssertTrue boolean isErrorContextuallyValid() {
         return true;
     }
 

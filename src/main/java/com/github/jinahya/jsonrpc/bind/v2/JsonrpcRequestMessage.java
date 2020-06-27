@@ -36,7 +36,7 @@ import java.util.List;
 public interface JsonrpcRequestMessage extends JsonrpcMessage {
 
     /**
-     * The property name for {@code $.method} path. The value is {@value}.
+     * The property name for {@code $.method} part. The value is {@value}.
      * <blockquote>
      * A String containing the name of the method to be invoked. Method names that begin with the word rpc followed by a
      * period character (U+002E or ASCII 46) are reserved for rpc-internal methods and extensions and MUST NOT be used
@@ -46,7 +46,7 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
     String PROPERTY_NAME_METHOD = "method";
 
     /**
-     * The property name for {@code $.params} path. The value is {@value}.
+     * The name of the property mapped to {@code $.params} part. The value is {@value}.
      * <blockquote>
      * A Structured value that holds the parameter values to be used during the invocation of the method. This member
      * MAY be omitted.
@@ -78,9 +78,8 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
      * @return {@code true} if value of {@value #PROPERTY_NAME_METHOD} property is considered to be reserved for
      * rpc-internal; {@code false} otherwise.
      */
-    @AssertFalse
     @Transient
-    default boolean isMethodReservedForRpcInternal() {
+    default @AssertFalse boolean isMethodReservedForRpcInternal() {
         final String method = getMethod();
         return method == null || method.startsWith("rpc.");
     }
@@ -104,8 +103,8 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
      * @apiNote It's considered to be contextually valid when {@link #hasParams()} returns {@code false}.
      * @see #PROPERTY_NAME_PARAMS
      */
-    @AssertTrue
     @Transient
+    @AssertTrue
     boolean isParamsContextuallyValid();
 
     /**
