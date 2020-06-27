@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,10 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
+import java.beans.Transient;
 import java.util.List;
 
 /**
@@ -34,13 +37,24 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
 
     /**
      * The property name for {@code $.method} path. The value is {@value}.
+     * <blockquote>
+     * A String containing the name of the method to be invoked. Method names that begin with the word rpc followed by a
+     * period character (U+002E or ASCII 46) are reserved for rpc-internal methods and extensions and MUST NOT be used
+     * for anything else.
+     * </blockquote>
      */
     String PROPERTY_NAME_METHOD = "method";
 
     /**
      * The property name for {@code $.params} path. The value is {@value}.
+     * <blockquote>
+     * A Structured value that holds the parameter values to be used during the invocation of the method. This member
+     * MAY be omitted.
+     * </blockquote>
      */
     String PROPERTY_NAME_PARAMS = "params";
+
+    // ---------------------------------------------------------------------------------------------------------- method
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_METHOD} property.
@@ -58,12 +72,41 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
     void setMethod(String method);
 
     /**
+     * Indicates that current value of {@value #PROPERTY_NAME_METHOD} property is considered to be reserved for
+     * rpc-internal.
+     *
+     * @return {@code true} if value of {@value #PROPERTY_NAME_METHOD} property is considered to be reserved for
+     * rpc-internal; {@code false} otherwise.
+     */
+    @AssertFalse
+    @Transient
+    default boolean isMethodReservedForRpcInternal() {
+        final String method = getMethod();
+        return method == null || method.startsWith("rpc.");
+    }
+
+    // ---------------------------------------------------------------------------------------------------------- params
+
+    /**
      * Indicates this message has a value for {@value #PROPERTY_NAME_PARAMS} property.
      *
      * @return {@code} true if this message has a value for {@value #PROPERTY_NAME_PARAMS} property; {@code false}
      * otherwise.
      */
+    @Transient
     boolean hasParams();
+
+    /**
+     * Indicate whether current value of {@value #PROPERTY_NAME_PARAMS} property is contextually valid.
+     *
+     * @return {@code true} if current value of {@value #PROPERTY_NAME_PARAMS} property is contextually valid; {@code
+     * false} otherwise.
+     * @apiNote It's considered to be contextually valid when {@link #hasParams()} returns {@code false}.
+     * @see #PROPERTY_NAME_PARAMS
+     */
+    @AssertTrue
+    @Transient
+    boolean isParamsContextuallyValid();
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_PARAMS} property as a list of specified element type.

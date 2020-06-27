@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,16 +22,26 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import javax.validation.constraints.NotBlank;
 
-public abstract class AbstractJsonrpcRequestMessage extends AbstractJsonrpcMessage implements JsonrpcRequestMessage {
+/**
+ * An abstract class implements {@link JsonrpcRequestMessage} interface.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+public abstract class AbstractJsonrpcRequestMessage
+        extends AbstractJsonrpcMessage
+        implements JsonrpcRequestMessage {
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return super.toString() + "{"
-               + "method=" + method
+               + PROPERTY_NAME_METHOD + "=" + method
                + "}";
     }
-
-    // ---------------------------------------------------------------------------------------------------------- method
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_METHOD} property.
@@ -53,6 +63,5 @@ public abstract class AbstractJsonrpcRequestMessage extends AbstractJsonrpcMessa
         this.method = method;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     private String method;
 }

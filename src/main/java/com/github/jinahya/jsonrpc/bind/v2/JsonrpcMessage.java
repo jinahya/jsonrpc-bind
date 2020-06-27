@@ -23,6 +23,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.beans.Transient;
 import java.math.BigInteger;
 
 import static java.util.Optional.ofNullable;
@@ -87,23 +88,37 @@ public interface JsonrpcMessage extends JsonrpcObject {
      *
      * @return {@code} true if set; {@code false} otherwise.
      */
+    @Transient
     boolean hasId();
 
     /**
      * Indicates whether this message is a notification.
+     * <blockquote>
+     * A Notification is a Request object without an "id" member. A Request object that is a Notification signifies the
+     * Client's lack of interest in the corresponding Response object, and as such no Response object needs to be
+     * returned to the client. The Server MUST NOT reply to a Notification, including those that are within a batch
+     * request.
+     * <p>
+     * Notifications are not confirmable by definition, since they do not have a Response object to be returned. As
+     * such, the Client would not be aware of any errors (like e.g. "Invalid params","Internal error").
+     * </blockquote>
      *
      * @return {@code true} if this message is a notification; {@code false} otherwise.
+     * @implSpec Default implementation returns {@code !hasId()};
      */
+    @Transient
     default boolean isNotification() {
         return !hasId();
     }
 
     /**
-     * Indicates whether the {@value #PROPERTY_NAME_ID} property is contextually valid.
+     * Indicates whether current value of {@value #PROPERTY_NAME_ID} property is contextually valid.
      *
-     * @return {@code true} if valid; @{@code false} otherwise.
+     * @return {@code true} if valid; {@code false} otherwise.
+     * @apiNote It's considered to be valid if {@link #hasId()} returns {@code false}.
      */
     @AssertTrue
+    @Transient
     boolean isIdContextuallyValid();
 
     /**
@@ -111,6 +126,7 @@ public interface JsonrpcMessage extends JsonrpcObject {
      *
      * @return current value of {@value #PROPERTY_NAME_ID} property.
      */
+    @Transient
     String getIdAsString();
 
     /**
@@ -125,6 +141,7 @@ public interface JsonrpcMessage extends JsonrpcObject {
      *
      * @return current value of {@value #PROPERTY_NAME_ID} property.
      */
+    @Transient
     BigInteger getIdAsNumber();
 
     /**
@@ -141,6 +158,7 @@ public interface JsonrpcMessage extends JsonrpcObject {
      * @see #getIdAsNumber()
      * @see BigInteger#longValueExact()
      */
+    @Transient
     default Long getIdAsLong() {
         return ofNullable(getIdAsNumber()).map(BigInteger::longValueExact).orElse(null);
     }
@@ -163,6 +181,7 @@ public interface JsonrpcMessage extends JsonrpcObject {
      * @see #getIdAsLong()
      * @see Math#toIntExact(long)
      */
+    @Transient
     default Integer getIdAsInteger() {
         return ofNullable(getIdAsLong()).map(Math::toIntExact).orElse(null);
     }

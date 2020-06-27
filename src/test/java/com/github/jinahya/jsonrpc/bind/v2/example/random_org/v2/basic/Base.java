@@ -1,8 +1,8 @@
-package com.github.jinahya.jsonrpc.bind.v2;
+package com.github.jinahya.jsonrpc.bind.v2.example.random_org.v2.basic;
 
 /*-
  * #%L
- * jsonrpc-bind
+ * jsonrpc-bind-jackson
  * %%
  * Copyright (C) 2019 - 2020 Jinahya, Inc.
  * %%
@@ -20,23 +20,32 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-/**
- * An abstract class implements {@link JsonrpcResponseMessage} interface.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-public abstract class AbstractJsonrpcResponseMessage
-        extends AbstractJsonrpcMessage
-        implements JsonrpcResponseMessage {
+public enum Base {
 
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return a string representation of the object.
-     */
-    @Override
-    public String toString() {
-        return super.toString() + "{"
-               + "}";
+    BINARY(2),
+
+    OCTAL(8),
+
+    DECIMAL(10),
+
+    HEXADECIMAL(16);
+
+    public static Base valueOfBase(final int base) {
+        for (final Base value : values()) {
+            if (value.base == base) {
+                return value;
+            }
+        }
+        throw new IllegalArgumentException("no value for base: " + base);
     }
+
+    Base(final int base) {
+        this.base = base;
+    }
+
+    public int getBase() {
+        return base;
+    }
+
+    private final int base;
 }

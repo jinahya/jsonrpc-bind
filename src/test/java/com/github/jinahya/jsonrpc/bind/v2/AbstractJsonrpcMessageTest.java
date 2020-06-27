@@ -22,10 +22,23 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * An abstract class for testing subclasses of {@link AbstractJsonrpcMessage} class.
+ *
+ * @param <T> subclass type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @Slf4j
-abstract class AbstractJsonrpcMessageTest<T extends AbstractJsonrpcMessage> extends AbstractJsonrpcObjectTest<T> {
+public abstract class AbstractJsonrpcMessageTest<T extends AbstractJsonrpcMessage>
+        extends AbstractJsonrpcObjectTest<T> {
 
-    protected AbstractJsonrpcMessageTest(final Class<T> messageClass) {
-        super(messageClass);
+    /**
+     * Creates a new instance with specified message class.
+     *
+     * @param clazz the message class to test.
+     * @see #clazz
+     */
+    protected AbstractJsonrpcMessageTest(final Class<T> clazz) {
+        super(clazz);
     }
 }

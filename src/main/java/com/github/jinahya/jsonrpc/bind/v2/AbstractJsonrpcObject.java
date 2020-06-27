@@ -20,7 +20,23 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+/**
+ * An abstract class implements {@link JsonrpcObject} interface.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @SuppressWarnings({"java:S1610"})
-public abstract class AbstractJsonrpcObject implements JsonrpcObject {
+public abstract class AbstractJsonrpcObject
+        implements JsonrpcObject {
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object
+     */
+    @Override
+    public String toString() {
+        return super.toString() + "{"
+               + "}";
+    }
 }

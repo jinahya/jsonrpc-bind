@@ -1,8 +1,8 @@
-package com.github.jinahya.jsonrpc.bind.v2;
+package com.github.jinahya.jsonrpc.bind.v2.example.random_org.v2.basic;
 
 /*-
  * #%L
- * jsonrpc-bind
+ * jsonrpc-bind-jackson
  * %%
  * Copyright (C) 2019 - 2020 Jinahya, Inc.
  * %%
@@ -20,23 +20,37 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-/**
- * An abstract class implements {@link JsonrpcResponseMessage} interface.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-public abstract class AbstractJsonrpcResponseMessage
-        extends AbstractJsonrpcMessage
-        implements JsonrpcResponseMessage {
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return a string representation of the object.
-     */
-    @Override
-    public String toString() {
-        return super.toString() + "{"
-               + "}";
+import java.util.List;
+
+@ToString
+@Setter
+@Getter
+@Slf4j
+public class GenerateIntegersResult {
+
+    @ToString
+    @Setter
+    @Getter
+    @Slf4j
+    public static class Random {
+
+        private List<Integer> data;
+
+        private String completionTime;
     }
+
+    private Random random;
+
+    private int bitsUsed;
+
+    private int bitsLeft;
+
+    private int requestsLeft;
+
+    private int advisoryDelay;
 }
