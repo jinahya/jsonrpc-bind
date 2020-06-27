@@ -92,6 +92,16 @@ public interface JsonrpcMessage extends JsonrpcObject {
     boolean hasId();
 
     /**
+     * Indicates whether current value of {@value #PROPERTY_NAME_ID} property is contextually valid.
+     *
+     * @return {@code true} if valid; {@code false} otherwise.
+     * @apiNote It's considered to be valid if {@link #hasId()} returns {@code false}.
+     */
+    @Transient
+    @AssertTrue
+    boolean isIdContextuallyValid();
+
+    /**
      * Indicates whether this message is a notification.
      * <blockquote>
      * A Notification is a Request object without an "id" member. A Request object that is a Notification signifies the
@@ -109,16 +119,6 @@ public interface JsonrpcMessage extends JsonrpcObject {
     default boolean isNotification() {
         return !hasId();
     }
-
-    /**
-     * Indicates whether current value of {@value #PROPERTY_NAME_ID} property is contextually valid.
-     *
-     * @return {@code true} if valid; {@code false} otherwise.
-     * @apiNote It's considered to be valid if {@link #hasId()} returns {@code false}.
-     */
-    @AssertTrue
-    @Transient
-    boolean isIdContextuallyValid();
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_ID} property as a string.

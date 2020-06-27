@@ -33,7 +33,8 @@ import java.util.List;
  * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0)</a>
  */
 @SuppressWarnings({"java:S1214"})
-public interface JsonrpcRequestMessage extends JsonrpcMessage {
+public interface JsonrpcRequestMessage
+        extends JsonrpcMessage {
 
     /**
      * The property name for {@code $.method} part. The value is {@value}.
