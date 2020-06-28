@@ -25,6 +25,11 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
+import java.util.stream.StreamSupport;
+
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.StreamSupport.stream;
 
 /**
  * An interface JSO N-RPC 2.0 request messages.
@@ -123,6 +128,19 @@ public interface JsonrpcRequestMessage
      * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */
     void setParamsAsArray(List<?> params);
+
+    /**
+     * Replaces current value of {@value #PROPERTY_NAME_PARAMS} property with specified iterable.
+     *
+     * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
+     */
+    default void setParamsAsArray(final Iterable<?> params) {
+        setParamsAsArray(
+                ofNullable(params)
+                        .map(d -> stream(d.spliterator(), false).collect(toList()))
+                        .orElse(null)
+        );
+    }
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_PARAMS} property as an instance of specified object type.

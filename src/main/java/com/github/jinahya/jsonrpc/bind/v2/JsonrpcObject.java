@@ -24,7 +24,7 @@ import javax.validation.constraints.AssertTrue;
 import java.beans.Transient;
 
 /**
- * A marker interface for JSON-RPC 2.0 objects.
+ * An interface for JSON-RPC 2.0 objects.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -42,4 +42,11 @@ public interface JsonrpcObject {
     default boolean isContextuallyValid() {
         return true;
     }
+
+    /**
+     * Returns a JSON representation of the object.
+     *
+     * @return a JSON representation of the object.
+     */
+    String toJson();
 }

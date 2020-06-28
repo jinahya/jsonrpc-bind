@@ -24,6 +24,10 @@ import javax.validation.constraints.AssertTrue;
 import java.beans.Transient;
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.StreamSupport.stream;
+
 /**
  * An interface for JSON-RPC 2.0 response messages.
  *
@@ -48,7 +52,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * <blockquote>
      * This member is REQUIRED on error.
      * <br>This member MUST NOT exist if there was no error triggered during invocation.
-     * <br>The value for this member MUST be an Object as defined in section <a href="https://www.jsonrpc.org/specification#error_object">5.1</a>.
+     * <br>The value for this member MUST be an Object as defined in section 5.1.
      * </blockquote>
      *
      * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Object (JSON-RPC 2.0)</a>
@@ -112,6 +116,19 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
      */
     void setResultAsArray(List<?> result);
+
+    /**
+     * Replaces current value of {@value #PROPERTY_NAME_RESULT} property with specified iterable.
+     *
+     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
+     */
+    default void setResultAsArray(final Iterable<?> result) {
+        setResultAsArray(
+                ofNullable(result)
+                        .map(d -> stream(d.spliterator(), false).collect(toList()))
+                        .orElse(null)
+        );
+    }
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_RESULT} property as an instance of specified object class.

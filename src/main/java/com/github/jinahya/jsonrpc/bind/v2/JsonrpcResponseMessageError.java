@@ -20,9 +20,14 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
+import java.util.stream.StreamSupport;
+
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
 
 /**
  * An interface for {@link JsonrpcResponseMessage#PROPERTY_NAME_ERROR} property.
@@ -212,6 +217,7 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * @implSpec The default implementation returns {@code true}.
      */
     @Transient
+    @AssertTrue
     default boolean isDataContextuallyValid() {
         return true;
     }
@@ -232,6 +238,19 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * @param data new value for {@value #PROPERTY_NAME_DATA} property.
      */
     void setDataAsArray(List<?> data);
+
+    /**
+     * Replaces current value of {@value #PROPERTY_NAME_DATA} property with specified iterable.
+     *
+     * @param data new value for {@value #PROPERTY_NAME_DATA} property.
+     */
+    default void setDataAsArray(final Iterable<?> data) {
+        setDataAsArray(
+                ofNullable(data)
+                        .map(d -> StreamSupport.stream(d.spliterator(), false).collect(toList()))
+                        .orElse(null)
+        );
+    }
 
     /**
      * Reads current value of {@value #PROPERTY_NAME_DATA} property as an instance of specified class.
