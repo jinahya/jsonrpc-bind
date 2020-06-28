@@ -20,6 +20,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+import javax.validation.constraints.AssertTrue;
+import java.beans.Transient;
+
 /**
  * A marker interface for JSON-RPC 2.0 objects.
  *
@@ -27,4 +30,16 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 public interface JsonrpcObject {
 
+    /**
+     * Indicates this JSON-RPC object is contextually valid.
+     *
+     * @return {@code true} if this JSON-RPC object is contextually valid; {@code false} otherwise.
+     * @apiNote This method supposed to be overridden when any implementation specified features required to be added.
+     * @implSpec The default implementation returns {@code true}.
+     */
+    @Transient
+    @AssertTrue
+    default boolean isContextuallyValid() {
+        return true;
+    }
 }

@@ -86,7 +86,8 @@ public interface JsonrpcMessage extends JsonrpcObject {
     /**
      * Indicates whether this message has a value for {@value #PROPERTY_NAME_ID} property.
      *
-     * @return {@code} true if set; {@code false} otherwise.
+     * @return {@code} true if this message has a value for {@value #PROPERTY_NAME_ID} property; {@code false}
+     * otherwise.
      */
     @Transient
     boolean hasId();
@@ -107,9 +108,8 @@ public interface JsonrpcMessage extends JsonrpcObject {
      * A Notification is a Request object without an "id" member. A Request object that is a Notification signifies the
      * Client's lack of interest in the corresponding Response object, and as such no Response object needs to be
      * returned to the client. The Server MUST NOT reply to a Notification, including those that are within a batch
-     * request.
-     * <br>Notifications are not confirmable by definition, since they do not have a Response object to be returned. As
-     * such, the Client would not be aware of any errors (like e.g. "Invalid params","Internal error").
+     * request. <br>Notifications are not confirmable by definition, since they do not have a Response object to be
+     * returned. As such, the Client would not be aware of any errors (like e.g. "Invalid params","Internal error").
      * </blockquote>
      *
      * @return {@code true} if this message is a notification; {@code false} otherwise.

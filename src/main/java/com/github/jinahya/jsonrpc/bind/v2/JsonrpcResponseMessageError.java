@@ -20,7 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
 
@@ -182,7 +182,7 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      *
      * @return current value of {@value #PROPERTY_NAME_MESSAGE} property
      */
-    @NotNull
+    @NotBlank
     String getMessage();
 
     /**

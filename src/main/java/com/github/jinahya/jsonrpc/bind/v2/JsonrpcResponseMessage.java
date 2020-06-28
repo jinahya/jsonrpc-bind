@@ -44,7 +44,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     String PROPERTY_NAME_RESULT = "result";
 
     /**
-     * The property name for {@code $.error} part. The value is {@value}.
+     * The name of the property maps to {@code $.error} part. The value is {@value}.
      * <blockquote>
      * This member is REQUIRED on error.
      * <br>This member MUST NOT exist if there was no error triggered during invocation.
@@ -58,8 +58,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Indicates whether {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} property are
-     * exclusively set.
+     * Indicates whether {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} property are set
+     * exclusively.
      *
      * @return {@code true} if the {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR}
      * property are exclusively set; {@code false} otherwise.
@@ -161,7 +161,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      *
      * @param clazz the error class to bind.
      * @param <T>   error type parameter
-     * @return an instance of {@code clazz}.
+     * @return current value of {@value #PROPERTY_NAME_ERROR} property as an instance of {@code clazz}.
      */
     @Transient
     <T extends JsonrpcResponseMessageError> T getErrorAs(Class<T> clazz);
@@ -172,4 +172,13 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @param error new value for {@link #PROPERTY_NAME_ERROR} property.
      */
     void setErrorAs(JsonrpcResponseMessageError error);
+
+    /**
+     * Returns current value of {@value #PROPERTY_NAME_ERROR} property as an instance of default implementation class.
+     *
+     * @return current value of {@value #PROPERTY_NAME_ERROR} property. {@code null} if this message has no value for
+     * {@value #PROPERTY_NAME_ERROR} property.
+     */
+    @Transient
+    JsonrpcResponseMessageError getErrorAsDefaultType();
 }
