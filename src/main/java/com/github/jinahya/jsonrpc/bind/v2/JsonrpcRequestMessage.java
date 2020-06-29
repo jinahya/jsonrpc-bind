@@ -25,7 +25,6 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
@@ -59,6 +58,26 @@ public interface JsonrpcRequestMessage
      * </blockquote>
      */
     String PROPERTY_NAME_PARAMS = "params";
+
+    // -------------------------------------------------------------------------------------------------------------- id
+
+    /**
+     * Indicates whether this message is a notification.
+     * <blockquote>
+     * A Notification is a Request object without an "id" member. A Request object that is a Notification signifies the
+     * Client's lack of interest in the corresponding Response object, and as such no Response object needs to be
+     * returned to the client. The Server MUST NOT reply to a Notification, including those that are within a batch
+     * request. <br>Notifications are not confirmable by definition, since they do not have a Response object to be
+     * returned. As such, the Client would not be aware of any errors (like e.g. "Invalid params","Internal error").
+     * </blockquote>
+     *
+     * @return {@code true} if this message is a notification; {@code false} otherwise.
+     * @implSpec Default implementation returns {@code !hasId()};
+     */
+    @Transient
+    default boolean isNotification() {
+        return !hasId();
+    }
 
     // ---------------------------------------------------------------------------------------------------------- method
 
