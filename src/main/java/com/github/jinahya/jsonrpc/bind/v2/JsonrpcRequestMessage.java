@@ -26,6 +26,8 @@ import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
 
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.loadJsonrpcRequestMessageService;
+import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
@@ -58,6 +60,19 @@ public interface JsonrpcRequestMessage
      * </blockquote>
      */
     String PROPERTY_NAME_PARAMS = "params";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Reads an instance from specified source.
+     *
+     * @param source the source from which the new instance is read.
+     * @return a new instance read from {@code source}.
+     */
+    static JsonrpcRequestMessage fromJson(final Object source) {
+        requireNonNull(source, "source is null");
+        return loadJsonrpcRequestMessageService(false, false).fromJson(source);
+    }
 
     // -------------------------------------------------------------------------------------------------------------- id
 

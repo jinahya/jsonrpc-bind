@@ -1,5 +1,5 @@
 /**
- * Defines interface and classes for JSON-RPC 2.0.
+ * Defines interfaces and classes for JSON-RPC 2.0.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

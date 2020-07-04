@@ -21,7 +21,7 @@ package com.github.jinahya.jsonrpc.bind;
  */
 
 /**
- * An unchecked exception for JSONRPC Binding.
+ * An exception for JSON-RPC binding.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -36,10 +36,21 @@ public class JsonrpcBindException extends RuntimeException {
         super(message);
     }
 
+    /**
+     * Creates a new instance with specified message and cause.
+     *
+     * @param message the message.
+     * @param cause   the cause.
+     */
     public JsonrpcBindException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
+    /**
+     * Creates a new instance with specified cause.
+     *
+     * @param cause the cause.
+     */
     public JsonrpcBindException(final Throwable cause) {
         super(cause);
     }

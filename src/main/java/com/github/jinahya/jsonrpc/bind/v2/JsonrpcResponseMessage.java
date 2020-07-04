@@ -24,6 +24,8 @@ import javax.validation.constraints.AssertTrue;
 import java.beans.Transient;
 import java.util.List;
 
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.loadJsonrpcResponseMessageService;
+import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
@@ -58,6 +60,19 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Object (JSON-RPC 2.0)</a>
      */
     String PROPERTY_NAME_ERROR = "error";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Reads an instance from specified source.
+     *
+     * @param source the source from which the new instance is read.
+     * @return a new instance read from {@code source}.
+     */
+    static JsonrpcResponseMessage fromJson(final Object source) {
+        requireNonNull(source, "source is null");
+        return loadJsonrpcResponseMessageService(false, false).fromJson(source);
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
