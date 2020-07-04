@@ -10,10 +10,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.jinahya/jsonrpc-bind.svg)](https://search.maven.org/artifact/com.github.jinahya/jsonrpc-bind)
 [![Javadocs](https://javadoc.io/badge/com.github.jinahya/jsonrpc-bind.svg?label=javadoc)](https://javadoc.io/doc/com.github.jinahya/jsonrpc-bind)
 
-API for binding [JSON-RPC](https://www.jsonrpc.org) objects (with no external dependencies).
+An API for binding [JSON-RPC](https://www.jsonrpc.org) objects.
 
 See implementation modules.
 
-* [jsonrpc-bind-jackson](https://github.com/jinahya/jsonrpc-bind-jackson)
 * [jsonrpc-bind-gson](https://github.com/jinahya/jsonrpc-bind-gson)
+* [jsonrpc-bind-jackson](https://github.com/jinahya/jsonrpc-bind-jackson)
 * [jsonrpc-bind-jsonb](https://github.com/jinahya/jsonrpc-bind-jsonb)
+* [jsonrpc-bind-moshi](https://github.com/jinahya/jsonrpc-bind-moshi)

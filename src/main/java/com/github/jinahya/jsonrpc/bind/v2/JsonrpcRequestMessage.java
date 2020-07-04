@@ -61,6 +61,15 @@ public interface JsonrpcRequestMessage
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Returns a new instance.
+     *
+     * @return a new instance.
+     */
+    static JsonrpcRequestMessage newInstance() {
+        return loadJsonrpcRequestMessageService(false, false).newInstance();
+    }
+
+    /**
      * Reads an instance from specified source.
      *
      * @param source the source from which the new instance is read.
@@ -159,19 +168,6 @@ public interface JsonrpcRequestMessage
      * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */
     void setParamsAsArray(List<?> params);
-
-//    /**
-//     * Replaces current value of {@value #PROPERTY_NAME_PARAMS} property with specified iterable.
-//     *
-//     * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
-//     */
-//    default void setParamsAsArray(final Iterable<?> params) {
-//        setParamsAsArray(
-//                ofNullable(params)
-//                        .map(d -> stream(d.spliterator(), false).collect(toList()))
-//                        .orElse(null)
-//        );
-//    }
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_PARAMS} property as an instance of specified object type.

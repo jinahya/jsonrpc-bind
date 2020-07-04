@@ -61,6 +61,15 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Returns a new instance.
+     *
+     * @return a new instance.
+     */
+    static JsonrpcResponseMessage newInstance() {
+        return loadJsonrpcResponseMessageService(false, false).newInstance();
+    }
+
+    /**
      * Reads an instance from specified source.
      *
      * @param source the source from which the new instance is read.
