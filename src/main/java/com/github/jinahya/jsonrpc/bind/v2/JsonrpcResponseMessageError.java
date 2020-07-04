@@ -24,10 +24,6 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
-import java.util.stream.StreamSupport;
-
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
 
 /**
  * An interface for {@link JsonrpcResponseMessage#PROPERTY_NAME_ERROR} property of JSON-RPC 2.0 response messages.
@@ -162,7 +158,7 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * predefined values; {@code false} otherwise.
      */
     @Transient
-    default boolean isCodeReservedForPredefinedError() {
+    default boolean isCodeReservedForPredefinedErrors() {
         final int code = getCode();
         return code >= CODE_RESERVED_FOR_PREDEFINED_ERRORS_MIN && code <= CODE_RESERVED_FOR_PREDEFINED_ERRORS_MAX;
     }
@@ -175,7 +171,7 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * false} otherwise.
      */
     @Transient
-    default boolean isCodeForImplementationDefinedServerError() {
+    default boolean isCodeForImplementationDefinedServerErrors() {
         final int code = getCode();
         return code >= CODE_SERVER_ERROR_MIN && code <= CODE_SERVER_ERROR_MAX;
     }
@@ -238,19 +234,6 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * @param data new value for {@value #PROPERTY_NAME_DATA} property.
      */
     void setDataAsArray(List<?> data);
-
-    /**
-     * Replaces current value of {@value #PROPERTY_NAME_DATA} property with specified iterable.
-     *
-     * @param data new value for {@value #PROPERTY_NAME_DATA} property.
-     */
-    default void setDataAsArray(final Iterable<?> data) {
-        setDataAsArray(
-                ofNullable(data)
-                        .map(d -> StreamSupport.stream(d.spliterator(), false).collect(toList()))
-                        .orElse(null)
-        );
-    }
 
     /**
      * Reads current value of {@value #PROPERTY_NAME_DATA} property as an instance of specified class.

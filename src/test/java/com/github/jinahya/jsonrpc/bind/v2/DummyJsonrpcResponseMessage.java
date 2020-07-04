@@ -4,8 +4,10 @@ import javax.validation.constraints.AssertTrue;
 import java.math.BigInteger;
 import java.util.List;
 
-class DummyJsonrpcResponseMessage extends AbstractJsonrpcResponseMessage {
+class DummyJsonrpcResponseMessage
+        extends AbstractJsonrpcResponseMessage {
 
+    // -------------------------------------------------------------------------------------------------------- $.result
     @Override
     public boolean hasResult() {
         return false;
@@ -31,6 +33,7 @@ class DummyJsonrpcResponseMessage extends AbstractJsonrpcResponseMessage {
 
     }
 
+    // --------------------------------------------------------------------------------------------------------- $.error
     @Override
     public boolean hasError() {
         return false;
@@ -51,6 +54,7 @@ class DummyJsonrpcResponseMessage extends AbstractJsonrpcResponseMessage {
         return null;
     }
 
+    // ------------------------------------------------------------------------------------------------------------ $.id
     @Override
     public boolean hasId() {
         return false;
@@ -81,6 +85,7 @@ class DummyJsonrpcResponseMessage extends AbstractJsonrpcResponseMessage {
 
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
     public String toJson() {
         return null;

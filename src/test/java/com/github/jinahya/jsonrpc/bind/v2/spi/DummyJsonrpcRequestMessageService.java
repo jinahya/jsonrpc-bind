@@ -11,7 +11,7 @@ public class DummyJsonrpcRequestMessageService
     }
 
     @Override
-    public void toJson(JsonrpcRequestMessage object, Object target) {
+    public void toJson(JsonrpcRequestMessage message, Object target) {
         // does nothing.
     }
 }

@@ -28,9 +28,6 @@ import java.util.List;
 
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.loadJsonrpcRequestMessageService;
 import static java.util.Objects.requireNonNull;
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.StreamSupport.stream;
 
 /**
  * An interface JSON-RPC 2.0 request messages.
@@ -163,18 +160,18 @@ public interface JsonrpcRequestMessage
      */
     void setParamsAsArray(List<?> params);
 
-    /**
-     * Replaces current value of {@value #PROPERTY_NAME_PARAMS} property with specified iterable.
-     *
-     * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
-     */
-    default void setParamsAsArray(final Iterable<?> params) {
-        setParamsAsArray(
-                ofNullable(params)
-                        .map(d -> stream(d.spliterator(), false).collect(toList()))
-                        .orElse(null)
-        );
-    }
+//    /**
+//     * Replaces current value of {@value #PROPERTY_NAME_PARAMS} property with specified iterable.
+//     *
+//     * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
+//     */
+//    default void setParamsAsArray(final Iterable<?> params) {
+//        setParamsAsArray(
+//                ofNullable(params)
+//                        .map(d -> stream(d.spliterator(), false).collect(toList()))
+//                        .orElse(null)
+//        );
+//    }
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_PARAMS} property as an instance of specified object type.

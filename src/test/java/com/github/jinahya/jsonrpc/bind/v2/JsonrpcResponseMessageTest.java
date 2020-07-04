@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class JsonrpcResponseMessageTest {
 
     @Test
-    void testReadFrom() {
+    void testFromJson() {
         final JsonrpcResponseMessage message = JsonrpcResponseMessage.fromJson(new Object());
         assertNull(message); // dummy
     }

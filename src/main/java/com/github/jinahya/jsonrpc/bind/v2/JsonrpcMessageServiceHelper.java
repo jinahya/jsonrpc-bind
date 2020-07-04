@@ -7,6 +7,11 @@ import java.util.ServiceLoader;
 
 import static java.util.ServiceLoader.load;
 
+/**
+ * A helper clsss for SPI.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 final class JsonrpcMessageServiceHelper {
 
     // -----------------------------------------------------------------------------------------------------------------

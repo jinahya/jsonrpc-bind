@@ -26,9 +26,6 @@ import java.util.List;
 
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.loadJsonrpcResponseMessageService;
 import static java.util.Objects.requireNonNull;
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.StreamSupport.stream;
 
 /**
  * An interface for JSON-RPC 2.0 response messages.
@@ -132,18 +129,18 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      */
     void setResultAsArray(List<?> result);
 
-    /**
-     * Replaces current value of {@value #PROPERTY_NAME_RESULT} property with specified iterable.
-     *
-     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
-     */
-    default void setResultAsArray(final Iterable<?> result) {
-        setResultAsArray(
-                ofNullable(result)
-                        .map(d -> stream(d.spliterator(), false).collect(toList()))
-                        .orElse(null)
-        );
-    }
+//    /**
+//     * Replaces current value of {@value #PROPERTY_NAME_RESULT} property with specified iterable.
+//     *
+//     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
+//     */
+//    default void setResultAsArray(final Iterable<?> result) {
+//        setResultAsArray(
+//                ofNullable(result)
+//                        .map(d -> stream(d.spliterator(), false).collect(toList()))
+//                        .orElse(null)
+//        );
+//    }
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_RESULT} property as an instance of specified object class.

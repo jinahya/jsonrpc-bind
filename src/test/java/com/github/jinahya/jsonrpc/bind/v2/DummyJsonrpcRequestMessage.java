@@ -4,7 +4,8 @@ import javax.validation.constraints.AssertTrue;
 import java.math.BigInteger;
 import java.util.List;
 
-class DummyJsonrpcRequestMessage extends AbstractJsonrpcRequestMessage {
+class DummyJsonrpcRequestMessage
+        extends AbstractJsonrpcRequestMessage {
 
     @Override
     public boolean hasParams() {
