@@ -242,6 +242,7 @@
               <goal>check</goal>
             </goals>
             <configuration>
+              <skip>true</skip> <!-- MethodHandle -->
               <signature>
                 <groupId>org.codehaus.mojo.signature</groupId>
                 <artifactId>java18</artifactId>
