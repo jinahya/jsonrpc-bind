@@ -12,11 +12,6 @@ public class DummyJsonrpcRequestMessageService
 
     @Override
     public void toJson(JsonrpcRequestMessage object, Object target) {
-
-    }
-
-    @Override
-    public void close() throws Exception {
-
+        // does nothing.
     }
 }
