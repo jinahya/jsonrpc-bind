@@ -24,16 +24,16 @@ import javax.validation.constraints.AssertTrue;
 import java.beans.Transient;
 
 /**
- * An interface for JSON-RPC 2.0 objects.
+ * A base interface for JSON-RPC 2.0 objects.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public interface JsonrpcObject {
 
     /**
-     * Indicates this JSON-RPC object is contextually valid.
+     * Indicates this object is contextually valid.
      *
-     * @return {@code true} if this JSON-RPC object is contextually valid; {@code false} otherwise.
+     * @return {@code true} if this object is contextually valid; {@code false} otherwise.
      * @apiNote This method supposed to be overridden when any implementation specified features required to be added.
      * @implSpec The default implementation returns {@code true}.
      */

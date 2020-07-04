@@ -2,17 +2,21 @@ package com.github.jinahya.jsonrpc.bind.v2.spi;
 
 import com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessage;
 
-interface JsonrpcMessageService<T extends JsonrpcMessage>
-        extends AutoCloseable {
+interface JsonrpcMessageService<T extends JsonrpcMessage> {
 
+    /**
+     * Reads an instance from specified source.
+     *
+     * @param source the source from which the instance is read.
+     * @return a new instance.
+     */
     T fromJson(Object source);
 
-//    <T extends JsonrpcMessage> T fromJson(Object source, Type type);
-
-    void toJson(T object, Object target);
-
-    //void toJson(Object object, Type type, Object target);
-
-//    default String toJson(JsonrpcMessage message) {
-//    }
+    /**
+     * Writes specified message to specified target.
+     *
+     * @param message the message to write.
+     * @param target  the target which the {@code message} is written.
+     */
+    void toJson(T message, Object target);
 }

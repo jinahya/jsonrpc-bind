@@ -29,7 +29,7 @@ import java.math.BigInteger;
 import static java.util.Optional.ofNullable;
 
 /**
- * An interface for JSONRPC messages.
+ * A base interface for JSON-RPC 2.0 messages.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

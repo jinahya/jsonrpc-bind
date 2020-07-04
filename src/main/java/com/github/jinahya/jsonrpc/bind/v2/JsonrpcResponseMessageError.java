@@ -30,7 +30,7 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
 /**
- * An interface for {@link JsonrpcResponseMessage#PROPERTY_NAME_ERROR} property.
+ * An interface for {@link JsonrpcResponseMessage#PROPERTY_NAME_ERROR} property of JSON-RPC 2.0 response messages.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

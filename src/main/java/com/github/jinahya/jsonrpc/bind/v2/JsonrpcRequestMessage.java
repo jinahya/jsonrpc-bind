@@ -33,7 +33,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
 
 /**
- * An interface JSO N-RPC 2.0 request messages.
+ * An interface JSON-RPC 2.0 request messages.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#request_object">Request Object (JSON-RPC 2.0)</a>
@@ -53,7 +53,7 @@ public interface JsonrpcRequestMessage
     String PROPERTY_NAME_METHOD = "method";
 
     /**
-     * The name of the property mapped to {@code $.params} part. The value is {@value}.
+     * The name of the property for {@code $.params} part. The value is {@value}.
      * <blockquote>
      * A Structured value that holds the parameter values to be used during the invocation of the method. This member
      * MAY be omitted.
