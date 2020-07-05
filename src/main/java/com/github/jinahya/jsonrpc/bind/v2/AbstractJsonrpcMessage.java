@@ -32,6 +32,8 @@ public abstract class AbstractJsonrpcMessage
         extends AbstractJsonrpcObject
         implements JsonrpcMessage {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns a string representation of the object.
      *
@@ -44,6 +46,7 @@ public abstract class AbstractJsonrpcMessage
                + "}";
     }
 
+    // --------------------------------------------------------------------------------------------------------- jsonrpc
     @Override
     public @Pattern(regexp = "2\\.0") @NotNull String getJsonrpc() {
         return jsonrpc;
@@ -54,5 +57,6 @@ public abstract class AbstractJsonrpcMessage
         this.jsonrpc = jsonrpc;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private String jsonrpc = PROPERTY_VALUE_JSONRPC;
 }

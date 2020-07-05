@@ -31,6 +31,8 @@ public abstract class AbstractJsonrpcResponseMessageError
         extends AbstractJsonrpcObject
         implements JsonrpcResponseMessageError {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns a string representation of the object.
      *
@@ -44,6 +46,7 @@ public abstract class AbstractJsonrpcResponseMessageError
                + "}";
     }
 
+    // ------------------------------------------------------------------------------------------------------------ code
     @Override
     public int getCode() {
         return code;
@@ -54,6 +57,7 @@ public abstract class AbstractJsonrpcResponseMessageError
         this.code = code;
     }
 
+    // --------------------------------------------------------------------------------------------------------- message
     @Override
     public @NotNull String getMessage() {
         return message;
@@ -64,7 +68,8 @@ public abstract class AbstractJsonrpcResponseMessageError
         this.message = message;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private int code;
 
-    private String message = "";
+    private String message;
 }

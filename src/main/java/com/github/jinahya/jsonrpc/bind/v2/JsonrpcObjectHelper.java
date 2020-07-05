@@ -33,6 +33,11 @@ import static java.lang.invoke.MethodHandles.lookup;
 import static java.util.Collections.synchronizedMap;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * A helper class for JSON-RPC 2.0 objects.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 final class JsonrpcObjectHelper {
 
     static final Supplier<?> SUPPLYING_NULL = () -> null;

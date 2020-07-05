@@ -26,7 +26,8 @@ import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
 
-import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.loadJsonrpcRequestMessageService;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.requestMessageInstance;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.requestMessageService;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -66,7 +67,7 @@ public interface JsonrpcRequestMessage
      * @return a new instance.
      */
     static JsonrpcRequestMessage newInstance() {
-        return loadJsonrpcRequestMessageService(false, false).newInstance();
+        return requestMessageInstance();
     }
 
     /**
@@ -77,7 +78,19 @@ public interface JsonrpcRequestMessage
      */
     static JsonrpcRequestMessage fromJson(final Object source) {
         requireNonNull(source, "source is null");
-        return loadJsonrpcRequestMessageService(false, false).fromJson(source);
+        return requestMessageService(false, false).fromJson(source);
+    }
+
+    /**
+     * Writes specified message to specified target.
+     *
+     * @param message the message to write.
+     * @param target  the target to which the message is written.
+     */
+    static void toJson(final JsonrpcRequestMessage message, final Object target) {
+        requireNonNull(message, "message is null");
+        requireNonNull(target, "target is null");
+        requestMessageService(false, false).toJson(message, target);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -137,6 +150,8 @@ public interface JsonrpcRequestMessage
      *
      * @return {@code} true if this message has a value for {@value #PROPERTY_NAME_PARAMS} property; {@code false}
      * otherwise.
+     * @implSpec Then this method returns {@code false}, any {@code getParamsAs...()} method should return {@code
+     * null}.
      */
     @Transient
     boolean hasParams();
@@ -147,7 +162,6 @@ public interface JsonrpcRequestMessage
      * @return {@code true} if current value of {@value #PROPERTY_NAME_PARAMS} property is contextually valid; {@code
      * false} otherwise.
      * @apiNote It's considered to be contextually valid when {@link #hasParams()} returns {@code false}.
-     * @see #PROPERTY_NAME_PARAMS
      */
     @Transient
     @AssertTrue
@@ -158,7 +172,7 @@ public interface JsonrpcRequestMessage
      *
      * @param elementClass the element type.
      * @param <T>          element type parameter
-     * @return a list of {@code elementClass}.
+     * @return a list of {@code elementClass}; {@code null} when {@link #hasParams()} method returns {@code false}.
      */
     <T> List<T> getParamsAsArray(final Class<T> elementClass);
 
@@ -174,12 +188,12 @@ public interface JsonrpcRequestMessage
      *
      * @param objectClass the object type.
      * @param <T>         object type parameter
-     * @return an instance of {@code objectClass}.
+     * @return an instance of {@code objectClass}; {@code null} when {@link #hasParams()} method returns {@code false}.
      */
     <T> T getParamsAsObject(final Class<T> objectClass);
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_PARAMS} property with specified value.
+     * Replaces current value of {@value #PROPERTY_NAME_PARAMS} property with specified object.
      *
      * @param params new value for {@value #PROPERTY_NAME_PARAMS} property.
      */

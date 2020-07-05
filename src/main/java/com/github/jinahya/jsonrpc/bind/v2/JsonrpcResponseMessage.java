@@ -24,7 +24,8 @@ import javax.validation.constraints.AssertTrue;
 import java.beans.Transient;
 import java.util.List;
 
-import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.loadJsonrpcResponseMessageService;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.responseMessageInstance;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.responseMessageService;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -66,7 +67,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @return a new instance.
      */
     static JsonrpcResponseMessage newInstance() {
-        return loadJsonrpcResponseMessageService(false, false).newInstance();
+        return responseMessageInstance();
     }
 
     /**
@@ -77,7 +78,19 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      */
     static JsonrpcResponseMessage fromJson(final Object source) {
         requireNonNull(source, "source is null");
-        return loadJsonrpcResponseMessageService(false, false).fromJson(source);
+        return responseMessageService(false, false).fromJson(source);
+    }
+
+    /**
+     * Writes specified message to specified target.
+     *
+     * @param message the message to write.
+     * @param target  the target to which the message is written.
+     */
+    static void toJson(final JsonrpcResponseMessage message, final Object target) {
+        requireNonNull(message, "message is null");
+        requireNonNull(target, "target is null");
+        responseMessageService(false, false).toJson(message, target);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -102,6 +115,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      *
      * @return {@code true} if this message has a value for {@value #PROPERTY_NAME_RESULT} property; {@code false}
      * otherwise.
+     * @implSpec Then this method returns {@code false} any {@code getResultAs...()} method should return {@code null}.
      */
     @Transient
     boolean hasResult();
@@ -125,8 +139,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      *
      * @param elementClass the element class.
      * @param <T>          element type parameter
-     * @return a list of {@code elementClass}.
-     * @apiNote This method may return {@code null} when {@link #hasResult()} returns {@code false}.
+     * @return a list of {@code elementClass}; {@code null} when {@link #hasResult()} method returns {@code false}.
      */
     @Transient
     <T> List<T> getResultAsArray(Class<T> elementClass);
@@ -138,26 +151,12 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      */
     void setResultAsArray(List<?> result);
 
-//    /**
-//     * Replaces current value of {@value #PROPERTY_NAME_RESULT} property with specified iterable.
-//     *
-//     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
-//     */
-//    default void setResultAsArray(final Iterable<?> result) {
-//        setResultAsArray(
-//                ofNullable(result)
-//                        .map(d -> stream(d.spliterator(), false).collect(toList()))
-//                        .orElse(null)
-//        );
-//    }
-
     /**
      * Returns current value of {@value #PROPERTY_NAME_RESULT} property as an instance of specified object class.
      *
      * @param objectClass the object class.
      * @param <T>         object type parameter.
-     * @return an instance of {@code objectClass}
-     * @apiNote This method may return {@code null} when {@link #hasResult()} returns {@code false}.
+     * @return an instance of {@code objectClass}; {@code null} when {@link #hasResult()} method returns {@code false}.
      */
     @Transient
     <T> T getResultAsObject(Class<T> objectClass);
@@ -176,6 +175,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      *
      * @return {@code true} if this message has a value for {@link #PROPERTY_NAME_ERROR} property; {@code false}
      * otherwise.
+     * @implSpec Then this method returns {@code false} any {@code getErrorAs...()} method should return {@code null}.
      */
     @Transient
     boolean hasError();
@@ -199,7 +199,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      *
      * @param clazz the error class to bind.
      * @param <T>   error type parameter
-     * @return current value of {@value #PROPERTY_NAME_ERROR} property as an instance of {@code clazz}.
+     * @return current value of {@value #PROPERTY_NAME_ERROR} property as an instance of {@code clazz}; {@code null}
+     * when {@link #hasError()} method returns {@code false}.
      */
     @Transient
     <T extends JsonrpcResponseMessageError> T getErrorAs(Class<T> clazz);
@@ -214,8 +215,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     /**
      * Returns current value of {@value #PROPERTY_NAME_ERROR} property as an instance of default implementation class.
      *
-     * @return current value of {@value #PROPERTY_NAME_ERROR} property. {@code null} if this message has no value for
-     * {@value #PROPERTY_NAME_ERROR} property.
+     * @return current value of {@value #PROPERTY_NAME_ERROR} property; {@code null} when {@link #hasError()} method
+     * returns {@code false}.
      */
     @Transient
     JsonrpcResponseMessageError getErrorAsDefaultType();

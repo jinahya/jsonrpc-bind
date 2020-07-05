@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,25 +28,25 @@ import java.util.ServiceLoader;
 import static java.util.ServiceLoader.load;
 
 /**
- * A helper clsss for SPI.
+ * A helper class for SPI.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 final class JsonrpcMessageServiceHelper {
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static ServiceLoader<JsonrpcRequestMessageService> jsonrpcRequestMessageServiceLoader;
+    private static ServiceLoader<JsonrpcRequestMessageService> requestMessageServiceLoader;
 
-    private static ServiceLoader<JsonrpcRequestMessageService> jsonrpcRequestMessageServiceLoader() {
-        if (jsonrpcRequestMessageServiceLoader == null) {
-            jsonrpcRequestMessageServiceLoader = load(JsonrpcRequestMessageService.class);
+    private static ServiceLoader<JsonrpcRequestMessageService> requestMessageServiceLoader() {
+        if (requestMessageServiceLoader == null) {
+            requestMessageServiceLoader = load(JsonrpcRequestMessageService.class);
         }
-        return jsonrpcRequestMessageServiceLoader;
+        return requestMessageServiceLoader;
     }
 
-    static JsonrpcRequestMessageService loadJsonrpcRequestMessageService(final boolean reuse, final boolean reload) {
+    static JsonrpcRequestMessageService requestMessageService(final boolean reuse, final boolean reload) {
         if (reuse) {
-            final ServiceLoader<JsonrpcRequestMessageService> loader = jsonrpcRequestMessageServiceLoader();
+            final ServiceLoader<JsonrpcRequestMessageService> loader = requestMessageServiceLoader();
             if (reload) {
                 synchronized (loader) {
                     loader.reload();
@@ -60,18 +60,18 @@ final class JsonrpcMessageServiceHelper {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static ServiceLoader<JsonrpcResponseMessageService> jsonrpcResponseMessageServiceLoader;
+    private static ServiceLoader<JsonrpcResponseMessageService> responseMessageServiceLoader;
 
-    private static ServiceLoader<JsonrpcResponseMessageService> jsonrpcResponseMessageServiceLoader() {
-        if (jsonrpcResponseMessageServiceLoader == null) {
-            jsonrpcResponseMessageServiceLoader = load(JsonrpcResponseMessageService.class);
+    private static ServiceLoader<JsonrpcResponseMessageService> responseMessageServiceLoader() {
+        if (responseMessageServiceLoader == null) {
+            responseMessageServiceLoader = load(JsonrpcResponseMessageService.class);
         }
-        return jsonrpcResponseMessageServiceLoader;
+        return responseMessageServiceLoader;
     }
 
-    static JsonrpcResponseMessageService loadJsonrpcResponseMessageService(final boolean reuse, final boolean reload) {
+    static JsonrpcResponseMessageService responseMessageService(final boolean reuse, final boolean reload) {
         if (reuse) {
-            final ServiceLoader<JsonrpcResponseMessageService> loader = jsonrpcResponseMessageServiceLoader();
+            final ServiceLoader<JsonrpcResponseMessageService> loader = responseMessageServiceLoader();
             if (reload) {
                 synchronized (loader) {
                     loader.reload();
@@ -82,6 +82,78 @@ final class JsonrpcMessageServiceHelper {
             }
         }
         return load(JsonrpcResponseMessageService.class).iterator().next();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+//    private static Constructor<? extends JsonrpcRequestMessage> requestMessageConstructor;
+//
+//    private static Constructor<? extends JsonrpcRequestMessage> requestMessageConstructor() {
+//        if (requestMessageConstructor == null) {
+//            final Class<? extends JsonrpcRequestMessage> requestMessageClass
+//                    = requestMessageService(false, false).getImplementationClass();
+//            try {
+//                requestMessageConstructor = requestMessageClass.getDeclaredConstructor();
+//            } catch (final NoSuchMethodException nsme) {
+//                throw new JsonrpcBindException(nsme);
+//            }
+//            if (!requestMessageConstructor.isAccessible()) {
+//                requestMessageConstructor.setAccessible(true);
+//            }
+//        }
+//        return requestMessageConstructor;
+//    }
+//
+//    private static MethodHandle unreflectedRequestMessageConstructor;
+//
+//    private static MethodHandle unreflectedRequestMessageConstructor() {
+//        if (unreflectedRequestMessageConstructor == null) {
+//            try {
+//                unreflectedRequestMessageConstructor = lookup().unreflectConstructor(requestMessageConstructor());
+//            } catch (final IllegalAccessException iae) {
+//                throw new JsonrpcBindException(iae);
+//            }
+//        }
+//        return unreflectedRequestMessageConstructor;
+//    }
+
+    static JsonrpcRequestMessage requestMessageInstance() {
+        return load(JsonrpcRequestMessage.class).iterator().next();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+//    private static Constructor<? extends JsonrpcResponseMessage> responseMessageConstructor;
+//
+//    private static Constructor<? extends JsonrpcResponseMessage> responseMessageConstructor() {
+//        if (responseMessageConstructor == null) {
+//            final Class<? extends JsonrpcResponseMessage> responseMessageClass
+//                    = responseMessageService(false, false).getImplementationClass();
+//            try {
+//                responseMessageConstructor = responseMessageClass.getDeclaredConstructor();
+//            } catch (final NoSuchMethodException nsme) {
+//                throw new JsonrpcBindException(nsme);
+//            }
+//            if (!responseMessageConstructor.isAccessible()) {
+//                responseMessageConstructor.setAccessible(true);
+//            }
+//        }
+//        return responseMessageConstructor;
+//    }
+//
+//    private static MethodHandle unreflectedResponseMessageConstructor;
+//
+//    private static MethodHandle unreflectedResponseMessageConstructor() {
+//        if (unreflectedResponseMessageConstructor == null) {
+//            try {
+//                unreflectedResponseMessageConstructor = lookup().unreflectConstructor(responseMessageConstructor());
+//            } catch (final IllegalAccessException iae) {
+//                throw new JsonrpcBindException(iae);
+//            }
+//        }
+//        return unreflectedResponseMessageConstructor;
+//    }
+
+    static JsonrpcResponseMessage responseMessageInstance() {
+        return load(JsonrpcResponseMessage.class).iterator().next();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

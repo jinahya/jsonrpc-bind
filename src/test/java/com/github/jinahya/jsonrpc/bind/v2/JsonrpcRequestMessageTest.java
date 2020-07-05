@@ -22,8 +22,11 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.StringWriter;
+
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessage.fromJson;
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessage.newInstance;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessage.toJson;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -39,5 +42,10 @@ class JsonrpcRequestMessageTest {
     void testFromJson() {
         final JsonrpcRequestMessage message = fromJson(new Object());
         assertNull(message); // dummy
+    }
+
+    @Test
+    void testToJson() {
+        toJson(newInstance(), new StringWriter());
     }
 }

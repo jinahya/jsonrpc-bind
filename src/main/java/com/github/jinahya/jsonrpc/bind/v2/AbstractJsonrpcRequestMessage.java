@@ -31,6 +31,8 @@ public abstract class AbstractJsonrpcRequestMessage
         extends AbstractJsonrpcMessage
         implements JsonrpcRequestMessage {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns a string representation of the object.
      *
@@ -42,6 +44,8 @@ public abstract class AbstractJsonrpcRequestMessage
                + PROPERTY_NAME_METHOD + "=" + method
                + "}";
     }
+
+    // ---------------------------------------------------------------------------------------------------------- method
 
     /**
      * Returns current value of {@value #PROPERTY_NAME_METHOD} property.
@@ -63,5 +67,6 @@ public abstract class AbstractJsonrpcRequestMessage
         this.method = method;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private String method;
 }

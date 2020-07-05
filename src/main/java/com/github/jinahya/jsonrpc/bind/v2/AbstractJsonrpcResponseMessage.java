@@ -29,6 +29,8 @@ public abstract class AbstractJsonrpcResponseMessage
         extends AbstractJsonrpcMessage
         implements JsonrpcResponseMessage {
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns a string representation of the object.
      *

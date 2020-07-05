@@ -20,16 +20,10 @@ package com.github.jinahya.jsonrpc.bind.v2.spi;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.DummyJsonrpcResponseMessage;
 import com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessage;
 
 public class DummyJsonrpcResponseMessageService
         implements JsonrpcResponseMessageService {
-
-    @Override
-    public JsonrpcResponseMessage newInstance() {
-        return new DummyJsonrpcResponseMessage();
-    }
 
     @Override
     public JsonrpcResponseMessage fromJson(Object source) {

@@ -88,6 +88,7 @@ public interface JsonrpcMessage extends JsonrpcObject {
      *
      * @return {@code} true if this message has a value for {@value #PROPERTY_NAME_ID} property; {@code false}
      * otherwise.
+     * @implSpec When this method returns {@code false} any {@code getIdAs...()} method should return {@code null}.
      */
     @Transient
     boolean hasId();
@@ -105,7 +106,8 @@ public interface JsonrpcMessage extends JsonrpcObject {
     /**
      * Returns current value of {@value #PROPERTY_NAME_ID} property as a string.
      *
-     * @return current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property; {@code null} when {@link #hasId()} returns {@code
+     * false}.
      */
     @Transient
     String getIdAsString();
@@ -120,7 +122,8 @@ public interface JsonrpcMessage extends JsonrpcObject {
     /**
      * Returns current value of {@value #PROPERTY_NAME_ID} property as a number.
      *
-     * @return current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property; {@code null} when {@link #hasId()} returns {@code
+     * false}.
      */
     @Transient
     BigInteger getIdAsNumber();
@@ -135,7 +138,8 @@ public interface JsonrpcMessage extends JsonrpcObject {
     /**
      * Returns current value of {@value #PROPERTY_NAME_ID} property as a {@code Long} value.
      *
-     * @return current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property; {@code null} when {@link #hasId()} returns {@code
+     * false}.
      * @see #getIdAsNumber()
      * @see BigInteger#longValueExact()
      */
@@ -156,15 +160,16 @@ public interface JsonrpcMessage extends JsonrpcObject {
     }
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_ID} property as a {@code Integer} value.
+     * Returns current value of {@value #PROPERTY_NAME_ID} property as an {@code Integer} value.
      *
-     * @return current value of {@value #PROPERTY_NAME_ID} property.
+     * @return current value of {@value #PROPERTY_NAME_ID} property; {@code null} when {@link #hasId()} returns {@code
+     * false}.
      * @see #getIdAsLong()
-     * @see Math#toIntExact(long)
+     * @see StrictMath#toIntExact(long)
      */
     @Transient
     default Integer getIdAsInteger() {
-        return ofNullable(getIdAsLong()).map(Math::toIntExact).orElse(null);
+        return ofNullable(getIdAsLong()).map(StrictMath::toIntExact).orElse(null);
     }
 
     /**
