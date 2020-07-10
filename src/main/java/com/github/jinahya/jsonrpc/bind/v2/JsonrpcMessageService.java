@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.spi;
+package com.github.jinahya.jsonrpc.bind.v2;
 
 /*-
  * #%L
@@ -21,7 +21,6 @@ package com.github.jinahya.jsonrpc.bind.v2.spi;
  */
 
 import com.github.jinahya.jsonrpc.bind.JsonrpcBindException;
-import com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessage;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -29,7 +28,7 @@ import java.io.StringWriter;
 
 import static java.util.Objects.requireNonNull;
 
-interface JsonrpcMessageService<T extends JsonrpcMessage> {
+public interface JsonrpcMessageService<T extends JsonrpcMessage> {
 
     /**
      * Reads an instance from specified source.

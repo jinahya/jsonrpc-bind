@@ -26,9 +26,8 @@ import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
 
-import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.requestMessageInstance;
-import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.requestMessageService;
 import static java.util.Objects.requireNonNull;
+import static java.util.ServiceLoader.load;
 
 /**
  * An interface JSON-RPC 2.0 request messages.
@@ -67,7 +66,7 @@ public interface JsonrpcRequestMessage
      * @return a new instance.
      */
     static JsonrpcRequestMessage newInstance() {
-        return requestMessageInstance();
+        return load(JsonrpcRequestMessage.class).iterator().next();
     }
 
     /**
@@ -78,19 +77,13 @@ public interface JsonrpcRequestMessage
      */
     static JsonrpcRequestMessage fromJson(final Object source) {
         requireNonNull(source, "source is null");
-        return requestMessageService(false, false).fromJson(source);
+        return load(JsonrpcRequestMessageService.class).iterator().next().fromJson(source);
     }
 
-    /**
-     * Writes specified message to specified target.
-     *
-     * @param message the message to write.
-     * @param target  the target to which the message is written.
-     */
-    static void toJson(final JsonrpcRequestMessage message, final Object target) {
-        requireNonNull(message, "message is null");
+    // -----------------------------------------------------------------------------------------------------------------
+    default void toJson(final Object target) {
         requireNonNull(target, "target is null");
-        requestMessageService(false, false).toJson(message, target);
+        load(JsonrpcRequestMessageService.class).iterator().next().toJson(this, target);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id

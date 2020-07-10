@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.spi;
+package com.github.jinahya.jsonrpc.bind.v2;
 
 /*-
  * #%L
@@ -20,14 +20,22 @@ package com.github.jinahya.jsonrpc.bind.v2.spi;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessage;
+import org.junit.jupiter.api.Test;
 
-/**
- * A service interface for reading/writing JSON-RPC response messages.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-public interface JsonrpcResponseMessageService
-        extends JsonrpcMessageService<JsonrpcResponseMessage> {
+class JsonrpcRequestMessageServiceTest
+        extends JsonrpcMessageServiceTest<JsonrpcRequestMessageService, JsonrpcRequestMessage> {
 
+    JsonrpcRequestMessageServiceTest() {
+        super(JsonrpcRequestMessageService.class, JsonrpcRequestMessage.class);
+    }
+
+    @Test
+    void testToJsonString() {
+        final String json = loadService().toJsonString(JsonrpcRequestMessage.newInstance());
+    }
+
+    @Test
+    void testFromJsonString() {
+        loadService().fromJsonString("");
+    }
 }

@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.spi;
+package com.github.jinahya.jsonrpc.bind.v2;
 
 /*-
  * #%L
@@ -20,14 +20,12 @@ package com.github.jinahya.jsonrpc.bind.v2.spi;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessage;
-
 /**
- * A service interface for reading/writing JSON-RPC request messages.
+ * A service interface for reading/writing JSON-RPC response messages.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public interface JsonrpcRequestMessageService
-        extends JsonrpcMessageService<JsonrpcRequestMessage> {
+public interface JsonrpcResponseMessageService
+        extends JsonrpcMessageService<JsonrpcResponseMessage> {
 
 }

@@ -1,4 +1,4 @@
-package com.github.jinahya.jsonrpc.bind.v2.spi;
+package com.github.jinahya.jsonrpc.bind.v2;
 
 /*-
  * #%L
@@ -20,23 +20,16 @@ package com.github.jinahya.jsonrpc.bind.v2.spi;
  * #L%
  */
 
-import com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessage;
-import org.junit.jupiter.api.Test;
+public class DummyJsonrpcRequestMessageService
+        implements JsonrpcRequestMessageService {
 
-class JsonrpcResponseMessageServiceTest
-        extends JsonrpcMessageServiceTest<JsonrpcResponseMessageService, JsonrpcResponseMessage> {
-
-    JsonrpcResponseMessageServiceTest() {
-        super(JsonrpcResponseMessageService.class, JsonrpcResponseMessage.class);
+    @Override
+    public JsonrpcRequestMessage fromJson(Object source) {
+        return null;
     }
 
-    @Test
-    void testToJsonString() {
-        final String json = loadService().toJsonString(JsonrpcResponseMessage.newInstance());
-    }
-
-    @Test
-    void testFromJsonString() {
-        loadService().fromJsonString("");
+    @Override
+    public void toJson(JsonrpcRequestMessage message, Object target) {
+        // does nothing.
     }
 }

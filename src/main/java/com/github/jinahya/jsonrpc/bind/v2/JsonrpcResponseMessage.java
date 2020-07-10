@@ -24,9 +24,8 @@ import javax.validation.constraints.AssertTrue;
 import java.beans.Transient;
 import java.util.List;
 
-import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.responseMessageInstance;
-import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageServiceHelper.responseMessageService;
 import static java.util.Objects.requireNonNull;
+import static java.util.ServiceLoader.load;
 
 /**
  * An interface for JSON-RPC 2.0 response messages.
@@ -67,7 +66,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @return a new instance.
      */
     static JsonrpcResponseMessage newInstance() {
-        return responseMessageInstance();
+        return load(JsonrpcResponseMessage.class).iterator().next();
     }
 
     /**
@@ -78,19 +77,19 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      */
     static JsonrpcResponseMessage fromJson(final Object source) {
         requireNonNull(source, "source is null");
-        return responseMessageService(false, false).fromJson(source);
+        return load(JsonrpcResponseMessageService.class).iterator().next().fromJson(source);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Writes specified message to specified target.
      *
-     * @param message the message to write.
-     * @param target  the target to which the message is written.
+     * @param target the target to which the message is written.
      */
-    static void toJson(final JsonrpcResponseMessage message, final Object target) {
-        requireNonNull(message, "message is null");
+    default void toJson(final Object target) {
         requireNonNull(target, "target is null");
-        responseMessageService(false, false).toJson(message, target);
+        load(JsonrpcResponseMessageService.class).iterator().next().toJson(this, target);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
