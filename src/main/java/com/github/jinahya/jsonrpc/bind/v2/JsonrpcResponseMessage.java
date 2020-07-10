@@ -83,13 +83,17 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Writes specified message to specified target.
+     * Writes this message to specified target.
      *
      * @param target the target to which the message is written.
      */
     default void toJson(final Object target) {
         requireNonNull(target, "target is null");
         load(JsonrpcResponseMessageService.class).iterator().next().toJson(this, target);
+    }
+
+    default String toJson() {
+        return load(JsonrpcResponseMessageService.class).iterator().next().toJsonString(this);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

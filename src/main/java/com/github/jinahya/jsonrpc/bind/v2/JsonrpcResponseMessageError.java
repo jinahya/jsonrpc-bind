@@ -25,6 +25,8 @@ import javax.validation.constraints.NotNull;
 import java.beans.Transient;
 import java.util.List;
 
+import static java.util.ServiceLoader.load;
+
 /**
  * An interface for {@link JsonrpcResponseMessage#PROPERTY_NAME_ERROR} property of JSON-RPC 2.0 response messages.
  *
@@ -133,6 +135,11 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * </blockquote>
      */
     String PROPERTY_NAME_DATA = "data";
+
+    // -----------------------------------------------------------------------------------------------------------------
+    static JsonrpcResponseMessageError newInstance() {
+        return load(JsonrpcResponseMessageError.class).iterator().next();
+    }
 
     // ------------------------------------------------------------------------------------------------------------ code
 

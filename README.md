@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/jinahya/jsonrpc-bind.svg?branch=develop)](https://travis-ci.org/jinahya/jsonrpc-bind)
 [![CircleCI](https://circleci.com/gh/jinahya/jsonrpc-bind/tree/develop.svg?style=svg)](https://circleci.com/gh/jinahya/jsonrpc-bind/tree/develop)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.jinahya%3Ajsonrpc-bind&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.jinahya%3Ajsonrpc-bind)
+<!--[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.jinahya%3Ajsonrpc-bind&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.jinahya%3Ajsonrpc-bind)-->
 [![Known Vulnerabilities](https://snyk.io/test/github/jinahya/jsonrpc-bind/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/jinahya/jsonrpc-bind?targetFile=pom.xml)
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.jinahya/jsonrpc-bind.svg)](https://search.maven.org/artifact/com.github.jinahya/jsonrpc-bind)

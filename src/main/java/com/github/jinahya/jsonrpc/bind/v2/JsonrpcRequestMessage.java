@@ -86,6 +86,10 @@ public interface JsonrpcRequestMessage
         load(JsonrpcRequestMessageService.class).iterator().next().toJson(this, target);
     }
 
+    default String toJson() {
+        return load(JsonrpcRequestMessageService.class).iterator().next().toJsonString(this);
+    }
+
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**

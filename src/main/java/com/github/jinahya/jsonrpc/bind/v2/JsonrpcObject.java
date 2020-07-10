@@ -43,10 +43,10 @@ public interface JsonrpcObject {
         return true;
     }
 
-    /**
-     * Returns a JSON representation of the object.
-     *
-     * @return a JSON representation of the object.
-     */
-    String toJson();
+//    /**
+//     * Returns a JSON representation of the object.
+//     *
+//     * @return a JSON representation of the object.
+//     */
+//    String toJson();
 }
