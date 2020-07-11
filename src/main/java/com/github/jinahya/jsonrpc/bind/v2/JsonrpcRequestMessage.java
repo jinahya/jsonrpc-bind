@@ -61,7 +61,7 @@ public interface JsonrpcRequestMessage
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a new instance.
+     * Creates a new instance.
      *
      * @return a new instance.
      */
@@ -81,11 +81,22 @@ public interface JsonrpcRequestMessage
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Writes this message to specified target.
+     *
+     * @param target the target to which this message is written.
+     */
     default void toJson(final Object target) {
         requireNonNull(target, "target is null");
         load(JsonrpcRequestMessageService.class).iterator().next().toJson(this, target);
     }
 
+    /**
+     * Returns a JSON representation of this message.
+     *
+     * @return a JSON representation of this message.
+     */
     default String toJson() {
         return load(JsonrpcRequestMessageService.class).iterator().next().toJsonString(this);
     }

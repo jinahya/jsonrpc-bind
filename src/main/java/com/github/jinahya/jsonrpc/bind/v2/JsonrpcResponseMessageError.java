@@ -137,6 +137,12 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     String PROPERTY_NAME_DATA = "data";
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new instance.
+     *
+     * @return a new instance.
+     */
     static JsonrpcResponseMessageError newInstance() {
         return load(JsonrpcResponseMessageError.class).iterator().next();
     }

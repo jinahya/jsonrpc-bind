@@ -92,6 +92,11 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
         load(JsonrpcResponseMessageService.class).iterator().next().toJson(this, target);
     }
 
+    /**
+     * Returns a JSON representation of this message.
+     *
+     * @return a JSON representation of this message.
+     */
     default String toJson() {
         return load(JsonrpcResponseMessageService.class).iterator().next().toJsonString(this);
     }
