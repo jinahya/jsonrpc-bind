@@ -203,15 +203,13 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     }
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_ERROR} property as an instance of specified class.
+     * Returns current value of {@value #PROPERTY_NAME_ERROR} property.
      *
-     * @param clazz the error class to bind.
-     * @param <T>   error type parameter
-     * @return current value of {@value #PROPERTY_NAME_ERROR} property as an instance of {@code clazz}; {@code null}
-     * when {@link #hasError()} method returns {@code false}.
+     * @return current value of {@value #PROPERTY_NAME_ERROR} property; {@code null} when {@link #hasError()} method
+     * returns {@code false}.
      */
     @Transient
-    <T extends JsonrpcResponseMessageError> T getErrorAs(Class<T> clazz);
+    JsonrpcResponseMessageError getErrorAs();
 
     /**
      * Replaces current value of {@link #PROPERTY_NAME_ERROR} property with specified value.
@@ -219,13 +217,4 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @param error new value for {@link #PROPERTY_NAME_ERROR} property.
      */
     void setErrorAs(JsonrpcResponseMessageError error);
-
-    /**
-     * Returns current value of {@value #PROPERTY_NAME_ERROR} property as an instance of default implementation class.
-     *
-     * @return current value of {@value #PROPERTY_NAME_ERROR} property; {@code null} when {@link #hasError()} method
-     * returns {@code false}.
-     */
-    @Transient
-    JsonrpcResponseMessageError getErrorAsDefaultType();
 }
