@@ -20,6 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
+// TODO: Remove!!!
+@Deprecated // forRemoval = true
 final class JsonrpcMessageHelper {
 
     private JsonrpcMessageHelper() {
