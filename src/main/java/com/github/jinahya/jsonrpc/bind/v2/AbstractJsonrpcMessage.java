@@ -20,8 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 /**
  * An abstract class implements {@link JsonrpcMessage} interface.
@@ -48,7 +48,9 @@ public abstract class AbstractJsonrpcMessage
 
     // --------------------------------------------------------------------------------------------------------- jsonrpc
     @Override
-    public @Pattern(regexp = "2\\.0") @NotNull String getJsonrpc() {
+    public @Pattern(regexp = "2\\.0")
+    @NotNull
+    String getJsonrpc() {
         return jsonrpc;
     }
 
