@@ -28,9 +28,7 @@ import jakarta.validation.constraints.Pattern;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public abstract class AbstractJsonrpcMessage
-        extends AbstractJsonrpcObject
-        implements JsonrpcMessage {
+public abstract class AbstractJsonrpcMessage extends AbstractJsonrpcObject implements JsonrpcMessage {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -41,9 +39,9 @@ public abstract class AbstractJsonrpcMessage
      */
     @Override
     public String toString() {
-        return super.toString() + "{"
-               + PROPERTY_NAME_JSONRPC + "=" + jsonrpc
-               + "}";
+        return super.toString() + '{'
+               + PROPERTY_NAME_JSONRPC + '=' + jsonrpc
+               + '}';
     }
 
     // --------------------------------------------------------------------------------------------------------- jsonrpc

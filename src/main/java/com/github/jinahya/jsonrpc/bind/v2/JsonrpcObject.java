@@ -32,7 +32,7 @@ import java.beans.Transient;
 public interface JsonrpcObject {
 
     /**
-     * Indicates this object is contextually valid.
+     * Indicates this JSON-RPC object is contextually valid.
      *
      * @return {@code true} if this object is contextually valid; {@code false} otherwise.
      * @apiNote This method supposed to be overridden when any implementation specified features required to be added.
@@ -43,11 +43,4 @@ public interface JsonrpcObject {
     default boolean isContextuallyValid() {
         return true;
     }
-
-//    /**
-//     * Returns a JSON representation of the object.
-//     *
-//     * @return a JSON representation of the object.
-//     */
-//    String toJson();
 }

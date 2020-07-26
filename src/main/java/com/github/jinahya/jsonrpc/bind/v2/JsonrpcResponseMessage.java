@@ -34,30 +34,7 @@ import static java.util.ServiceLoader.load;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see <a href="https://www.jsonrpc.org/specification#response_object">Response Object (JSON-RPC 2.0)</a>
  */
-@SuppressWarnings({"java:S1214"})
 public interface JsonrpcResponseMessage extends JsonrpcMessage {
-
-    /**
-     * The property name for {@code $.result} part. The value is {@value}.
-     * <blockquote>
-     * This member is REQUIRED on success.
-     * <br>This member MUST NOT exist if there was an error invoking the method.
-     * <br>The value of this member is determined by the method invoked on the Server.
-     * </blockquote>
-     */
-    String PROPERTY_NAME_RESULT = "result";
-
-    /**
-     * The name of the property maps to {@code $.error} part. The value is {@value}.
-     * <blockquote>
-     * This member is REQUIRED on error.
-     * <br>This member MUST NOT exist if there was no error triggered during invocation.
-     * <br>The value for this member MUST be an Object as defined in section 5.1.
-     * </blockquote>
-     *
-     * @see <a href="https://www.jsonrpc.org/specification#error_object">5.1 Error Object (JSON-RPC 2.0)</a>
-     */
-    String PROPERTY_NAME_ERROR = "error";
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -113,7 +90,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @implSpec The default implementation returns an XOR-ed value of {@link #hasResult()} and {@link #hasError()}.
      */
     @Transient
-    default @AssertTrue boolean isResultAndErrorExclusive() {
+    default @AssertTrue
+    boolean isResultAndErrorExclusive() {
         return hasResult() ^ hasError();
     }
 
@@ -139,7 +117,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @see #PROPERTY_NAME_RESULT
      */
     @Transient
-    default @AssertTrue boolean isResultContextuallyValid() {
+    default @AssertTrue
+    boolean isResultContextuallyValid() {
         return true;
     }
 
@@ -199,7 +178,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @see #PROPERTY_NAME_ERROR
      */
     @Transient
-    default @AssertTrue boolean isErrorContextuallyValid() {
+    default @AssertTrue
+    boolean isErrorContextuallyValid() {
         return true;
     }
 

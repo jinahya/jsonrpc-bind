@@ -39,6 +39,6 @@ public abstract class AbstractJsonrpcResponseMessage
     @Override
     public String toString() {
         return super.toString() + "{"
-               + "}";
+               + '}';
     }
 }

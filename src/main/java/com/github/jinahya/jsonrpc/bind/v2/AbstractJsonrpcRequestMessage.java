@@ -27,9 +27,7 @@ import jakarta.validation.constraints.NotBlank;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public abstract class AbstractJsonrpcRequestMessage
-        extends AbstractJsonrpcMessage
-        implements JsonrpcRequestMessage {
+public abstract class AbstractJsonrpcRequestMessage extends AbstractJsonrpcMessage implements JsonrpcRequestMessage {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -40,9 +38,9 @@ public abstract class AbstractJsonrpcRequestMessage
      */
     @Override
     public String toString() {
-        return super.toString() + "{"
-               + PROPERTY_NAME_METHOD + "=" + method
-               + "}";
+        return super.toString() + '{'
+               + PROPERTY_NAME_METHOD + '=' + method
+               + '}';
     }
 
     // ---------------------------------------------------------------------------------------------------------- method
@@ -53,7 +51,8 @@ public abstract class AbstractJsonrpcRequestMessage
      * @return current value of {@value #PROPERTY_NAME_METHOD} property.
      */
     @Override
-    public @NotBlank String getMethod() {
+    public @NotBlank
+    String getMethod() {
         return method;
     }
 

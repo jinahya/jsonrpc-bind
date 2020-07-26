@@ -25,7 +25,6 @@ package com.github.jinahya.jsonrpc.bind.v2;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public interface JsonrpcRequestMessageService
-        extends JsonrpcMessageService<JsonrpcRequestMessage> {
+public interface JsonrpcRequestMessageService extends JsonrpcMessageService<JsonrpcRequestMessage> {
 
 }

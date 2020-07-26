@@ -26,116 +26,19 @@ import jakarta.validation.constraints.NotNull;
 import java.beans.Transient;
 import java.util.List;
 
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.CODE_RESERVED_FOR_PREDEFINED_ERRORS_MAX;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.CODE_RESERVED_FOR_PREDEFINED_ERRORS_MIN;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.CODE_SERVER_ERROR_MAX;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.CODE_SERVER_ERROR_MIN;
 import static java.util.ServiceLoader.load;
 
 /**
- * An interface for {@link JsonrpcResponseMessage#PROPERTY_NAME_ERROR} property of JSON-RPC 2.0 response messages.
+ * An interface for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property of JSON-RPC 2.0 response
+ * messages.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public interface JsonrpcResponseMessageError extends JsonrpcObject {
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * The name of the property for error code. The value is {@value}.
-     * <blockquote>
-     * A Number that indicates the error type that occurred.
-     * <br>This MUST be an integer.
-     * </blockquote>
-     */
-    String PROPERTY_NAME_CODE = "code";
-
-    /**
-     * The minimum value of {@value #PROPERTY_NAME_CODE} property for pre-defined errors.
-     */
-    int CODE_RESERVED_FOR_PREDEFINED_ERRORS_MIN = -32768;
-
-    /**
-     * The maximum value of {@value #PROPERTY_NAME_CODE} property for pre-defined errors.
-     */
-    int CODE_RESERVED_FOR_PREDEFINED_ERRORS_MAX = -32000;
-
-    /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for representing parse errors.
-     * <blockquote>
-     * Invalid JSON was received by the server.
-     * <br>
-     * An error occurred on the server while parsing the JSON text.
-     * </blockquote>
-     */
-    int CODE_PARSE_ERROR = -32700;
-
-    /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for representing invalid requests.
-     * <blockquote>
-     * The JSON sent is not a valid Request object.
-     * </blockquote>
-     */
-    int CODE_INVALID_REQUEST = -32600;
-
-    /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for an unknown {@value
-     * com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessage#PROPERTY_NAME_METHOD}.
-     * <blockquote>
-     * The method does not exist / is not available.
-     * </blockquote>
-     */
-    int CODE_METHOD_NOT_FOUND = -32601;
-
-    /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for an invalid {@value
-     * com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessage#PROPERTY_NAME_PARAMS}.
-     * <blockquote>
-     * Invalid method parameter(s).
-     * </blockquote>
-     */
-    int CODE_INVALID_PARAMS = -32602;
-
-    /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for internal errors.
-     * <blockquote>
-     * Internal JSON-RPC error.
-     * </blockquote>
-     */
-    int CODE_INTERNAL_ERROR = -32603;
-
-    /**
-     * The minimum value of {@value #PROPERTY_NAME_CODE} property value for server errors. The value is {@value}.
-     * <blockquote>
-     * Reserved for implementation-defined server-errors.
-     * </blockquote>
-     */
-    int CODE_SERVER_ERROR_MIN = -32099;
-
-    /**
-     * The maximum value of {@value #PROPERTY_NAME_CODE} property value for server errors. The value is {@value}.
-     * <blockquote>
-     * Reserved for implementation-defined server-errors.
-     * </blockquote>
-     */
-    int CODE_SERVER_ERROR_MAX = -32000;
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * The name of the property for error message. The value is {@value}.
-     * <blockquote>
-     * A String providing a short description of the error.
-     * <br>The message SHOULD be limited to a concise single sentence.
-     * </blockquote>
-     */
-    String PROPERTY_NAME_MESSAGE = "message";
-
-    /**
-     * The name of the error data. The value is {@value}.
-     * <blockquote>
-     * A Primitive or Structured value that contains additional information about the error.
-     * <br>This may be omitted.
-     * <br>The value of this member is defined by the Server (e.g. detailed error information, nested errors etc.).
-     * </blockquote>
-     */
-    String PROPERTY_NAME_DATA = "data";
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -151,25 +54,27 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     // ------------------------------------------------------------------------------------------------------------ code
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_CODE} property.
+     * Returns current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property.
      *
-     * @return current value of {@value #PROPERTY_NAME_CODE} property
+     * @return current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property
      */
     int getCode();
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_CODE} property with specified value.
+     * Replaces current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property with specified
+     * value.
      *
-     * @param code new value for {@value #PROPERTY_NAME_CODE} property.
+     * @param code new value for {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property.
      */
     void setCode(int code);
 
     /**
-     * Indicates that current value of {@value #PROPERTY_NAME_CODE} property is between {@link
-     * #CODE_RESERVED_FOR_PREDEFINED_ERRORS_MIN} and {@link #CODE_RESERVED_FOR_PREDEFINED_ERRORS_MAX}, both inclusive.
+     * Indicates that current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property is
+     * between {@link JsonrpcResponseMessageErrorConstants#CODE_RESERVED_FOR_PREDEFINED_ERRORS_MIN} and {@link
+     * JsonrpcResponseMessageErrorConstants#CODE_RESERVED_FOR_PREDEFINED_ERRORS_MAX}, both inclusive.
      *
-     * @return {@code true} if current value of {@value #PROPERTY_NAME_CODE} property is in a range of reserved for
-     * predefined values; {@code false} otherwise.
+     * @return {@code true} if current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property
+     * is in a range of reserved for predefined values; {@code false} otherwise.
      */
     @Transient
     default boolean isCodeReservedForPredefinedErrors() {
@@ -178,11 +83,12 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     }
 
     /**
-     * Indicates that current value of {@value #PROPERTY_NAME_CODE} property is between {@link #CODE_SERVER_ERROR_MIN}
-     * and {@link #CODE_SERVER_ERROR_MAX}, both inclusive.
+     * Indicates that current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property is
+     * between {@link JsonrpcResponseMessageErrorConstants#CODE_SERVER_ERROR_MIN} and {@link
+     * JsonrpcResponseMessageErrorConstants#CODE_SERVER_ERROR_MAX}, both inclusive.
      *
-     * @return {@code true} if current value of {@value #PROPERTY_NAME_CODE} property means a server error; {@code
-     * false} otherwise.
+     * @return {@code true} if current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_CODE} property
+     * means a server error; {@code false} otherwise.
      */
     @Transient
     default boolean isCodeForImplementationDefinedServerErrors() {
@@ -193,36 +99,39 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     // --------------------------------------------------------------------------------------------------------- message
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_MESSAGE} property.
+     * Returns current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_MESSAGE} property.
      *
-     * @return current value of {@value #PROPERTY_NAME_MESSAGE} property
+     * @return current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_MESSAGE} property
      */
     @NotNull
     String getMessage();
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_MESSAGE} property with specified value.
+     * Replaces current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_MESSAGE} property with
+     * specified value.
      *
-     * @param message new value for {@value #PROPERTY_NAME_MESSAGE} property.
+     * @param message new value for {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_MESSAGE} property.
      */
     void setMessage(String message);
 
     // ------------------------------------------------------------------------------------------------------------ data
 
     /**
-     * Indicates this error object has a value for {@value #PROPERTY_NAME_DATA} property.
+     * Indicates this error object has a value for {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA}
+     * property.
      *
-     * @return {@code true} if this error object has a value for {@value #PROPERTY_NAME_DATA} property; {@code false}
-     * otherwise.
+     * @return {@code true} if this error object has a value for {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA}
+     * property; {@code false} otherwise.
      */
     @Transient
     boolean hasData();
 
     /**
-     * Indicates the value of {@value #PROPERTY_NAME_DATA} property is contextually valid.
+     * Indicates the value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property is contextually
+     * valid.
      *
-     * @return {@code true} if current value of {@value #PROPERTY_NAME_DATA} property is contextually valid; {@code
-     * false} otherwise.
+     * @return {@code true} if current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property
+     * is contextually valid; {@code false} otherwise.
      * @apiNote It's considered to be valid when {@link #hasData()} returns {@code false}.
      * @implSpec The default implementation returns {@code true}.
      */
@@ -233,7 +142,8 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     }
 
     /**
-     * Reads current value of {@value #PROPERTY_NAME_DATA} property as a list of specified element type.
+     * Reads current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property as a list of
+     * specified element type.
      *
      * @param elementClass the element type.
      * @param <T>          element type parameter
@@ -243,14 +153,16 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     <T> List<T> getDataAsArray(Class<T> elementClass);
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_DATA} property with specified list.
+     * Replaces current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property with specified
+     * list.
      *
-     * @param data new value for {@value #PROPERTY_NAME_DATA} property.
+     * @param data new value for {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property.
      */
     void setDataAsArray(List<?> data);
 
     /**
-     * Reads current value of {@value #PROPERTY_NAME_DATA} property as an instance of specified class.
+     * Reads current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property as an instance of
+     * specified class.
      *
      * @param objectClass the class of the value.
      * @param <T>         object type parameter
@@ -260,9 +172,10 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
     <T> T getDataAsObject(Class<T> objectClass);
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_DATA} property with specified object.
+     * Replaces current value of {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property with specified
+     * object.
      *
-     * @param data new value for {@value #PROPERTY_NAME_DATA} property.
+     * @param data new value for {@link JsonrpcResponseMessageErrorConstants#PROPERTY_NAME_DATA} property.
      */
     void setDataAsObject(Object data);
 }

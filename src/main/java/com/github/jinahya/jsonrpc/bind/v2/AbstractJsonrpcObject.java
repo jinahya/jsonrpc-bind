@@ -25,9 +25,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@SuppressWarnings({"java:S1610"})
-public abstract class AbstractJsonrpcObject
-        implements JsonrpcObject {
+public abstract class AbstractJsonrpcObject implements JsonrpcObject {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -38,7 +36,7 @@ public abstract class AbstractJsonrpcObject
      */
     @Override
     public String toString() {
-        return super.toString() + "{"
-               + "}";
+        return super.toString() + '{'
+               + '}';
     }
 }
