@@ -22,6 +22,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import jakarta.validation.constraints.NotBlank;
 
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessageConstants.PROPERTY_NAME_METHOD;
+
 /**
  * An abstract class implements {@link JsonrpcRequestMessage} interface.
  *
@@ -46,9 +48,9 @@ public abstract class AbstractJsonrpcRequestMessage extends AbstractJsonrpcMessa
     // ---------------------------------------------------------------------------------------------------------- method
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_METHOD} property.
+     * Returns current value of {@link JsonrpcRequestMessageConstants#PROPERTY_NAME_METHOD} property.
      *
-     * @return current value of {@value #PROPERTY_NAME_METHOD} property.
+     * @return current value of {@link  JsonrpcRequestMessageConstants#PROPERTY_NAME_METHOD} property.
      */
     @Override
     public @NotBlank
@@ -57,9 +59,10 @@ public abstract class AbstractJsonrpcRequestMessage extends AbstractJsonrpcMessa
     }
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_METHOD} property with specified value.
+     * Replaces current value of {@link JsonrpcRequestMessageConstants#PROPERTY_NAME_METHOD} property with specified
+     * value.
      *
-     * @param method new value for {@value #PROPERTY_NAME_METHOD} property.
+     * @param method new value for {@link JsonrpcRequestMessageConstants#PROPERTY_NAME_METHOD} property.
      */
     @Override
     public void setMethod(final String method) {

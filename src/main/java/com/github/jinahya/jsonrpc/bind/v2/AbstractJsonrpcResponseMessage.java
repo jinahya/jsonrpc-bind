@@ -25,9 +25,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public abstract class AbstractJsonrpcResponseMessage
-        extends AbstractJsonrpcMessage
-        implements JsonrpcResponseMessage {
+public abstract class AbstractJsonrpcResponseMessage extends AbstractJsonrpcMessage implements JsonrpcResponseMessage {
 
     // -----------------------------------------------------------------------------------------------------------------
 

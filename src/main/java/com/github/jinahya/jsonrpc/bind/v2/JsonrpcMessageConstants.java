@@ -27,6 +27,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  */
 public final class JsonrpcMessageConstants {
 
+    // --------------------------------------------------------------------------------------------------------- jsonrpc
+
     /**
      * The name of the property maps to {@code $.jsonrpc} part. The value is {@value}.
      * <blockquote>
@@ -48,6 +50,8 @@ public final class JsonrpcMessageConstants {
      */
     public static final String PROPERTY_VALUE_JSONRPC = PROPERTY_PATTERN_REGEXP_JSONRPC.replaceAll("\\\\.", ".");
 
+    // -------------------------------------------------------------------------------------------------------------- id
+
     /**
      * The name of the property maps to {@code $.id} part. The value is {@value}.
      * <blockquote>
@@ -58,6 +62,7 @@ public final class JsonrpcMessageConstants {
      */
     public static final String PROPERTY_NAME_ID = "id";
 
+    // -----------------------------------------------------------------------------------------------------------------
     private JsonrpcMessageConstants() {
         super();
     }

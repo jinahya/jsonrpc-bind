@@ -22,6 +22,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
 
 import jakarta.validation.constraints.NotNull;
 
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.PROPERTY_NAME_CODE;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.PROPERTY_NAME_MESSAGE;
+
 /**
  * An abstract class implements {@link JsonrpcResponseMessageError}.
  *

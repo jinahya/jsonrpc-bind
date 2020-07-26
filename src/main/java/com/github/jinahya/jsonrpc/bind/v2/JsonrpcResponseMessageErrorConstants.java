@@ -39,17 +39,17 @@ public final class JsonrpcResponseMessageErrorConstants {
     public static final String PROPERTY_NAME_CODE = "code";
 
     /**
-     * The minimum value of {@value #PROPERTY_NAME_CODE} property for pre-defined errors.
+     * The minimum value of {@link #PROPERTY_NAME_CODE} property for pre-defined errors.
      */
     public static final int CODE_RESERVED_FOR_PREDEFINED_ERRORS_MIN = -32768;
 
     /**
-     * The maximum value of {@value #PROPERTY_NAME_CODE} property for pre-defined errors.
+     * The maximum value of {@link #PROPERTY_NAME_CODE} property for pre-defined errors.
      */
     public static final int CODE_RESERVED_FOR_PREDEFINED_ERRORS_MAX = -32000;
 
     /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for representing parse errors.
+     * A predefined {@link #PROPERTY_NAME_CODE} property value for representing parse errors.
      * <blockquote>
      * Invalid JSON was received by the server.
      * <br>
@@ -59,7 +59,7 @@ public final class JsonrpcResponseMessageErrorConstants {
     public static final int CODE_PARSE_ERROR = -32700;
 
     /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for representing invalid requests.
+     * A predefined {@link #PROPERTY_NAME_CODE} property value for representing invalid requests.
      * <blockquote>
      * The JSON sent is not a valid Request object.
      * </blockquote>
@@ -67,7 +67,7 @@ public final class JsonrpcResponseMessageErrorConstants {
     public static final int CODE_INVALID_REQUEST = -32600;
 
     /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for an unknown {@value
+     * A predefined {@link #PROPERTY_NAME_CODE} property value for an unknown {@value
      * JsonrpcRequestMessageConstants#PROPERTY_NAME_METHOD}.
      * <blockquote>
      * The method does not exist / is not available.
@@ -76,7 +76,7 @@ public final class JsonrpcResponseMessageErrorConstants {
     public static final int CODE_METHOD_NOT_FOUND = -32601;
 
     /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for an invalid {@value
+     * A predefined {@link #PROPERTY_NAME_CODE} property value for an invalid {@value
      * JsonrpcRequestMessageConstants#PROPERTY_NAME_PARAMS}.
      * <blockquote>
      * Invalid method parameter(s).
@@ -85,7 +85,7 @@ public final class JsonrpcResponseMessageErrorConstants {
     public static final int CODE_INVALID_PARAMS = -32602;
 
     /**
-     * A predefined {@value #PROPERTY_NAME_CODE} property value for internal errors.
+     * A predefined {@link #PROPERTY_NAME_CODE} property value for internal errors.
      * <blockquote>
      * Internal JSON-RPC error.
      * </blockquote>
@@ -93,7 +93,7 @@ public final class JsonrpcResponseMessageErrorConstants {
     public static final int CODE_INTERNAL_ERROR = -32603;
 
     /**
-     * The minimum value of {@value #PROPERTY_NAME_CODE} property value for server errors. The value is {@value}.
+     * The minimum value of {@link #PROPERTY_NAME_CODE} property value for server errors. The value is {@value}.
      * <blockquote>
      * Reserved for implementation-defined server-errors.
      * </blockquote>
@@ -101,7 +101,7 @@ public final class JsonrpcResponseMessageErrorConstants {
     public static final int CODE_SERVER_ERROR_MIN = -32099;
 
     /**
-     * The maximum value of {@value #PROPERTY_NAME_CODE} property value for server errors. The value is {@value}.
+     * The maximum value of {@link #PROPERTY_NAME_CODE} property value for server errors. The value is {@value}.
      * <blockquote>
      * Reserved for implementation-defined server-errors.
      * </blockquote>

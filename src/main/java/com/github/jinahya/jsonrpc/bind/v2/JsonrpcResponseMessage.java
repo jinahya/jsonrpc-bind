@@ -82,11 +82,11 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Indicates whether {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR} property are set
-     * exclusively.
+     * Indicates whether {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property and the {@link
+     * JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property are set exclusively.
      *
-     * @return {@code true} if the {@value #PROPERTY_NAME_RESULT} property and the {@value #PROPERTY_NAME_ERROR}
-     * property are exclusively set; {@code false} otherwise.
+     * @return {@code true} if the {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property and the {@link
+     * JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property are exclusively set; {@code false} otherwise.
      * @implSpec The default implementation returns an XOR-ed value of {@link #hasResult()} and {@link #hasError()}.
      */
     @Transient
@@ -98,23 +98,23 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     // ---------------------------------------------------------------------------------------------------------- result
 
     /**
-     * Indicates this message has a value for {@value #PROPERTY_NAME_RESULT} property.
+     * Indicates this message has a value for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property.
      *
-     * @return {@code true} if this message has a value for {@value #PROPERTY_NAME_RESULT} property; {@code false}
-     * otherwise.
+     * @return {@code true} if this message has a value for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT}
+     * property; {@code false} otherwise.
      * @implSpec Then this method returns {@code false} any {@code getResultAs...()} method should return {@code null}.
      */
     @Transient
     boolean hasResult();
 
     /**
-     * Indicates current value of {@value #PROPERTY_NAME_RESULT} property is contextually valid.
+     * Indicates current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property is contextually
+     * valid.
      *
-     * @return {@code true} if current value of {@value #PROPERTY_NAME_RESULT} property is contextually valid; {@code
-     * false} otherwise.
+     * @return {@code true} if current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property is
+     * contextually valid; {@code false} otherwise.
      * @implSpec It's considered to be contextually valid when {@link #hasResult()} returns {@code false}.
      * @implNote The default implementation returns {@code true}.
-     * @see #PROPERTY_NAME_RESULT
      */
     @Transient
     default @AssertTrue
@@ -123,7 +123,8 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     }
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_RESULT} property as a list of specified element class.
+     * Returns current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property as a list of
+     * specified element class.
      *
      * @param elementClass the element class.
      * @param <T>          element type parameter
@@ -133,14 +134,16 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     <T> List<T> getResultAsArray(Class<T> elementClass);
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_RESULT} property with specified value.
+     * Replaces current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property with specified
+     * value.
      *
-     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param result new value for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property.
      */
     void setResultAsArray(List<?> result);
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_RESULT} property as an instance of specified object class.
+     * Returns current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property as an instance of
+     * specified object class.
      *
      * @param objectClass the object class.
      * @param <T>         object type parameter.
@@ -150,32 +153,33 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     <T> T getResultAsObject(Class<T> objectClass);
 
     /**
-     * Replaces current value of {@value #PROPERTY_NAME_RESULT} property with specified value.
+     * Replaces current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property with specified
+     * value.
      *
-     * @param result new value for {@value #PROPERTY_NAME_RESULT} property.
+     * @param result new value for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_RESULT} property.
      */
     void setResultAsObject(Object result);
 
     // ----------------------------------------------------------------------------------------------------------- error
 
     /**
-     * Indicates this message has a value for {@link #PROPERTY_NAME_ERROR} property.
+     * Indicates this message has a value for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property.
      *
-     * @return {@code true} if this message has a value for {@link #PROPERTY_NAME_ERROR} property; {@code false}
-     * otherwise.
+     * @return {@code true} if this message has a value for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR}
+     * property; {@code false} otherwise.
      * @implSpec Then this method returns {@code false} any {@code getErrorAs...()} method should return {@code null}.
      */
     @Transient
     boolean hasError();
 
     /**
-     * Indicates that current value of {@value #PROPERTY_NAME_ERROR} property is contextually valid.
+     * Indicates that current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property is
+     * contextually valid.
      *
-     * @return {@code true} if current value of {@value #PROPERTY_NAME_ERROR} property is contextually valid; {@code
-     * false} otherwise.
+     * @return {@code true} if current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property is
+     * contextually valid; {@code false} otherwise.
      * @implSpec It's considered to be contextually valid when {@link #hasError()} method returns {@code false}.
      * @implNote Default implementation returns {@code true}.
-     * @see #PROPERTY_NAME_ERROR
      */
     @Transient
     default @AssertTrue
@@ -184,18 +188,19 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
     }
 
     /**
-     * Returns current value of {@value #PROPERTY_NAME_ERROR} property.
+     * Returns current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property.
      *
-     * @return current value of {@value #PROPERTY_NAME_ERROR} property; {@code null} when {@link #hasError()} method
-     * returns {@code false}.
+     * @return current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property; {@code null} when
+     * {@link #hasError()} method returns {@code false}.
      */
     @Transient
     JsonrpcResponseMessageError getErrorAs();
 
     /**
-     * Replaces current value of {@link #PROPERTY_NAME_ERROR} property with specified value.
+     * Replaces current value of {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property with specified
+     * value.
      *
-     * @param error new value for {@link #PROPERTY_NAME_ERROR} property.
+     * @param error new value for {@link JsonrpcResponseMessageConstants#PROPERTY_NAME_ERROR} property.
      */
     void setErrorAs(JsonrpcResponseMessageError error);
 }

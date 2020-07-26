@@ -23,6 +23,10 @@ package com.github.jinahya.jsonrpc.bind.v2;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageConstants.PROPERTY_NAME_JSONRPC;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageConstants.PROPERTY_PATTERN_REGEXP_JSONRPC;
+import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageConstants.PROPERTY_VALUE_JSONRPC;
+
 /**
  * An abstract class implements {@link JsonrpcMessage} interface.
  *
@@ -46,9 +50,7 @@ public abstract class AbstractJsonrpcMessage extends AbstractJsonrpcObject imple
 
     // --------------------------------------------------------------------------------------------------------- jsonrpc
     @Override
-    public @Pattern(regexp = "2\\.0")
-    @NotNull
-    String getJsonrpc() {
+    public @Pattern(regexp = PROPERTY_PATTERN_REGEXP_JSONRPC) @NotNull String getJsonrpc() {
         return jsonrpc;
     }
 
