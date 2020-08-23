@@ -36,7 +36,7 @@ public abstract class AbstractJsonrpcResponseMessage extends AbstractJsonrpcMess
      */
     @Override
     public String toString() {
-        return super.toString() + "{"
+        return super.toString() + '{'
                + '}';
     }
 }

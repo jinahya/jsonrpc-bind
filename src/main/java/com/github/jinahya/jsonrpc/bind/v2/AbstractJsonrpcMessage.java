@@ -20,8 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageConstants.PROPERTY_NAME_JSONRPC;
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcMessageConstants.PROPERTY_PATTERN_REGEXP_JSONRPC;

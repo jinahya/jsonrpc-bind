@@ -9,9 +9,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,26 +20,13 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import javax.validation.constraints.AssertTrue;
-import java.beans.Transient;
+abstract class JsonrpcRequestMessageTest<T extends JsonrpcRequestMessage> extends JsonrpcMessageTest<T> {
 
-/**
- * A base interface for JSON-RPC 2.0 objects.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-public interface JsonrpcObject {
+    JsonrpcRequestMessageTest(final Class<T> objectClass) {
+        super(objectClass);
+    }
 
-    /**
-     * Indicates this JSON-RPC object is contextually valid.
-     *
-     * @return {@code true} if this object is contextually valid; {@code false} otherwise.
-     * @apiNote This method supposed to be overridden when any implementation specified features required to be added.
-     * @implSpec The default implementation returns {@code true}.
-     */
-    @AssertTrue
-    @Transient
-    default boolean isContextuallyValid() {
-        return true;
+    JsonrpcRequestMessage validationProxy() {
+        return (JsonrpcRequestMessage) super.validationProxy();
     }
 }

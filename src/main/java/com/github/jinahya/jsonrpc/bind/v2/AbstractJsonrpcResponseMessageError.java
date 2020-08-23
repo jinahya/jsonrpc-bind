@@ -20,7 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.PROPERTY_NAME_CODE;
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcResponseMessageErrorConstants.PROPERTY_NAME_MESSAGE;
@@ -62,8 +62,7 @@ public abstract class AbstractJsonrpcResponseMessageError
 
     // --------------------------------------------------------------------------------------------------------- message
     @Override
-    public @NotNull
-    String getMessage() {
+    public @NotNull String getMessage() {
         return message;
     }
 

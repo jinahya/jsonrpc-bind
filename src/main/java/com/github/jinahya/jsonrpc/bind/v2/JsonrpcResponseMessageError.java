@@ -20,9 +20,8 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotNull;
-
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 import java.beans.Transient;
 import java.util.List;
 
@@ -135,8 +134,8 @@ public interface JsonrpcResponseMessageError extends JsonrpcObject {
      * @apiNote It's considered to be valid when {@link #hasData()} returns {@code false}.
      * @implSpec The default implementation returns {@code true}.
      */
-    @Transient
     @AssertTrue
+    @Transient
     default boolean isDataContextuallyValid() {
         return true;
     }

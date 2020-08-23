@@ -20,10 +20,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import jakarta.validation.constraints.AssertFalse;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotBlank;
-
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotBlank;
 import java.beans.Transient;
 import java.util.List;
 
@@ -127,8 +126,7 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
      * considered to be reserved for rpc-internal; {@code false} otherwise.
      */
     @Transient
-    default @AssertFalse
-    boolean isMethodReservedForRpcInternal() {
+    default @AssertFalse boolean isMethodReservedForRpcInternal() {
         final String method = getMethod();
         return method == null || method.startsWith("rpc.");
     }
@@ -154,8 +152,8 @@ public interface JsonrpcRequestMessage extends JsonrpcMessage {
      * contextually valid; {@code false} otherwise.
      * @apiNote It's considered to be contextually valid when {@link #hasParams()} returns {@code false}.
      */
-    @Transient
     @AssertTrue
+    @Transient
     boolean isParamsContextuallyValid();
 
     /**

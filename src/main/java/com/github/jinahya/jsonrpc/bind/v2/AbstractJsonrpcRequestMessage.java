@@ -20,7 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import static com.github.jinahya.jsonrpc.bind.v2.JsonrpcRequestMessageConstants.PROPERTY_NAME_METHOD;
 
@@ -53,8 +53,7 @@ public abstract class AbstractJsonrpcRequestMessage extends AbstractJsonrpcMessa
      * @return current value of {@link  JsonrpcRequestMessageConstants#PROPERTY_NAME_METHOD} property.
      */
     @Override
-    public @NotBlank
-    String getMethod() {
+    public @NotBlank String getMethod() {
         return method;
     }
 

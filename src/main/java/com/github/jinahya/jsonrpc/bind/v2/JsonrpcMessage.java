@@ -20,10 +20,9 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.beans.Transient;
 import java.math.BigInteger;
 
@@ -74,8 +73,8 @@ public interface JsonrpcMessage extends JsonrpcObject {
      * @return {@code true} if valid; {@code false} otherwise.
      * @apiNote It's considered to be valid if {@link #hasId()} returns {@code false}.
      */
-    @Transient
     @AssertTrue
+    @Transient
     boolean isIdContextuallyValid();
 
     /**

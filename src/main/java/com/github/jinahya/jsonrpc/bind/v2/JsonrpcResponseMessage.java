@@ -20,8 +20,7 @@ package com.github.jinahya.jsonrpc.bind.v2;
  * #L%
  */
 
-import jakarta.validation.constraints.AssertTrue;
-
+import javax.validation.constraints.AssertTrue;
 import java.beans.Transient;
 import java.util.List;
 
@@ -90,8 +89,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @implSpec The default implementation returns an XOR-ed value of {@link #hasResult()} and {@link #hasError()}.
      */
     @Transient
-    default @AssertTrue
-    boolean isResultAndErrorExclusive() {
+    default @AssertTrue boolean isResultAndErrorExclusive() {
         return hasResult() ^ hasError();
     }
 
@@ -117,8 +115,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @implNote The default implementation returns {@code true}.
      */
     @Transient
-    default @AssertTrue
-    boolean isResultContextuallyValid() {
+    default @AssertTrue boolean isResultContextuallyValid() {
         return true;
     }
 
@@ -182,8 +179,7 @@ public interface JsonrpcResponseMessage extends JsonrpcMessage {
      * @implNote Default implementation returns {@code true}.
      */
     @Transient
-    default @AssertTrue
-    boolean isErrorContextuallyValid() {
+    default @AssertTrue boolean isErrorContextuallyValid() {
         return true;
     }
 
