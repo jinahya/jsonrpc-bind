@@ -31,7 +31,7 @@ import static java.util.Objects.requireNonNull;
 public interface JsonrpcMessageService<T extends JsonrpcMessage> {
 
     /**
-     * Reads an instance from specified source.
+     * Reads an instance of {@link T} from specified source.
      *
      * @param source the source from which the instance is read.
      * @return a new instance.
@@ -39,10 +39,10 @@ public interface JsonrpcMessageService<T extends JsonrpcMessage> {
     T fromJson(Object source);
 
     /**
-     * Parse an instance from specified JSON string.
+     * Parses an instance of {@link T} from specified JSON string.
      *
-     * @param string the JSON string.
-     * @return a new instance.
+     * @param string the JSON string to parse.
+     * @return a new instance of {@link T} parsed from {@code string}.
      * @implNote Default implementation invokes {@link #fromJson(Object)} method with an instance of {@link
      * StringReader} created with {@code string}.
      */
