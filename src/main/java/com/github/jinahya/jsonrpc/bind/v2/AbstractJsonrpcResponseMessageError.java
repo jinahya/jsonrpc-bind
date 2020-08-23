@@ -43,9 +43,9 @@ public abstract class AbstractJsonrpcResponseMessageError
      */
     @Override
     public String toString() {
-        return super.toString() + "{"
+        return super.toString() + '{'
                + PROPERTY_NAME_CODE + '=' + code
-               + "," + PROPERTY_NAME_MESSAGE + ",=" + message
+               + ',' + PROPERTY_NAME_MESSAGE + '=' + message
                + '}';
     }
 
