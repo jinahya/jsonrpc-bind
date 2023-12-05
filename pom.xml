@@ -55,7 +55,7 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version> <!-- https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-dependency-versions.html -->
+      <version>1.2.13</version> <!-- https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-dependency-versions.html -->
       <scope>test</scope>
     </dependency>
     <dependency>
